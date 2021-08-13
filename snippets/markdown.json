@@ -1,0 +1,71 @@
+{
+    "codeBlock": {
+        "prefix": "code",
+        "body": [
+            "```${1:codeType}",
+            "${0}",
+            "```"
+        ],
+        "description": "Code Block"
+    },
+    "link": {
+        "prefix": "link",
+        "body": [
+            "[${1:name}](${2:url})"
+        ],
+        "description": "new a link"
+    },
+    "linkByName": {
+        "prefix": "linkn",
+        "body": [
+            "[${1:name}][${2:linkName}]"
+        ],
+        "description": "link by name"
+    },
+    "varLink": {
+        "prefix": "vlink",
+        "body": [
+            "[${1:name}] : ${2:url}"
+        ],
+        "description": "var link"
+    },
+    "image": {
+        "prefix": "image",
+        "body": [
+            "![${1:name}](${2:url})"
+        ],
+        "description": "image block"
+    },
+    "table2*1": {
+        "prefix": "tab2",
+        "body": [
+            "| ${1:column1} | ${2:column2} |",
+            "| :----------: | :----------: |",
+            "| ${3:value}   | ${4:value}   |"
+        ],
+        "description": "table 2*1"
+    },
+    "row2*1": {
+        "prefix": "row2",
+        "body": [
+            "| ${1:value}   | ${2:value}   |"
+        ],
+        "description": "table row 2*1"
+    },
+    "table3*1": {
+        "prefix": "tab3",
+        "body": [
+            "| ${1:column1} | ${2:column2} | ${3:column3} |",
+            "| :----------: | :----------: | :----------: |",
+            "| ${4:value}   | ${5:value}   | ${6:value}   |"
+        ],
+        "description": "table 3*1"
+    },
+    "row3*1": {
+        "prefix": "row3",
+        "body": [
+            "| ${1:value}   | ${2:value}   | ${3:value}   |"
+        ],
+        "description": "table row 3*1"
+    }
+}

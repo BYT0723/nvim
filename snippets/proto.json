@@ -1,0 +1,31 @@
+{
+    "protoHead": {
+        "prefix": "syntax",
+        "body": [
+            "syntax =\"proto3\";",
+            "",
+            "package ${1:name};",
+            "",
+            "option go_package=\"${2:.}\";"
+        ],
+        "description": "proto3 header"
+    },
+    "message": {
+        "prefix": "message",
+        "body": [
+            "message ${1:name} {",
+            "   ${2}",
+            "}"
+        ],
+        "description": "definition message"
+    },
+    "service": {
+        "prefix": "service",
+        "body": [
+            "service ${1:name} {",
+            "   rpc ${2:methodName} (${3:require}) returns (${4:reply})",
+            "}"
+        ],
+        "description": "definition service"
+    }
+}

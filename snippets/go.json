@@ -1,0 +1,49 @@
+{
+    "func_test": {
+        "prefix": "ftest",
+        "body": [
+            "func Test${1:Name}(t *testing.T) {",
+            "   ${0}",
+            "}"
+        ],
+        "description": "test function for golang"
+    },
+    "for ranger": {
+        "prefix": "fori",
+        "body": [
+            "for ${1:i} := ${2:0}; ${1:i} < ${3:count}; ${1:i}${4:++} {",
+            "   ${5}",
+            "}"
+        ],
+        "description": "for range in i"
+    },
+    "ErrCheck": {
+        "prefix": "okcheck",
+        "body": [
+            "if ${1:var},ok := ${2:express}; ok{",
+            "   ${0}",
+            "}"
+        ],
+        "description": "check express ok"
+    },
+    "OkCheck": {
+        "prefix": "errcheck",
+        "body": [
+            "if ${1:var},err := ${2:express}; err != nil {",
+            "   ${0}",
+            "}"
+        ],
+        "description": "check error is nil"
+    },
+    "author": {
+        "prefix": "todo",
+        "body": [
+            "/*",
+            "   Author  : BYT0723",
+            "   Date    : $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE",
+            "   Email   : twang9739@gmail.com",
+            "*/"
+        ],
+        "description": "Author"
+    }
+}
