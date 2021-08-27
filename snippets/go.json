@@ -3,7 +3,7 @@
         "prefix": "ftest",
         "body": [
             "func Test${1:Name}(t *testing.T) {",
-            "   ${0}",
+            "   ${2}",
             "}"
         ],
         "description": "test function for golang"
