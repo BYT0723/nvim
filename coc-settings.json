@@ -16,6 +16,12 @@
     "snippets.textmateSnippetsRoots": [
         "/home/tao/.config/nvim/snippets/"
     ],
+    // explorer
+    "explorer.icon.enableNerdfont": true,
+    "explorer.width": 32,
+    "explorer.file.showHiddenFiles": true,
+    "explorer.file.column.indent.indentLine": true,
+    "explorer.git.showIgnored": true,
     // check
     "diagnostic.signPriority": 1,
     "diagnostic.errorSign": "\uf467",
@@ -25,20 +31,17 @@
     "diagnostic.displayByAle": false,
     "diagnostic.refreshOnInsertMode": false,
     "diagnostic.checkCurrentLine": true,
-    "diagnostic.virtualTextPrefix": "  ",
+    "diagnostic.virtualTextPrefix": "   ",
     "diagnostic.virtualText": true,
     "diagnostic.enableMessage": "jump",
     // 保存时自动格式化
     "codeLens.enable": true,
     "coc.preferences.formatOnSaveFiletypes": [
         "c",
-        "c++",
         "go",
         "python",
         "java",
-        "json",
-        "sh",
-        "markdown"
+        "json"
     ],
     "python.linting.pylintArgs": [
         "----extension-pkg-whitelist=1xml"

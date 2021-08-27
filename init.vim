@@ -2,7 +2,7 @@
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
 	silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
 				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	" autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 " leader 键位映射
@@ -10,27 +10,17 @@ let mapleader = " "
 
 " 插件管理
 call plug#begin("~/.config/nvim/plugged")
-" 代码注释
-Plug 'preservim/nerdcommenter'
-" 括号补全
-Plug 'jiangmiao/auto-pairs'
-" 多光标模式"
-Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-" theme
-Plug 'ryanoasis/vim-devicons'
-" git 状态显示
-Plug 'airblade/vim-gitgutter'
+
 "COC
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" vim statusline
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-" 包裹string
+
+" function
+Plug 'preservim/nerdcommenter'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'tpope/vim-surround'
-" color
-Plug 'ajmwagar/vim-deus'
-" tag
 Plug 'liuchengxu/vista.vim'
+Plug 'jiangmiao/auto-pairs'
+
 
 " filesystem
 Plug 'kevinhwang91/rnvimr'
@@ -49,25 +39,41 @@ Plug 'mzlogin/vim-markdown-toc', { 'for': ['gitignore', 'markdown', 'vim-plug'] 
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-treesitter/playground'
 
+" git
 Plug 'kdheepak/lazygit.nvim'
+Plug 'airblade/vim-gitgutter'
 
+" theme
 Plug 'luochen1990/rainbow'
+Plug 'ryanoasis/vim-devicons'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'ajmwagar/vim-deus'
 
 call plug#end()
 
+" coc-explorer
+nnoremap <silent> <leader>e :CocCommand explorer<CR> 
+
 " rnvimr
+nnoremap <silent> <leader>r :RnvimrToggle<CR>
 let g:rnvimr_ex_enable = 1
 let g:rnvimr_pick_enable = 1
 let g:rnvimr_draw_border = 1
 highlight link RnvimrNormal CursorLine
 
-nnoremap <silent> <leader>e :RnvimrToggle<CR>
 let g:rnvimr_action = {
             \ '<C-t>': 'NvimEdit tabedit',
             \ '<C-s>': 'NvimEdit split',
             \ '<C-v>': 'NvimEdit vsplit',
-            \ 'cd': 'JumpNvimCwd'
+            \ 'cd': 'JumpNvimCwd',
             \ }
+let g:rnvimr_layout = { 'relative': 'editor',
+            \ 'width': float2nr(round(0.9 * &columns)),
+            \ 'height': float2nr(round(0.8 * &lines)),
+            \ 'col': float2nr(round(0.05 * &columns)),
+            \ 'row': float2nr(round(0.10 * &lines)),
+            \ 'style': 'minimal' }
 
 
 " auto change workspce
@@ -76,8 +82,6 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in
 
 " coc 插件管理
 let g:coc_global_extensions = [
-            \'coc-html',
-            \'coc-protobuf',
             \'coc-docker',
             \'coc-marketplace',
             \'coc-snippets',
@@ -148,7 +152,7 @@ set termguicolors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
-set background=dark 
+set background=dark
 colorscheme deus
 let g:deus_termcolors=256
 
@@ -230,7 +234,6 @@ inoremap <C-f> <Delete>
 
 noremap fw :w!<CR>
 noremap fq :q!<CR>
-noremap <C-q> :qall<CR>
 
 " 窗口切换
 nnoremap w <C-w>
@@ -258,6 +261,8 @@ func! CompileRun()
         exec "InstantMarkdownPreview"
     elseif &filetype == 'proto'
         exec "! protoc --go_out=plugins=grpc:. %"
+    elseif &filetype == 'html'
+        exec "! google-chrome-stable % &"
     endif
 endfunction
 
