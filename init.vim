@@ -83,6 +83,7 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in
 " coc 插件管理
 let g:coc_global_extensions = [
             \'coc-docker',
+            \'coc-explorer',
             \'coc-marketplace',
             \'coc-snippets',
             \'coc-json',
