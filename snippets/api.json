@@ -76,7 +76,7 @@
     "json": {
         "prefix": "json",
         "body": [
-            "`json:\"$0\"`"
+            "`json:\"$1\"`$0"
         ],
         "description": "json tag"
     },

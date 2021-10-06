@@ -230,9 +230,11 @@ let g:go_highlight_variable_declarations = 0
 " go-zero tool(goctl)
 "
 autocmd BufRead,BufNewFile *.api setfiletype api
-autocmd FileType api nmap bd :!goctl api go -api % -dir ./<CR>
+autocmd FileType api nmap bd :!goctl api go -api % -dir %:h<CR>
+
 autocmd BufWritePost *.api :silent call ApiFormat()
 func! ApiFormat()
+    exec "!goctl api validate %"
     exec "!goctl api format --dir ."
     exec ":e"
 endfunction
