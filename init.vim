@@ -14,13 +14,16 @@ call plug#begin("~/.config/nvim/plugged")
 "COC
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" function
+" fzf
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+" other
 Plug 'preservim/nerdcommenter'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'tpope/vim-surround'
 Plug 'liuchengxu/vista.vim'
 Plug 'jiangmiao/auto-pairs'
-
 
 " filesystem
 Plug 'kevinhwang91/rnvimr'
@@ -28,8 +31,11 @@ Plug 'kevinhwang91/rnvimr'
 " code
 Plug 'fatih/vim-go'
 Plug 'neoclide/jsonc.vim'
-Plug 'othree/html5.vim'
 Plug 'alvan/vim-closetag'
+Plug 'posva/vim-vue'
+
+" sql
+Plug 'joereynolds/SQHell.vim'
 
 " markdown
 Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
@@ -54,6 +60,10 @@ call plug#end()
 
 " coc-explorer
 nnoremap <silent> <leader>e :CocCommand explorer<CR> 
+
+" fzf
+nnoremap <leader>fo :Files<CR>
+nnoremap <leader>fif :Rg<CR>
 
 " rnvimr
 nnoremap <silent> <leader>r :RnvimrToggle<CR>
@@ -83,6 +93,9 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in
 " coc 插件管理
 let g:coc_global_extensions = [
             \'coc-docker',
+            \'coc-html',
+            \'coc-emmet',
+            \'coc-css',
             \'coc-explorer',
             \'coc-marketplace',
             \'coc-snippets',
@@ -104,7 +117,7 @@ inoremap <silent><expr> <cr> !pumvisible() ? "\<C-g>u\<CR>\<c-r>=coc#on_enter()\
 function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+endfunctio
 
 inoremap <silent><expr> <TAB>
             \ pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -159,6 +172,8 @@ let g:deus_termcolors=256
 
 " airline 配置
 set laststatus=2
+" deus
+" solarized
 let g:airline_theme = 'deus'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
@@ -172,12 +187,16 @@ noremap <C-k> :bp<CR>
 noremap <C-j> :bn<CR>
 noremap bq :bdelete<CR>
 
-
+"
 " go配置 
+"
 " autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
-autocmd FileType go nmap gtj :CocCommand go.tags.add json<cr>
-autocmd FileType go nmap gty :CocCommand go.tags.add yaml<cr>
-autocmd FileType go nmap gtc :CocCommand go.tags.clear<cr>
+autocmd FileType go nmap taj :GoAddTags json<CR>
+autocmd FileType go nmap tcj :GoRemoveTags json<CR>
+autocmd FileType go nmap tay :GoAddTags yaml<CR>
+autocmd FileType go nmap tcy :GoRemoveTags yaml<CR>
+autocmd FileType go nmap taa :GoAddTags json yaml<CR>
+autocmd FileType go nmap tca :GoRemoveTags json yaml<CR>
 
 let g:go_echo_go_info = 0
 let g:go_doc_popup_window = 1
@@ -185,6 +204,8 @@ let g:go_template_autocreate = 0
 let g:go_textobj_enabled = 0
 let g:go_auto_type_info = 1
 let g:go_def_mapping_enabled = 0
+let g:go_doc_keywordprg_enabled = 0
+let g:go_code_completion_enabled = 0
 let g:go_highlight_array_whitespace_error = 1
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_chan_whitespace_error = 1
@@ -204,8 +225,17 @@ let g:go_highlight_trailing_whitespace_error = 1
 let g:go_highlight_types = 1
 let g:go_highlight_variable_assignments = 0
 let g:go_highlight_variable_declarations = 0
-let g:go_doc_keywordprg_enabled = 0
-let g:go_code_completion_enabled = 0
+
+"
+" go-zero tool(goctl)
+"
+autocmd BufRead,BufNewFile *.api setfiletype api
+autocmd FileType api nmap bd :!goctl api go -api % -dir ./<CR>
+autocmd BufWritePost *.api :silent call ApiFormat()
+func! ApiFormat()
+    exec "!goctl api format --dir ."
+    exec ":e"
+endfunction
 
 " markdown 
 let g:instant_markdown_slow = 0
@@ -214,6 +244,26 @@ let g:instant_markdown_autoscroll = 1
 let g:vmt_cycle_list_item_markers = 1
 let g:vmt_fence_text = 'TOC'
 let g:vmt_fence_closing_text = '/TOC'
+
+" sql
+let g:sqh_provider = 'mysql'
+let g:sqh_connections = {
+    \ 'default': {
+    \   'user': 'root',
+    \   'password': 'wangtao',
+    \   'host': 'localhost'
+    \},
+    \ 'e5Code': {
+    \   'user': 'root',
+    \   'password': 'jerw5Y^$Hdfj',
+    \   'host': '46.121.44.392'
+    \}
+\}
+nnoremap <silent> <leader>sql :SQHShowDatabases<CR>
+
+
+" html,css
+autocmd FileType scss setl iskeyword+=@-@
 
 " rainbow
 let g:rainbow_active = 1 
@@ -249,7 +299,7 @@ nnoremap cmd :vnew<CR>:term<CR>
 map r :call CompileRun()<CR>
 func! CompileRun()
     if &filetype == 'c'
-        exec "!gcc -pthread -o ./%< % && ./%<"
+        exec "!gcc -pthread -o ./%< % && ./%< "
     elseif &filetype == 'cpp'
         exec "! g++ -o %< % && ./%<"
     elseif &filetype == 'java'
@@ -263,17 +313,19 @@ func! CompileRun()
     elseif &filetype == 'proto'
         exec "! protoc --go_out=plugins=grpc:. %"
     elseif &filetype == 'html'
-        exec "! google-chrome-stable % &"
+        exec "silent !google-chrome-stable % &"
+    elseif &filetype == 'sql'
+        exec "SQHExecuteFile %"
     endif
 endfunction
 
 " file test 
-map t :call FileTest()<CR>
-func! FileTest() abort
-    if &filetype == "go"
-        exec "! go test -v %"
-    endif
-endfunction
+" map t :call FileTest()<CR>
+" func! FileTest() abort
+"     if &filetype == "go"
+"         exec "! go test -v %"
+"     endif
+" endfunction
 
 " 设置缓冲区
 set hidden

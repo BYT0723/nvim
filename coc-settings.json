@@ -1,8 +1,7 @@
 {
     "coc.preferences.extensionUpdateCheck": "weekly",
-    "suggest.enablePreselect": false,
-    "suggest.noselect": true,
-    // completeIcon
+    "suggest.defaultSortMethod": "alphabetical",
+    // completeIcon 
     "suggest.completionItemKindLabels": {
         "class": "\uf0e8",
         "struct": "\uf668",
@@ -16,12 +15,15 @@
     "snippets.textmateSnippetsRoots": [
         "/home/tao/.config/nvim/snippets/"
     ],
+    "snippets.userSnippetsDirectory": "/home/tao/.config/nvim/snippets/",
+    "snippets.snipmate.author": "BYT0723",
     // explorer
     "explorer.icon.enableNerdfont": true,
-    "explorer.width": 32,
+    "explorer.width": 35,
     "explorer.file.showHiddenFiles": true,
     "explorer.file.column.indent.indentLine": true,
     "explorer.git.showIgnored": true,
+    "explorer.quitOnOpen": true,
     // check
     "diagnostic.signPriority": 1,
     "diagnostic.errorSign": "\uf00d",
@@ -43,10 +45,11 @@
         "java",
         "json"
     ],
+    // Python
     "python.linting.pylintArgs": [
         "----extension-pkg-whitelist=1xml"
     ],
-    // 最大代码提示数 ---- 提示效率过低尝试减少数量
-    "java.home": "/usr/lib/jvm/java-11-openjdk/",
-    "java.completion.maxResults": 10
+    // html
+    "emmet.showExpandedAbbreviation":"always",
+    "emmet.showAbbreviationSuggestions": true
 }

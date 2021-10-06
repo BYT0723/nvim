@@ -3,11 +3,11 @@
         "prefix": "snippet",
         "body": [
             "\"${2:name}\" : {",
-            "   \"prefix\": \"${3:prefix}\",",
-            "   \"body\" : [",
-            "       ${0}",
-            "   ],",
-            "   \"description\" : \"${1:description}\"",
+            "\t\"prefix\": \"${3:prefix}\",",
+            "\t\"body\" : [",
+            "\t\t\"${0}\"",
+            "\t],",
+            "\t\"description\" : \"${1:description}\"",
             "}"
         ],
         "description": "new a snippet"

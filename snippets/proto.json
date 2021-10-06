@@ -1,5 +1,5 @@
 {
-    "protoHead": {
+    "version": {
         "prefix": "syntax",
         "body": [
             "syntax =\"proto3\";",
@@ -23,9 +23,16 @@
         "prefix": "service",
         "body": [
             "service ${1:name} {",
-            "   rpc ${2:methodName} (${3:require}) returns (${4:reply})",
+            "   rpc ${2:methodName}(${3:require}) returns(${4:reply});",
             "}"
         ],
         "description": "definition service"
+    },
+    "method": {
+        "prefix": "rpc",
+        "body": [
+            "rpc ${1:methodName}(${2:req}) returns(${3:reply})"
+        ],
+        "description": "definition method"
     }
 }
