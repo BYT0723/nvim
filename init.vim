@@ -33,6 +33,7 @@ Plug 'fatih/vim-go'
 Plug 'neoclide/jsonc.vim'
 Plug 'alvan/vim-closetag'
 Plug 'posva/vim-vue'
+Plug 'BYT0723/vim-goctl'
 
 " sql
 Plug 'joereynolds/SQHell.vim'
@@ -59,7 +60,7 @@ Plug 'ajmwagar/vim-deus'
 call plug#end()
 
 " coc-explorer
-nnoremap <silent> <leader>e :CocCommand explorer<CR> 
+nnoremap <silent> <leader>e :CocCommand explorer<CR>
 
 " fzf
 nnoremap <leader>fo :Files<CR>
@@ -117,7 +118,7 @@ inoremap <silent><expr> <cr> !pumvisible() ? "\<C-g>u\<CR>\<c-r>=coc#on_enter()\
 function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~# '\s'
-endfunctio
+endfunction
 
 inoremap <silent><expr> <TAB>
             \ pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -226,18 +227,21 @@ let g:go_highlight_types = 1
 let g:go_highlight_variable_assignments = 0
 let g:go_highlight_variable_declarations = 0
 
-"
-" go-zero tool(goctl)
-"
-autocmd BufRead,BufNewFile *.api setfiletype api
-autocmd FileType api nmap bd :!goctl api go -api % -dir %:h<CR>
 
-autocmd BufWritePost *.api :silent call ApiFormat()
-func! ApiFormat()
-    exec "!goctl api validate %"
+function! GoctlFormat()
     exec "!goctl api format --dir ."
-    exec ":e"
+    exec "e"
 endfunction
+
+func! GoctlDiagnostic()
+    let mes = execute("!goctl api validate --api %")
+    ec mes
+endfunction
+    
+autocmd BufWritePre *.api :silent call GoctlDiagnostic()
+autocmd BufWritePost *.api :silent call GoctlFormat()
+
+autocmd FileType goctl nmap bd :!goctl api go -api % -dir %:h<CR>
 
 " markdown 
 let g:instant_markdown_slow = 0
