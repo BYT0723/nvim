@@ -32,11 +32,13 @@ Plug 'kevinhwang91/rnvimr'
 Plug 'fatih/vim-go'
 Plug 'neoclide/jsonc.vim'
 Plug 'alvan/vim-closetag'
-Plug 'posva/vim-vue'
 Plug 'BYT0723/vim-goctl'
 
 " sql
 Plug 'joereynolds/SQHell.vim'
+
+" uml
+Plug 'aklt/plantuml-syntax'
 
 " markdown
 Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
@@ -56,6 +58,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ajmwagar/vim-deus'
+Plug 'flazz/vim-colorschemes'
 
 call plug#end()
 
@@ -154,34 +157,34 @@ let g:NERDAltDelims_java = 1
 let g:NERDCustomDelimiters = {
             \'c' : { 'left': '// ' },
             \'java' :{'left': '//' },
-            \'go' : {'left': '//' }}
+            \'go' : {'left': '//' },
+            \'python': {'left':'#'}}
 let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 let g:NERDToggleCheckAllLines = 1
-vmap <C-m> <space>c<space>
+map <silent> <c-m> <space>c<space>
 
 " 主题
-set t_Co=256
-set termguicolors
-
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-
+set t_Co=256
+set termguicolors
 set background=dark
-colorscheme deus
+
+" deus
+colorscheme solarized8_dark_high
 let g:deus_termcolors=256
 
 " airline 配置
 set laststatus=2
+
 " deus
-" solarized
-let g:airline_theme = 'deus'
+" let g:airline_theme = 'deus'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 " let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline_section_z = 'ln:%l/%L[%p%%]  %v'
-let g:airline_solarized_bg='dark'
+let g:airline_section_z = 'ln:%l/%L %v'
 
 " buffer 编辑
 noremap <C-k> :bp<CR>
@@ -235,13 +238,14 @@ endfunction
 
 func! GoctlDiagnostic()
     let mes = execute("!goctl api validate --api %")
-    ec mes
+    echo mes
 endfunction
     
 autocmd BufWritePre *.api :silent call GoctlDiagnostic()
 autocmd BufWritePost *.api :silent call GoctlFormat()
 
-autocmd FileType goctl nmap bd :!goctl api go -api % -dir %:h<CR>
+autocmd FileType goctl nmap bd :!goctl api go -api % -dir %:h -style goZero<CR>
+autocmd FileType proto nmap bd :!goctl rpc proto -src % -dir %:h -style goZero<CR>
 
 " markdown 
 let g:instant_markdown_slow = 0
@@ -257,16 +261,16 @@ let g:sqh_connections = {
     \ 'default': {
     \   'user': 'root',
     \   'password': 'wangtao',
-    \   'host': 'localhost'
+    \   'host': 'frp.byt0723.xyz'
     \},
-    \ 'e5Code': {
+    \ 'local': {
     \   'user': 'root',
-    \   'password': 'jerw5Y^$Hdfj',
-    \   'host': '46.121.44.392'
+    \   'password': 'wangtao',
+    \   'host': '192.168.31.23'
     \}
 \}
 nnoremap <silent> <leader>sql :SQHShowDatabases<CR>
-
+autocmd FileType sql nmap bd :!goctl model mysql ddl -src % -dir %:h -c -style goZero<CR>
 
 " html,css
 autocmd FileType scss setl iskeyword+=@-@
@@ -285,15 +289,11 @@ noremap gh ^
 noremap ge $
 noremap sa ggvG$
 
-inoremap <C-l> <Right>
-inoremap <C-d> <BackSpace>
-inoremap <C-f> <Delete>
-
 noremap fw :w!<CR>
 noremap fq :q!<CR>
 
 " 窗口切换
-nnoremap w <C-w>
+nnoremap t <C-w>
 
 " 标签切换
 " nnoremap <C-h> :tabp<CR>
@@ -322,7 +322,14 @@ func! CompileRun()
         exec "silent !google-chrome-stable % &"
     elseif &filetype == 'sql'
         exec "SQHExecuteFile %"
+    elseif &filetype == 'plantuml'
+        call ViewUML()
     endif
+endfunction
+
+func! ViewUML()
+    exec "silent !java -jar /home/tao/APP/plantuml.jar %"
+    exec "silent !feh %<.png"
 endfunction
 
 " file test 

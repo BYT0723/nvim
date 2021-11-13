@@ -5,10 +5,10 @@
             "\"${2:name}\" : {",
             "\t\"prefix\": \"${3:prefix}\",",
             "\t\"body\" : [",
-            "\t\t\"${0}\"",
+            "\t\t\"${4}\"",
             "\t],",
             "\t\"description\" : \"${1:description}\"",
-            "}"
+            "}$0"
         ],
         "description": "new a snippet"
     }
