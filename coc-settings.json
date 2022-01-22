@@ -11,12 +11,17 @@
         "field": "\uf6d5",
         "value": "\uf89f"
     },
+    "suggest.languageSourcePriority": 99,
+    // "suggest.maxCompleteItemCount": 12,
     // snippets
     "snippets.textmateSnippetsRoots": [
         "/home/tao/.config/nvim/snippets/"
     ],
     "snippets.userSnippetsDirectory": "/home/tao/.config/nvim/snippets/",
     "snippets.snipmate.author": "BYT0723",
+    "snippets.priority": 98,
+    "snippets.extends": {
+    },
     // explorer
     "explorer.icon.enableNerdfont": true,
     "explorer.width": 35,
@@ -24,6 +29,8 @@
     "explorer.file.column.indent.indentLine": true,
     "explorer.git.showIgnored": true,
     "explorer.quitOnOpen": true,
+    "explorer.openAction.relativePath": true,
+    "explorer.file.reveal.auto": true,
     // check
     "diagnostic.signPriority": 1,
     "diagnostic.errorSign": "\uf00d",
@@ -45,11 +52,18 @@
         "java",
         "json"
     ],
+    // Java
+    "java.completion.enabled": true,
+    "java.completion.maxResults": 10,
+    "java.import.maven.enabled": true,
+    "java.import.gradle.enabled": false,
+    "java.configuration.maven.userSettings": "/opt/maven/conf/settings.xml",
+    "java.maven.downloadSources": true,
+    "java.maven.updateSnapshots": true,
     // Python
-    "python.linting.pylintArgs": [
-        "----extension-pkg-whitelist=1xml"
-    ],
+    "python.formatting.provider": "none",
     // html
     "emmet.showExpandedAbbreviation":"always",
     "emmet.showAbbreviationSuggestions": true
+    // go
 }

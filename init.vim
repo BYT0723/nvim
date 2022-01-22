@@ -1,4 +1,9 @@
+
+
+
+
 " auto vim-plug
+nnoremap sc :AsyncStop<CR>
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
 	silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
 				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -11,7 +16,10 @@ let mapleader = " "
 " 插件管理
 call plug#begin("~/.config/nvim/plugged")
 
-"COC
+" 异步运行 -> quickfix
+Plug 'skywind3000/asyncrun.vim'
+
+" COC
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " fzf
@@ -29,7 +37,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'kevinhwang91/rnvimr'
 
 " code
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'neoclide/jsonc.vim'
 Plug 'alvan/vim-closetag'
 Plug 'BYT0723/vim-goctl'
@@ -51,6 +59,7 @@ Plug 'nvim-treesitter/playground'
 " git
 Plug 'kdheepak/lazygit.nvim'
 Plug 'airblade/vim-gitgutter'
+Plug 'APZelos/blamer.nvim'
 
 " theme
 Plug 'luochen1990/rainbow'
@@ -65,16 +74,16 @@ call plug#end()
 " coc-explorer
 nnoremap <silent> <leader>e :CocCommand explorer<CR>
 
-" fzf
-nnoremap <leader>fo :Files<CR>
-nnoremap <leader>fif :Rg<CR>
-
 " rnvimr
 nnoremap <silent> <leader>r :RnvimrToggle<CR>
 let g:rnvimr_ex_enable = 1
 let g:rnvimr_pick_enable = 1
 let g:rnvimr_draw_border = 1
 highlight link RnvimrNormal CursorLine
+
+" fzf
+nnoremap <leader>ff :Files<CR>
+nnoremap <leader>fl :Rg<CR>
 
 let g:rnvimr_action = {
             \ '<C-t>': 'NvimEdit tabedit',
@@ -107,49 +116,58 @@ let g:coc_global_extensions = [
             \'coc-vimlsp',
             \'coc-go',
             \'coc-sh',
-            \'coc-python',
             \'coc-tsserver']
 
-" Ctrl + 空格 显示补全
-inoremap <silent><expr> <C-space> coc#refresh()
+
 " 回车补全展开
-inoremap <silent><expr> <cr> !pumvisible() ? "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-            \: coc#_select_confirm()
-            " \: !coc#expandable() ? coc#refresh()
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
                               
 " <TAB>补全、代码段跳转
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
 function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" : "\<TAB>"
-            " \ <SID>check_back_space() ? "\<TAB>" :
-            " \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 " coc-snippets
-let g:coc_snippet_next = '<c-j>'
-let g:coc_snippet_prev = '<c-k>'
+let g:coc_snippet_next = '<C-j>'
+let g:coc_snippet_prev = '<C-k>'
 
 " [g || ]g 查找上一个或下一个报错点
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> dp <Plug>(coc-diagnostic-prev)
+nmap <silent> dn <Plug>(coc-diagnostic-next)
 
 " 查看函数的定义和调用位置
 nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gt <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " 显示文档
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
 " 重命名
 nmap <silent> rn <Plug>(coc-rename)
 
 " 注释配置
+let g:NERDCreateDefaultMappings = 0
 let g:NERDSpaceDelims = 1
 let g:NERDCompactSexyComs = 1
 let g:NERDDefaultAlign = 'left'
@@ -162,45 +180,106 @@ let g:NERDCustomDelimiters = {
 let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 let g:NERDToggleCheckAllLines = 1
-map <silent> <c-m> <space>c<space>
+map <leader>m <plug>NERDCommenterToggle
 
 " 主题
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-set t_Co=256
 set termguicolors
 set background=dark
 
+" solarized8_dark_high
+" space-vim-dark
 " deus
-colorscheme solarized8_dark_high
-let g:deus_termcolors=256
+" materialtheme
+" neodark
+colorscheme solarized8_dark_high 
 
 " airline 配置
 set laststatus=2
-
-" deus
-" let g:airline_theme = 'deus'
+let g:airline_theme = 'solarized'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#tabline#buffer_nr_show = 1
+"
 let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline_section_z = 'ln:%l/%L %v'
+let g:airline_section_z = '%l/%L[%p]:%v'
 
-" buffer 编辑
-noremap <C-k> :bp<CR>
-noremap <C-j> :bn<CR>
-noremap bq :bdelete<CR>
+" %(...%)	定义一个项目组。
+" %{n}*	%对其余的行使用高亮显示组Usern，直到另一个%n*。数字n必须从1到9。用%*或%0*可以恢复正常的高亮显示。
+" %<	如果状态行过长，在何处换行。缺省是在开头。
+" %=	左对齐和右对齐项目之间的分割点。
+" %	字符%
+" %B	光标下字符的十六进制形式
+" %F	缓冲区的文件完整路径
+" %H	如果为帮助缓冲区则显示为HLP
+" %L	缓冲区中的行数
+" %M	如果缓冲区修改过则显示为+
+" %N	打印机页号
+" %O	以十六进制方式显示文件中的字符偏移
+" %P	文件中光标前的%
+" %R	如果缓冲区只读则为RO
+" %V	列数。如果与%c相同则为空字符串
+" %W	如果窗口为预览窗口则为PRV
+" %Y	缓冲区的文件类型，如vim
+" %a	如果编辑多行文本，这个字行串就是({current} of {arguments})，例如：(5 of 18)。如果在命令行中只有一行，这个字符串为空
+" %b	光标下的字符的十进制表示形式
+" %c	列号
+" %f	缓冲区的文件路径
+" %h	如果为帮助缓冲区显示为[Help]
+" %l	行号
+" %m	如果缓冲区已修改则表示为[+]
+" %n	缓冲区号
+" %o	在光标前的字符数（包括光标下的字符）
+" %p	文件中所在行的百分比
+" %r	如果缓冲区为只读则表示为[RO]
+" %t	文件名(无路径)
+" %v	虚列号
+" %w	如果为预览窗口则显示为[Preview]
+" %y	缓冲区的文件类型，如[vim]
+" %{expr}	表达式的结果
+
+" statusline
+" 设置状态行显示常用信息
+" %F 完整文件路径名
+" %m 当前缓冲被修改标记
+" %m 当前缓冲只读标记
+" %h 帮助缓冲标记
+" %w 预览缓冲标记
+" %Y 文件类型
+" %b ASCII值
+" %B 十六进制值
+" %l 行数
+" %v 列数
+" %p 当前行数占总行数的的百分比
+" %L 总行数
+" %{...} 评估表达式的值，并用值代替
+" %{"[fenc=".(&fenc==""?&enc:&fenc).((exists("+bomb") && &bomb)?"+":"")."]"} 显示文件编码
+" %{&ff} 显示文件类型
+
 
 "
 " go配置 
 "
 " autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
-autocmd FileType go nmap taj :GoAddTags json<CR>
-autocmd FileType go nmap tcj :GoRemoveTags json<CR>
-autocmd FileType go nmap tay :GoAddTags yaml<CR>
-autocmd FileType go nmap tcy :GoRemoveTags yaml<CR>
-autocmd FileType go nmap taa :GoAddTags json yaml<CR>
-autocmd FileType go nmap tca :GoRemoveTags json yaml<CR>
+
+" go struct tag opt
+autocmd FileType go nmap taj :CocCommand go.tags.add json<CR>
+autocmd FileType go nmap trj :CocCommand go.tags.remove json<CR>
+autocmd FileType go nmap tay :CocCommand go.tags.add yaml<CR>
+autocmd FileType go nmap try :CocCommand go.tags.remove yaml<CR>
+autocmd FileType go nmap tax :CocCommand go.tags.add xml<CR>
+autocmd FileType go nmap trx :CocCommand go.tags.remove xml<CR>
+autocmd FileType go nmap tc :CocCommand go.tags.clear<CR>
+
+" go test unit opt
+autocmd FileType go nmap tg :CocCommand go.test.toggle<CR>
+autocmd FileType go nmap tf :CocCommand go.test.generate.function<CR>
+
+autocmd FileType go nmap si :CocCommand go.impl.cursor<CR>
+
+" autocmd FileType go nmap taj :GoAddTags json<CR>
+" autocmd FileType go nmap tcj :GoRemoveTags json<CR>
+" autocmd FileType go nmap tay :GoAddTags yaml<CR>
+" autocmd FileType go nmap tcy :GoRemoveTags yaml<CR>
+autocmd FileType go set errorformat=%f:%l:%c:\ %m
 
 let g:go_echo_go_info = 0
 let g:go_doc_popup_window = 1
@@ -229,6 +308,7 @@ let g:go_highlight_trailing_whitespace_error = 1
 let g:go_highlight_types = 1
 let g:go_highlight_variable_assignments = 0
 let g:go_highlight_variable_declarations = 0
+" let g:go_list_type = ""
 
 
 function! GoctlFormat()
@@ -247,6 +327,16 @@ autocmd BufWritePost *.api :silent call GoctlFormat()
 autocmd FileType goctl nmap bd :!goctl api go -api % -dir %:h -style goZero<CR>
 autocmd FileType proto nmap bd :!goctl rpc proto -src % -dir %:h -style goZero<CR>
 
+" blamer
+let g:blamer_enabled = 1
+let g:blamer_delay = 1000
+let g:blamer_show_in_insert_modes = 0
+let g:blamer_show_in_visual_modes = 1
+let g:blamer_prefix = '  '
+let g:blamer_relative_time = 1
+" <author>, <author-mail>, <author-time>, <committer>, <committer-mail>, <committer-time>, <summary>, <commit-short>, <commit-long>
+let g:blamer_template = '「 <committer>, <committer-time> • <summary> 」'
+
 " markdown 
 let g:instant_markdown_slow = 0
 let g:instant_markdown_autostart = 0
@@ -261,7 +351,7 @@ let g:sqh_connections = {
     \ 'default': {
     \   'user': 'root',
     \   'password': 'wangtao',
-    \   'host': 'frp.byt0723.xyz'
+    \   'host': 'frp.byt0723.xyz',
     \},
     \ 'local': {
     \   'user': 'root',
@@ -275,6 +365,9 @@ autocmd FileType sql nmap bd :!goctl model mysql ddl -src % -dir %:h -c -style g
 " html,css
 autocmd FileType scss setl iskeyword+=@-@
 
+" closetag
+let g:closetag_filetypes = 'html,xhtml,xml,jsp'
+
 " rainbow
 let g:rainbow_active = 1 
 
@@ -284,61 +377,91 @@ nnoremap <silent> <leader>v :Vista!!<CR>
 " lazygit
 nnoremap <silent> <leader>g :LazyGit<CR>
 
-" 自定义按键映射
-noremap gh ^
-noremap ge $
-noremap sa ggvG$
+nnoremap <silent> <leader>t :vnew<CR>:term fish<CR>
 
-noremap fw :w!<CR>
-noremap fq :q!<CR>
+" AsyncRun
+let g:asyncrun_open = 10
+let g:asyncrun_trim = 1
+nnoremap sc :AsyncStop<CR>
 
-" 窗口切换
-nnoremap t <C-w>
-
-" 标签切换
-" nnoremap <C-h> :tabp<CR>
-" nnoremap <C-l> :tabn<CR>
-
-nnoremap cmd :vnew<CR>:term<CR>
+nnoremap cp :cp<CR>
+nnoremap cn :cn<CR>
+nnoremap cc :cc<CR>
+nnoremap <leader>c :call ToggleQuickFix()<CR>
+func! ToggleQuickFix()
+    let id = getqflist({'winid' : 1}).winid
+    if id > 0 
+        exec "cclose"
+    else
+        exec "copen"
+    endif
+endfunction
 
 " 编译运行
-map r :call CompileRun()<CR>
+map rr :call CompileRun()<CR>
 func! CompileRun()
     if &filetype == 'c'
-        exec "!gcc -pthread -o ./%< % && ./%< "
+        exec "AsyncRun gcc -pthread -o ./%< % && ./%< "
     elseif &filetype == 'cpp'
-        exec "! g++ -o %< % && ./%<"
+        exec "AsyncRun g++ -o %< % && ./%<"
     elseif &filetype == 'java'
-        exec "! javac -d ./class/ %:h/*.java && java -ea -cp ./lib/mysql-connector-java-8.0.24.jar:./class -D:fiel.encoding=UTF-8 %<"
+        " 遍历./lib/
+        " 将目录下所有的.jar加入classpath
+        if isdirectory("./lib")
+            let jarsStr = system("ls ./lib") 
+            let jars = split(jarsStr,"\n")
+            for i in range(len(jars))
+                let jars[i] = "./lib/".jars[i]
+            endfor
+            let jarsStr = join(jars,":")
+        endif
+        exec "AsyncRun javac -d ./class/ -cp ./class:".jarsStr." %:h/*.java && java -ea -cp ./class:".jarsStr." -D:file.encoding=UTF-8 %<"
     elseif &filetype == 'python'
-        exec "! python %"
+        exec "AsyncRun python %"
     elseif &filetype == 'go'
-        exec "! go run %"
+        exec "AsyncRun go run %"
+        " exec ":GoRun"
     elseif &filetype == 'markdown'
         exec "InstantMarkdownPreview"
     elseif &filetype == 'proto'
-        exec "! protoc --go_out=plugins=grpc:. %"
+        exec "AsyncRun protoc --proto_path=%:h --go_out=plugins=grpc:. %"
     elseif &filetype == 'html'
         exec "silent !google-chrome-stable % &"
     elseif &filetype == 'sql'
         exec "SQHExecuteFile %"
     elseif &filetype == 'plantuml'
-        call ViewUML()
+        exec "silent !plantuml % -o %:h/img/ && feh %:h/img/%:t:r.png"
     endif
 endfunction
 
-func! ViewUML()
-    exec "silent !java -jar /home/tao/APP/plantuml.jar %"
-    exec "silent !feh %<.png"
+" test unit
+map tt :call FileTest()<CR>
+func! FileTest() abort
+    if &filetype == "go"
+        exec "AsyncRun go test -v ./%:h"
+    endif
 endfunction
 
-" file test 
-" map t :call FileTest()<CR>
-" func! FileTest() abort
-"     if &filetype == "go"
-"         exec "! go test -v %"
-"     endif
-" endfunction
+" 窗口切换
+nnoremap w <C-w>
+
+" buffer 编辑
+nnoremap bp :bp<CR>
+nnoremap bn :bn<CR>
+nnoremap bq :bd<CR>
+
+" 标签切换
+nnoremap tp :tabp<CR>
+nnoremap tn :tabn<CR>
+nnoremap tq :tabc<CR>
+
+" quick position
+noremap gh ^
+noremap ge $
+noremap sa gg^vG$
+
+noremap fw :w!<CR>
+noremap fq :q!<CR>
 
 " 设置缓冲区
 set hidden
@@ -364,11 +487,9 @@ set nocompatible
 
 " 显示当前模式
 set showmode
-
 set showcmd
 
 set encoding=utf-8
-" set fileencoding=utf-8
 set fileencodings=utf-8,gb18030,latin1,ucs-bom
 
 " 启用256色

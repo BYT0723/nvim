@@ -45,5 +45,12 @@
             "*/"
         ],
         "description": "Author"
+    },
+    "fmt.Sprintf": {
+        "prefix": "fsf",
+        "body": [
+            "fmt.Sprintf(\"${1}\",${2})${0}"
+        ],
+        "description": "fmt.Sprintf()"
     }
 }
