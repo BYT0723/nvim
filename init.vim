@@ -1,9 +1,20 @@
+ "  _           _   _                 _
+ " (_)  _ __   (_) | |_      __   __ (_)  _ __ ___
+ " | | | '_ \  | | | __|     \ \ / / | | | '_ ` _ \
+ " | | | | | | | | | |_   _   \ V /  | | | | | | | |
+ " |_| |_| |_| |_|  \__| (_)   \_/   |_| |_| |_| |_|
+ " 
+
+ "  ____   __   __  _____    ___    _____   ____    _____
+ " | __ )  \ \ / / |_   _|  / _ \  |___  | |___ \  |___ /
+ " |  _ \   \ V /    | |   | | | |    / /    __) |   |_ \
+ " | |_) |   | |     | |   | |_| |   / /    / __/   ___) |
+ " |____/    |_|     |_|    \___/   /_/    |_____| |____/
+ " 
+ " Author: https://github.com/BYT0723
 
 
-
-
-" auto vim-plug
-nnoremap sc :AsyncStop<CR>
+ " auto vim-plug
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
 	silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
 				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -66,7 +77,6 @@ Plug 'luochen1990/rainbow'
 Plug 'ryanoasis/vim-devicons'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'ajmwagar/vim-deus'
 Plug 'flazz/vim-colorschemes'
 
 call plug#end()
@@ -187,8 +197,8 @@ set termguicolors
 set background=dark
 
 " solarized8_dark_high
+" solarized8_light_high
 " space-vim-dark
-" deus
 " materialtheme
 " neodark
 colorscheme solarized8_dark_high 
@@ -198,8 +208,14 @@ set laststatus=2
 let g:airline_theme = 'solarized'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-"
 let g:airline#extensions#tabline#formatter = 'unique_tail'
+
+" A | B |       C       | X | Y | Z | [...]
+" let g:airline_section_a = ''
+" let g:airline_section_b = ''
+" let g:airline_section_c = ''
+" let g:airline_section_x = ''
+" let g:airline_section_y = ''
 let g:airline_section_z = '%l/%L[%p]:%v'
 
 " %(...%)	定义一个项目组。
@@ -254,31 +270,27 @@ let g:airline_section_z = '%l/%L[%p]:%v'
 " %{"[fenc=".(&fenc==""?&enc:&fenc).((exists("+bomb") && &bomb)?"+":"")."]"} 显示文件编码
 " %{&ff} 显示文件类型
 
+" vim-surround
+" S\" --- 包裹选中文本
+" cs"' --- 修改文本" 为 '
 
-"
+
 " go配置 
 "
 " autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
 
 " go struct tag opt
-autocmd FileType go nmap taj :CocCommand go.tags.add json<CR>
-autocmd FileType go nmap trj :CocCommand go.tags.remove json<CR>
-autocmd FileType go nmap tay :CocCommand go.tags.add yaml<CR>
-autocmd FileType go nmap try :CocCommand go.tags.remove yaml<CR>
-autocmd FileType go nmap tax :CocCommand go.tags.add xml<CR>
-autocmd FileType go nmap trx :CocCommand go.tags.remove xml<CR>
-autocmd FileType go nmap tc :CocCommand go.tags.clear<CR>
+autocmd FileType go nmap taj :GoAddTags json<CR>
+autocmd FileType go nmap trj :GoRemoveTags json<CR>
+autocmd FileType go nmap tay :GoAddTags yaml<CR>
+autocmd FileType go nmap try :GoRemoveTags yaml<CR>
 
 " go test unit opt
-autocmd FileType go nmap tg :CocCommand go.test.toggle<CR>
-autocmd FileType go nmap tf :CocCommand go.test.generate.function<CR>
+autocmd FileType go nmap tsg :CocCommand go.test.toggle<CR>
+autocmd FileType go nmap tsf :CocCommand go.test.generate.function<CR>
 
-autocmd FileType go nmap si :CocCommand go.impl.cursor<CR>
+autocmd FileType go nmap sii :CocCommand go.impl.cursor<CR>
 
-" autocmd FileType go nmap taj :GoAddTags json<CR>
-" autocmd FileType go nmap tcj :GoRemoveTags json<CR>
-" autocmd FileType go nmap tay :GoAddTags yaml<CR>
-" autocmd FileType go nmap tcy :GoRemoveTags yaml<CR>
 autocmd FileType go set errorformat=%f:%l:%c:\ %m
 
 let g:go_echo_go_info = 0
@@ -288,7 +300,7 @@ let g:go_textobj_enabled = 0
 let g:go_auto_type_info = 1
 let g:go_def_mapping_enabled = 0
 let g:go_doc_keywordprg_enabled = 0
-let g:go_code_completion_enabled = 0
+let g:go_code_completion_enabled = 1
 let g:go_highlight_array_whitespace_error = 1
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_chan_whitespace_error = 1
@@ -399,6 +411,7 @@ endfunction
 
 " 编译运行
 map rr :call CompileRun()<CR>
+map str :AsyncRun -mode=term -pos=st 
 func! CompileRun()
     if &filetype == 'c'
         exec "AsyncRun gcc -pthread -o ./%< % && ./%< "
@@ -431,14 +444,24 @@ func! CompileRun()
         exec "SQHExecuteFile %"
     elseif &filetype == 'plantuml'
         exec "silent !plantuml % -o %:h/img/ && feh %:h/img/%:t:r.png"
+    elseif &filetype == 'sh'
+        exec "AsyncRun ./%"
     endif
 endfunction
 
 " test unit
-map tt :call FileTest()<CR>
-func! FileTest() abort
+map tt :call TestFunction()<CR>
+func! TestFunction() abort
     if &filetype == "go"
-        exec "AsyncRun go test -v ./%:h"
+        let currentLine = getline(".") 
+        let x = match(currentLine, 'func Test\([A-Za-z0-9]\+\)(t \*testing.T)')
+        if x > -1
+            let snipts = split(currentLine," ")
+            let funcName = split(snipts[1],"(")[0]
+            exec "AsyncRun go test -v ./%:h -run='".funcName."'"
+        else
+            echoe "The line where the cursor is located has no test function"
+        endif
     endif
 endfunction
 
@@ -467,7 +490,7 @@ noremap fq :q!<CR>
 set hidden
 
 " 响应速度
-set updatetime=300
+set updatetime=200
 
 " 精简提示
 set shortmess+=c
@@ -542,3 +565,7 @@ set wildmenu
 
 " 忽略大小写
 set ic
+
+inoreabbrev github@ https://github.com/BYT0723
+inoreabbrev qqmail@ 1151713064@qq.com
+inoreabbrev gmail@ twang9739@gmail.com

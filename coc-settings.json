@@ -19,7 +19,6 @@
     ],
     "snippets.userSnippetsDirectory": "/home/tao/.config/nvim/snippets/",
     "snippets.snipmate.author": "BYT0723",
-    "snippets.priority": 98,
     "snippets.extends": {
     },
     // explorer
@@ -65,5 +64,4 @@
     // html
     "emmet.showExpandedAbbreviation":"always",
     "emmet.showAbbreviationSuggestions": true
-    // go
 }

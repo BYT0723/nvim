@@ -6,7 +6,8 @@
             "",
             "package ${1:name};",
             "",
-            "option go_package=\"${2:.}\";"
+            "option go_package=\"${2:.}\";",
+            "$0"
         ],
         "description": "proto3 header"
     },
@@ -15,7 +16,7 @@
         "body": [
             "message ${1:name} {",
             "   ${2}",
-            "}"
+            "}$0"
         ],
         "description": "definition message"
     },
@@ -23,7 +24,7 @@
         "prefix": "service",
         "body": [
             "service ${1:name} {",
-            "   rpc ${2:methodName}(${3:require}) returns(${4:reply});",
+            "\t$0",
             "}"
         ],
         "description": "definition service"
@@ -31,7 +32,7 @@
     "method": {
         "prefix": "rpc",
         "body": [
-            "rpc ${1:methodName}(${2:req}) returns(${3:reply})"
+            "rpc ${1:methodName}(${2:req}) returns(${3:reply});$0"
         ],
         "description": "definition method"
     }
