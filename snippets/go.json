@@ -4,7 +4,7 @@
         "body": [
             "func Test${1:Name}(t *testing.T) {",
             "\t${2}",
-            "}"
+            "}${0}"
         ],
         "description": "test function for golang"
     },
@@ -13,7 +13,7 @@
         "body": [
             "for ${1:i} := ${2:0}; ${1:i} < ${3:count}; ${1:i}${4:++} {",
             "   ${5}",
-            "}"
+            "}${0}"
         ],
         "description": "for range in i"
     },
@@ -21,8 +21,8 @@
         "prefix": "ifok",
         "body": [
             "if ${1:var},ok := ${2:express}; ok{",
-            "\t${0}",
-            "}"
+            "\t${3}",
+            "}${0}"
         ],
         "description": "check express ok"
     },

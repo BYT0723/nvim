@@ -52,6 +52,7 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'neoclide/jsonc.vim'
 Plug 'alvan/vim-closetag'
 Plug 'BYT0723/vim-goctl'
+Plug 'Yggdroot/indentLine'
 
 " sql
 Plug 'joereynolds/SQHell.vim'
@@ -94,6 +95,7 @@ highlight link RnvimrNormal CursorLine
 " fzf
 nnoremap <leader>ff :Files<CR>
 nnoremap <leader>fl :Rg<CR>
+nnoremap <leader>ft :BTags<CR>
 
 let g:rnvimr_action = {
             \ '<C-t>': 'NvimEdit tabedit',
@@ -115,13 +117,13 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in
 
 " coc 插件管理
 let g:coc_global_extensions = [
+            \'coc-explorer',
+            \'coc-marketplace',
+            \'coc-snippets',
             \'coc-docker',
             \'coc-html',
             \'coc-emmet',
             \'coc-css',
-            \'coc-explorer',
-            \'coc-marketplace',
-            \'coc-snippets',
             \'coc-json',
             \'coc-vimlsp',
             \'coc-go',
@@ -201,7 +203,7 @@ set background=dark
 " space-vim-dark
 " materialtheme
 " neodark
-colorscheme solarized8_dark_high 
+colorscheme solarized8_dark_high
 
 " airline 配置
 set laststatus=2
@@ -300,7 +302,7 @@ let g:go_textobj_enabled = 0
 let g:go_auto_type_info = 1
 let g:go_def_mapping_enabled = 0
 let g:go_doc_keywordprg_enabled = 0
-let g:go_code_completion_enabled = 1
+let g:go_code_completion_enabled = 0
 let g:go_highlight_array_whitespace_error = 1
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_chan_whitespace_error = 1
@@ -320,24 +322,23 @@ let g:go_highlight_trailing_whitespace_error = 1
 let g:go_highlight_types = 1
 let g:go_highlight_variable_assignments = 0
 let g:go_highlight_variable_declarations = 0
-" let g:go_list_type = ""
 
 
 function! GoctlFormat()
-    exec "!goctl api format --dir ."
+    exec "silent !goctl api format --dir ."
     exec "e"
 endfunction
 
 func! GoctlDiagnostic()
-    let mes = execute("!goctl api validate --api %")
+    let mes = execute("silent !goctl api validate --api %")
     echo mes
 endfunction
-    
+
 autocmd BufWritePre *.api :silent call GoctlDiagnostic()
 autocmd BufWritePost *.api :silent call GoctlFormat()
 
-autocmd FileType goctl nmap bd :!goctl api go -api % -dir %:h -style goZero<CR>
-autocmd FileType proto nmap bd :!goctl rpc proto -src % -dir %:h -style goZero<CR>
+autocmd FileType goctl nmap bd :AsyncRun goctl api go -api % -dir %:h -style goZero<CR>
+autocmd FileType proto nmap bd :AsyncRun cd %:h && goctl rpc protoc %:t --go_out=. --go-grpc_out=. --zrpc_out=. --style=goZero<CR>
 
 " blamer
 let g:blamer_enabled = 1
@@ -363,12 +364,12 @@ let g:sqh_connections = {
     \ 'default': {
     \   'user': 'root',
     \   'password': 'wangtao',
-    \   'host': 'frp.byt0723.xyz',
+    \   'host': '127.0.0.1'
     \},
-    \ 'local': {
+    \ 'remote': {
     \   'user': 'root',
     \   'password': 'wangtao',
-    \   'host': '192.168.31.23'
+    \   'host': 'frp.byt0723.xyz',
     \}
 \}
 nnoremap <silent> <leader>sql :SQHShowDatabases<CR>
@@ -384,12 +385,20 @@ let g:closetag_filetypes = 'html,xhtml,xml,jsp'
 let g:rainbow_active = 1 
 
 " Vista 配置
+" autocmd VimEnter * :silent Vista
 nnoremap <silent> <leader>v :Vista!!<CR>
+let g:vista_default_executive = 'coc'
 
 " lazygit
 nnoremap <silent> <leader>g :LazyGit<CR>
 
-nnoremap <silent> <leader>t :vnew<CR>:term fish<CR>
+" indent
+let g:indentLine_enabled = 1
+let g:vim_json_conceal=0
+let g:markdown_syntax_conceal=0
+
+" terminator
+nnoremap <silent> <leader>t :!st -i -g 75x25+550+250 -f "Source Code Pro:style=Medium Italic:size=14"<CR>
 
 " AsyncRun
 let g:asyncrun_open = 10
@@ -411,7 +420,7 @@ endfunction
 
 " 编译运行
 map rr :call CompileRun()<CR>
-map str :AsyncRun -mode=term -pos=st 
+map rst :AsyncRun -mode=term -pos=st 
 func! CompileRun()
     if &filetype == 'c'
         exec "AsyncRun gcc -pthread -o ./%< % && ./%< "
@@ -437,7 +446,7 @@ func! CompileRun()
     elseif &filetype == 'markdown'
         exec "InstantMarkdownPreview"
     elseif &filetype == 'proto'
-        exec "AsyncRun protoc --proto_path=%:h --go_out=plugins=grpc:. %"
+        exec "AsyncRun protoc --proto_path=%:h --go_out=plugins=grpc:%:h/pb %"
     elseif &filetype == 'html'
         exec "silent !google-chrome-stable % &"
     elseif &filetype == 'sql'
@@ -460,13 +469,18 @@ func! TestFunction() abort
             let funcName = split(snipts[1],"(")[0]
             exec "AsyncRun go test -v ./%:h -run='".funcName."'"
         else
-            echoe "The line where the cursor is located has no test function"
+            exec "AsyncRun go test -v %"
+            " echom "The line where the cursor is located has no test function"
         endif
     endif
 endfunction
 
-" 窗口切换
+" 窗口管理
 nnoremap w <C-w>
+nnoremap <C-j> :resize -5<CR>
+nnoremap <C-k> :resize +5<CR>
+nnoremap <C-h> :vertical resize -5<CR>
+nnoremap <C-l> :vertical resize +5<CR>
 
 " buffer 编辑
 nnoremap bp :bp<CR>
