@@ -67,5 +67,19 @@
             "| ${1:value}   | ${2:value}   | ${3:value}   |"
         ],
         "description": "table row 3*1"
+    },
+    "BoldText": {
+        "prefix": "bl",
+        "body": [
+            "**${1}**${0}"
+        ],
+        "description": "Blod Text"
+    },
+    "ItalicText": {
+        "prefix": "it",
+        "body": [
+            "*${1}*${0}"
+        ],
+        "description": "Italics Text"
     }
 }

@@ -96,6 +96,7 @@ highlight link RnvimrNormal CursorLine
 nnoremap <leader>ff :Files<CR>
 nnoremap <leader>fl :Rg<CR>
 nnoremap <leader>ft :BTags<CR>
+nnoremap <leader>fb :Buffers<CR>
 
 let g:rnvimr_action = {
             \ '<C-t>': 'NvimEdit tabedit',
@@ -153,8 +154,8 @@ let g:coc_snippet_next = '<C-j>'
 let g:coc_snippet_prev = '<C-k>'
 
 " [g || ]g 查找上一个或下一个报错点
-nmap <silent> dp <Plug>(coc-diagnostic-prev)
-nmap <silent> dn <Plug>(coc-diagnostic-next)
+nmap <silent> dk <Plug>(coc-diagnostic-prev)
+nmap <silent> dj <Plug>(coc-diagnostic-next)
 
 " 查看函数的定义和调用位置
 nmap <silent> gd <Plug>(coc-definition)
@@ -405,8 +406,8 @@ let g:asyncrun_open = 10
 let g:asyncrun_trim = 1
 nnoremap sc :AsyncStop<CR>
 
-nnoremap cp :cp<CR>
-nnoremap cn :cn<CR>
+nnoremap ck :cp<CR>
+nnoremap cj :cn<CR>
 nnoremap cc :cc<CR>
 nnoremap <leader>c :call ToggleQuickFix()<CR>
 func! ToggleQuickFix()
@@ -483,13 +484,13 @@ nnoremap <C-h> :vertical resize -5<CR>
 nnoremap <C-l> :vertical resize +5<CR>
 
 " buffer 编辑
-nnoremap bp :bp<CR>
-nnoremap bn :bn<CR>
+nnoremap bk :bp<CR>
+nnoremap bj :bn<CR>
 nnoremap bq :bd<CR>
 
 " 标签切换
-nnoremap tp :tabp<CR>
-nnoremap tn :tabn<CR>
+nnoremap tk :tabp<CR>
+nnoremap tj :tabn<CR>
 nnoremap tq :tabc<CR>
 
 " quick position
@@ -537,12 +538,12 @@ filetype indent on
 
 " 缩进
 set autoindent
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 
 " tab转空格
 set expandtab
-set softtabstop=4
+set softtabstop=2
 
 " 行列高亮
 set cursorline
