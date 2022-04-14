@@ -11,8 +11,7 @@
         "field": "\uf6d5",
         "value": "\uf89f"
     },
-    "suggest.languageSourcePriority": 99,
-    // "suggest.maxCompleteItemCount": 12,
+    "suggest.maxCompleteItemCount": 8,
     // snippets
     "snippets.textmateSnippetsRoots": [
         "/home/tao/.config/nvim/snippets/"
@@ -140,11 +139,20 @@
     "java.configuration.maven.userSettings": "/opt/maven/conf/settings.xml",
     "java.maven.downloadSources": true,
     "java.maven.updateSnapshots": true,
-    // Python
-    "python.formatting.provider": "none",
     // html
     "emmet.showExpandedAbbreviation":"always",
     "emmet.showAbbreviationSuggestions": true,
     //go config
-    "go.goplsPath": "/home/tao/GoPath/bin/gopls"
+    "go.goplsPath": "/home/tao/GoPath/bin/gopls",
+    "go.goplsOptions": {
+      "codelenses": {
+        "generate": true,
+        "gc_details": true,
+        "regenerate_cgo": true,
+        "tidy": true,
+        "upgrade_dependency": true,
+        "vendor": true
+      }
+      // "usePlaceholders": true
+    }
 }

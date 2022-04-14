@@ -193,7 +193,8 @@ let g:NERDCustomDelimiters = {
 let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 let g:NERDToggleCheckAllLines = 1
-map <leader>m <plug>NERDCommenterToggle
+nmap <leader>m <plug>NERDCommenterToggle
+vmap <leader>m <plug>NERDCommenterToggle
 
 " 主题
 set termguicolors
@@ -204,7 +205,7 @@ set background=dark
 " space-vim-dark
 " materialtheme
 " neodark
-colorscheme solarized8_dark_high
+colorscheme solarized8_dark_high 
 
 " airline 配置
 set laststatus=2
@@ -213,86 +214,21 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 
-" A | B |       C       | X | Y | Z | [...]
-" let g:airline_section_a = ''
-" let g:airline_section_b = ''
-" let g:airline_section_c = ''
-" let g:airline_section_x = ''
-" let g:airline_section_y = ''
 let g:airline_section_z = '%l/%L[%p]:%v'
 
-" %(...%)	定义一个项目组。
-" %{n}*	%对其余的行使用高亮显示组Usern，直到另一个%n*。数字n必须从1到9。用%*或%0*可以恢复正常的高亮显示。
-" %<	如果状态行过长，在何处换行。缺省是在开头。
-" %=	左对齐和右对齐项目之间的分割点。
-" %	字符%
-" %B	光标下字符的十六进制形式
-" %F	缓冲区的文件完整路径
-" %H	如果为帮助缓冲区则显示为HLP
-" %L	缓冲区中的行数
-" %M	如果缓冲区修改过则显示为+
-" %N	打印机页号
-" %O	以十六进制方式显示文件中的字符偏移
-" %P	文件中光标前的%
-" %R	如果缓冲区只读则为RO
-" %V	列数。如果与%c相同则为空字符串
-" %W	如果窗口为预览窗口则为PRV
-" %Y	缓冲区的文件类型，如vim
-" %a	如果编辑多行文本，这个字行串就是({current} of {arguments})，例如：(5 of 18)。如果在命令行中只有一行，这个字符串为空
-" %b	光标下的字符的十进制表示形式
-" %c	列号
-" %f	缓冲区的文件路径
-" %h	如果为帮助缓冲区显示为[Help]
-" %l	行号
-" %m	如果缓冲区已修改则表示为[+]
-" %n	缓冲区号
-" %o	在光标前的字符数（包括光标下的字符）
-" %p	文件中所在行的百分比
-" %r	如果缓冲区为只读则表示为[RO]
-" %t	文件名(无路径)
-" %v	虚列号
-" %w	如果为预览窗口则显示为[Preview]
-" %y	缓冲区的文件类型，如[vim]
-" %{expr}	表达式的结果
-
-" statusline
-" 设置状态行显示常用信息
-" %F 完整文件路径名
-" %m 当前缓冲被修改标记
-" %m 当前缓冲只读标记
-" %h 帮助缓冲标记
-" %w 预览缓冲标记
-" %Y 文件类型
-" %b ASCII值
-" %B 十六进制值
-" %l 行数
-" %v 列数
-" %p 当前行数占总行数的的百分比
-" %L 总行数
-" %{...} 评估表达式的值，并用值代替
-" %{"[fenc=".(&fenc==""?&enc:&fenc).((exists("+bomb") && &bomb)?"+":"")."]"} 显示文件编码
-" %{&ff} 显示文件类型
-
-" vim-surround
-" S\" --- 包裹选中文本
-" cs"' --- 修改文本" 为 '
-
-
 " go配置 
-"
-" autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
 
 " go struct tag opt
-autocmd FileType go nmap taj :GoAddTags json<CR>
-autocmd FileType go nmap trj :GoRemoveTags json<CR>
-autocmd FileType go nmap tay :GoAddTags yaml<CR>
-autocmd FileType go nmap try :GoRemoveTags yaml<CR>
+autocmd FileType go nnoremap taj :GoAddTags json<CR>
+autocmd FileType go nnoremap trj :GoRemoveTags json<CR>
+autocmd FileType go nnoremap tay :GoAddTags yaml<CR>
+autocmd FileType go nnoremap try :GoRemoveTags yaml<CR>
 
 " go test unit opt
-autocmd FileType go nmap tsg :CocCommand go.test.toggle<CR>
-autocmd FileType go nmap tsf :CocCommand go.test.generate.function<CR>
+autocmd FileType go nnoremap tsg :CocCommand go.test.toggle<CR>
+autocmd FileType go nnoremap tsf :CocCommand go.test.generate.function<CR>
 
-autocmd FileType go nmap sii :CocCommand go.impl.cursor<CR>
+autocmd FileType go nnoremap sii :CocCommand go.impl.cursor<CR>
 
 autocmd FileType go set errorformat=%f:%l:%c:\ %m
 
@@ -338,8 +274,8 @@ endfunction
 autocmd BufWritePre *.api :silent call GoctlDiagnostic()
 autocmd BufWritePost *.api :silent call GoctlFormat()
 
-autocmd FileType goctl nmap bd :AsyncRun goctl api go -api % -dir %:h -style goZero<CR>
-autocmd FileType proto nmap bd :AsyncRun cd %:h && goctl rpc protoc %:t --go_out=. --go-grpc_out=. --zrpc_out=. --style=goZero<CR>
+autocmd FileType goctl nnoremap bd :AsyncRun goctl api go -api % -dir %:h -style goZero<CR>
+autocmd FileType proto nnoremap bd :AsyncRun cd %:h && goctl rpc protoc %:t --go_out=. --go-grpc_out=. --zrpc_out=. --style=goZero<CR>
 
 " blamer
 let g:blamer_enabled = 1
@@ -374,7 +310,7 @@ let g:sqh_connections = {
     \}
 \}
 nnoremap <silent> <leader>sql :SQHShowDatabases<CR>
-autocmd FileType sql nmap bd :!goctl model mysql ddl -src % -dir %:h -c -style goZero<CR>
+autocmd FileType sql nnoremap bd :!goctl model mysql ddl -src % -dir %:h -c -style goZero<CR>
 
 " html,css
 autocmd FileType scss setl iskeyword+=@-@
@@ -420,8 +356,8 @@ func! ToggleQuickFix()
 endfunction
 
 " 编译运行
-map rr :call CompileRun()<CR>
-map rst :AsyncRun -mode=term -pos=st 
+nnoremap rr :call CompileRun()<CR>
+nnoremap rst :AsyncRun -mode=term -pos=st 
 func! CompileRun()
     if &filetype == 'c'
         exec "AsyncRun gcc -pthread -o ./%< % && ./%< "
@@ -460,7 +396,7 @@ func! CompileRun()
 endfunction
 
 " test unit
-map tt :call TestFunction()<CR>
+nnoremap tt :call TestFunction()<CR>
 func! TestFunction() abort
     if &filetype == "go"
         let currentLine = getline(".") 
@@ -498,8 +434,8 @@ noremap gh ^
 noremap ge $
 noremap sa gg^vG$
 
-noremap fw :w!<CR>
-noremap fq :q!<CR>
+nnoremap fw :w!<CR>
+nnoremap fq :q!<CR>
 
 " 设置缓冲区
 set hidden
