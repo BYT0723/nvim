@@ -1,158 +1,263 @@
 {
-    "coc.preferences.extensionUpdateCheck": "weekly",
-    "suggest.defaultSortMethod": "alphabetical",
-    // completeIcon 
-    "suggest.completionItemKindLabels": {
-        "class": "\uf0e8",
-        "struct": "\uf668",
-        "interface": "\uf033",
-        "function": "\u0192",
-        "method": "\uf6a6",
-        "field": "\uf6d5",
-        "value": "\uf89f"
-    },
-    "suggest.maxCompleteItemCount": 8,
-    // snippets
-    "snippets.textmateSnippetsRoots": [
-        "/home/tao/.config/nvim/snippets/"
+  "coc.preferences.extensionUpdateCheck": "weekly",
+  "suggest.defaultSortMethod": "alphabetical",
+  // completeIcon 
+  "suggest.completionItemKindLabels": {
+    "class": "\uf0e8",
+    "struct": "\uf668",
+    "interface": "\uf033",
+    "function": "\u0192",
+    "method": "\uf6a6",
+    "field": "\uf6d5",
+    "value": "\uf89f"
+  },
+  "suggest.maxCompleteItemCount": 8,
+  // snippets
+  "snippets.textmateSnippetsRoots": [
+    "/home/tao/.config/nvim/snippets/"
+  ],
+  "snippets.userSnippetsDirectory": "/home/tao/.config/nvim/snippets/",
+  "snippets.snipmate.author": "BYT0723",
+  "snippets.extends": {},
+  // explorer
+  "explorer.icon.enableNerdfont": true,
+  "explorer.width": 40,
+  "explorer.file.showHiddenFiles": true,
+  "explorer.file.column.indent.indentLine": true,
+  "explorer.git.showIgnored": true,
+  "explorer.quitOnOpen": true,
+  "explorer.openAction.relativePath": true,
+  "explorer.file.reveal.auto": true,
+  "explorer.keyMappings.global": {
+    "i": false, // cancel default mapkey
+    "<c-o>": "noop",
+    "*": "toggleSelection",
+    "<tab>": "actionMenu",
+    "gk": [
+      "wait",
+      "expandablePrev"
     ],
-    "snippets.userSnippetsDirectory": "/home/tao/.config/nvim/snippets/",
-    "snippets.snipmate.author": "BYT0723",
-    "snippets.extends": {
-    },
-    // explorer
-    "explorer.icon.enableNerdfont": true,
-    "explorer.width": 35,
-    "explorer.file.showHiddenFiles": true,
-    "explorer.file.column.indent.indentLine": true,
-    "explorer.git.showIgnored": true,
-    "explorer.quitOnOpen": true,
-    "explorer.openAction.relativePath": true,
-    "explorer.file.reveal.auto": true,
-    "explorer.keyMappings.global": {
-        "i": false, // cancel default mapkey
-        "<c-o>": "noop",
-
-        "*": "toggleSelection",
-        "<tab>": "actionMenu",
-
-        "gk": ["wait", "expandablePrev"],
-        "gj": ["wait", "expandableNext"],
-        "h": ["wait", "collapse"],
-        "l": ["wait", "expandable?", "expand", "open"],
-        "J": ["wait", "toggleSelection", "normal:j"],
-        "K": ["wait", "toggleSelection", "normal:k"],
-        "gl": ["wait", "expand:recursive"],
-        "gh": ["wait", "collapse:recursive"],
-        "<2-LeftMouse>": [
-          "expandable?",
-          ["expanded?", "collapse", "expand"],
-          "open"
-        ],
-        "o": ["wait", "expanded?", "collapse", "expand"],
-        "<cr>": ["wait", "expandable?", "cd", "open"],
-        "e": "open",
-        "s": "open:split",
-        "E": "open:vsplit",
-        "t": "open:tab",
-        "<bs>": ["wait", "gotoParent"],
-        "gs": ["wait", "reveal:select"],
-        "il": "preview:labeling",
-        "ic": "preview:content",
-        "Il": "previewOnHover:toggle:labeling",
-        "Ic": "previewOnHover:toggle:content",
-        "II": "previewOnHover:disable",
-
-        "yp": "copyFilepath",
-        "yn": "copyFilename",
-        "yy": "copyFile",
-        "dd": "cutFile",
-        "p": "pasteFile",
-        "df": "delete",
-        "dF": "deleteForever",
-
-        "a": "addFile",
-        "A": "addDirectory",
-        "r": "rename",
-
-        "zh": "toggleHidden",
-        "g<dot>": "toggleHidden",
-        "R": "refresh",
-
-        "?": "help",
-        "q": "quit",
-        "<esc>": "esc",
-        "X": "systemExecute",
-        "gd": "listDrive",
-
-        "f": "search",
-        "F": "searchRecursive",
-
-        "gf": "gotoSource:file",
-        "gb": "gotoSource:buffer",
-
-        "[[": ["wait", "sourcePrev"],
-        "]]": ["wait", "sourceNext"],
-
-        "[i": ["wait", "indentPrev"],
-        "]i": ["wait", "indentNext"],
-
-        "[m": ["wait", "markPrev:modified"],
-        "]m": ["wait", "markNext:modified"],
-
-        "[d": ["wait", "markPrev:diagnosticError:diagnosticWarning"],
-        "]d": ["wait", "markNext:diagnosticError:diagnosticWarning"],
-        "[D": ["wait", "markPrev:diagnosticError"],
-        "]D": ["wait", "markNext:diagnosticError"],
-
-        "[c": ["wait", "markPrev:git"],
-        "]c": ["wait", "markNext:git"],
-        "<<": "gitStage",
-        ">>": "gitUnstage"
-    },
-    // check
-    "diagnostic.signPriority": 1,
-    "diagnostic.errorSign": "\uf00d",
-    "diagnostic.warningSign": "\uf071",
-    "diagnostic.infoSign": "\uf129",
-    "diagnostic.hintSign": "\uf864",
-    "diagnostic.displayByAle": false,
-    "diagnostic.refreshOnInsertMode": false,
-    "diagnostic.checkCurrentLine": true,
-    "diagnostic.virtualTextPrefix": " ",
-    "diagnostic.virtualText": true,
-    "diagnostic.enableMessage": "jump",
-    "codeLens.enable": true,
-    // 保存时自动格式化
-    "coc.preferences.formatOnSaveFiletypes": [
-        "c",
-        "go",
-        "python",
-        "java",
-        "json"
+    "gj": [
+      "wait",
+      "expandableNext"
     ],
-    // Java
-    "java.completion.enabled": true,
-    "java.completion.maxResults": 10,
-    "java.import.maven.enabled": true,
-    "java.import.gradle.enabled": false,
-    "java.configuration.maven.userSettings": "/opt/maven/conf/settings.xml",
-    "java.maven.downloadSources": true,
-    "java.maven.updateSnapshots": true,
-    // html
-    "emmet.showExpandedAbbreviation":"always",
-    "emmet.showAbbreviationSuggestions": true,
-    //go config
-    "go.goplsPath": "/home/tao/GoPath/bin/gopls",
-    "go.goplsOptions": {
-      "codelenses": {
-        "generate": true,
-        "gc_details": true,
-        "regenerate_cgo": true,
-        "tidy": true,
-        "upgrade_dependency": true,
-        "vendor": true
-      }
-      // "usePlaceholders": true
+    "h": [
+      "wait",
+      "collapse"
+    ],
+    "l": [
+      "wait",
+      "expandable?",
+      "expand",
+      "open"
+    ],
+    "J": [
+      "wait",
+      "toggleSelection",
+      "normal:j"
+    ],
+    "K": [
+      "wait",
+      "toggleSelection",
+      "normal:k"
+    ],
+    "gl": [
+      "wait",
+      "expand:recursive"
+    ],
+    "gh": [
+      "wait",
+      "collapse:recursive"
+    ],
+    "<2-LeftMouse>": [
+      "expandable?",
+      [
+        "expanded?",
+        "collapse",
+        "expand"
+      ],
+      "open"
+    ],
+    "o": [
+      "wait",
+      "expanded?",
+      "collapse",
+      "expand"
+    ],
+    "<cr>": [
+      "wait",
+      "expandable?",
+      "cd",
+      "open"
+    ],
+    "e": "open",
+    "s": "open:split",
+    "E": "open:vsplit",
+    "t": "open:tab",
+    "<bs>": [
+      "wait",
+      "gotoParent"
+    ],
+    "gs": [
+      "wait",
+      "reveal:select"
+    ],
+    "il": "preview:labeling",
+    "ic": "preview:content",
+    "Il": "previewOnHover:toggle:labeling",
+    "Ic": "previewOnHover:toggle:content",
+    "II": "previewOnHover:disable",
+    "yp": "copyFilepath",
+    "yn": "copyFilename",
+    "yy": "copyFile",
+    "dd": "cutFile",
+    "p": "pasteFile",
+    "df": "delete",
+    "dF": "deleteForever",
+    "a": "addFile",
+    "A": "addDirectory",
+    "r": "rename",
+    "zh": "toggleHidden",
+    "g<dot>": "toggleHidden",
+    "R": "refresh",
+    "?": "help",
+    "q": "quit",
+    "<esc>": "esc",
+    "X": "systemExecute",
+    "gd": "listDrive",
+    "f": "search",
+    "F": "searchRecursive",
+    "gf": "gotoSource:file",
+    "gb": "gotoSource:buffer",
+    "[[": [
+      "wait",
+      "sourcePrev"
+    ],
+    "]]": [
+      "wait",
+      "sourceNext"
+    ],
+    "[i": [
+      "wait",
+      "indentPrev"
+    ],
+    "]i": [
+      "wait",
+      "indentNext"
+    ],
+    "[m": [
+      "wait",
+      "markPrev:modified"
+    ],
+    "]m": [
+      "wait",
+      "markNext:modified"
+    ],
+    "[d": [
+      "wait",
+      "markPrev:diagnosticError:diagnosticWarning"
+    ],
+    "]d": [
+      "wait",
+      "markNext:diagnosticError:diagnosticWarning"
+    ],
+    "[D": [
+      "wait",
+      "markPrev:diagnosticError"
+    ],
+    "]D": [
+      "wait",
+      "markNext:diagnosticError"
+    ],
+    "[c": [
+      "wait",
+      "markPrev:git"
+    ],
+    "]c": [
+      "wait",
+      "markNext:git"
+    ],
+    "<<": "gitStage",
+    ">>": "gitUnstage"
+  },
+  // check
+  "diagnostic.signPriority": 1,
+  "diagnostic.errorSign": "\uf00d",
+  "diagnostic.warningSign": "\uf071",
+  "diagnostic.infoSign": "\uf129",
+  "diagnostic.hintSign": "\uf864",
+  "diagnostic.displayByAle": false,
+  "diagnostic.refreshOnInsertMode": false,
+  "diagnostic.checkCurrentLine": true,
+  "diagnostic.virtualTextPrefix": " ",
+  "diagnostic.virtualText": true,
+  "diagnostic.enableMessage": "jump",
+  // "codeLens.enable": true,
+  // 保存时自动格式化
+  "coc.preferences.formatOnSaveFiletypes": [
+    "sh",
+    "c",
+    "go",
+    "python",
+    "java",
+    "json"
+  ],
+  // Java
+  "java.completion.enabled": true,
+  "java.completion.maxResults": 10,
+  "java.import.maven.enabled": true,
+  "java.import.gradle.enabled": false,
+  "java.configuration.maven.userSettings": "/opt/maven/conf/settings.xml",
+  "java.maven.downloadSources": true,
+  "java.maven.updateSnapshots": true,
+  // html
+  "emmet.showExpandedAbbreviation": "always",
+  "emmet.showAbbreviationSuggestions": true,
+  // python jedi
+  "jedi.enable": true,
+  "jedi.startupMessage": false,
+  "jedi.markupKindPreferred": "plaintext",
+  "jedi.trace.server": "off",
+  "jedi.jediSettings.autoImportModules": [],
+  "jedi.jediSettings.caseInsensitiveCompletion": true,
+  "jedi.jediSettings.debug": false,
+  "jedi.executable.command": "jedi-language-server",
+  "jedi.executable.args": [],
+  "jedi.codeAction.nameExtractFunction": "jls_extract_def",
+  "jedi.codeAction.nameExtractVariable": "jls_extract_var",
+  "jedi.completion.disableSnippets": false,
+  "jedi.completion.resolveEagerly": false,
+  "jedi.completion.ignorePatterns": [],
+  "jedi.diagnostics.enable": true,
+  "jedi.diagnostics.didOpen": true,
+  "jedi.diagnostics.didChange": true,
+  "jedi.diagnostics.didSave": true,
+  "jedi.hover.enable": true,
+  "jedi.hover.disable.keyword.all": false,
+  "jedi.hover.disable.keyword.names": [],
+  "jedi.hover.disable.keyword.fullNames": [],
+  "jedi.workspace.extraPaths": [],
+  "jedi.workspace.symbols.maxSymbols": 20,
+  "jedi.workspace.symbols.ignoreFolders": [
+    ".nox",
+    ".tox",
+    ".venv",
+    "__pycache__",
+    "venv"
+  ],
+  //go config
+  "go.goplsPath": "/home/tao/GoPath/bin/gopls",
+  "go.goplsOptions": {
+    "codelenses": {
+      "generate": true,
+      "gc_details": true,
+      "regenerate_cgo": true,
+      "tidy": true,
+      "upgrade_dependency": true,
+      "vendor": true
     }
+    // "usePlaceholders": true
+  },
+  //rust
+  "rust-analyzer.server.path": "/usr/bin/rust-analyzer"
 }
