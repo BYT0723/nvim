@@ -109,6 +109,11 @@ _G.packer_plugins = {
     path = "/home/tao/.local/share/nvim/site/pack/packer/start/cmp-vsnip",
     url = "https://github.com/hrsh7th/cmp-vsnip"
   },
+  ["filetype.nvim"] = {
+    loaded = true,
+    path = "/home/tao/.local/share/nvim/site/pack/packer/start/filetype.nvim",
+    url = "https://github.com/nathom/filetype.nvim"
+  },
   ["friendly-snippets"] = {
     loaded = true,
     path = "/home/tao/.local/share/nvim/site/pack/packer/start/friendly-snippets",
@@ -119,10 +124,15 @@ _G.packer_plugins = {
     path = "/home/tao/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
     url = "https://github.com/lewis6991/gitsigns.nvim"
   },
-  indentLine = {
+  ["impatient.nvim"] = {
     loaded = true,
-    path = "/home/tao/.local/share/nvim/site/pack/packer/start/indentLine",
-    url = "https://github.com/Yggdroot/indentLine"
+    path = "/home/tao/.local/share/nvim/site/pack/packer/start/impatient.nvim",
+    url = "https://github.com/lewis6991/impatient.nvim"
+  },
+  ["indent-blankline.nvim"] = {
+    loaded = true,
+    path = "/home/tao/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
+    url = "https://github.com/lukas-reineke/indent-blankline.nvim"
   },
   ["lazygit.nvim"] = {
     loaded = true,
@@ -189,10 +199,20 @@ _G.packer_plugins = {
     path = "/home/tao/.local/share/nvim/site/pack/packer/start/rainbow",
     url = "https://github.com/luochen1990/rainbow"
   },
+  ["symbols-outline.nvim"] = {
+    loaded = true,
+    path = "/home/tao/.local/share/nvim/site/pack/packer/start/symbols-outline.nvim",
+    url = "https://github.com/simrat39/symbols-outline.nvim"
+  },
   ["telescope.nvim"] = {
     loaded = true,
     path = "/home/tao/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
+  },
+  ["trouble.nvim"] = {
+    loaded = true,
+    path = "/home/tao/.local/share/nvim/site/pack/packer/start/trouble.nvim",
+    url = "https://github.com/folke/trouble.nvim"
   },
   ["vim-closetag"] = {
     loaded = true,

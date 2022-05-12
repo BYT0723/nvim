@@ -320,7 +320,7 @@ func! CompileRun()
     elseif &filetype == 'cpp'
         exec "AsyncRun g++ -o %< % && ./%<"
     elseif &filetype == 'rust'
-        exec "AsyncRun rustc --out-dir ./bin/ % && ./bin/%<"
+        exec "AsyncRun rustc --out-dir ./bin/ %:p:. && ./bin/%:p:.<"
     elseif &filetype == 'java'
         " 遍历./lib/
         " 将目录下所有的.jar加入classpath
@@ -349,7 +349,7 @@ func! CompileRun()
     elseif &filetype == 'plantuml'
         exec "silent !plantuml % -o %:h/img/ && feh %:h/img/%:t:r.png"
     elseif &filetype == 'sh'
-        exec "AsyncRun ./%"
+        exec "AsyncRun ./%:p:."
     endif
 endfunction
 
@@ -359,9 +359,9 @@ nnoremap tb :call BenchmarkFunction()<CR>
 func! TestFunction() abort
   let funcName = GetName('func','func Test\([A-Za-z0-9]\+\)(t \*testing.T)')
   if funcName != ''
-    exec "AsyncRun go test -v ./%:h -run='".funcName."'"
+    exec "AsyncRun go test -v ./%:p:.:h -run='".funcName."'"
   else
-    exec "AsyncRun go test -v %"
+    exec "AsyncRun go test -v ./%:p:."
   endif
 endfunction
 

@@ -1,8 +1,9 @@
+local theme = require('theme')
 local signs = {
-  { name = "DiagnosticSignError", text = "" },
-  { name = "DiagnosticSignWarn", text = "" },
-  { name = "DiagnosticSignHint", text = "" },
-  { name = "DiagnosticSignInfo", text = "" },
+  { name = "DiagnosticSignError", text = theme.diagnostic.error },
+  { name = "DiagnosticSignWarn", text = theme.diagnostic.warn },
+  { name = "DiagnosticSignHint", text = theme.diagnostic.hint },
+  { name = "DiagnosticSignInfo", text = theme.diagnostic.info },
 }
 
 for _, sign in ipairs(signs) do

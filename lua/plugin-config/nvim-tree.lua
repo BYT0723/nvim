@@ -1,3 +1,4 @@
+local theme = require('theme')
 -- setup with all defaults
 -- each of these are documented in `:help nvim-tree.OPTION_NAME`
 -- nested options are documented by accessing them with `.` (eg: `:help nvim-tree.view.mappings.list`).
@@ -24,46 +25,7 @@ require'nvim-tree'.setup { -- BEGIN_DEFAULT_OPTS
     signcolumn = "yes",
     mappings = {
       custom_only = false,
-      list = {
-        { key = {"<CR>", "l", "<2-LeftMouse>"}, action = "edit" },
-        { key = "<C-e>",                        action = "edit_in_place" },
-        { key = {"O"},                          action = "edit_no_picker" },
-        { key = {"<2-RightMouse>", "<C-]>"},    action = "cd" },
-        { key = "<C-v>",                        action = "vsplit" },
-        { key = "<C-s>",                        action = "split" },
-        { key = "<C-t>",                        action = "tabnew" },
-        { key = "<",                            action = "prev_sibling" },
-        { key = ">",                            action = "next_sibling" },
-        { key = "P",                            action = "parent_node" },
-        { key = "h",                            action = "close_node" },
-        { key = "<Tab>",                        action = "preview" },
-        { key = "K",                            action = "first_sibling" },
-        { key = "J",                            action = "last_sibling" },
-        { key = "I",                            action = "toggle_git_ignored" },
-        { key = "H",                            action = "toggle_dotfiles" },
-        { key = "R",                            action = "refresh" },
-        { key = "a",                            action = "create" },
-        { key = "DD",                           action = "remove" },
-        { key = "D",                            action = "trash" },
-        { key = "r",                            action = "rename" },
-        { key = "<C-r>",                        action = "full_rename" },
-        { key = "d",                            action = "cut" },
-        { key = "y",                            action = "copy" },
-        { key = "p",                            action = "paste" },
-        { key = "yn",                           action = "copy_name" },
-        { key = "yp",                           action = "copy_path" },
-        { key = "yap",                          action = "copy_absolute_path" },
-        { key = "gk",                           action = "prev_git_item" },
-        { key = "gj",                           action = "next_git_item" },
-        { key = "-",                            action = "dir_up" },
-        { key = "s",                            action = "system_open" },
-        { key = "q",                            action = "close" },
-        { key = "g?",                           action = "toggle_help" },
-        { key = "W",                            action = "collapse_all" },
-        { key = "S",                            action = "search_node" },
-        { key = "<C-k>",                        action = "toggle_file_info" },
-        { key = ".",                            action = "run_file_command" }
-      },
+      list = require('keybindings').nvim_tree(),
     },
   },
   renderer = {
@@ -76,8 +38,8 @@ require'nvim-tree'.setup { -- BEGIN_DEFAULT_OPTS
       },
     },
     icons = {
-      webdev_colors = false,
-      git_placement = "after",
+      webdev_colors = true,
+      git_placement = "before",
     }
   },
   hijack_directories = {
@@ -98,10 +60,10 @@ require'nvim-tree'.setup { -- BEGIN_DEFAULT_OPTS
     enable = true,
     show_on_dirs = true,
     icons = {
-      hint = "",
-      info = "",
-      warning = "",
-      error = "",
+      error = theme.diagnostic.error,
+      warning = theme.diagnostic.warn,
+      hint = theme.diagnostic.hint,
+      info = theme.diagnostic.info,
     },
   },
   filters = {

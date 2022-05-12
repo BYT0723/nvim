@@ -1,18 +1,18 @@
-lua require('plugins')
-lua require('keybindings')
+"  _           _   _                 _
+" (_)  _ __   (_) | |_      __   __ (_)  _ __ ___
+" | | | '_ \  | | | __|     \ \ / / | | | '_ ` _ \
+" | | | | | | | | | |_   _   \ V /  | | | | | | | |
+" |_| |_| |_| |_|  \__| (_)   \_/   |_| |_| |_| |_|
+"
+"  ____   __   __  _____    ___    _____   ____    _____
+" | __ )  \ \ / / |_   _|  / _ \  |___  | |___ \  |___ /
+" |  _ \   \ V /    | |   | | | |    / /    __) |   |_ \
+" | |_) |   | |     | |   | |_| |   / /    / __/   ___) |
+" |____/    |_|     |_|    \___/   /_/    |_____| |____/
+"
 
-" lsp
-lua require('lsp/lsp')
-lua require('lsp/nvim-cmp')
+lua require('init')
 
-" config
-lua require('plugin-config/nvim-tree')
-lua require('plugin-config/nvim-treesitter')
-lua require('plugin-config/bufferline')
-lua require('plugin-config/lualine')
-lua require('plugin-config/telescope')
-lua require('plugin-config/theme')
-lua require('plugin-config/gitsigns')
 
 " 主题
 set termguicolors
@@ -24,6 +24,30 @@ set background=dark
 " materialtheme
 " neodark
 colorscheme solarized8_dark_high
+
+let g:nvim_tree_icons = {
+    \ 'default': "",
+    \ 'symlink': "",
+    \ 'git': {
+    \   'unstaged': "[M]",
+    \   'staged': "[✓]",
+    \   'unmerged': "[]",
+    \   'renamed': "[]",
+    \   'untracked': "[?]",
+    \   'deleted': "[]",
+    \   'ignored': "[]"
+    \   },
+    \ 'folder': {
+    \   'arrow_open': "",
+    \   'arrow_closed': "",
+    \   'default': "",
+    \   'open': "",
+    \   'empty': "",
+    \   'empty_open': "",
+    \   'symlink': "",
+    \   'symlink_open': "",
+    \   }
+    \ }
 
 " 注释配置
 let g:NERDCreateDefaultMappings = 0
@@ -46,15 +70,10 @@ vmap <leader>m <plug>NERDCommenterToggle
 let g:closetag_filetypes = 'html,xhtml,xml,jsp'
 
 " rainbow
-let g:rainbow_active = 1 
+let g:rainbow_active = 1
 
 " lazygit
 nnoremap <silent> <leader>g :LazyGit<CR>
-
-" indent
-let g:indentLine_enabled = 1
-let g:vim_json_conceal=0
-let g:markdown_syntax_conceal=0
 
 " telescope
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
@@ -72,7 +91,7 @@ nnoremap cc :cc<CR>
 nnoremap <leader>c :call ToggleQuickFix()<CR>
 func! ToggleQuickFix()
     let id = getqflist({'winid' : 1}).winid
-    if id > 0 
+    if id > 0
         exec "cclose"
     else
         exec "copen"
@@ -80,56 +99,72 @@ func! ToggleQuickFix()
 endfunction
 
 " Golang
-autocmd BufWritePost *.go :silent !goimports -w %
-" autocmd BufWritePost *.go :silent !gofmt -w %
+autocmd BufWritePost *.go :silent !goimports -w %:.
+" autocmd BufWritePost *.go :silent !gofmt -w %:.
 autocmd FileType go nnoremap taj :silent call TagAction('add', 'json')<CR>
 autocmd FileType go nnoremap trj :silent call TagAction('remove', 'json')<CR>
 function! TagAction(action,tagsName) abort
   let structName = GetName('struct','type [A-Za-z0-9_]\+ struct {')
-  exec "!gomodifytags -file % -struct ".structName." -".a:action."-tags ".a:tagsName." -w --quiet"
+  exec "!gomodifytags -file %:. -struct ".structName." -".a:action."-tags ".a:tagsName." -w --quiet"
 endfunction
+
+" goctl
+func! GoctlFormat()
+  exec "silent !goctl api format --dir ."
+  exec "e"
+endfunction
+
+func! GoctlDiagnostic()
+  let mes = execute("silent !goctl api validate --api %:.")
+  echo mes
+endfunction
+
+autocmd BufWritePre *.api :silent call GoctlDiagnostic()
+autocmd BufWritePost *.api :silent call GoctlFormat()
+
+autocmd FileType goctl nnoremap bd :AsyncRun goctl api go -api %:. -dir %:.:h -style goZero<CR>
+autocmd FileType proto nnoremap bd :AsyncRun cd %:.:h && goctl rpc protoc %:.:t --go_out=. --go-grpc_out=. --zrpc_out=. --style=goZero<CR>
 
 
 " 编译运行
 nnoremap rr :call CompileRun()<CR>
 nnoremap rst :AsyncRun -mode=term -pos=st 
 func! CompileRun()
-    if &filetype == 'c'
-        exec "AsyncRun gcc -pthread -o ./%< % && ./%< "
-    elseif &filetype == 'cpp'
-        exec "AsyncRun g++ -o %< % && ./%<"
-    elseif &filetype == 'rust'
-        exec "AsyncRun rustc --out-dir ./bin/ % && ./bin/%<"
-    elseif &filetype == 'java'
-        " 遍历./lib/
-        " 将目录下所有的.jar加入classpath
-        if isdirectory("./lib")
-            let jarsStr = system("ls ./lib") 
-            let jars = split(jarsStr,"\n")
-            for i in range(len(jars))
-                let jars[i] = "./lib/".jars[i]
-            endfor
-            let jarsStr = join(jars,":")
-        endif
-        exec "AsyncRun javac -d ./class/ -cp ./class:".jarsStr." %:h/*.java && java -ea -cp ./class:".jarsStr." -D:file.encoding=UTF-8 %<"
-    elseif &filetype == 'python'
-        exec "AsyncRun python %"
-    elseif &filetype == 'go'
-        exec "AsyncRun go run %"
-        " exec ":GoRun"
-    elseif &filetype == 'markdown'
-        exec "InstantMarkdownPreview"
-    elseif &filetype == 'proto'
-        exec "AsyncRun protoc --proto_path=%:h --go_out=plugins=grpc:%:h/pb %"
-    elseif &filetype == 'html'
-        exec "silent !google-chrome-stable % &"
-    elseif &filetype == 'sql'
-        exec "SQHExecuteFile %"
-    elseif &filetype == 'plantuml'
-        exec "silent !plantuml % -o %:h/img/ && feh %:h/img/%:t:r.png"
-    elseif &filetype == 'sh'
-        exec "AsyncRun ./%"
+  if &filetype == 'c'
+    exec "AsyncRun gcc -pthread -o ./%:.:r %:. && ./%:.:r "
+  elseif &filetype == 'cpp'
+    exec "AsyncRun g++ -o %:.:r %:. && ./%:.:r"
+  elseif &filetype == 'rust'
+    exec "AsyncRun rustc --out-dir ./bin/%:.:h %:. && ./bin/%:.:r"
+  elseif &filetype == 'java'
+    " 遍历./lib/
+    " 将目录下所有的.jar加入classpath
+    if isdirectory("./lib")
+      let jarsStr = system("ls ./lib") 
+      let jars = split(jarsStr,"\n")
+      for i in range(len(jars))
+        let jars[i] = "./lib/".jars[i]
+      endfor
+      let jarsStr = join(jars,":")
     endif
+    exec "AsyncRun javac -d ./class/ -cp ./class:".jarsStr." %:.:h/*.java && java -ea -cp ./class:".jarsStr." -D:file.encoding=UTF-8 %:.:r"
+  elseif &filetype == 'python'
+    exec "AsyncRun python %:."
+  elseif &filetype == 'go'
+    exec "AsyncRun go run %:."
+  elseif &filetype == 'markdown'
+    exec "InstantMarkdownPreview"
+  elseif &filetype == 'proto'
+    exec "AsyncRun protoc --proto_path=%:.:h --go_out=plugins=grpc:%:.:h/pb %:."
+  elseif &filetype == 'html'
+    exec "silent !google-chrome-stable %:. &"
+  elseif &filetype == 'sql'
+    exec "SQHExecuteFile %:."
+  elseif &filetype == 'plantuml'
+    exec "silent !plantuml % -o %:h/img/ && feh %:h/img/%:t:r.png"
+  elseif &filetype == 'sh'
+    exec "AsyncRun ./%:."
+  endif
 endfunction
 
 " test unit
@@ -138,9 +173,9 @@ nnoremap tb :call BenchmarkFunction()<CR>
 func! TestFunction() abort
   let funcName = GetName('func','func Test\([A-Za-z0-9]\+\)(t \*testing.T)')
   if funcName != ''
-    exec "AsyncRun go test -v ./%:h -run='".funcName."'"
+    exec "AsyncRun go test -v ./%:.:h -run='".funcName."'"
   else
-    exec "AsyncRun go test -v %"
+    exec "AsyncRun go test -v ./%:."
   endif
 endfunction
 
@@ -148,12 +183,13 @@ endfunction
 func! BenchmarkFunction() abort
   let funcName = GetName('func', 'func Benchmark\([A-Za-z0-9]\+\)(b \*testing.B)')
   if funcName != ''
-    exec "AsyncRun go test -bench='".funcName."' ./%:h -run=none" 
+    exec "AsyncRun go test -bench='".funcName."' ./%:.:h -run=none" 
   else
-    exec "AsyncRun go test -bench=. ./%:h -run=none"
+    exec "AsyncRun go test -bench=. ./%:.:h -run=none"
   endif
 endfunction
 
+" 获取函数或结构体名称
 func! GetName(typeName,regular) abort
   let index = search(a:typeName,'bn')
   if index > 0
@@ -178,8 +214,6 @@ nnoremap <C-l> :vertical resize +5<CR>
 " nnoremap <C-j> :resize -5<CR>
 " nnoremap <C-k> :resize +5<CR>
 
-nnoremap bj :bn<CR>
-nnoremap bk :bp<CR>
 nnoremap bq :bd<CR>
 
 " quick position
