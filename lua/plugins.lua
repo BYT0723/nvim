@@ -8,6 +8,7 @@ return require('packer').startup(function()
   use 'lukas-reineke/indent-blankline.nvim'
   use 'nvim-lualine/lualine.nvim'
   use 'flazz/vim-colorschemes'
+  use 'norcalli/nvim-colorizer.lua'
 
   -- common code plugin
   -- auto plugin
@@ -15,7 +16,7 @@ return require('packer').startup(function()
   use 'alvan/vim-closetag' -- html标签自动闭合
 
   -- other
-  use 'preservim/nerdcommenter' --- 注释
+  use 'numToStr/Comment.nvim' --- 注释
   use 'mg979/vim-visual-multi' -- 多选
   use 'tpope/vim-surround' -- 包裹符号
   use 'simrat39/symbols-outline.nvim' -- syntax tree

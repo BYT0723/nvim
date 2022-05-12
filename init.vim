@@ -13,7 +13,6 @@
 
 lua require('init')
 
-
 " 主题
 set termguicolors
 set background=dark
@@ -49,37 +48,8 @@ let g:nvim_tree_icons = {
     \   }
     \ }
 
-" 注释配置
-let g:NERDCreateDefaultMappings = 0
-let g:NERDSpaceDelims = 1
-let g:NERDCompactSexyComs = 1
-let g:NERDDefaultAlign = 'left'
-let g:NERDAltDelims_java = 1
-let g:NERDCustomDelimiters = {
-            \'c' : { 'left': '// ' },
-            \'java' :{'left': '//' },
-            \'go' : {'left': '//' },
-            \'python': {'left':'#'}}
-let g:NERDCommentEmptyLines = 1
-let g:NERDTrimTrailingWhitespace = 1
-let g:NERDToggleCheckAllLines = 1
-nmap <leader>m <plug>NERDCommenterToggle
-vmap <leader>m <plug>NERDCommenterToggle
-
 " closetag
 let g:closetag_filetypes = 'html,xhtml,xml,jsp'
-
-" rainbow
-let g:rainbow_active = 1
-
-" lazygit
-nnoremap <silent> <leader>g :LazyGit<CR>
-
-" telescope
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " AsyncRun
 let g:asyncrun_open = 10
@@ -211,8 +181,8 @@ smap <expr> <C-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-k>'
 nnoremap w <C-w>
 nnoremap <C-h> :vertical resize -5<CR>
 nnoremap <C-l> :vertical resize +5<CR>
-" nnoremap <C-j> :resize -5<CR>
-" nnoremap <C-k> :resize +5<CR>
+nnoremap <C-j> :resize -5<CR>
+nnoremap <C-k> :resize +5<CR>
 
 nnoremap bq :bd<CR>
 

@@ -20,7 +20,6 @@ require("nvim-lsp-installer").setup({
   automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
 })
 
-
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)

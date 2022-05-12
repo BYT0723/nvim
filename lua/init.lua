@@ -21,3 +21,7 @@ require('plugin-config/symbols-outline')
 require('plugin-config/telescope')
 require('plugin-config/diagnostic')
 require('plugin-config/filetype')
+require('plugin-config/comment')
+
+-- 16进制颜色显示
+require'colorizer'.setup()
