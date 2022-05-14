@@ -181,8 +181,8 @@ smap <expr> <C-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-k>'
 nnoremap w <C-w>
 nnoremap <C-h> :vertical resize -5<CR>
 nnoremap <C-l> :vertical resize +5<CR>
-nnoremap <C-j> :resize -5<CR>
-nnoremap <C-k> :resize +5<CR>
+nnoremap <C-j> :resize +5<CR>
+nnoremap <C-k> :resize -5<CR>
 
 nnoremap bq :bd<CR>
 
@@ -285,7 +285,7 @@ set nobackup
 set noswapfile
 
 " 设置命令模式补全
-set wildmenu
+" set wildmenu
 
 " 忽略大小写
 set ic

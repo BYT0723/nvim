@@ -11,22 +11,9 @@ require('lualine').setup {
   },
   -- mode/branch/diff/diagnostics/filename/encoding/fileformat/filetype/progress/location
   sections = {
-    lualine_a = {'branch'},
+    lualine_a = {'mode'},
     lualine_b = {
-      {
-        'diff',
-        colored = true, -- Displays a colored diff status if set to true
-        diff_color = {
-          added    = 'DiffAdd',    -- Changes the diff's added color
-          modified = 'DiffChange', -- Changes the diff's modified color
-          removed  = 'DiffDelete', -- Changes the diff's removed color you
-        },
-        symbols = theme.lualine.git, -- Changes the symbols used by the diff.
-        source = nil, -- A function that works as a data source for diff.
-                      -- It must return a table as such:
-                      --   { added = add_count, modified = modified_count, removed = removed_count }
-                      -- or nil on failure. count <= 0 won't be displayed.
-      },
+      'branch',
       {
         'diagnostics',
         -- Table of diagnostic sources, available sources are:
@@ -47,6 +34,20 @@ require('lualine').setup {
         colored = true,           -- Displays diagnostics status in color if set to true.
         update_in_insert = false, -- Update diagnostics in insert mode.
         always_visible = false,   -- Show diagnostics even if there are none.
+      },
+      {
+        'diff',
+        colored = true, -- Displays a colored diff status if set to true
+        diff_color = {
+          added    = 'DiffAdd',    -- Changes the diff's added color
+          modified = 'DiffChange', -- Changes the diff's modified color
+          removed  = 'DiffDelete', -- Changes the diff's removed color you
+        },
+        symbols = theme.lualine.git, -- Changes the symbols used by the diff.
+        source = nil, -- A function that works as a data source for diff.
+                      -- It must return a table as such:
+                      --   { added = add_count, modified = modified_count, removed = removed_count }
+                      -- or nil on failure. count <= 0 won't be displayed.
       },
     },
     lualine_c = {
