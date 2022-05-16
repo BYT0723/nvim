@@ -23,6 +23,9 @@ return require('packer').startup(function()
   use 'skywind3000/asyncrun.vim' -- 异步运行
   use 'folke/trouble.nvim'
 
+  -- gozero
+  use 'BYT0723/vim-goctl'
+
   -- git
   use 'kdheepak/lazygit.nvim'
   use 'lewis6991/gitsigns.nvim'

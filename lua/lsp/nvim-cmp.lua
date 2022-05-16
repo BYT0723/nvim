@@ -22,38 +22,37 @@ cmp.setup {
     { name = 'nvim_lsp' },
     { name = 'vsnip' },
   }, {
-    { name = 'buffer' },
-    { name = 'path' }
-  }),
+      { name = 'buffer' },
+      { name = 'path' }
+    }),
 
   -- 快捷键
   mapping = require 'keybindings'.cmp(cmp),
   -- 使用lspkind-nvim显示类型图标
   formatting = {
     format = lspkind.cmp_format({
-      with_text = true, -- do not show text alongside icons
-      maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-      after = function(entry, vim_item)
-        -- Source 显示提示来源
-        vim_item.menu = "[" .. (entry.source.name) .. "]"
+      mode = "symbol_text",
+      before = function(entry, vim_item)
         return vim_item
       end
     })
   },
 }
 
--- Use buffer source for `/`.
+-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline('/', {
+  mapping = cmp.mapping.preset.cmdline(),
   sources = {
     { name = 'buffer' }
   }
 })
 
--- Use cmdline & path source for ':'.
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
   sources = cmp.config.sources({
     { name = 'path' }
   }, {
-    { name = 'cmdline' }
-  })
+      { name = 'cmdline' }
+    })
 })

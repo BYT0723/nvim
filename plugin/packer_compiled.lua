@@ -229,6 +229,11 @@ _G.packer_plugins = {
     path = "/home/tao/.local/share/nvim/site/pack/packer/start/vim-colorschemes",
     url = "https://github.com/flazz/vim-colorschemes"
   },
+  ["vim-goctl"] = {
+    loaded = true,
+    path = "/home/tao/.local/share/nvim/site/pack/packer/start/vim-goctl",
+    url = "https://github.com/BYT0723/vim-goctl"
+  },
   ["vim-surround"] = {
     loaded = true,
     path = "/home/tao/.local/share/nvim/site/pack/packer/start/vim-surround",

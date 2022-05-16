@@ -3,7 +3,7 @@ require("filetype").setup({
   overrides = {
     extensions = {
       -- Set the filetype of *.pn files to potion
-      pn = "potion",
+      api = "goctl",
     },
     literal = {
       -- Set the filetype of files named "MyBackupFile" to lua

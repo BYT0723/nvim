@@ -56,12 +56,22 @@ end
 
 -- nvim-cmp
 pluginKeys.cmp = function(cmp)
+  local feedkey = function(key, mode)
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+  end
   return {
     ['<Tab>'] = cmp.mapping.select_next_item(),
     ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+    ['<C-j>'] = cmp.mapping(function()
+      feedkey("<Plug>(vsnip-jump-next)", "")
+    end, { 'i', 's' }),
+    ['<C-k>'] = cmp.mapping(function()
+      feedkey("<Plug>(vsnip-jump-prev)", "")
+    end, { "i", "s" }),
+
     -- ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-    ['<C-k>'] = cmp.mapping.scroll_docs(-2),
-    ['<C-j>'] = cmp.mapping.scroll_docs(2),
+    ['<C-u>'] = cmp.mapping.scroll_docs(-2),
+    ['<C-d>'] = cmp.mapping.scroll_docs(2),
     -- 出现补全
     ['<A-.>'] = cmp.mapping.complete(),
     -- 取消
@@ -69,7 +79,7 @@ pluginKeys.cmp = function(cmp)
     -- 确认
     -- Accept currently selected item. If none selected, `select` first item.
     -- Set `select` to `false` to only confirm explicitly selected items.
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ['<CR>'] = cmp.mapping.confirm({ select = false }),
   }
 end
 

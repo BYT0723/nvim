@@ -26,6 +26,15 @@
     ],
     "description": "for range in i"
   },
+  "ErrCheck": {
+    "prefix": "iferr",
+    "body": [
+      "if err != nil {",
+      "\t${3}",
+      "}${0}"
+    ],
+    "description": "check express ok"
+  },
   "OKCheck": {
     "prefix": "ifok",
     "body": [

@@ -69,7 +69,7 @@ func! ToggleQuickFix()
 endfunction
 
 " Golang
-autocmd BufWritePost *.go :silent !goimports -w %:.
+" autocmd BufWritePost *.go :silent !goimports -w %:.
 " autocmd BufWritePost *.go :silent !gofmt -w %:.
 autocmd FileType go nnoremap taj :silent call TagAction('add', 'json')<CR>
 autocmd FileType go nnoremap trj :silent call TagAction('remove', 'json')<CR>
@@ -172,10 +172,8 @@ func! GetName(typeName,regular) abort
   return ''
 endfunction
  
-imap <expr> <C-j>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-j>'
-smap <expr> <C-j>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-j>'
-imap <expr> <C-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-k>'
-smap <expr> <C-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-k>'
+let g:vsnip_snippet_dir = "~/.config/nvim/snippets"
+
 
 " 窗口管理
 nnoremap w <C-w>
@@ -289,6 +287,11 @@ set noswapfile
 
 " 忽略大小写
 set ic
+
+autocmd InsertLeave * :silent !fcitx5-remote -c " 退出插入模式时禁用输入法
+autocmd BufCreate *  :silent !fcitx5-remote -c " 创建 Buf 时禁用输入法
+autocmd BufEnter *  :silent !fcitx5-remote -c " 进入 Buf 时禁用输入法
+autocmd BufLeave *  :silent !fcitx5-remote -c " 离开 Buf 时禁用输入法
 
 inoreabbrev github@ https://github.com/BYT0723
 inoreabbrev qq@ 1151713064@qq.com

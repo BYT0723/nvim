@@ -25,15 +25,21 @@ require("nvim-lsp-installer").setup({
 local on_attach = function(client, bufnr)
   local mapbuf = vim.api.nvim_buf_set_keymap
   require'keybindings'.maplsp(mapbuf,bufnr)
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 end
 
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()) --nvim-cmp
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 for _, lsp in pairs(servers) do
   require('lspconfig')[lsp].setup {
     on_attach = on_attach,
+    capabilities = capabilities
   }
 end
 
-require('lsp/lsp-config')
+require('lsp/lsp-config/gopls')
+require('lsp/lsp-config/sumneko_lua')
