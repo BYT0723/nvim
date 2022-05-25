@@ -23,8 +23,9 @@ return require('packer').startup(function()
   use 'skywind3000/asyncrun.vim' -- 异步运行
   use 'folke/trouble.nvim'
 
-  -- gozero
+  -- language
   use 'BYT0723/vim-goctl'
+  use 'Nguyen-Hoang-Nam/nvim-preview-csv'
 
   -- git
   use 'kdheepak/lazygit.nvim'

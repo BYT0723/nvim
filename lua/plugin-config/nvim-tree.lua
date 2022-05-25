@@ -73,7 +73,7 @@ require'nvim-tree'.setup { -- BEGIN_DEFAULT_OPTS
   },
   git = {
     enable = true,
-    ignore = false,
+    ignore = true,
     timeout = 400,
   },
   actions = {

@@ -14,8 +14,8 @@
 lua require('init')
 
 " 主题
-set termguicolors
-set background=dark
+" set termguicolors
+" set background=dark
 
 " solarized8_dark_high
 " solarized8_light_high
@@ -70,7 +70,7 @@ endfunction
 
 " Golang
 " autocmd BufWritePost *.go :silent !goimports -w %:.
-" autocmd BufWritePost *.go :silent !gofmt -w %:.
+autocmd BufWritePost *.go :silent !gofmt -w %:.
 autocmd FileType go nnoremap taj :silent call TagAction('add', 'json')<CR>
 autocmd FileType go nnoremap trj :silent call TagAction('remove', 'json')<CR>
 function! TagAction(action,tagsName) abort
@@ -127,7 +127,7 @@ func! CompileRun()
   elseif &filetype == 'proto'
     exec "AsyncRun protoc --proto_path=%:.:h --go_out=plugins=grpc:%:.:h/pb %:."
   elseif &filetype == 'html'
-    exec "silent !google-chrome-stable %:. &"
+    exec "silent !firefox %:. &"
   elseif &filetype == 'sql'
     exec "SQHExecuteFile %:."
   elseif &filetype == 'plantuml'
