@@ -68,6 +68,9 @@ func! ToggleQuickFix()
     endif
 endfunction
 
+" JSON
+autocmd BufWritePre *.json :silent %!python -m json.tool --tab
+
 " Golang
 " autocmd BufWritePost *.go :silent !goimports -w %:.
 autocmd BufWritePost *.go :silent !gofmt -w %:.
@@ -75,7 +78,7 @@ autocmd FileType go nnoremap taj :silent call TagAction('add', 'json')<CR>
 autocmd FileType go nnoremap trj :silent call TagAction('remove', 'json')<CR>
 function! TagAction(action,tagsName) abort
   let structName = GetName('struct','type [A-Za-z0-9_]\+ struct {')
-  exec "!gomodifytags -file %:. -struct ".structName." -".a:action."-tags ".a:tagsName." -w --quiet"
+  exec "!gomodifytags -file %:. -struct ".structName." -".a:action."-tags ".a:tagsName." -w --quiet -transform camelcase"
 endfunction
 
 " goctl
@@ -123,7 +126,7 @@ func! CompileRun()
   elseif &filetype == 'go'
     exec "AsyncRun go run %:."
   elseif &filetype == 'markdown'
-    exec "InstantMarkdownPreview"
+    exec "MarkdownPreviewToggle"
   elseif &filetype == 'proto'
     exec "AsyncRun protoc --proto_path=%:.:h --go_out=plugins=grpc:%:.:h/pb %:."
   elseif &filetype == 'html'

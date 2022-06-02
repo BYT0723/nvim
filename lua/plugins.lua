@@ -69,4 +69,9 @@ return require('packer').startup(function()
   -- quick startup
   use 'lewis6991/impatient.nvim'
   use 'nathom/filetype.nvim'
+
+  use({
+      "iamcco/markdown-preview.nvim",
+      run = function() vim.fn["mkdp#util#install"]() end,
+  })
 end)

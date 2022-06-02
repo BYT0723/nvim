@@ -19,10 +19,10 @@ map('n', '<leader>v', '<cmd>SymbolsOutline<CR>', opt)
 map('n', '<leader>d', '<cmd>TroubleToggle<CR>', opt)
 
 -- telescope
-map('n', '<leader>ff', '<cmd>Telescope find_files<CR>', opt)
-map('n', '<leader>fg', '<cmd>Telescope live_grep<CR>', opt)
-map('n', '<leader>fb', '<cmd>Telescope buffers<CR>', opt)
-map('n', '<leader>fh', '<cmd>Telescope help_tags<CR>', opt)
+map('n', '<leader>ff', "<cmd>lua require('telescope.builtin').find_files()<CR>", opt)
+map('n', '<leader>fg', "<cmd>lua require('telescope.builtin').live_grep()<CR>", opt)
+map('n', '<leader>fb', "<cmd>lua require('telescope.builtin').buffers()<CR>", opt)
+map('n', '<leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<CR>", opt)
 
 -- lazygit
 map('n', '<leader>g', '<cmd>LazyGit<CR>', opt)
