@@ -291,12 +291,12 @@ set noswapfile
 " 忽略大小写
 set ic
 
-autocmd InsertLeave * :silent !fcitx5-remote -c " 退出插入模式时禁用输入法
-autocmd BufCreate *  :silent !fcitx5-remote -c " 创建 Buf 时禁用输入法
-autocmd BufEnter *  :silent !fcitx5-remote -c " 进入 Buf 时禁用输入法
-autocmd BufLeave *  :silent !fcitx5-remote -c " 离开 Buf 时禁用输入法
+autocmd InsertLeave * :silent !fcitx5-remote -c
+autocmd BufCreate *  :silent !fcitx5-remote -c
+autocmd BufEnter *  :silent !fcitx5-remote -c
+autocmd BufLeave *  :silent !fcitx5-remote -c
 
 inoreabbrev github@ https://github.com/BYT0723
 inoreabbrev qq@ 1151713064@qq.com
-inoreabbrev 163@ 1151713064@qq.com
+inoreabbrev 163@ twang9739@163.com
 inoreabbrev gmail@ twang9739@gmail.com

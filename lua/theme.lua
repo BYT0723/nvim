@@ -18,7 +18,7 @@ theme.lualine = {
 }
 
 theme.gitsigns = {
-  current_line_blame_formatter = ' >>> 「 <author>, <author_time> • <summary> 」',
+  current_line_blame_formatter = '  「 <author>, <author_time> • <summary> 」',
   signs = {
     add          = {hl = 'GitSignsAdd'   , text = '+', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
     change       = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
@@ -56,6 +56,42 @@ theme.symbols_outline = {
     Event = {icon = "🗲", hl = "TSType"},
     Operator = {icon = "+", hl = "TSOperator"},
     TypeParameter = {icon = "𝙏", hl = "TSParameter"}
+  }
+}
+
+theme.nvim_tree = {
+  webdev_colors = true,
+  git_placement = "after",
+  padding = " ",
+  symlink_arrow = " ➛ ",
+  show = {
+    file = true,
+    folder = true,
+    folder_arrow = true,
+    git = true,
+  },
+  glyphs = {
+    default = "",
+    symlink = "",
+    git = {
+      unstaged = "",
+      staged = "",
+      unmerged = "",
+      renamed = "ﲖ",
+      untracked = "",
+      deleted = "",
+      ignored = ""
+    },
+    folder = {
+      arrow_open = "",
+      arrow_closed = "",
+      default = "",
+      open = "",
+      empty = "",
+      empty_open = "",
+      symlink = "",
+      symlink_open = "",
+    }
   }
 }
 

@@ -37,10 +37,7 @@ require'nvim-tree'.setup { -- BEGIN_DEFAULT_OPTS
         none = "  ",
       },
     },
-    icons = {
-      webdev_colors = true,
-      git_placement = "before",
-    }
+    icons = theme.nvim_tree,
   },
   hijack_directories = {
     enable = true,
