@@ -196,7 +196,6 @@ set number
 set relativenumber
 
 " 语法高亮
-syntax enable
 set nocompatible
 
 " 显示当前模式

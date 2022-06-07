@@ -1,12 +1,16 @@
 require'nvim-treesitter.configs'.setup {
   -- 安装 language parser
   ensure_installed = {
+    "c",
+    "cpp",
     "html",
     "css",
-    "vim",
-    "lua",
     "javascript",
     "typescript",
+    "vim",
+    "lua",
+    "json",
+    "markdown",
     "go",
     "rust",
   },
