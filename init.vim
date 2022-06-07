@@ -13,48 +13,10 @@
 
 lua require('init')
 
-" 主题
-" set termguicolors
-" set background=dark
-
-" solarized8_dark_high
-" solarized8_light_high
-" space-vim-dark
-" materialtheme
-" neodark
-colorscheme solarized8_dark_high
-
-let g:nvim_tree_icons = {
-    \ 'default': "",
-    \ 'symlink': "",
-    \ 'git': {
-    \   'unstaged': "[M]",
-    \   'staged': "[✓]",
-    \   'unmerged': "[]",
-    \   'renamed': "[]",
-    \   'untracked': "[?]",
-    \   'deleted': "[]",
-    \   'ignored': "[]"
-    \   },
-    \ 'folder': {
-    \   'arrow_open': "",
-    \   'arrow_closed': "",
-    \   'default': "",
-    \   'open': "",
-    \   'empty': "",
-    \   'empty_open': "",
-    \   'symlink': "",
-    \   'symlink_open': "",
-    \   }
-    \ }
-
 " closetag
 let g:closetag_filetypes = 'html,xhtml,xml,jsp'
 
 " AsyncRun
-let g:asyncrun_open = 10
-let g:asyncrun_trim = 1
-nnoremap sc :AsyncStop<CR>
 nnoremap ck :cp<CR>
 nnoremap cj :cn<CR>
 nnoremap cc :cc<CR>
@@ -69,7 +31,7 @@ func! ToggleQuickFix()
 endfunction
 
 " JSON
-autocmd BufWritePre *.json :silent %!python -m json.tool --tab
+autocmd BufWritePost *.json :silent %!python -m json.tool --tab --no-ensure-ascii
 
 " Golang
 " autocmd BufWritePost *.go :silent !goimports -w %:.
@@ -139,6 +101,12 @@ func! CompileRun()
     exec "AsyncRun ./%:."
   endif
 endfunction
+
+function OpenMarkdownPreview (url)
+  execute "AsyncRun -silent surf " . a:url
+  echo a:url
+endfunction
+let g:mkdp_browserfunc = 'OpenMarkdownPreview'
 
 " test unit
 nnoremap tt :call TestFunction()<CR>
@@ -232,7 +200,6 @@ syntax enable
 set nocompatible
 
 " 显示当前模式
-set showmode
 set showcmd
 
 set encoding=utf-8
@@ -243,8 +210,6 @@ set t_Co=256
 
 " 开启文件检查
 filetype indent on
-
-set nocompatible
 
 " 缩进
 set autoindent
@@ -276,20 +241,11 @@ set incsearch
 " 搜索忽略大小写
 set ignorecase
 
-" 单词拼写检查
-" set spell spelllang=en_us
-
 " 不创建备份
 set nobackup
 
 " 不创建交换
 set noswapfile
-
-" 设置命令模式补全
-" set wildmenu
-
-" 忽略大小写
-set ic
 
 autocmd InsertLeave * :silent !fcitx5-remote -c
 autocmd BufCreate *  :silent !fcitx5-remote -c

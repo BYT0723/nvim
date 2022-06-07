@@ -22,6 +22,8 @@ require('plugin-config/telescope')
 require('plugin-config/diagnostic')
 require('plugin-config/filetype')
 require('plugin-config/comment')
+require('plugin-config/tokyonight')
+require('plugin-config/asyncrun')
 
 -- 16进制颜色显示
 require'colorizer'.setup()

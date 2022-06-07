@@ -224,6 +224,11 @@ _G.packer_plugins = {
     path = "/home/tao/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
   },
+  ["tokyonight.nvim"] = {
+    loaded = true,
+    path = "/home/tao/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
+    url = "https://github.com/folke/tokyonight.nvim"
+  },
   ["trouble.nvim"] = {
     loaded = true,
     path = "/home/tao/.local/share/nvim/site/pack/packer/start/trouble.nvim",
@@ -233,11 +238,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/tao/.local/share/nvim/site/pack/packer/start/vim-closetag",
     url = "https://github.com/alvan/vim-closetag"
-  },
-  ["vim-colorschemes"] = {
-    loaded = true,
-    path = "/home/tao/.local/share/nvim/site/pack/packer/start/vim-colorschemes",
-    url = "https://github.com/flazz/vim-colorschemes"
   },
   ["vim-goctl"] = {
     loaded = true,

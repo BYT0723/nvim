@@ -7,6 +7,7 @@ local servers = {
   "vimls",
   "html",
   "angularls",
+  "jsonls",
   "vuels",
   "sqls",
   "dockerls",

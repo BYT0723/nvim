@@ -15,6 +15,15 @@ require('lualine').setup {
     lualine_b = {
       'branch',
       {
+        'diff',
+        colored = true, -- Displays a colored diff status if set to true
+        symbols = theme.lualine.git, -- Changes the symbols used by the diff.
+        source = nil, -- A function that works as a data source for diff.
+                      -- It must return a table as such:
+                      --   { added = add_count, modified = modified_count, removed = removed_count }
+                      -- or nil on failure. count <= 0 won't be displayed.
+      },
+      {
         'diagnostics',
         -- Table of diagnostic sources, available sources are:
         --   'nvim_lsp', 'nvim_diagnostic', 'coc', 'ale', 'vim_lsp'.
@@ -23,31 +32,10 @@ require('lualine').setup {
         sources = { 'nvim_diagnostic','coc','vim_lsp'},
         -- Displays diagnostics for the defined severity types
         sections = { 'error', 'warn', 'info', 'hint' },
-        diagnostics_color = {
-          -- Same values as the general color option can be used here.
-          error = 'DiagnosticError', -- Changes diagnostics' error color.
-          warn  = 'DiagnosticWarn',  -- Changes diagnostics' warn color.
-          info  = 'DiagnosticInfo',  -- Changes diagnostics' info color.
-          hint  = 'DiagnosticHint',  -- Changes diagnostics' hint color.
-        },
         symbols = theme.diagnostic,
         colored = true,           -- Displays diagnostics status in color if set to true.
         update_in_insert = false, -- Update diagnostics in insert mode.
         always_visible = false,   -- Show diagnostics even if there are none.
-      },
-      {
-        'diff',
-        colored = true, -- Displays a colored diff status if set to true
-        diff_color = {
-          added    = 'DiffAdd',    -- Changes the diff's added color
-          modified = 'DiffChange', -- Changes the diff's modified color
-          removed  = 'DiffDelete', -- Changes the diff's removed color you
-        },
-        symbols = theme.lualine.git, -- Changes the symbols used by the diff.
-        source = nil, -- A function that works as a data source for diff.
-                      -- It must return a table as such:
-                      --   { added = add_count, modified = modified_count, removed = removed_count }
-                      -- or nil on failure. count <= 0 won't be displayed.
       },
     },
     lualine_c = {

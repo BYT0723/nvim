@@ -11,6 +11,7 @@ map('n', '<leader>e', '<cmd>NvimTreeToggle<CR>', opt)
 -- bufferline
 map('n', 'bk', '<cmd>BufferLineCyclePrev<CR>', opt)
 map('n', 'bj', '<cmd>BufferLineCycleNext<CR>', opt)
+map('n', 'bq', '<cmd>bd<CR>', opt)
 
 -- symbols-outline
 map('n', '<leader>v', '<cmd>SymbolsOutline<CR>', opt)
@@ -26,6 +27,8 @@ map('n', '<leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<CR>", 
 
 -- lazygit
 map('n', '<leader>g', '<cmd>LazyGit<CR>', opt)
+
+map('n', 'sc', '<cmd>AsyncStop<CR>', opt)
 
 local pluginKeys = {}
 

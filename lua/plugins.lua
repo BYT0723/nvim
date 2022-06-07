@@ -7,8 +7,8 @@ return require('packer').startup(function()
   use 'luochen1990/rainbow'
   use 'lukas-reineke/indent-blankline.nvim'
   use 'nvim-lualine/lualine.nvim'
-  use 'flazz/vim-colorschemes'
   use 'norcalli/nvim-colorizer.lua'
+  use 'folke/tokyonight.nvim'
 
   -- common code plugin
   -- auto plugin
@@ -70,6 +70,7 @@ return require('packer').startup(function()
   use 'lewis6991/impatient.nvim'
   use 'nathom/filetype.nvim'
 
+  -- markdown
   use({
       "iamcco/markdown-preview.nvim",
       run = function() vim.fn["mkdp#util#install"]() end,
