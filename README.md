@@ -6,6 +6,14 @@
 * Neovim's LSP
 * some custom environment
 
+![neovim-preview](./imgs/nvim-preview.png) 
+
+#### required
+* nvim-python
+* Lua
+
+check your depend by ```:checkhealth```
+
 #### Plugins in ```lua/plugins.lua```
 
 ```lua
