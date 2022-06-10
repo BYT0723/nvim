@@ -6,7 +6,7 @@
 * Neovim's LSP
 * some custom environment
 
-![neovim-preview](./imgs/nvim-preview.png) 
+![neovim-preview](https://github.com/BYT0723/nvim/blob/master/imgs/nvim-preview.png) 
 
 #### required
 * nvim-python
