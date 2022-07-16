@@ -12,8 +12,7 @@ return require('packer').startup(function()
 
   -- common code plugin
   -- auto plugin
-  use 'jiangmiao/auto-pairs' -- 括号自动闭合
-  use 'alvan/vim-closetag' -- html标签自动闭合
+  use "windwp/nvim-autopairs" -- 括号自动闭合
 
   -- other
   use 'numToStr/Comment.nvim' --- 注释
@@ -25,7 +24,12 @@ return require('packer').startup(function()
 
   -- language
   use 'BYT0723/vim-goctl'
-  use 'Nguyen-Hoang-Nam/nvim-preview-csv'
+
+  -- markdown
+  use({
+    "iamcco/markdown-preview.nvim",
+    run = function() vim.fn["mkdp#util#install"]() end,
+  })
 
   -- git
   use 'kdheepak/lazygit.nvim'
@@ -35,6 +39,17 @@ return require('packer').startup(function()
   use {
     'nvim-telescope/telescope.nvim',
     requires = { { 'nvim-lua/plenary.nvim' } }
+  }
+
+  use {
+    "ahmedkhalf/project.nvim",
+    config = function()
+      require("project_nvim").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end
   }
 
   -- nvim-tree
@@ -69,10 +84,6 @@ return require('packer').startup(function()
   -- quick startup
   use 'lewis6991/impatient.nvim'
   use 'nathom/filetype.nvim'
-
-  -- markdown
-  use({
-      "iamcco/markdown-preview.nvim",
-      run = function() vim.fn["mkdp#util#install"]() end,
-  })
+  use 'folke/which-key.nvim'
+  use 'glepnir/dashboard-nvim'
 end)

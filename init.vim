@@ -13,25 +13,28 @@
 
 lua require('init')
 
-" closetag
-let g:closetag_filetypes = 'html,xhtml,xml,jsp'
-
 " AsyncRun
 nnoremap ck :cp<CR>
 nnoremap cj :cn<CR>
 nnoremap cc :cc<CR>
 nnoremap <leader>c :call ToggleQuickFix()<CR>
 func! ToggleQuickFix()
-    let id = getqflist({'winid' : 1}).winid
-    if id > 0
-        exec "cclose"
-    else
-        exec "copen"
-    endif
+  let id = getqflist({'winid' : 1}).winid
+  if id > 0
+    exec "cclose"
+  else
+    exec "copen"
+  endif
 endfunction
 
 " JSON
 autocmd BufWritePost *.json :silent %!python -m json.tool --tab --no-ensure-ascii
+
+" Godot
+autocmd BufNewFile,BufRead *.gd set filetype=gdscript
+autocmd BufNewFile,BufRead project.godot set filetype=godot_resource
+autocmd BufNewFile,BufRead *.tscn set filetype=godot_resource
+autocmd BufNewFile,BufRead *.tres set filetype=godot_resource
 
 " Golang
 " autocmd BufWritePost *.go :silent !goimports -w %:.
@@ -142,7 +145,7 @@ func! GetName(typeName,regular) abort
   endif
   return ''
 endfunction
- 
+
 let g:vsnip_snippet_dir = "~/.config/nvim/snippets"
 
 

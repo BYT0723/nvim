@@ -3,7 +3,7 @@ require('gitsigns').setup {
   signs = theme.gitsigns.signs,
   signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
   numhl      = true, -- Toggle with `:Gitsigns toggle_numhl`
-  linehl     = true, -- Toggle with `:Gitsigns toggle_linehl`
+  linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
   word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
   watch_gitdir = {
     interval = 1000,
@@ -15,9 +15,8 @@ require('gitsigns').setup {
     virt_text = true,
     virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
     delay = 1000,
-    ignore_whitespace = false,
+    ignore_whitespace = true,
   },
-
   current_line_blame_formatter = theme.gitsigns.current_line_blame_formatter,
   sign_priority = 6,
   update_debounce = 100,
