@@ -24,6 +24,7 @@ return require('packer').startup(function()
 
   -- language
   use 'BYT0723/vim-goctl'
+  use 'habamax/vim-godot'
 
   -- markdown
   use({

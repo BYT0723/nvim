@@ -17,10 +17,10 @@ require('Comment').setup({
   ---LHS of toggle mappings in NORMAL + VISUAL mode
   ---@type table
   toggler = {
-      ---Line-comment toggle keymap
-      line = 'gcc',
-      ---Block-comment toggle keymap
-      block = 'gbc',
+    ---Line-comment toggle keymap
+    line = 'gcc',
+    ---Block-comment toggle keymap
+    block = 'gbc',
   },
 
   ---LHS of operator-pending mappings in NORMAL + VISUAL mode

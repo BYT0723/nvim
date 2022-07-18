@@ -245,6 +245,11 @@ _G.packer_plugins = {
     path = "/home/tao/.local/share/nvim/site/pack/packer/start/vim-goctl",
     url = "https://github.com/BYT0723/vim-goctl"
   },
+  ["vim-godot"] = {
+    loaded = true,
+    path = "/home/tao/.local/share/nvim/site/pack/packer/start/vim-godot",
+    url = "https://github.com/habamax/vim-godot"
+  },
   ["vim-surround"] = {
     loaded = true,
     path = "/home/tao/.local/share/nvim/site/pack/packer/start/vim-surround",

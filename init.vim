@@ -102,6 +102,8 @@ func! CompileRun()
     exec "silent !plantuml % -o %:h/img/ && feh %:h/img/%:t:r.png"
   elseif &filetype == 'sh'
     exec "AsyncRun ./%:."
+  elseif &filetype == 'gdscript'
+    exec "GodotRun"
   endif
 endfunction
 
@@ -159,7 +161,7 @@ nnoremap <C-k> :resize -5<CR>
 nnoremap bq :bd<CR>
 
 " quick position
-noremap sa gg^vG$
+noremap <C-a> gg^vG$
 noremap gh ^
 noremap ge $
 
@@ -215,12 +217,12 @@ filetype indent on
 
 " 缩进
 set autoindent
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 
 " tab转空格
 set expandtab
-set softtabstop=2
+set softtabstop=4
 
 " 行列高亮
 set cursorline

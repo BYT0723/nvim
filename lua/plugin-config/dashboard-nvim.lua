@@ -8,7 +8,7 @@ db.custom_center = {
   {
     icon = '  ',
     desc ='New Buffer                               ',
-    action = 'new',
+    action = 'DashboardNewFile',
     -- shortcut = 'SPC f b'
   },
   {
