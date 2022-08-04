@@ -5,6 +5,9 @@ vim.g.maplocalleader = " "
 local map = vim.api.nvim_set_keymap
 local opt = {noremap = true, silent = true}
 
+-- Dashboard
+map('n', '<leader>n', '<cmd>DashboardNewFile<CR>', opt)
+
 -- Nvim-Tree
 map('n', '<leader>e', '<cmd>NvimTreeToggle<CR>', opt)
 
@@ -23,7 +26,8 @@ map('n', '<leader>d', '<cmd>TroubleToggle<CR>', opt)
 map('n', '<leader>ff', "<cmd>lua require('telescope.builtin').find_files()<CR>", opt)
 map('n', '<leader>fg', "<cmd>lua require('telescope.builtin').live_grep()<CR>", opt)
 map('n', '<leader>fb', "<cmd>lua require('telescope.builtin').buffers()<CR>", opt)
-map('n', '<leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<CR>", opt)
+map('n', '<leader>ft', "<cmd>lua require('telescope.builtin').help_tags()<CR>", opt)
+map('n', '<leader>p', "<cmd>Telescope projects<CR>", opt)
 
 -- lazygit
 map('n', '<leader>g', '<cmd>LazyGit<CR>', opt)

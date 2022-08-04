@@ -12,6 +12,7 @@ require'nvim-treesitter.configs'.setup {
     "json",
     "markdown",
     "go",
+    "gomod",
     "rust",
   },
   -- 启用代码高亮功能

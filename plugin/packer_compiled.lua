@@ -79,6 +79,11 @@ _G.packer_plugins = {
     path = "/home/tao/.local/share/nvim/site/pack/packer/start/asyncrun.vim",
     url = "https://github.com/skywind3000/asyncrun.vim"
   },
+  ["awesome-vim-colorschemes"] = {
+    loaded = true,
+    path = "/home/tao/.local/share/nvim/site/pack/packer/start/awesome-vim-colorschemes",
+    url = "https://github.com/rafi/awesome-vim-colorschemes"
+  },
   ["bufferline.nvim"] = {
     loaded = true,
     path = "/home/tao/.local/share/nvim/site/pack/packer/start/bufferline.nvim",
@@ -114,6 +119,11 @@ _G.packer_plugins = {
     path = "/home/tao/.local/share/nvim/site/pack/packer/start/dashboard-nvim",
     url = "https://github.com/glepnir/dashboard-nvim"
   },
+  ["diffview.nvim"] = {
+    loaded = true,
+    path = "/home/tao/.local/share/nvim/site/pack/packer/start/diffview.nvim",
+    url = "https://github.com/sindrets/diffview.nvim"
+  },
   ["filetype.nvim"] = {
     loaded = true,
     path = "/home/tao/.local/share/nvim/site/pack/packer/start/filetype.nvim",
@@ -143,6 +153,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/tao/.local/share/nvim/site/pack/packer/start/lazygit.nvim",
     url = "https://github.com/kdheepak/lazygit.nvim"
+  },
+  ["lsp_signature.nvim"] = {
+    loaded = true,
+    path = "/home/tao/.local/share/nvim/site/pack/packer/start/lsp_signature.nvim",
+    url = "https://github.com/ray-x/lsp_signature.nvim"
   },
   ["lspkind-nvim"] = {
     loaded = true,
@@ -183,6 +198,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/tao/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
+  },
+  ["nvim-notify"] = {
+    loaded = true,
+    path = "/home/tao/.local/share/nvim/site/pack/packer/start/nvim-notify",
+    url = "https://github.com/rcarriga/nvim-notify"
   },
   ["nvim-tree.lua"] = {
     loaded = true,

@@ -1,0 +1,9 @@
+{
+	"name": {
+		"prefix": "cmd",
+		"body": [
+			"command! -nargs=${1:0} -complete=${2:custom},${3:completeFunc} ${4:cmdName} call ${5:func}()${0}"
+		],
+		"description": "define vim command"
+	}
+}

@@ -18,25 +18,23 @@ require('telescope').setup{
     -- }
     -- Now the picker_config_key will be applied every time you call this
     -- builtin picker
-    find_files = {
-      theme = "ivy",
-    },
-    live_grep = {
-      theme = "ivy",
-    },
-    buffers = {
-      theme = "dropdown",
-    },
-    help_tags = {
-      theme = "ivy",
-    }
+    -- find_files = {
+    --   theme = "ivy", -- cursor/dropdown/ivy
+    -- },
+    -- live_grep = {
+    --   theme = "ivy",
+    -- },
+    -- buffers = {
+    --   theme = "dropdown",
+    -- },
+    -- help_tags = {
+    --   theme = "ivy",
+    -- }
   },
   extensions = {
-    -- Your extension configuration goes here:
-    -- extension_name = {
-    --   extension_config_key = value,
-    -- }
-    -- please take a look at the readme of the extension you want to configure
+    projects = {},
+    notify = {}
   }
 }
 require('telescope').load_extension('projects')
+require('telescope').load_extension('notify')

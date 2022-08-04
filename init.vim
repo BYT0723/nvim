@@ -57,8 +57,8 @@ func! GoctlDiagnostic()
   echo mes
 endfunction
 
-autocmd BufWritePre *.api :silent call GoctlDiagnostic()
-autocmd BufWritePost *.api :silent call GoctlFormat()
+" autocmd BufWritePre *.api :silent call GoctlDiagnostic()
+" autocmd BufWritePost *.api :silent call GoctlFormat()
 
 autocmd FileType goctl nnoremap bd :AsyncRun goctl api go -api %:. -dir %:.:h -style goZero<CR>
 autocmd FileType proto nnoremap bd :AsyncRun cd %:.:h && goctl rpc protoc %:.:t --go_out=. --go-grpc_out=. --zrpc_out=. --style=goZero<CR>
@@ -217,12 +217,16 @@ filetype indent on
 
 " 缩进
 set autoindent
-set tabstop=4
+set tabstop=2
 set shiftwidth=4
 
 " tab转空格
 set expandtab
 set softtabstop=4
+
+autocmd BufNewFile,BufRead *.html set softtabstop=2
+autocmd BufNewFile,BufRead *.html set tabstop=2
+autocmd BufNewFile,BufRead *.html set shiftwidth=2
 
 " 行列高亮
 set cursorline

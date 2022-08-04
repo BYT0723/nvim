@@ -1,32 +1,65 @@
 local home = os.getenv('HOME')
 local db = require('dashboard')
--- db.preview_command = 'figlet -cW Neovim | lolcat -F 0.3'
--- db.preview_file_path = ''
-db.preview_file_height = 6
-db.preview_file_width = 80
+-- db.preview_command = 'ueberzug'
+db.preview_command = 'cat | lolcat -F 0.5'
+db.preview_file_path = home..'/.config/nvim/logo.cat'
+db.preview_file_height = 12
+db.preview_file_width = 55
+db.default_banner = {
+  '                                                       ',
+  '                                                       ',
+  ' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
+  ' ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
+  ' ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║',
+  ' ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
+  ' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
+  ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
+  '                                                       ',
+  '                                                       ',
+  '                   [ Lone Developer ]                  ',
+  '                                                       ',
+}
 db.custom_center = {
   {
     icon = '  ',
-    desc ='New Buffer                               ',
+    desc ='New Buffer                   ',
     action = 'DashboardNewFile',
-    -- shortcut = 'SPC f b'
+    shortcut = 'SPC   n'
   },
   {
-    icon = '  ',
-    desc ='Open File Tree                           ',
-    action =  'NvimTreeOpen',
-    -- shortcut = 'SPC f b'
-  },
-  {
-    icon = '  ',
-    desc ='Recent Projects                          ',
+    icon = '  ',
+    desc ='Recent Projects              ',
     action =  'Telescope projects',
-    -- shortcut = 'SPC f b'
+    shortcut = 'SPC   p'
   },
   {
-    icon = '  ',
-    desc = 'Configuration                           ',
-    action = 'edit '..home..'/.config/nvim/init.vim',
-    -- shortcut = 'SPC f d'
+    icon = 'פּ  ',
+    desc ='Open File Tree               ',
+    action =  'NvimTreeOpen',
+    shortcut = 'SPC   e'
+  },
+  {
+    icon = '  ',
+    desc ='Search File                  ',
+    action =  'Telescope fd',
+    shortcut = 'SPC f f'
+  },
+  {
+    icon = '  ',
+    desc ='Search Context               ',
+    action =  'Telescope live_grep',
+    shortcut = 'SPC f g'
+  },
+  {
+    icon = '  ',
+    desc ='Plugin Update                ',
+    action =  'PackerSync',
+    shortcut = '       '
+  },
+  {
+    icon = '  ',
+    desc ='Configuration                ',
+    action =  'edit $MYVIMRC',
+    shortcut = '       '
   },
 }

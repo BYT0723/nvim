@@ -25,7 +25,7 @@ require('plugin-config/comment')
 require('plugin-config/tokyonight')
 require('plugin-config/asyncrun')
 require('plugin-config/nvim-autopairs')
-require('./plugin-config/dashboard-nvim')
+require('plugin-config/dashboard-nvim')
 
 -- 16进制颜色显示
 require'colorizer'.setup()

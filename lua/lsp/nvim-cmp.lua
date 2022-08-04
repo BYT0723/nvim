@@ -18,13 +18,16 @@ cmp.setup {
     documentation = cmp.config.window.bordered(),
   },
   -- 来源
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'vsnip' },
-  }, {
+  sources = cmp.config.sources(
+    {
+      { name = 'nvim_lsp' },
+      { name = 'vsnip' },
+    },
+    {
       { name = 'buffer' },
       { name = 'path' }
-    }),
+    }
+  ),
 
   -- 快捷键
   mapping = require 'keybindings'.cmp(cmp),
