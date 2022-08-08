@@ -6,11 +6,11 @@
 		],
 		"description": "hexo emoji"
 	},
-	"firstLineIndent": {
-		"prefix": "flIndent",
+	"checkMark": {
+		"prefix": "checkMark",
 		"body": [
-			"&emsp;&emsp;"
+			"{% emoji heavy_check_mark %}$0"
 		],
-		"description": "first line indent"
+		"description": "emoji check mark heavy"
 	}
 }

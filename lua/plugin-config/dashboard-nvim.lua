@@ -1,8 +1,8 @@
 local home = os.getenv('HOME')
 local db = require('dashboard')
 -- db.preview_command = 'ueberzug'
-db.preview_command = 'cat | lolcat -F 0.5'
-db.preview_file_path = home..'/.config/nvim/logo.cat'
+-- db.preview_command = 'cat | lolcat -F 0.5'
+-- db.preview_file_path = home..'/.config/nvim/logo.cat'
 db.preview_file_height = 12
 db.preview_file_width = 55
 db.default_banner = {

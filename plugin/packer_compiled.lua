@@ -124,6 +124,11 @@ _G.packer_plugins = {
     path = "/home/tao/.local/share/nvim/site/pack/packer/start/diffview.nvim",
     url = "https://github.com/sindrets/diffview.nvim"
   },
+  ["fcitx.vim"] = {
+    loaded = true,
+    path = "/home/tao/.local/share/nvim/site/pack/packer/start/fcitx.vim",
+    url = "https://github.com/lilydjwg/fcitx.vim"
+  },
   ["filetype.nvim"] = {
     loaded = true,
     path = "/home/tao/.local/share/nvim/site/pack/packer/start/filetype.nvim",

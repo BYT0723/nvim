@@ -217,7 +217,7 @@ filetype indent on
 
 " 缩进
 set autoindent
-set tabstop=2
+set tabstop=4
 set shiftwidth=4
 
 " tab转空格
