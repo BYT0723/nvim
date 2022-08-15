@@ -92,11 +92,10 @@ return require('packer').startup(function()
         'glepnir/dashboard-nvim',       -- nvim面板
     }
 
-    use {
-        'lilydjwg/fcitx.vim',
-    }
+    -- save every buffer's status of fcitx
+    use { 'lilydjwg/fcitx.vim' }
+
+    use { 'williamboman/mason.nvim' }
     -- base
-    use {
-        'nvim-lua/plenary.nvim',
-    }
+    use { 'nvim-lua/plenary.nvim' }
 end)
