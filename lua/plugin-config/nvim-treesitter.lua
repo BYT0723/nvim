@@ -1,19 +1,24 @@
 require'nvim-treesitter.configs'.setup {
   -- 安装 language parser
   ensure_installed = {
+    "bash",
     "c",
     "cpp",
-    "html",
     "css",
-    "javascript",
-    "typescript",
-    "vim",
-    "lua",
-    "json",
-    "markdown",
+    "dockerfile",
     "go",
     "gomod",
+    "html",
+    "javascript",
+    "json",
+    "lua",
+    "markdown",
+    "proto",
+    "python",
     "rust",
+    "typescript",
+    "vim",
+    "vue",
   },
   -- 启用代码高亮功能
   highlight = {

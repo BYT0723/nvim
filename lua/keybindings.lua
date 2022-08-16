@@ -22,6 +22,12 @@ map('n', '<leader>v', '<cmd>SymbolsOutline<CR>', opt)
 -- trouble
 map('n', '<leader>d', '<cmd>TroubleToggle<CR>', opt)
 
+-- debug
+map('n', '<leader>D', "<cmd>lua require('dap').continue()<CR>", opt)
+map('n', '<leader>bp', "<cmd>lua require('dap').toggle_breakpoint()<CR>", opt)
+map('n', '<leader>si', "<cmd>lua require('dap').step_into()<CR>", opt)
+map('n', '<leader>so', "<cmd>lua require('dap').step_over()<CR>", opt)
+
 -- telescope
 map('n', '<leader>ff', "<cmd>lua require('telescope.builtin').find_files()<CR>", opt)
 map('n', '<leader>fg', "<cmd>lua require('telescope.builtin').live_grep()<CR>", opt)

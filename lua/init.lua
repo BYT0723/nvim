@@ -10,6 +10,12 @@ require('keybindings')
 require('lsp/lsp')
 require('lsp/nvim-cmp')
 
+-- linter
+require('linter')
+
+-- debug
+require('dap-local')
+
 -- config
 require('plugin-config/bufferline')
 require('plugin-config/gitsigns')
@@ -27,6 +33,7 @@ require('plugin-config/asyncrun')
 require('plugin-config/nvim-autopairs')
 require('plugin-config/dashboard-nvim')
 require('plugin-config/mason')
+require('plugin-config/formatter')
 
 -- 16进制颜色显示
 require'colorizer'.setup()

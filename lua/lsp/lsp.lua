@@ -13,13 +13,10 @@ local servers = {
   "dockerls",
   "clangd",
   "bashls",
-  "gdscript"
 }
-
--- install lsp
-require("nvim-lsp-installer").setup({
-  ensure_installed = servers, -- ensure these servers are always installed
-  automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
+require("mason-lspconfig").setup({
+    ensure_installed = servers,
+    automatic_installation = true,
 })
 
 -- Use an on_attach function to only map the following keys

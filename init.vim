@@ -66,7 +66,7 @@ autocmd FileType proto nnoremap bd :AsyncRun cd %:.:h && goctl rpc protoc %:.:t 
 
 " 编译运行
 nnoremap rr :call CompileRun()<CR>
-nnoremap rst :AsyncRun -mode=term -pos=st 
+nnoremap rst :AsyncRun -mode=term -pos=st
 func! CompileRun()
     if &filetype == 'c'
         exec "AsyncRun gcc -pthread -o ./%:.:r %:. && ./%:.:r "
@@ -78,7 +78,7 @@ func! CompileRun()
         " 遍历./lib/
         " 将目录下所有的.jar加入classpath
         if isdirectory("./lib")
-            let jarsStr = system("ls ./lib") 
+            let jarsStr = system("ls ./lib")
             let jars = split(jarsStr,"\n")
             for i in range(len(jars))
                 let jars[i] = "./lib/".jars[i]
@@ -129,7 +129,7 @@ endfunction
 func! BenchmarkFunction() abort
     let funcName = GetName('func', 'func Benchmark\([A-Za-z0-9]\+\)(b \*testing.B)')
     if funcName != ''
-        exec "AsyncRun go test -bench='".funcName."' ./%:.:h -run=none" 
+        exec "AsyncRun go test -bench='".funcName."' ./%:.:h -run=none"
     else
         exec "AsyncRun go test -bench=. ./%:.:h -run=none"
     endif
@@ -139,8 +139,8 @@ endfunction
 func! GetName(typeName,regular) abort
     let index = search(a:typeName,'bn')
     if index > 0
-        let currentLine = getline(index) 
-        if match(currentLine, a:regular) > -1 
+        let currentLine = getline(index)
+        if match(currentLine, a:regular) > -1
             let snipts = split(currentLine," ")
             return split(snipts[1],"(")[0]
         endif
@@ -192,7 +192,7 @@ set updatetime=200
 set shortmess+=c
 
 " 设置默认使用系统剪贴板
-set clipboard=unnamedplus 
+set clipboard=unnamedplus
 
 " 设置行数
 set number

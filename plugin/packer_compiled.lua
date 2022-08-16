@@ -134,6 +134,11 @@ _G.packer_plugins = {
     path = "/home/tao/.local/share/nvim/site/pack/packer/start/filetype.nvim",
     url = "https://github.com/nathom/filetype.nvim"
   },
+  ["formatter.nvim"] = {
+    loaded = true,
+    path = "/home/tao/.local/share/nvim/site/pack/packer/start/formatter.nvim",
+    url = "https://github.com/mhartington/formatter.nvim"
+  },
   ["friendly-snippets"] = {
     loaded = true,
     path = "/home/tao/.local/share/nvim/site/pack/packer/start/friendly-snippets",
@@ -179,6 +184,11 @@ _G.packer_plugins = {
     path = "/home/tao/.local/share/nvim/site/pack/packer/start/markdown-preview.nvim",
     url = "https://github.com/iamcco/markdown-preview.nvim"
   },
+  ["mason-lspconfig.nvim"] = {
+    loaded = true,
+    path = "/home/tao/.local/share/nvim/site/pack/packer/start/mason-lspconfig.nvim",
+    url = "https://github.com/williamboman/mason-lspconfig.nvim"
+  },
   ["mason.nvim"] = {
     loaded = true,
     path = "/home/tao/.local/share/nvim/site/pack/packer/start/mason.nvim",
@@ -199,10 +209,15 @@ _G.packer_plugins = {
     path = "/home/tao/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua",
     url = "https://github.com/norcalli/nvim-colorizer.lua"
   },
-  ["nvim-lsp-installer"] = {
+  ["nvim-dap"] = {
     loaded = true,
-    path = "/home/tao/.local/share/nvim/site/pack/packer/start/nvim-lsp-installer",
-    url = "https://github.com/williamboman/nvim-lsp-installer"
+    path = "/home/tao/.local/share/nvim/site/pack/packer/start/nvim-dap",
+    url = "https://github.com/mfussenegger/nvim-dap"
+  },
+  ["nvim-lint"] = {
+    loaded = true,
+    path = "/home/tao/.local/share/nvim/site/pack/packer/start/nvim-lint",
+    url = "https://github.com/mfussenegger/nvim-lint"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
@@ -274,11 +289,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/tao/.local/share/nvim/site/pack/packer/start/vim-goctl",
     url = "https://github.com/BYT0723/vim-goctl"
-  },
-  ["vim-godot"] = {
-    loaded = true,
-    path = "/home/tao/.local/share/nvim/site/pack/packer/start/vim-godot",
-    url = "https://github.com/habamax/vim-godot"
   },
   ["vim-surround"] = {
     loaded = true,
