@@ -1,4 +1,4 @@
-vim.g.symbols_outline = {
+local opts = {
     highlight_hovered_item = true,
     show_guides = true,
     auto_preview = true,
@@ -8,10 +8,15 @@ vim.g.symbols_outline = {
     auto_close = false,
     show_numbers = false,
     show_relative_numbers = false,
-    show_symbol_details = false,
+    show_symbol_details = true,
     preview_bg_highlight = 'Pmenu',
+    autofold_depth = nil,
+    auto_unfold_hover = true,
+    fold_markers = { '', '' },
+    wrap = false,
     keymaps = require('keybindings').symbols_outline(),
     lsp_blacklist = {},
     symbol_blacklist = {},
     symbols = require('theme').symbols_outline.symbols
 }
+require("symbols-outline").setup(opts)

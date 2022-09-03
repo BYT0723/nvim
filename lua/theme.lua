@@ -10,11 +10,7 @@ theme.diagnostic = {
 theme.lualine = {
   component_separators = { left = '', right = ''},
   section_separators = { left = '', right = ''},
-  git = {
-    added = ' ',
-    modified = ' ',
-    removed = ' '
-  }
+  git = { added = ' ', modified = '柳', removed = ' ' }
 }
 
 theme.gitsigns = {

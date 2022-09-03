@@ -21,13 +21,13 @@ db.default_banner = {
 }
 db.custom_center = {
   {
-    icon = '  ',
+    icon = '  ',
     desc ='New Buffer                   ',
     action = 'DashboardNewFile',
     shortcut = 'SPC   n'
   },
   {
-    icon = '  ',
+    icon = '  ',
     desc ='Recent Projects              ',
     action =  'Telescope projects',
     shortcut = 'SPC   p'

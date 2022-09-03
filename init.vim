@@ -102,8 +102,8 @@ func! CompileRun()
         exec "silent !plantuml % -o %:h/img/ && feh %:h/img/%:t:r.png"
     elseif &filetype == 'sh'
         exec "AsyncRun ./%:."
-    elseif &filetype == 'gdscript'
-        exec "GodotRun"
+    elseif &filetype == 'javascript' || &filetype == "typescript"
+        exec "AsyncRun node ./%:."
     endif
 endfunction
 
@@ -224,9 +224,9 @@ set shiftwidth=4
 set expandtab
 set softtabstop=4
 
-autocmd BufNewFile,BufRead *.html set softtabstop=2
-autocmd BufNewFile,BufRead *.html set tabstop=2
-autocmd BufNewFile,BufRead *.html set shiftwidth=2
+autocmd FileType javascript,typescript,html,css,xml,yml,yaml set softtabstop=2
+autocmd FileType javascript,typescript,html,css,xml,yml,yaml set tabstop=2
+autocmd FileType javascript,typescript,html,css,xml,yml,yaml set shiftwidth=2
 
 " 行列高亮
 set cursorline
