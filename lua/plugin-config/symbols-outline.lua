@@ -1,7 +1,7 @@
 local opts = {
     highlight_hovered_item = true,
     show_guides = true,
-    auto_preview = true,
+    auto_preview = false,
     position = 'right',
     relative_width = true,
     width = 25,
@@ -11,7 +11,7 @@ local opts = {
     show_symbol_details = true,
     preview_bg_highlight = 'Pmenu',
     autofold_depth = nil,
-    auto_unfold_hover = true,
+    auto_unfold_hover = false,
     fold_markers = { '', '' },
     wrap = false,
     keymaps = require('keybindings').symbols_outline(),

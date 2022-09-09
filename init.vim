@@ -10,11 +10,10 @@
 " | |_) |   | |     | |   | |_| |   / /    / __/   ___) |
 " |____/    |_|     |_|    \___/   /_/    |_____| |____/
 "
-
 lua require('init')
 
 " AsyncRun
-nnoremap ck :cp<CR>
+au FileType txt,markdown noremap ck :cp<CR>
 nnoremap cj :cn<CR>
 nnoremap cc :cc<CR>
 nnoremap <leader>c :call ToggleQuickFix()<CR>
@@ -29,12 +28,6 @@ endfunction
 
 " JSON
 autocmd BufWritePost *.json :silent %!python -m json.tool --tab --no-ensure-ascii
-
-" Godot
-autocmd BufNewFile,BufRead *.gd set filetype=gdscript
-autocmd BufNewFile,BufRead project.godot set filetype=godot_resource
-autocmd BufNewFile,BufRead *.tscn set filetype=godot_resource
-autocmd BufNewFile,BufRead *.tres set filetype=godot_resource
 
 " Golang
 " autocmd BufWritePost *.go :silent !goimports -w %:.
@@ -71,7 +64,7 @@ func! CompileRun()
     if &filetype == 'c'
         exec "AsyncRun gcc -pthread -o ./%:.:r %:. && ./%:.:r "
     elseif &filetype == 'cpp'
-        exec "AsyncRun g++ -o %:.:r %:. && ./%:.:r"
+        exec "AsyncRun g++ -o ./bin/%:.:r %:. && ./bin/%:.:r"
     elseif &filetype == 'rust'
         exec "AsyncRun rustc --out-dir ./bin/%:.:h %:. && ./bin/%:.:r"
     elseif &filetype == 'java'
@@ -255,10 +248,54 @@ set nobackup
 " 不创建交换
 set noswapfile
 
+" 拼写检查
+au FileType txt set spell
+au FileType txt noremap sj ]s
+au FileType txt noremap sk [s
+au FileType txt noremap ss z=
+au FileType txt noremap sa zg
+au FileType txt noremap sd zw
+
 autocmd InsertLeave * :silent !fcitx5-remote -c
 autocmd BufCreate *  :silent !fcitx5-remote -c
 autocmd BufEnter *  :silent !fcitx5-remote -c
 autocmd BufLeave *  :silent !fcitx5-remote -c
+
+"新建.c,.h,.sh,.java,.py文件，自动插入文件头 
+" autocmd BufNewFile *.cpp,*.sh,*.go exec ":call SetTitle()" 
+""定义函数SetTitle，自动插入文件头 
+func SetTitle() 
+    "如果文件类型为.sh文件 
+    if &filetype == 'sh' 
+        call setline(1,"\#!/bin/bash") 
+        call append(line("."),   "###################################################")
+        call append(line(".")+1, "#         File Name:  ".expand("%").repeat(" ",(28-len(expand("%"))))."#") 
+        call append(line(".")+2, "#         Author:     BYT0723                     #")
+        call append(line(".")+3, "#         Created:    ".strftime("%Y-%m-%d %H:%M")."            #")
+		call append(line(".")+4, "###################################################")
+		call append(line(".")+5, "# Copyright (c) ".strftime("%Y")." BYT0723 All rights reserved.")
+    else
+        call setline(1,"/*") 
+        call append(line("."),   "===================================================") 
+        call append(line(".")+1, "|         File Name:  ".expand("%").repeat(" ",(28-len(expand("%"))))."|") 
+        call append(line(".")+2, "|         Author:     Walter                      |")
+        call append(line(".")+3, "|         Created:    ".strftime("%Y-%m-%d %H:%M")."            |")
+		call append(line(".")+4, "===================================================")
+		call append(line(".")+5, "Copyright (c) ".strftime("%Y")." BYT0723 All rights reserved.")
+		call append(line(".")+6, "*/")
+    endif
+
+    if &filetype == 'go'
+		call append(line(".")+8, "package ".expand("%:p:h:t"))
+    elseif &filetype == 'cpp'
+		call append(line(".")+8, "#include <iostream>")
+    elseif &filetype == 'c'
+		call append(line(".")+8, "#include <stdio.h>")
+    endif
+    
+    "新建文件后，自动定位到文件末尾
+    autocmd BufNewFile * normal G
+endfunc
 
 inoreabbrev github@ https://github.com/BYT0723
 inoreabbrev qq@ 1151713064@qq.com

@@ -1,79 +1,4 @@
 local theme = require('theme')
--- require('lualine').setup {
---   options = {
---     icons_enabled = true,
---     theme = 'auto',
---     component_separators = theme.lualine.component_separators,
---     section_separators = theme.lualine.section_separators,
---     disabled_filetypes = {},
---     always_divide_middle = true,
---     globalstatus = false,
---   },
---   -- mode/branch/diff/diagnostics/filename/encoding/fileformat/filetype/progress/location
---   sections = {
---     lualine_a = {'mode'},
---     lualine_b = {
---       'branch',
---       {
---         'diff',
---         colored = true, -- Displays a colored diff status if set to true
---         symbols = theme.lualine.git, -- Changes the symbols used by the diff.
---         source = nil, -- A function that works as a data source for diff.
---                       -- It must return a table as such:
---                       --   { added = add_count, modified = modified_count, removed = removed_count }
---                       -- or nil on failure. count <= 0 won't be displayed.
---       },
---       {
---         'diagnostics',
---         -- Table of diagnostic sources, available sources are:
---         --   'nvim_lsp', 'nvim_diagnostic', 'coc', 'ale', 'vim_lsp'.
---         -- or a function that returns a table as such:
---         --   { error=error_cnt, warn=warn_cnt, info=info_cnt, hint=hint_cnt }
---         sources = { 'nvim_diagnostic','coc','vim_lsp'},
---         -- Displays diagnostics for the defined severity types
---         sections = { 'error', 'warn', 'info', 'hint' },
---         symbols = theme.diagnostic,
---         colored = true,           -- Displays diagnostics status in color if set to true.
---         update_in_insert = false, -- Update diagnostics in insert mode.
---         always_visible = false,   -- Show diagnostics even if there are none.
---       },
---     },
---     lualine_c = {
---       {
---         'filename',
---         file_status = true,      -- Displays file status (readonly status, modified status)
---         path = 1,                -- 0: Just the filename
---                                  -- 1: Relative path
---                                  -- 2: Absolute path
---
---         shorting_target = 40,    -- Shortens path to leave 40 spaces in the window
---                                  -- for other components. (terrible name, any suggestions?)
---         symbols = {
---           modified = '[+]',      -- Text to show when the file is modified.
---           readonly = '[-]',      -- Text to show when the file is non-modifiable or readonly.
---           unnamed = '[No Name]', -- Text to show for unnamed buffers.
---         }
---       }
---     },
---     lualine_x = {'filetype'},
---     lualine_y = {'encoding'},
---     lualine_z = {'progress', 'location'}
---   },
---   inactive_sections = {
---     lualine_a = {},
---     lualine_b = {},
---     lualine_c = {'filename'},
---     lualine_x = {'location'},
---     lualine_y = {},
---     lualine_z = {}
---   },
---   tabline = {},
---   extensions = {}
--- }
-
-
--- -------------------------------------------- other theme ------------------------------------------------------
-
 local lualine = require('lualine')
 
 -- Color table for highlights
@@ -105,7 +30,7 @@ local conditions = {
         return gitdir and #gitdir > 0 and #gitdir < #filepath
     end,
     except = function ()
-        local exceptFileType = { 'NvimTree', 'Outline' }
+        local exceptFileType = { 'NvimTree', 'Outline', 'qf' }
 
         for key, ft in pairs(exceptFileType) do
             if ft == vim.bo.filetype then return false end
@@ -146,7 +71,7 @@ local config = {
     },
     inactive_sections = {
         -- these are to remove the defaults
-        lualine_a = {},
+        lualine_a = {'filename'},
         lualine_b = {},
         lualine_y = {},
         lualine_z = {},
@@ -202,27 +127,12 @@ ins_left {
         return { fg = mode_color[vim.fn.mode()] }
     end,
     padding = { right = 1 },
-    cond = conditions.except,
 }
-
 
 ins_left {
     'branch',
     icon = '',
     color = { fg = colors.violet, gui = 'bold' },
-}
-
-ins_left {
-    'diff',
-    -- Is it me or the symbol for modified us really weird
-    -- symbols = { added = ' ', modified = '柳 ', removed = ' ' },
-    symbols = theme.lualine.git,
-    diff_color = {
-        added = { fg = colors.green },
-        modified = { fg = colors.orange },
-        removed = { fg = colors.red },
-    },
-    cond = conditions.hide_in_width,
 }
 
 ins_left {
@@ -255,6 +165,7 @@ ins_left {
         color_warn = { fg = colors.yellow },
         color_info = { fg = colors.cyan },
     },
+    cond = conditions.hide_in_width,
 }
 
 -- Insert mid section. You can make any number of sections in neovim :)
@@ -278,10 +189,23 @@ ins_left {
 }
 
 -- Add components to right sections
-ins_right { 'progress', color = { fg = colors.fg, gui = 'bold' } }
-ins_right { 'location' }
+ins_right {
+    'diff',
+    -- Is it me or the symbol for modified us really weird
+    -- symbols = { added = ' ', modified = '柳 ', removed = ' ' },
+    symbols = theme.lualine.git,
+    diff_color = {
+        added = { fg = colors.green },
+        modified = { fg = colors.orange },
+        removed = { fg = colors.red },
+    },
+    cond = conditions.hide_in_width,
+}
 
-ins_right { 'encoding', cond = conditions.hide_in_width, color = { fg = colors.green, gui = 'bold' }}
+ins_right { 'location' }
+ins_right { 'progress', color = { fg = colors.fg, gui = 'bold' } }
+
+ins_right { 'encoding', color = { fg = colors.green, gui = 'bold' }}
 ins_right { 'fileformat', icons_enabled = true, color = { fg = colors.green, gui = 'bold' } }
 ins_right { 'filesize', cond = conditions.buffer_not_empty, }
 

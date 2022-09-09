@@ -1,11 +1,6 @@
 local theme = {}
 
-theme.diagnostic = {
-  error = ' ',
-  warn = ' ',
-  info = ' ',
-  hint = ' '
-}
+theme.diagnostic = { error = ' ', warn = ' ', info = ' ', hint = ' ' }
 
 theme.lualine = {
   component_separators = { left = '', right = ''},
