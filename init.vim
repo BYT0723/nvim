@@ -13,7 +13,7 @@
 lua require('init')
 
 " AsyncRun
-au FileType txt,markdown noremap ck :cp<CR>
+nnoremap ck :cp<CR>
 nnoremap cj :cn<CR>
 nnoremap cc :cc<CR>
 nnoremap <leader>c :call ToggleQuickFix()<CR>
@@ -26,12 +26,7 @@ func! ToggleQuickFix()
     endif
 endfunction
 
-" JSON
-autocmd BufWritePost *.json :silent %!python -m json.tool --tab --no-ensure-ascii
-
 " Golang
-" autocmd BufWritePost *.go :silent !goimports -w %:.
-autocmd BufWritePost *.go :silent !gofmt -w %:.
 autocmd FileType go nnoremap taj :silent call TagAction('add', 'json')<CR>
 autocmd FileType go nnoremap trj :silent call TagAction('remove', 'json')<CR>
 function! TagAction(action,tagsName) abort
@@ -59,14 +54,14 @@ autocmd FileType proto nnoremap bd :AsyncRun cd %:.:h && goctl rpc protoc %:.:t 
 
 " 编译运行
 nnoremap rr :call CompileRun()<CR>
-nnoremap rst :AsyncRun -mode=term -pos=st
 func! CompileRun()
     if &filetype == 'c'
         exec "AsyncRun gcc -pthread -o ./%:.:r %:. && ./%:.:r "
     elseif &filetype == 'cpp'
         exec "AsyncRun g++ -o ./bin/%:.:r %:. && ./bin/%:.:r"
     elseif &filetype == 'rust'
-        exec "AsyncRun rustc --out-dir ./bin/%:.:h %:. && ./bin/%:.:r"
+        exec "AsyncRun cargo run"
+        " exec "AsyncRun rustc --out-dir ./bin/%:.:h %:. && ./bin/%:.:r"
     elseif &filetype == 'java'
         " 遍历./lib/
         " 将目录下所有的.jar加入classpath
@@ -89,10 +84,6 @@ func! CompileRun()
         exec "AsyncRun protoc --proto_path=%:.:h --go_out=plugins=grpc:%:.:h/pb %:."
     elseif &filetype == 'html'
         exec "silent !firefox %:. &"
-    elseif &filetype == 'sql'
-        exec "SQHExecuteFile %:."
-    elseif &filetype == 'plantuml'
-        exec "silent !plantuml % -o %:h/img/ && feh %:h/img/%:t:r.png"
     elseif &filetype == 'sh'
         exec "AsyncRun ./%:."
     elseif &filetype == 'javascript' || &filetype == "typescript"
@@ -143,6 +134,8 @@ endfunction
 
 let g:vsnip_snippet_dir = "~/.config/nvim/snippets"
 
+" terminal
+tnoremap <Esc> <C-\><C-n>
 
 " 窗口管理
 nnoremap w <C-w>
@@ -248,56 +241,30 @@ set nobackup
 " 不创建交换
 set noswapfile
 
-" 拼写检查
-au FileType txt set spell
-au FileType txt noremap sj ]s
-au FileType txt noremap sk [s
-au FileType txt noremap ss z=
-au FileType txt noremap sa zg
-au FileType txt noremap sd zw
-
 autocmd InsertLeave * :silent !fcitx5-remote -c
 autocmd BufCreate *  :silent !fcitx5-remote -c
 autocmd BufEnter *  :silent !fcitx5-remote -c
 autocmd BufLeave *  :silent !fcitx5-remote -c
 
-"新建.c,.h,.sh,.java,.py文件，自动插入文件头 
-" autocmd BufNewFile *.cpp,*.sh,*.go exec ":call SetTitle()" 
-""定义函数SetTitle，自动插入文件头 
-func SetTitle() 
-    "如果文件类型为.sh文件 
-    if &filetype == 'sh' 
-        call setline(1,"\#!/bin/bash") 
-        call append(line("."),   "###################################################")
-        call append(line(".")+1, "#         File Name:  ".expand("%").repeat(" ",(28-len(expand("%"))))."#") 
-        call append(line(".")+2, "#         Author:     BYT0723                     #")
-        call append(line(".")+3, "#         Created:    ".strftime("%Y-%m-%d %H:%M")."            #")
-		call append(line(".")+4, "###################################################")
-		call append(line(".")+5, "# Copyright (c) ".strftime("%Y")." BYT0723 All rights reserved.")
-    else
-        call setline(1,"/*") 
-        call append(line("."),   "===================================================") 
-        call append(line(".")+1, "|         File Name:  ".expand("%").repeat(" ",(28-len(expand("%"))))."|") 
-        call append(line(".")+2, "|         Author:     Walter                      |")
-        call append(line(".")+3, "|         Created:    ".strftime("%Y-%m-%d %H:%M")."            |")
-		call append(line(".")+4, "===================================================")
-		call append(line(".")+5, "Copyright (c) ".strftime("%Y")." BYT0723 All rights reserved.")
-		call append(line(".")+6, "*/")
+autocmd BufNewFile * call SetTitle(1)
+func SetTitle(showBan)
+    let nowline = 1
+    if a:showBan == 1
+        if &filetype == 'sh' 
+            call setline(1,"# Copyright (c) ".strftime("%Y")." BYT0723 All rights reserved.")
+            call append(line('.'), "#!/bin/bash")
+        elseif &filetype == 'go'
+            call setline(1,"// Copyright (c) ".strftime("%Y")." BYT0723 All rights reserved.")
+            call append(line('.'), "package ".expand("%:p:h:t"))
+        elseif &filetype == 'cpp'
+            call setline(1,"// Copyright (c) ".strftime("%Y")." BYT0723 All rights reserved.")
+            call append(line('.'), "#include <iostream>")
+        elseif &filetype == 'c'
+            call setline(1,"// Copyright (c) ".strftime("%Y")." BYT0723 All rights reserved.")
+            call append(line('.'), "#include <stdio.h>")
+
+        endif
     endif
 
-    if &filetype == 'go'
-		call append(line(".")+8, "package ".expand("%:p:h:t"))
-    elseif &filetype == 'cpp'
-		call append(line(".")+8, "#include <iostream>")
-    elseif &filetype == 'c'
-		call append(line(".")+8, "#include <stdio.h>")
-    endif
-    
-    "新建文件后，自动定位到文件末尾
     autocmd BufNewFile * normal G
 endfunc
-
-inoreabbrev github@ https://github.com/BYT0723
-inoreabbrev qq@ 1151713064@qq.com
-inoreabbrev 163@ twang9739@163.com
-inoreabbrev gmail@ twang9739@gmail.com

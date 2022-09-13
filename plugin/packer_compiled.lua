@@ -119,6 +119,11 @@ _G.packer_plugins = {
     path = "/home/tao/.local/share/nvim/site/pack/packer/start/cmp-vsnip",
     url = "https://github.com/hrsh7th/cmp-vsnip"
   },
+  ["crates.nvim"] = {
+    loaded = true,
+    path = "/home/tao/.local/share/nvim/site/pack/packer/start/crates.nvim",
+    url = "https://github.com/saecki/crates.nvim"
+  },
   ["dashboard-nvim"] = {
     loaded = true,
     path = "/home/tao/.local/share/nvim/site/pack/packer/start/dashboard-nvim",
@@ -138,11 +143,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/tao/.local/share/nvim/site/pack/packer/start/filetype.nvim",
     url = "https://github.com/nathom/filetype.nvim"
-  },
-  ["formatter.nvim"] = {
-    loaded = true,
-    path = "/home/tao/.local/share/nvim/site/pack/packer/start/formatter.nvim",
-    url = "https://github.com/mhartington/formatter.nvim"
   },
   ["friendly-snippets"] = {
     loaded = true,
@@ -270,6 +270,11 @@ _G.packer_plugins = {
     path = "/home/tao/.local/share/nvim/site/pack/packer/start/rainbow",
     url = "https://github.com/luochen1990/rainbow"
   },
+  ["refactoring.nvim"] = {
+    loaded = true,
+    path = "/home/tao/.local/share/nvim/site/pack/packer/start/refactoring.nvim",
+    url = "https://github.com/ThePrimeagen/refactoring.nvim"
+  },
   ["symbols-outline.nvim"] = {
     loaded = true,
     path = "/home/tao/.local/share/nvim/site/pack/packer/start/symbols-outline.nvim",
@@ -289,6 +294,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/tao/.local/share/nvim/site/pack/packer/start/trouble.nvim",
     url = "https://github.com/folke/trouble.nvim"
+  },
+  ["vim-floaterm"] = {
+    loaded = true,
+    path = "/home/tao/.local/share/nvim/site/pack/packer/start/vim-floaterm",
+    url = "https://github.com/voldikss/vim-floaterm"
   },
   ["vim-goctl"] = {
     loaded = true,

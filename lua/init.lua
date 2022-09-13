@@ -11,7 +11,7 @@ require('lsp/lsp')
 require('lsp/nvim-cmp')
 
 -- linter
-require('linter')
+require("linter")
 
 -- debug
 require('dap-local')
@@ -33,7 +33,7 @@ require('plugin-config/asyncrun')
 require('plugin-config/nvim-autopairs')
 require('plugin-config/dashboard-nvim')
 require('plugin-config/mason')
-require('plugin-config/formatter')
+require('plugin-config/floaterm')
 
 -- 16进制颜色显示
-require'colorizer'.setup()
+require 'colorizer'.setup()

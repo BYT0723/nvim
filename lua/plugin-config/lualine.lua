@@ -32,18 +32,12 @@ local conditions = {
     except = function ()
         local exceptFileType = { 'NvimTree', 'Outline', 'qf' }
 
-        for key, ft in pairs(exceptFileType) do
+        for _, ft in pairs(exceptFileType) do
             if ft == vim.bo.filetype then return false end
         end
         return true
     end,
 }
-function inTable(tbl, item)
-    for key, value in pairs(tbl) do
-        if value == item then return key end
-    end
-    return false
-end
 
 -- Config
 local config = {
@@ -85,7 +79,7 @@ local function ins_left(component)
     table.insert(config.sections.lualine_c, component)
 end
 
--- Inserts a component in lualine_x ot right section
+-- Inserts a component in lualine_x or right section
 local function ins_right(component)
     table.insert(config.sections.lualine_x, component)
 end

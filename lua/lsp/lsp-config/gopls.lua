@@ -4,7 +4,7 @@ local on_attach = function(client, bufnr)
   require'keybindings'.maplsp(mapbuf,bufnr)
 end
 
-require('lspconfig')['gopls'].setup{
+require('lspconfig').gopls.setup{
   cmd = {'gopls'},
   on_attach = on_attach,
   capabilities = capabilities,

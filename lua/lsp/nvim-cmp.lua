@@ -25,7 +25,8 @@ cmp.setup {
         },
         {
             { name = 'buffer' },
-            { name = 'path' }
+            { name = 'path' },
+            { name = 'crates'},
         }
     ),
 
