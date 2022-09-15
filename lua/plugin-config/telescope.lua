@@ -33,8 +33,10 @@ require('telescope').setup {
     },
     extensions = {
         projects = {},
-        notify = {}
+        notify = {},
+        ["ui-select"] = { require("telescope.themes").get_cursor {} }
     }
 }
 require('telescope').load_extension('projects')
 require('telescope').load_extension('notify')
+require('telescope').load_extension('ui-select')

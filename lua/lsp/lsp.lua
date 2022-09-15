@@ -29,6 +29,7 @@ local on_attach = function(client, bufnr)
     local function buf_set_option(...)
         vim.api.nvim_buf_set_option(bufnr, ...)
     end
+
     buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 end
 
@@ -53,4 +54,4 @@ require('lsp_signature').setup {
     },
 }
 
-vim.api.nvim_command("au BufWritePre * lua vim.lsp.buf.formatting_sync(nil,2000)")
+-- vim.api.nvim_command("au BufWritePre * lua vim.lsp.buf.formatting_sync(nil,2000)")

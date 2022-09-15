@@ -55,6 +55,7 @@ return require("packer").startup(function()
             require("project_nvim").setup({})
         end,
     })
+    use('nvim-telescope/telescope-ui-select.nvim')
 
     -- 通知
     use("rcarriga/nvim-notify")
@@ -73,7 +74,7 @@ return require("packer").startup(function()
         "neovim/nvim-lspconfig", -- lsp配置
         "williamboman/mason-lspconfig.nvim",
         "williamboman/mason.nvim", -- lsp管理
-		"mfussenegger/nvim-lint",               -- linter配置
+        "mfussenegger/nvim-lint", -- linter配置
         "mfussenegger/nvim-dap", -- debug配置
 
         "ray-x/lsp_signature.nvim", -- 补全时的文档显示

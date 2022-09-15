@@ -17,9 +17,6 @@ map('n', 'bj', '<cmd>BufferLineCycleNext<CR>', opt)
 map('n', 'bp', '<cmd>BufferLinePick<CR>', opt)
 map('n', 'bq', '<cmd>bd<CR>', opt)
 
--- terminal
-map('n', '<leader>t', '<cmd>FloatermToggle<CR>', opt)
-
 -- symbols-outline
 map('n', '<leader>v', '<cmd>SymbolsOutline<CR>', opt)
 

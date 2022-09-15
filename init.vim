@@ -136,6 +136,8 @@ let g:vsnip_snippet_dir = "~/.config/nvim/snippets"
 
 " terminal
 tnoremap <Esc> <C-\><C-n>
+tnoremap <C-Space>t <C-\><C-n>:FloatermToggle<CR>
+nnoremap <C-Space>t :FloatermToggle<CR>
 
 " 窗口管理
 nnoremap w <C-w>

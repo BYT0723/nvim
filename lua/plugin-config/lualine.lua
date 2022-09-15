@@ -29,7 +29,7 @@ local conditions = {
         local gitdir = vim.fn.finddir('.git', filepath .. ';')
         return gitdir and #gitdir > 0 and #gitdir < #filepath
     end,
-    except = function ()
+    except = function()
         local exceptFileType = { 'NvimTree', 'Outline', 'qf' }
 
         for _, ft in pairs(exceptFileType) do
@@ -65,7 +65,7 @@ local config = {
     },
     inactive_sections = {
         -- these are to remove the defaults
-        lualine_a = {'filename'},
+        lualine_a = { 'filename' },
         lualine_b = {},
         lualine_y = {},
         lualine_z = {},
@@ -130,6 +130,18 @@ ins_left {
 }
 
 ins_left {
+    'filename',
+    file_status = false, -- Displays file status (readonly status, modified status)
+    path = 1, -- 0: Just the filename
+    -- 1: Relative path
+    -- 2: Absolute path
+    shorting_target = 100, -- Shortens path to leave 40 spaces in the window
+    -- for other components. (terrible name, any suggestions?)
+    cond = conditions.buffer_not_empty and conditions.except,
+    color = { fg = colors.magenta, gui = 'bold' },
+}
+
+ins_left {
     -- Lsp server name .
     function()
         local msg = ''
@@ -171,16 +183,20 @@ ins_left {
 }
 
 ins_left {
-    'filename',
-    file_status = false,     -- Displays file status (readonly status, modified status)
-    path = 1,               -- 0: Just the filename
-                            -- 1: Relative path
-                            -- 2: Absolute path
-    shorting_target = 100,    -- Shortens path to leave 40 spaces in the window
-    -- for other components. (terrible name, any suggestions?)
-    cond = conditions.buffer_not_empty and conditions.except,
-    color = { fg = colors.magenta, gui = 'bold' },
+    function()
+        local opt = {
+            indicator_size = 50,
+            -- type_patterns = { 'class', 'function', 'method' },
+            -- transform_fn = function(line) return line:gsub('%s*[%[%(%{]*%s*$', '') end,
+            separator = '   '
+        }
+        local res = vim.fn['nvim_treesitter#statusline'](opt)
+        return res ~= vim.NIL and res or ''
+    end,
+    cond = conditions.hide_in_width,
+    color = { fg = '#FF8800', gui = 'bold' },
 }
+
 
 -- Add components to right sections
 ins_right {
@@ -197,11 +213,19 @@ ins_right {
 }
 
 ins_right { 'location' }
-ins_right { 'progress', color = { fg = colors.fg, gui = 'bold' } }
+ins_right { 'progress',
+    color = { fg = colors.fg, gui = 'bold' }
+}
 
-ins_right { 'encoding', color = { fg = colors.green, gui = 'bold' }}
-ins_right { 'fileformat', icons_enabled = true, color = { fg = colors.green, gui = 'bold' } }
-ins_right { 'filesize', cond = conditions.buffer_not_empty, }
+ins_right { 'encoding',
+    color = { fg = colors.green, gui = 'bold' }
+}
+ins_right { 'fileformat',
+    icons_enabled = true, color = { fg = colors.green, gui = 'bold' }
+}
+ins_right { 'filesize',
+    cond = conditions.buffer_not_empty,
+}
 
 ins_right {
     function()
