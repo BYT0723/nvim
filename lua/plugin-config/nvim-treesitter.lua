@@ -1,4 +1,6 @@
-require'nvim-treesitter.configs'.setup {
+require("nvim-treesitter.install").prefer_git = true
+
+require 'nvim-treesitter.configs'.setup {
     -- 安装 language parser
     ensure_installed = {
         "bash",
@@ -18,7 +20,6 @@ require'nvim-treesitter.configs'.setup {
         "python",
         "rust",
         "sql",
-        "typescript",
         "vim",
         "vue",
         "yaml",

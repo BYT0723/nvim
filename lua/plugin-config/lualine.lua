@@ -160,6 +160,7 @@ ins_left {
     end,
     icon = ' ',
     color = { fg = '#aaaaaa', gui = 'bold' },
+    cond = conditions.hide_in_width,
 }
 
 ins_left {
@@ -171,31 +172,31 @@ ins_left {
         color_warn = { fg = colors.yellow },
         color_info = { fg = colors.cyan },
     },
-    cond = conditions.hide_in_width,
+    -- cond = conditions.hide_in_width,
 }
 
 -- Insert mid section. You can make any number of sections in neovim :)
 -- for lualine it's any number greater then 2
-ins_left {
-    function()
-        return '%='
-    end,
-}
+-- ins_left {
+--     function()
+--         return '%='
+--     end,
+-- }
 
-ins_left {
-    function()
-        local opt = {
-            indicator_size = 50,
-            -- type_patterns = { 'class', 'function', 'method' },
-            -- transform_fn = function(line) return line:gsub('%s*[%[%(%{]*%s*$', '') end,
-            separator = '   '
-        }
-        local res = vim.fn['nvim_treesitter#statusline'](opt)
-        return res ~= vim.NIL and res or ''
-    end,
-    cond = conditions.hide_in_width,
-    color = { fg = '#FF8800', gui = 'bold' },
-}
+-- ins_left {
+--     function()
+--         local opt = {
+--             indicator_size = 50,
+--             type_patterns = { 'class', 'function', 'method' },
+--             transform_fn = function(line) return line:gsub('%s*[%[%(%{]*%s*$', '') end,
+--             separator = '   '
+--         }
+--         local res = vim.fn['nvim_treesitter#statusline'](opt)
+--         return res ~= vim.NIL and res or ''
+--     end,
+--     cond = conditions.hide_in_width,
+--     color = { fg = '#FF8800', gui = 'bold' },
+-- }
 
 
 -- Add components to right sections
@@ -214,17 +215,19 @@ ins_right {
 
 ins_right { 'location' }
 ins_right { 'progress',
-    color = { fg = colors.fg, gui = 'bold' }
+    color = { fg = colors.fg, gui = 'bold' },
+    cond = conditions.hide_in_width,
 }
 
 ins_right { 'encoding',
     color = { fg = colors.green, gui = 'bold' }
 }
 ins_right { 'fileformat',
-    icons_enabled = true, color = { fg = colors.green, gui = 'bold' }
+    icons_enabled = true, color = { fg = colors.green, gui = 'bold' },
+    cond = conditions.hide_in_width,
 }
 ins_right { 'filesize',
-    cond = conditions.buffer_not_empty,
+    cond = conditions.buffer_not_empty and conditions.hide_in_width,
 }
 
 ins_right {
