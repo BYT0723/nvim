@@ -62,10 +62,10 @@ require("formatter").setup({
 			require("formatter.filetypes.yaml").prettierd,
 		},
 		markdown = {
-			require("formatter.filetypes.css").prettierd,
+			require("formatter.filetypes.markdown").prettierd,
 		},
 		css = {
-			require("formatter.filetypes.markdown").prettierd,
+			require("formatter.filetypes.css").prettierd,
 		},
 		vue = {
 			function()
