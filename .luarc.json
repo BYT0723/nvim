@@ -1,5 +1,4 @@
 {
   "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
-  "Lua.diagnostics.disable": ["duplicate-index", "discard-returns"],
-  "Lua.diagnostics.globals": ["vim", "use", "opt"]
+  "Lua.diagnostics.globals": ["vim"]
 }

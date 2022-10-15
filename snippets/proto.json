@@ -13,27 +13,17 @@
   },
   "message": {
     "prefix": "message",
-    "body": [
-      "message ${1:name} {",
-      "\t${2}",
-      "}$0"
-    ],
+    "body": ["message ${1:name} {", "\t${2}", "}$0"],
     "description": "definition message"
   },
   "service": {
     "prefix": "service",
-    "body": [
-      "service ${1:name} {",
-      "\t$0",
-      "}"
-    ],
+    "body": ["service ${1:name} {", "\t$0", "}"],
     "description": "definition service"
   },
   "method": {
     "prefix": "rpc",
-    "body": [
-      "rpc ${1:methodName}(${2:req}) returns(${3:reply});$0"
-    ],
+    "body": ["rpc ${1:methodName}(${2:req}) returns(${3:reply});$0"],
     "description": "definition method"
   }
 }

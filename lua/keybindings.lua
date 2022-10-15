@@ -5,6 +5,10 @@ vim.g.maplocalleader = " "
 local map = vim.api.nvim_set_keymap
 local opt = { noremap = true, silent = true }
 
+-- hop
+map("", "f", "<cmd>lua require'hop'.hint_char1({ current_line_only = true })<cr>", opt)
+
+-- launcher
 map("n", "<leader>rr", "<cmd> lua require('launcher').run()<CR>", opt)
 
 -- New Buffer
@@ -25,6 +29,10 @@ map("n", "<leader>v", "<cmd>SymbolsOutline<CR>", opt)
 -- trouble
 map("n", "<leader>d", "<cmd>TroubleToggle<CR>", opt)
 
+-- lazygit
+map("n", "<leader>gg", "<cmd>LazyGit<CR>", opt)
+map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", opt)
+
 -- debug
 map("n", "<leader>D", "<cmd>lua require('dap').continue()<CR>", opt)
 map("n", "<leader>bp", "<cmd>lua require('dap').toggle_breakpoint()<CR>", opt)
@@ -37,9 +45,6 @@ map("n", "<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<CR>", 
 map("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<CR>", opt)
 map("n", "<leader>ft", "<cmd>lua require('telescope.builtin').help_tags()<CR>", opt)
 map("n", "<leader>p", "<cmd>Telescope projects<CR>", opt)
-
--- lazygit
-map("n", "<leader>g", "<cmd>LazyGit<CR>", opt)
 
 local pluginKeys = {}
 
@@ -204,7 +209,7 @@ pluginKeys.nvim_tree = function()
 		{ key = "gk", action = "prev_git_item" },
 		{ key = "gj", action = "next_git_item" },
 		{ key = "-", action = "dir_up" },
-		{ key = "s", action = "system_open" },
+		{ key = "i", action = "system_open" },
 		{ key = "q", action = "close" },
 		{ key = "g?", action = "toggle_help" },
 		{ key = "W", action = "collapse_all" },

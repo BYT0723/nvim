@@ -1,23 +1,17 @@
 {
-	"emoji": {
-		"prefix": "emoji",
-		"body": [
-			"{% emoji $name %}"
-		],
-		"description": "hexo emoji"
-	},
-	"checkMark": {
-		"prefix": "checkMark",
-		"body": [
-			"{% emoji heavy_check_mark %}$0"
-		],
-		"description": "emoji check mark heavy"
-	},
-	"linkWithUrl": {
-		"prefix": "linkurl",
-		"body": [
-			"[{% emoji link %}]($1)$0"
-		],
-		"description": "link url"
-	}
+  "emoji": {
+    "prefix": "emoji",
+    "body": ["{% emoji $name %}"],
+    "description": "hexo emoji"
+  },
+  "checkMark": {
+    "prefix": "checkMark",
+    "body": ["{% emoji heavy_check_mark %}$0"],
+    "description": "emoji check mark heavy"
+  },
+  "linkWithUrl": {
+    "prefix": "linkurl",
+    "body": ["[{% emoji link %}]($1)$0"],
+    "description": "link url"
+  }
 }

@@ -1,9 +1,0 @@
-{
-    "type ignore": {
-        "prefix": "tig",
-        "body": [
-            "#type: ignore"
-        ],
-        "description": "type ignore"
-    }
-}

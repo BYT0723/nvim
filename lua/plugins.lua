@@ -17,7 +17,6 @@ return require("packer").startup({
 		-- theme
 		use({
 			"kyazdani42/nvim-web-devicons", -- 文件图标
-			"luochen1990/rainbow", -- 彩色括号
 			"lukas-reineke/indent-blankline.nvim", -- 退格设置
 			"nvim-lualine/lualine.nvim", -- 底部状态栏
 			"folke/tokyonight.nvim", -- colorscheme, nvim样式
@@ -29,11 +28,26 @@ return require("packer").startup({
 			"windwp/nvim-autopairs", -- 括号自动闭合
 			"numToStr/Comment.nvim", -- 注释
 			"mg979/vim-visual-multi", -- 多选
-			"tpope/vim-surround", -- 符号包裹处理
 			"simrat39/symbols-outline.nvim", -- 语法树
 			"folke/trouble.nvim", -- 错误统计
 			"ThePrimeagen/refactoring.nvim", -- 代码重构
 			"voldikss/vim-floaterm", -- float term
+		})
+		use({
+			"kylechui/nvim-surround",
+			tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+			config = function()
+				require("nvim-surround").setup({})
+			end,
+		})
+		-- quick position
+		use({
+			"phaazon/hop.nvim",
+			branch = "v2", -- optional but strongly recommended
+			config = function()
+				-- you can configure Hop the way you like here; see :h hop-config
+				require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
+			end,
 		})
 
 		-- language
@@ -49,12 +63,6 @@ return require("packer").startup({
 				vim.fn["mkdp#util#install"]()
 			end,
 		})
-		use({
-			"ellisonleao/glow.nvim",
-			config = function()
-				require("glow").setup({})
-			end,
-		})
 
 		-- git
 		use({
@@ -66,13 +74,13 @@ return require("packer").startup({
 		-- finder
 		use("nvim-telescope/telescope.nvim")
 		use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
+		use("nvim-telescope/telescope-ui-select.nvim")
 		use({
 			"ahmedkhalf/project.nvim",
 			config = function()
 				require("project_nvim").setup({})
 			end,
 		})
-		use("nvim-telescope/telescope-ui-select.nvim")
 
 		-- nvim-tree
 		use("kyazdani42/nvim-tree.lua")
@@ -82,6 +90,7 @@ return require("packer").startup({
 
 		-- treesitter 代码高亮等
 		use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
+		use({ "p00f/nvim-ts-rainbow" })
 
 		-- lspconfig
 		use({

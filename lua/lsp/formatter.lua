@@ -12,12 +12,24 @@ require("formatter").setup({
 			require("formatter.filetypes.c").clangformat,
 		},
 		cpp = {
-			require("formatter.filetypes.cpp").clangformat,
+			function()
+				if util.get_current_buffer_file_name() == "config.h" then
+					return nil
+				end
+				return {
+					exe = "clang-format",
+					args = {
+						"-assume-filename",
+						util.escape_path(util.get_current_buffer_file_name()),
+					},
+					stdin = true,
+					try_node_modules = true,
+				}
+			end,
 		},
 		go = {
 			require("formatter.filetypes.go").gofmt,
 			require("formatter.filetypes.go").goimports,
-			require("formatter.filetypes.go").golines,
 		},
 		goctl = {},
 		rust = {

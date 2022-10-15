@@ -20,6 +20,7 @@ check your depend by `:checkhealth`
 #### Plugins in `lua/plugins.lua`
 
 ```lua
+aaaa
 return require('packer').startup(function()
     use '...package name'
 end)
