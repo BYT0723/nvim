@@ -29,9 +29,6 @@ require("lint").linters_by_ft = {
 		"codespell",
 	},
 }
--- api/user/user.proto:10:16:syntax error: unexpected ',', expecting ';' or '['
--- api/user/user.proto:104:9:Service name "cd" should be PascalCase, such as "Cd".
--- api/project/project.proto : 20 : 3 : field project.ProjectModel.owner: unknown type user.UserModel
 
 require("lint").linters.buf = {
 	cmd = "buf",
@@ -63,7 +60,7 @@ require("lint").linters.buf = {
 	end,
 }
 
-vim.api.nvim_create_autocmd({ "BufReadPost", "InsertLeave", "BufWritePost" }, {
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 	callback = function()
 		require("lint").try_lint()
 	end,

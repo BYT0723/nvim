@@ -1,12 +1,8 @@
 local home = os.getenv("HOME")
 local db = require("dashboard")
--- db.preview_command = 'ueberzug'
--- db.preview_command = 'cat | lolcat -F 0.5'
--- db.preview_file_path = home..'/.config/nvim/logo.cat'
-db.preview_file_height = 12
-db.preview_file_width = 55
+-- db.preview_file_height = 13
+-- db.preview_file_width = 55
 db.default_banner = {
-	"                                                       ",
 	"                                                       ",
 	" ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗",
 	" ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║",
@@ -14,9 +10,11 @@ db.default_banner = {
 	" ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║",
 	" ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║",
 	" ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝",
+	"         ,__,                              ,__,        ",
+	"     ____(^^)   ________________________   (^^)____    ",
+	"   /(    (__)   May you never be alone   (__)    )\\  ",
+	"  * ||--||      ------------------------      ||--|| * ",
 	"                                                       ",
-	"                                                       ",
-	"                   [ Lone Developer ]                  ",
 	"                                                       ",
 }
 db.custom_center = {

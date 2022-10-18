@@ -1,9 +1,9 @@
 local servers = {
 	"angularls",
 	"bashls",
-	"bufls",
 	"clangd",
 	"cssls",
+	"dotls",
 	"dockerls",
 	"gopls",
 	"html",
