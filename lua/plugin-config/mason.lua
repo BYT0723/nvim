@@ -4,7 +4,7 @@ require("mason").setup({
 		check_outdated_packages_on_open = true,
 
 		-- The border to use for the UI window. Accepts same border values as |nvim_open_win()|.
-		border = "none",
+		border = "rounded", -- none / single / double / rounded / solid / shadow
 
 		icons = {
 			-- The list icon to use for installed packages.

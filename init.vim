@@ -126,12 +126,12 @@ nnoremap <C-j> :resize +5<CR>
 nnoremap <C-k> :resize -5<CR>
 
 " quick position
-noremap gh ^
-noremap ge $
+noremap H ^
+noremap L $
 
 nnoremap tj :tabn<CR>
 nnoremap tk :tabp<CR>
-nnoremap tc :tabclose<CR>
+nnoremap tq :tabclose<CR>
 
 nnoremap W :w!<CR>
 nnoremap Q :q!<CR>

@@ -48,7 +48,7 @@ require("bufferline").setup({
 	insert_at_start = false,
 
 	-- Sets the maximum padding width with which to surround each tab
-	maximum_padding = 1,
+	maximum_padding = 2,
 
 	-- Sets the minimum padding width with which to surround each tab
 	minimum_padding = 1,
@@ -56,10 +56,6 @@ require("bufferline").setup({
 	-- Sets the maximum buffer name length.
 	maximum_length = 30,
 
-	-- If set, the letters for each buffer in buffer-pick mode will be
-	-- assigned based on their name. Otherwise or in case all letters are
-	-- already assigned, the behavior is to assign letters in order of
-	-- usability (see order below)
 	semantic_letters = true,
 
 	-- New buffer letters are assigned in this order. This order is

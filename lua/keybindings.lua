@@ -20,8 +20,13 @@ map("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", opt)
 -- bufferline
 map("n", "bk", "<cmd>BufferPrevious<CR>", opt)
 map("n", "bj", "<cmd>BufferNext<CR>", opt)
-map("n", "bp", "<cmd>BufferPick<CR>", opt)
-map("n", "bq", "<cmd>bd<CR>", opt)
+map("n", "bh", "<cmd>BufferFirst<CR>", opt)
+map("n", "bl", "<cmd>BufferLast<CR>", opt)
+map("n", "bH", "<cmd>BufferMovePrevious<CR>", opt)
+map("n", "bL", "<cmd>BufferMoveNext<CR>", opt)
+map("n", "bs", "<cmd>BufferPick<CR>", opt) -- buffer select
+map("n", "bp", "<cmd>BufferPin<CR>", opt) -- buffer pin
+map("n", "bq", "<cmd>BufferDelete<CR>", opt) -- buffer quit
 
 -- symbols-outline
 map("n", "<leader>v", "<cmd>LSoutlineToggle<CR>", opt)
@@ -54,18 +59,8 @@ pluginKeys.maplsp = function(mapbuf, bufnr)
 	-- map('n', '<leader>l', '<cmd>lua vim.diagnostic.setloclist()<CR>', opt)
 	map("n", "dk", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opt)
 	map("n", "dj", "<cmd>Lspsaga diagnostic_jump_next<CR>", opt)
-	map(
-		"n",
-		"ek",
-		"<cmd>lua require('lspsaga.diagnostic').goto_prev({ severity = vim.diagnostic.severity.ERROR })<CR>",
-		opt
-	)
-	map(
-		"n",
-		"ej",
-		"<cmd>lua require('lspsaga.diagnostic').goto_next({ severity = vim.diagnostic.severity.ERROR })<CR>",
-		opt
-	)
+	map("n", "ek", "<cmd>lua require('lspsaga.diagnostic').goto_prev({ severity = vim.diagnostic.severity.ERROR })<CR>", opt)
+	map("n", "ej", "<cmd>lua require('lspsaga.diagnostic').goto_next({ severity = vim.diagnostic.severity.ERROR })<CR>", opt)
 	-- rename
 	mapbuf(bufnr, "n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opt)
 	-- code action

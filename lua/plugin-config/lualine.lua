@@ -126,14 +126,33 @@ ins_left({
 
 ins_left({
 	"filename",
-	file_status = false, -- Displays file status (readonly status, modified status)
+	file_status = true, -- Displays file status (readonly status, modified status)
 	path = 1, -- 0: Just the filename
 	-- 1: Relative path
 	-- 2: Absolute path
-	shorting_target = 100, -- Shortens path to leave 40 spaces in the window
+	shorting_target = 40, -- Shortens path to leave 40 spaces in the window
 	-- for other components. (terrible name, any suggestions?)
 	cond = conditions.buffer_not_empty and conditions.except,
 	color = { fg = colors.magenta, gui = "bold" },
+})
+
+ins_left({
+	"diff",
+	symbols = theme.lualine.git,
+	diff_color = {
+		added = { fg = colors.green },
+		modified = { fg = colors.orange },
+		removed = { fg = colors.red },
+	},
+	cond = conditions.hide_in_width,
+})
+
+-- Insert mid section. You can make any number of sections in neovim :)
+-- for lualine it's any number greater then 2
+ins_left({
+	function()
+		return "%="
+	end,
 })
 
 ins_left({
@@ -157,7 +176,7 @@ ins_left({
 	cond = conditions.hide_in_width,
 })
 
-ins_left({
+ins_right({
 	"diagnostics",
 	sources = { "nvim_diagnostic" },
 	symbols = { error = " ", warn = " ", info = " " },
@@ -168,14 +187,6 @@ ins_left({
 	},
 	cond = conditions.hide_in_width,
 })
-
--- Insert mid section. You can make any number of sections in neovim :)
--- for lualine it's any number greater then 2
--- ins_left({
--- 	function()
--- 		return "%="
--- 	end,
--- })
 
 -- ins_left({
 -- 	function()
@@ -193,17 +204,6 @@ ins_left({
 -- 	cond = conditions.hide_in_width,
 -- 	color = { fg = "#FF8800", gui = "bold" },
 -- })
-
-ins_right({
-	"diff",
-	symbols = theme.lualine.git,
-	diff_color = {
-		added = { fg = colors.green },
-		modified = { fg = colors.orange },
-		removed = { fg = colors.red },
-	},
-	cond = conditions.hide_in_width,
-})
 
 ins_right({ "location" })
 ins_right({ "progress", color = { fg = colors.fg, gui = "bold" }, cond = conditions.hide_in_width })
