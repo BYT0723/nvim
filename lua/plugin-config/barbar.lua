@@ -71,29 +71,3 @@ require("bufferline").setup({
 	-- where X is the buffer number. But only a static string is accepted here.
 	no_name_title = nil,
 })
-
-vim.api.nvim_create_autocmd("BufWinEnter", {
-	pattern = "*",
-	callback = function()
-		if vim.bo.filetype == "NvimTree" then
-			require("bufferline.api").set_offset(31, "File Explorer")
-		elseif vim.bo.filetype == "Outline" then
-			require("bufferline.api").set_offset(31, "Syntax Tree")
-		elseif vim.bo.filetype == "toggleterm" then
-			require("bufferline.api").set_offset(31, "Terminal")
-		end
-	end,
-})
-
-vim.api.nvim_create_autocmd("BufWinLeave", {
-	pattern = "*",
-	callback = function()
-		if vim.fn.expand("<afile>"):match("NvimTree") then
-			require("bufferline.api").set_offset(0)
-		elseif vim.fn.expand("<afile>"):match("Outline") then
-			require("bufferline.api").set_offset(0)
-		elseif vim.fn.expand("<afile>"):match("toggleterm") then
-			require("bufferline.api").set_offset(0)
-		end
-	end,
-})

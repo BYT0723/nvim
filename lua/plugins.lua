@@ -28,7 +28,6 @@ return require("packer").startup({
 			"windwp/nvim-autopairs", -- 括号自动闭合
 			"numToStr/Comment.nvim", -- 注释
 			"mg979/vim-visual-multi", -- 多选
-			"simrat39/symbols-outline.nvim", -- 语法树
 			"folke/trouble.nvim", -- 错误统计
 			"ThePrimeagen/refactoring.nvim", -- 代码重构
 		})
@@ -111,6 +110,10 @@ return require("packer").startup({
 			"rcarriga/nvim-dap-ui",
 
 			"ray-x/lsp_signature.nvim", -- 补全时的文档显示
+		})
+		use({
+			"glepnir/lspsaga.nvim",
+			branch = "main",
 		})
 
 		-- nvim-cmp

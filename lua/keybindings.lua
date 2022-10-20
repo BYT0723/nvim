@@ -24,7 +24,7 @@ map("n", "bp", "<cmd>BufferPick<CR>", opt)
 map("n", "bq", "<cmd>bd<CR>", opt)
 
 -- symbols-outline
-map("n", "<leader>v", "<cmd>SymbolsOutline<CR>", opt)
+map("n", "<leader>v", "<cmd>LSoutlineToggle<CR>", opt)
 
 -- trouble
 map("n", "<leader>d", "<cmd>TroubleToggle<CR>", opt)
@@ -51,27 +51,39 @@ local pluginKeys = {}
 -- lsp keybind
 pluginKeys.maplsp = function(mapbuf, bufnr)
 	-- map('n', '<leader>f', '<cmd>lua vim.diagnostic.open_float()<CR>', opt)
-	map("n", "dk", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opt)
-	map("n", "dj", "<cmd>lua vim.diagnostic.goto_next()<CR>", opt)
 	-- map('n', '<leader>l', '<cmd>lua vim.diagnostic.setloclist()<CR>', opt)
+	map("n", "dk", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opt)
+	map("n", "dj", "<cmd>Lspsaga diagnostic_jump_next<CR>", opt)
+	map(
+		"n",
+		"ek",
+		"<cmd>lua require('lspsaga.diagnostic').goto_prev({ severity = vim.diagnostic.severity.ERROR })<CR>",
+		opt
+	)
+	map(
+		"n",
+		"ej",
+		"<cmd>lua require('lspsaga.diagnostic').goto_next({ severity = vim.diagnostic.severity.ERROR })<CR>",
+		opt
+	)
 	-- rename
-	mapbuf(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opt)
+	mapbuf(bufnr, "n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opt)
 	-- code action
-	mapbuf(bufnr, "n", "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<CR>", opt)
+	mapbuf(bufnr, "n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opt)
 	-- go xx
-	mapbuf(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opt)
+	mapbuf(bufnr, "n", "gd", "<cmd>Lspsaga peek_definition<CR>", opt)
+	mapbuf(bufnr, "n", "<leader>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opt)
 	mapbuf(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opt)
 	mapbuf(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opt)
-	mapbuf(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opt)
-	mapbuf(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
+	mapbuf(bufnr, "n", "gr", "<cmd>Lspsaga lsp_finder<CR>", opt)
+	mapbuf(bufnr, "n", "K", "<cmd>Lspsaga hover_doc<CR>", opt)
 	-- leader + =
 	mapbuf(bufnr, "n", "<leader>=", "<cmd>lua vim.lsp.buf.formatting()<CR>", opt)
 	mapbuf(bufnr, "v", "<leader>=", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opt)
-	mapbuf(bufnr, "n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opt)
+	-- mapbuf(bufnr, "n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opt)
 	mapbuf(bufnr, "n", "<leader>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opt)
 	mapbuf(bufnr, "n", "<leader>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opt)
 	mapbuf(bufnr, "n", "<leader>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opt)
-	mapbuf(bufnr, "n", "<leader>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opt)
 end
 
 -- nvim-cmp
