@@ -34,20 +34,19 @@ function! TagAction(action,tagsName) abort
   exec "!gomodifytags -file %:. -struct ".structName." -".a:action."-tags ".a:tagsName." -w --quiet -transform camelcase"
 endfunction
 
-autocmd FileType goctl nnoremap bd :FloatermNew goctl api go -api %:. -dir %:.:h -style goZero<CR>
-autocmd FileType proto nnoremap bd :FloatermNew cd %:.:h && goctl rpc protoc %:.:t --go_out=. --go-grpc_out=. --zrpc_out=. --style=goZero<CR>
-
+autocmd FileType goctl nnoremap bd :TermExec cmd='goctl api go -api %:. -dir %:.:h -style goZero'<CR>
+autocmd FileType proto nnoremap bd :TermExec dir='%:.:h' cmd='goctl rpc protoc %:.:t --go_out=. --go-grpc_out=. --zrpc_out=. --style=goZero'<CR>
 
 " 编译运行
 nnoremap rr :call CompileRun()<CR>
 func! CompileRun()
   if &filetype == 'c'
-    exec "FloatermNew gcc -pthread -o ./%:.:r %:. && ./%:.:r "
+    exec "TermExec cmd='gcc -pthread -o ./%:.:r %:. && ./%:.:r '"
   elseif &filetype == 'cpp'
-    exec "FloatermNew g++ -o ./bin/%:.:r %:. && ./bin/%:.:r"
+    exec "TermExec cmd='g++ -o ./bin/%:.:r %:. && ./bin/%:.:r'"
   elseif &filetype == 'rust'
-    exec "FloatermNew cargo run"
-    " exec "FloatermNew rustc --out-dir ./bin/%:.:h %:. && ./bin/%:.:r"
+    exec "TermExec cmd='cargo run'"
+    " exec "TermExec cmd='rustc --out-dir ./bin/%:.:h %:. && ./bin/%:.:r'"
   elseif &filetype == 'java'
     " 遍历./lib/
     " 将目录下所有的.jar加入classpath
@@ -59,21 +58,21 @@ func! CompileRun()
       endfor
       let jarsStr = join(jars,":")
     endif
-    exec "FloatermNew javac -d ./class/ -cp ./class:".jarsStr." %:.:h/*.java && java -ea -cp ./class:".jarsStr." -D:file.encoding=UTF-8 %:.:r"
+    exec "TermExec cmd='javac -d ./class/ -cp ./class:".jarsStr." %:.:h/*.java && java -ea -cp ./class:".jarsStr." -D:file.encoding=UTF-8 %:.:r'"
   elseif &filetype == 'python'
-    exec "FloatermNew python %:."
+    exec "TermExec cmd='python %:.'"
   elseif &filetype == 'go'
-    exec "FloatermNew go run %:."
+    exec "TermExec cmd='go run %:.'"
   elseif &filetype == 'markdown'
     exec "MarkdownPreviewToggle"
   elseif &filetype == 'proto'
-    exec "FloatermNew protoc --proto_path=%:.:h --go_out=plugins=grpc:%:.:h/pb %:."
+    exec "TermExec cmd='protoc --proto_path=%:.:h --go_out=plugins=grpc:%:.:h/pb %:.'"
   elseif &filetype == 'html'
     exec "silent !firefox %:. &"
   elseif &filetype == 'sh'
-    exec "FloatermNew ./%:."
+    exec "TermExec cmd='./%:.'"
   elseif &filetype == 'javascript' || &filetype == "typescript"
-    exec "FloatermNew node ./%:."
+    exec "TermExec cmd='node ./%:.'"
   endif
 endfunction
 
@@ -85,9 +84,9 @@ nnoremap tb :call BenchmarkFunction()<CR>
 func! TestFunction() abort
   let funcName = GetName('func','func Test\([A-Za-z0-9]\+\)(t \*testing.T)')
   if funcName != ''
-    exec "FloatermNew go test -v ./%:.:h -run='".funcName."'"
+    exec "TermExec cmd='go test -v ./%:.:h -run=".funcName."'"
   else
-    exec "FloatermNew go test -v ./%:."
+    exec "TermExec cmd='go test -v ./%:.'"
   endif
 endfunction
 
@@ -95,9 +94,9 @@ endfunction
 func! BenchmarkFunction() abort
   let funcName = GetName('func', 'func Benchmark\([A-Za-z0-9]\+\)(b \*testing.B)')
   if funcName != ''
-    exec "FloatermNew go test -bench='".funcName."' ./%:.:h -run=none"
+    exec "TermExec cmd='go test -bench=".funcName." ./%:.:h -run=none'"
   else
-    exec "FloatermNew go test -bench=. ./%:.:h -run=none"
+    exec "TermExec cmd='go test -bench=. ./%:.:h -run=none'"
   endif
 endfunction
 
@@ -118,8 +117,6 @@ let g:vsnip_snippet_dir = "~/.config/nvim/snippets"
 
 " terminal
 tnoremap <Esc> <C-\><C-n>
-tnoremap <C-Space>t <C-\><C-n>:FloatermToggle<CR>
-nnoremap <C-Space>t :FloatermToggle<CR>
 
 " 窗口管理
 nnoremap w <C-w>

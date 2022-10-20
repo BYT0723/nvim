@@ -10,7 +10,7 @@ require("tokyonight").setup({
 		sidebars = "transparent", -- dark / transparent / normal
 		floats = "transparent",
 	},
-	sidebars = { "qf", "help", "vista_kind", "terminal", "packer" },
+	sidebars = { "qf", "toggleterm", "Outline", "NvimTree" },
 	day_brightness = 0.3,
 	hide_inactive_statusline = false,
 	dim_inactive = false,
@@ -19,33 +19,28 @@ require("tokyonight").setup({
 	on_colors = function(colors) end,
 
 	on_highlights = function(hl, c)
-		local prompt = "#2d3149"
+		-- 设置telescope 透明效果
+		local bg = c.fg_transparent
 		hl.TelescopeNormal = {
-			bg = c.bg_dark,
-			fg = c.fg_dark,
+			bg = bg,
 		}
 		hl.TelescopeBorder = {
-			bg = c.bg_dark,
-			fg = c.bg_dark,
+			bg = bg,
 		}
 		hl.TelescopePromptNormal = {
-			bg = prompt,
+			bg = bg,
 		}
 		hl.TelescopePromptBorder = {
-			bg = prompt,
-			fg = prompt,
+			bg = bg,
 		}
 		hl.TelescopePromptTitle = {
-			bg = prompt,
-			fg = prompt,
+			bg = bg,
 		}
 		hl.TelescopePreviewTitle = {
-			bg = c.bg_dark,
-			fg = c.bg_dark,
+			bg = bg,
 		}
 		hl.TelescopeResultsTitle = {
-			bg = c.bg_dark,
-			fg = c.bg_dark,
+			bg = bg,
 		}
 	end,
 })

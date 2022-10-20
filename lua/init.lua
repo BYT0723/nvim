@@ -17,7 +17,8 @@ require("lsp/dap-local")
 require("colorscheme")
 
 -- config
-require("plugin-config/bufferline")
+-- require("plugin-config/bufferline")
+require("plugin-config/barbar")
 require("plugin-config/gitsigns")
 require("plugin-config/indent-blankline")
 require("plugin-config/lualine")
@@ -31,7 +32,7 @@ require("plugin-config/comment")
 require("plugin-config/nvim-autopairs")
 require("plugin-config/dashboard-nvim")
 require("plugin-config/mason")
-require("plugin-config/floaterm")
+require("plugin-config/toggleterm")
 
 -- 16进制颜色显示
 require("colorizer").setup()

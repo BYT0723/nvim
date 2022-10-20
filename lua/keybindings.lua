@@ -18,9 +18,9 @@ map("n", "<leader>n", "<cmd>DashboardNewFile<CR>", opt)
 map("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", opt)
 
 -- bufferline
-map("n", "bk", "<cmd>BufferLineCyclePrev<CR>", opt)
-map("n", "bj", "<cmd>BufferLineCycleNext<CR>", opt)
-map("n", "bp", "<cmd>BufferLinePick<CR>", opt)
+map("n", "bk", "<cmd>BufferPrevious<CR>", opt)
+map("n", "bj", "<cmd>BufferNext<CR>", opt)
+map("n", "bp", "<cmd>BufferPick<CR>", opt)
 map("n", "bq", "<cmd>bd<CR>", opt)
 
 -- symbols-outline

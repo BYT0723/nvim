@@ -31,8 +31,16 @@ return require("packer").startup({
 			"simrat39/symbols-outline.nvim", -- 语法树
 			"folke/trouble.nvim", -- 错误统计
 			"ThePrimeagen/refactoring.nvim", -- 代码重构
-			"voldikss/vim-floaterm", -- float term
 		})
+		-- term
+		use({
+			"akinsho/toggleterm.nvim",
+			tag = "*",
+			config = function()
+				require("toggleterm").setup()
+			end,
+		})
+		-- surround
 		use({
 			"kylechui/nvim-surround",
 			tag = "*", -- Use for stability; omit to use `main` branch for the latest features
@@ -86,7 +94,7 @@ return require("packer").startup({
 		use("kyazdani42/nvim-tree.lua")
 
 		-- bufferline
-		use({ "akinsho/bufferline.nvim", tag = "v2.*" })
+		use({ "romgrk/barbar.nvim" })
 
 		-- treesitter 代码高亮等
 		use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
