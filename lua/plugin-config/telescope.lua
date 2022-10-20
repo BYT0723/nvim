@@ -16,6 +16,7 @@ require("telescope").setup({
 		-- builtin picker
 		find_files = {
 			theme = "ivy", -- cursor/dropdown/ivy
+			no_ignore = true,
 		},
 		live_grep = {
 			theme = "ivy",

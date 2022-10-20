@@ -1,0 +1,12 @@
+{
+  "digraph": {
+    "prefix": "graph",
+    "body": ["digraph ${1:name} {", "\t${2}", "}${0}"],
+    "description": "digraph"
+  },
+  "subdigraph": {
+    "prefix": "subgraph",
+    "body": ["subdigraph cluster_${1:name} {", "\t${2}", "}${0}"],
+    "description": "sub digraph"
+  }
+}
