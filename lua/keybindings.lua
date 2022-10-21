@@ -5,16 +5,25 @@ vim.g.maplocalleader = " "
 local map = vim.api.nvim_set_keymap
 local opt = { noremap = true, silent = true }
 
+-- quickfix
+map("n", "ck", "<cmd>cp<CR>", opt)
+map("n", "cj", "<cmd>cn<CR>", opt)
+map("n", "cc", "<cmd>cc<CR>", opt)
+map("n", "<leader>c", "<cmd>lua require('util').toggleQuickfix()<CR>", opt)
+
+-- launcher
+map("n", "<leader>rf", "<cmd>lua require('launcher').runFile()<CR>", opt)
+map("n", "<leader>rp", "<cmd>lua require('launcher').runProject()<CR>", opt)
+map("n", "<leader>ri", "<cmd>lua require('launcher').getRunProjectCmd()<CR>", opt)
+map("n", "<leader>rm", "<cmd>lua require('launcher').removeRunProjectCmd()<CR>", opt)
+
 -- hop
 map("", "f", "<cmd>lua require'hop'.hint_char1({ current_line_only = true })<cr>", opt)
 
--- launcher
-map("n", "<leader>rr", "<cmd> lua require('launcher').run()<CR>", opt)
-
--- New Buffer
+-- dashboard
 map("n", "<leader>n", "<cmd>DashboardNewFile<CR>", opt)
 
--- Nvim-Tree
+-- NvimTree
 map("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", opt)
 
 -- bufferline
@@ -28,13 +37,13 @@ map("n", "bs", "<cmd>BufferPick<CR>", opt) -- buffer select
 map("n", "bp", "<cmd>BufferPin<CR>", opt) -- buffer pin
 map("n", "bq", "<cmd>BufferDelete<CR>", opt) -- buffer quit
 
--- symbols-outline
+-- syntax tree
 map("n", "<leader>v", "<cmd>LSoutlineToggle<CR>", opt)
 
 -- trouble
 map("n", "<leader>d", "<cmd>TroubleToggle<CR>", opt)
 
--- lazygit
+-- git
 map("n", "<leader>gg", "<cmd>LazyGit<CR>", opt)
 map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", opt)
 
@@ -51,6 +60,25 @@ map("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<CR>", op
 map("n", "<leader>ft", "<cmd>lua require('telescope.builtin').help_tags()<CR>", opt)
 map("n", "<leader>p", "<cmd>Telescope projects<CR>", opt)
 
+-- term
+map("t", "<Esc>", "<C-\\><C-n>", opt)
+
+map("n", "w", "<C-w>", opt)
+map("n", "<C-h>", "<cmd>vertical resize -5<CR>", opt)
+map("n", "<C-l>", "<cmd>vertical resize +5<CR>", opt)
+map("n", "<C-j>", "<cmd>resize +5<CR>", opt)
+map("n", "<C-k>", "<cmd>resize -5<CR>", opt)
+
+map("n", "gh", "^", opt)
+map("n", "ge", "$", opt)
+
+map("n", "tk", "<cmd>tabp<CR>", opt)
+map("n", "tj", "<cmd>tabn<CR>", opt)
+map("n", "tq", "<cmd>tabclose<CR>", opt)
+
+map("n", "W", "<cmd>w!<CR>", opt)
+map("n", "Q", "<cmd>q!<CR>", opt)
+
 local pluginKeys = {}
 
 -- lsp keybind
@@ -64,7 +92,7 @@ pluginKeys.maplsp = function(mapbuf, bufnr)
 	-- rename
 	mapbuf(bufnr, "n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opt)
 	-- code action
-	mapbuf(bufnr, "n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opt)
+	mapbuf(bufnr, "n", "<leader>a", "<cmd>Lspsaga code_action<CR>", opt)
 	-- go xx
 	mapbuf(bufnr, "n", "gd", "<cmd>Lspsaga peek_definition<CR>", opt)
 	mapbuf(bufnr, "n", "<leader>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opt)

@@ -6,6 +6,8 @@ require("plugins")
 -- 导入快捷键绑定
 require("keybindings")
 
+require("env")
+
 -- lsp
 require("lsp/lsp")
 require("lsp/nvim-cmp")
@@ -17,7 +19,6 @@ require("lsp/dap-local")
 require("colorscheme")
 
 -- config
--- require("plugin-config/bufferline")
 require("plugin-config/barbar")
 require("plugin-config/gitsigns")
 require("plugin-config/indent-blankline")
