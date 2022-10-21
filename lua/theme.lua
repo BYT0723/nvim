@@ -1,14 +1,14 @@
-local theme = {}
+local M = {}
 
-theme.diagnostic = { error = " ", warn = " ", info = " ", hint = " ", other = "﫠 " }
+M.diagnostic = { error = " ", warn = " ", info = " ", hint = " ", other = "﫠 " }
 
-theme.lualine = {
+M.lualine = {
 	component_separators = { left = "", right = "" },
 	section_separators = { left = "", right = "" },
 	git = { added = " ", modified = "柳", removed = " " },
 }
 
-theme.gitsigns = {
+M.gitsigns = {
 	current_line_blame_formatter = "  「 <author>, <author_time> • <summary> 」",
 	signs = {
 		add = { hl = "GitSignsAdd", text = "▊", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
@@ -19,7 +19,7 @@ theme.gitsigns = {
 	},
 }
 
-theme.symbols_outline = {
+M.symbols_outline = {
 	symbols = {
 		File = { icon = "", hl = "TSURI" },
 		Module = { icon = "", hl = "TSNamespace" },
@@ -50,7 +50,7 @@ theme.symbols_outline = {
 	},
 }
 
-theme.nvim_tree = {
+M.nvim_tree = {
 	webdev_colors = true,
 	git_placement = "after",
 	padding = " ",
@@ -86,4 +86,4 @@ theme.nvim_tree = {
 	},
 }
 
-return theme
+return M

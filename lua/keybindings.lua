@@ -69,8 +69,8 @@ map("n", "<C-l>", "<cmd>vertical resize +5<CR>", opt)
 map("n", "<C-j>", "<cmd>resize +5<CR>", opt)
 map("n", "<C-k>", "<cmd>resize -5<CR>", opt)
 
-map("n", "gh", "^", opt)
-map("n", "ge", "$", opt)
+map("", "gh", "^", opt)
+map("", "ge", "$", opt)
 
 map("n", "tk", "<cmd>tabp<CR>", opt)
 map("n", "tj", "<cmd>tabn<CR>", opt)
@@ -87,8 +87,8 @@ pluginKeys.maplsp = function(mapbuf, bufnr)
 	-- map('n', '<leader>l', '<cmd>lua vim.diagnostic.setloclist()<CR>', opt)
 	map("n", "dk", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opt)
 	map("n", "dj", "<cmd>Lspsaga diagnostic_jump_next<CR>", opt)
-	map("n", "ek", "<cmd>lua require('lspsaga.diagnostic').goto_prev({ severity = vim.diagnostic.severity.ERROR })<CR>", opt)
-	map("n", "ej", "<cmd>lua require('lspsaga.diagnostic').goto_next({ severity = vim.diagnostic.severity.ERROR })<CR>", opt)
+	map("n", "dh", "<cmd>lua require('lspsaga.diagnostic').goto_prev({ severity = vim.diagnostic.severity.ERROR })<CR>", opt)
+	map("n", "dl", "<cmd>lua require('lspsaga.diagnostic').goto_next({ severity = vim.diagnostic.severity.ERROR })<CR>", opt)
 	-- rename
 	mapbuf(bufnr, "n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opt)
 	-- code action
