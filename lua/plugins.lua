@@ -11,8 +11,12 @@ end
 
 return require("packer").startup({
 	function()
+		-- base
+		use({ "nvim-lua/plenary.nvim" })
+
 		-- Packer can manage itself
 		use("wbthomason/packer.nvim")
+
 
 		-- theme
 		use({
@@ -140,8 +144,6 @@ return require("packer").startup({
 		-- save every buffer's status of fcitx
 		use({ "lilydjwg/fcitx.vim" })
 
-		-- base
-		use({ "nvim-lua/plenary.nvim" })
 
 		if ensure_packer() then
 			require("packer").sync()
