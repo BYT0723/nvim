@@ -17,7 +17,6 @@ return require("packer").startup({
 		-- Packer can manage itself
 		use("wbthomason/packer.nvim")
 
-
 		-- theme
 		use({
 			"kyazdani42/nvim-web-devicons", -- 文件图标
@@ -109,6 +108,7 @@ return require("packer").startup({
 			"williamboman/mason-lspconfig.nvim",
 			"williamboman/mason.nvim", -- lsp管理
 			"mfussenegger/nvim-lint", -- linter配置
+			"simrat39/symbols-outline.nvim", -- 语法树
 			"mhartington/formatter.nvim", -- formatter配置
 			"mfussenegger/nvim-dap", -- debug配置
 			"rcarriga/nvim-dap-ui",
@@ -143,7 +143,6 @@ return require("packer").startup({
 
 		-- save every buffer's status of fcitx
 		use({ "lilydjwg/fcitx.vim" })
-
 
 		if ensure_packer() then
 			require("packer").sync()

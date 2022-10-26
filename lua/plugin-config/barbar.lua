@@ -48,13 +48,13 @@ require("bufferline").setup({
 	insert_at_start = false,
 
 	-- Sets the maximum padding width with which to surround each tab
-	maximum_padding = 2,
+	maximum_padding = 1,
 
 	-- Sets the minimum padding width with which to surround each tab
 	minimum_padding = 1,
 
 	-- Sets the maximum buffer name length.
-	maximum_length = 30,
+	maximum_length = 50,
 
 	semantic_letters = true,
 
@@ -67,3 +67,22 @@ require("bufferline").setup({
 	-- where X is the buffer number. But only a static string is accepted here.
 	no_name_title = nil,
 })
+
+local nvim_tree_events = require("nvim-tree.events")
+local bufferline_api = require("bufferline.api")
+
+local function get_tree_size()
+	return require("nvim-tree.view").View.width
+end
+
+nvim_tree_events.subscribe("TreeOpen", function()
+	bufferline_api.set_offset(get_tree_size())
+end)
+
+nvim_tree_events.subscribe("Resize", function()
+	bufferline_api.set_offset(get_tree_size())
+end)
+
+nvim_tree_events.subscribe("TreeClose", function()
+	bufferline_api.set_offset(0)
+end)

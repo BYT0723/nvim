@@ -17,6 +17,13 @@ map("n", "<leader>rp", "<cmd>lua require('launcher').runProject()<CR>", opt)
 map("n", "<leader>ri", "<cmd>lua require('launcher').getRunProjectCmd()<CR>", opt)
 map("n", "<leader>rm", "<cmd>lua require('launcher').removeRunProjectCmd()<CR>", opt)
 
+-- terminal
+map("n", "<leader>\\", "<cmd>ToggleTermToggleAll<CR>", opt)
+map("n", "<leader>t1", "<cmd>1ToggleTerm<CR>", opt)
+map("n", "<leader>t2", "<cmd>2ToggleTerm<CR>", opt)
+map("n", "<leader>t3", "<cmd>3ToggleTerm<CR>", opt)
+map("n", "<leader>t4", "<cmd>4ToggleTerm<CR>", opt)
+
 -- hop
 map("", "f", "<cmd>lua require'hop'.hint_char1({ current_line_only = true })<cr>", opt)
 
@@ -29,16 +36,17 @@ map("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", opt)
 -- bufferline
 map("n", "bk", "<cmd>BufferPrevious<CR>", opt)
 map("n", "bj", "<cmd>BufferNext<CR>", opt)
+map("n", "bK", "<cmd>BufferMovePrevious<CR>", opt)
+map("n", "bJ", "<cmd>BufferMoveNext<CR>", opt)
 map("n", "bh", "<cmd>BufferFirst<CR>", opt)
 map("n", "bl", "<cmd>BufferLast<CR>", opt)
-map("n", "bH", "<cmd>BufferMovePrevious<CR>", opt)
-map("n", "bL", "<cmd>BufferMoveNext<CR>", opt)
 map("n", "bs", "<cmd>BufferPick<CR>", opt) -- buffer select
 map("n", "bp", "<cmd>BufferPin<CR>", opt) -- buffer pin
 map("n", "bq", "<cmd>BufferDelete<CR>", opt) -- buffer quit
 
 -- syntax tree
 map("n", "<leader>v", "<cmd>LSoutlineToggle<CR>", opt)
+-- map("n", "<leader>v", "<cmd>SymbolsOutline<CR>", opt)
 
 -- trouble
 map("n", "<leader>d", "<cmd>TroubleToggle<CR>", opt)
@@ -62,8 +70,12 @@ map("n", "<leader>p", "<cmd>Telescope projects<CR>", opt)
 
 -- term
 map("t", "<Esc>", "<C-\\><C-n>", opt)
+map("t", "<C-w>j", "<cmd>wincmd j<CR>", opt)
+map("t", "<C-w>k", "<cmd>wincmd k<CR>", opt)
+map("t", "<C-w>h", "<cmd>wincmd h<CR>", opt)
+map("t", "<C-w>l", "<cmd>wincmd l<CR>", opt)
 
-map("n", "w", "<C-w>", opt)
+-- map("n", "w", "<C-w>", opt)
 map("n", "<C-h>", "<cmd>vertical resize -5<CR>", opt)
 map("n", "<C-l>", "<cmd>vertical resize +5<CR>", opt)
 map("n", "<C-j>", "<cmd>resize +5<CR>", opt)
