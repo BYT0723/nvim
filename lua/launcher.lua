@@ -28,14 +28,19 @@ local runProjectCmd = {
 }
 
 local Terminal = require("toggleterm.terminal").Terminal
-function M.runFile()
-	local cmd = runFileCmd[vim.bo.filetype]
-	Terminal:new({
+
+function NewTerm(cmd)
+	return Terminal:new({
 		cmd = cmd,
-		direction = "vertical",
+		direction = "horizontal", -- vertical / horizontal / tab / float
 		close_on_exit = false,
 		auto_scroll = true,
-	}):toggle()
+	})
+end
+
+function M.runFile()
+	local cmd = runFileCmd[vim.bo.filetype]
+	NewTerm(cmd):toggle()
 end
 
 function M.runProject()
@@ -43,12 +48,7 @@ function M.runProject()
 	if cmd == nil then
 		cmd = M.writeRunProjectCmd()
 	end
-	Terminal:new({
-		cmd = cmd,
-		direction = "vertical",
-		close_on_exit = false,
-		auto_scroll = true,
-	}):toggle()
+	NewTerm(cmd):toggle()
 end
 
 function M.writeRunProjectCmd()
