@@ -64,9 +64,9 @@ map("n", "<leader>so", "<cmd>lua require('dap').step_over()<CR>", opt)
 -- telescope
 map("n", "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<CR>", opt)
 map("n", "<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<CR>", opt)
-map("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<CR>", opt)
-map("n", "<leader>ft", "<cmd>lua require('telescope.builtin').help_tags()<CR>", opt)
 map("n", "<leader>p", "<cmd>Telescope projects<CR>", opt)
+-- map("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<CR>", opt)
+-- map("n", "<leader>ft", "<cmd>lua require('telescope.builtin').help_tags()<CR>", opt)
 
 -- term
 map("t", "<Esc>", "<C-\\><C-n>", opt)
@@ -90,6 +90,9 @@ map("n", "tq", "<cmd>tabclose<CR>", opt)
 
 map("n", "W", "<cmd>w!<CR>", opt)
 map("n", "Q", "<cmd>q!<CR>", opt)
+
+vim.api.nvim_command("au FileType go nnoremap taj :GoAddTags json,omitempty <CR>")
+vim.api.nvim_command("au FileType go nnoremap trj :GoRemoveTags json <CR>")
 
 local pluginKeys = {}
 

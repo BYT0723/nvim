@@ -13,5 +13,15 @@
     "prefix": "linkurl",
     "body": ["[{% emoji link %}]($1)$0"],
     "description": "link url"
+  },
+  "indent": {
+    "prefix": "indent",
+    "body": ["&emsp;&emsp;"],
+    "description": "indent"
+  },
+  "split-line": {
+    "prefix": "split",
+    "body": ["<!--more-->"],
+    "description": "split line"
   }
 }

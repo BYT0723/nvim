@@ -54,7 +54,7 @@ require("bufferline").setup({
 	minimum_padding = 1,
 
 	-- Sets the maximum buffer name length.
-	maximum_length = 50,
+	maximum_length = 30,
 
 	semantic_letters = true,
 

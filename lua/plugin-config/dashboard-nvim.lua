@@ -57,7 +57,7 @@ db.custom_center = {
 	{
 		icon = "  ",
 		desc = "Configuration                ",
-		action = "edit $MYVIMRC",
+		action = "edit ~/.config/nvim/init.vim",
 		shortcut = "       ",
 	},
 }

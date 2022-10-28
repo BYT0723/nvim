@@ -62,6 +62,7 @@ return require("packer").startup({
 
 		-- language
 		use({
+			"fatih/vim-go",
 			"BYT0723/vim-goctl",
 			"saecki/crates.nvim",
 		})
