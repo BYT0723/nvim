@@ -6,31 +6,31 @@ function M.cwd()
 	return vim.fn.getcwd()
 end
 
-function M.projectName()
+function M.project_name()
 	return vim.fn.fnamemodify(M.cwd(), ":t")
 end
 
-function M.absoluteFilePath()
+function M.absolute_path()
 	return vim.api.nvim_buf_get_name(0)
 end
 
-function M.relativeFilePath()
-	return vim.fn.fnamemodify(M.absoluteFilePath(), ":.")
+function M.relative_path()
+	return vim.fn.fnamemodify(M.absolute_path(), ":.")
 end
 
-function M.relativeFilePathExcludeFilename()
-	return vim.fn.fnamemodify(M.absoluteFilePath(), ":h")
+function M.relative_path_ex_name()
+	return vim.fn.fnamemodify(M.absolute_path(), ":h")
 end
 
 function M.filename()
-	return vim.fn.fnamemodify(M.absoluteFilePath(), ":t")
+	return vim.fn.fnamemodify(M.absolute_path(), ":t")
 end
 
-function M.filenameExcludeSuffix()
-	return vim.fn.fnamemodify(M.absoluteFilePath(), ":t:r")
+function M.filename_ex_suffix()
+	return vim.fn.fnamemodify(M.absolute_path(), ":t:r")
 end
 
-function M.toggleQuickfix()
+function M.toggle_quickfix()
 	local id = vim.fn.getqflist({ winid = 1 }).winid
 	if id > 0 then
 		vim.cmd("cclose")

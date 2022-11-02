@@ -38,16 +38,11 @@ for _, lsp in pairs(servers) do
 		capabilities = capabilities,
 	})
 end
+require("lsp_signature").setup()
 
-require("lsp_signature").setup({
-	bind = true, -- This is mandatory, otherwise border config won't get registered.
-	hint_enable = false, -- virtual hint enable
-	handler_opts = {
-		border = "rounded", -- double, rounded, single, shadow, none
-	},
-})
-
+--
 -- specific lsp config
+--
 
 -- lua
 local runtime_path = vim.split(package.path, ";")

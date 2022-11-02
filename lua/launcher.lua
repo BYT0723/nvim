@@ -9,9 +9,9 @@ local runProjectCmd = {
 }
 
 local function runFileCmd(type)
-	local rp = util.relativeFilePath()
-	local rpef = util.relativeFilePathExcludeFilename()
-	local fns = util.filenameExcludeSuffix()
+	local rp = util.relative_path()
+	local rpef = util.relative_path_ex_name()
+	local fns = util.filename_ex_suffix()
 
 	local cmd = ""
 	if type == "c" or type == "cpp" then
@@ -62,7 +62,7 @@ function M.writeRunProjectCmd()
 	local res = ""
 	-- 读取run project command的line number
 	local rn = io.popen("cat " .. lf .. " | grep 'local runProjectCmd' -n | awk -F ':' '{print $1}' | head -n 1"):read()
-	vim.ui.input({ prompt = "Set Project [" .. util.projectName() .. "] Run Command：" }, function(input)
+	vim.ui.input({ prompt = "Set Project [" .. util.project_name() .. "] Run Command：" }, function(input)
 		if input == nil or input == "" then
 			vim.cmd("silent echom 'set run project command failed !'")
 			return

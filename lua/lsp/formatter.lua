@@ -121,9 +121,6 @@ require("formatter").setup({
 				return util.copyf(defaults.prettierd)
 			end,
 		},
-		["*"] = {
-			require("formatter.filetypes.any").remove_trailing_whitespace,
-		},
 	},
 })
 

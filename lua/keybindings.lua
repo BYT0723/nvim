@@ -9,7 +9,7 @@ local opt = { noremap = true, silent = true }
 map("n", "ck", "<cmd>cp<CR>", opt)
 map("n", "cj", "<cmd>cn<CR>", opt)
 map("n", "cc", "<cmd>cc<CR>", opt)
-map("n", "<leader>c", "<cmd>lua require('util').toggleQuickfix()<CR>", opt)
+map("n", "<leader>c", "<cmd>lua require('util').toggle_quickfix()<CR>", opt)
 
 -- launcher
 map("n", "<leader>rf", "<cmd>lua require('launcher').runFile()<CR>", opt)
@@ -99,6 +99,7 @@ local pluginKeys = {}
 -- lsp keybind
 pluginKeys.maplsp = function(mapbuf, bufnr)
 	-- map('n', '<leader>f', '<cmd>lua vim.diagnostic.open_float()<CR>', opt)
+  -- diagnostic
 	-- map('n', '<leader>l', '<cmd>lua vim.diagnostic.setloclist()<CR>', opt)
 	map("n", "dk", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opt)
 	map("n", "dj", "<cmd>Lspsaga diagnostic_jump_next<CR>", opt)
@@ -107,7 +108,7 @@ pluginKeys.maplsp = function(mapbuf, bufnr)
 	-- rename
 	mapbuf(bufnr, "n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opt)
 	-- code action
-	mapbuf(bufnr, "n", "<leader>a", "<cmd>Lspsaga code_action<CR>", opt)
+	mapbuf(bufnr, "n", "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<CR>", opt)
 	-- go xx
 	mapbuf(bufnr, "n", "gd", "<cmd>Lspsaga peek_definition<CR>", opt)
 	mapbuf(bufnr, "n", "<leader>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opt)
