@@ -1,8 +1,75 @@
+local M = {}
 local dap = require("dap")
+local dapui = require("dapui")
 
-require("dapui").setup()
+dapui.setup()
 
--- golang
+dap.adapters.codelldb = {
+	type = "server",
+	port = "${port}",
+	executable = {
+		command = "codelldb",
+		args = { "--port", "${port}" },
+	},
+}
+
+dap.adapters.cppdbg = {
+	id = "cppdbg",
+	type = "executable",
+	command = "OpenDebugAD7",
+}
+
+dap.configurations.cpp = {
+	{
+		name = "Launch file",
+		type = "cppdbg",
+		request = "launch",
+		program = function()
+			return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+		end,
+		cwd = "${workspaceFolder}",
+		stopAtEntry = true,
+	},
+	{
+		name = "Attach to gdbserver :1234",
+		type = "cppdbg",
+		request = "launch",
+		MIMode = "gdb",
+		miDebuggerServerAddress = "localhost:1234",
+		miDebuggerPath = "/usr/bin/gdb",
+		cwd = "${workspaceFolder}",
+		program = function()
+			return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+		end,
+	},
+}
+dap.configurations.c = dap.configurations.cpp
+dap.configurations.rust = dap.configurations.cpp
+
+-- dap.configurations.c = {
+-- 	{
+-- 		name = "Launch file",
+-- 		type = "codelldb",
+-- 		request = "launch",
+-- 		program = function()
+-- 			return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+-- 		end,
+-- 		cwd = "${workspaceFolder}",
+-- 		stopOnEntry = true,
+-- 	},
+-- }
+-- dap.configurations.cpp = dap.configurations.c
+-- dap.configurations.rust = {
+-- 	{
+-- 		name = "Launch file",
+-- 		type = "codelldb",
+-- 		request = "launch",
+-- 		program = vim.fn.getcwd() .. "/target/debug/" .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t"),
+-- 		cwd = "${workspaceFolder}",
+-- 		stopOnEntry = true,
+-- 	},
+-- }
+
 dap.adapters.delve = {
 	type = "server",
 	port = "${port}",
@@ -12,7 +79,6 @@ dap.adapters.delve = {
 	},
 }
 
--- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
 dap.configurations.go = {
 	{
 		type = "delve",
@@ -36,3 +102,39 @@ dap.configurations.go = {
 		program = "./${relativeFileDirname}",
 	},
 }
+
+dap.adapters.node = {
+	type = "executable",
+	command = "js-debug-adapter",
+}
+dap.configurations.javascript = {
+	{
+		name = "Launch",
+		type = "node",
+		request = "launch",
+		program = "${file}",
+		cwd = vim.fn.getcwd(),
+		sourceMaps = true,
+		protocol = "inspector",
+		console = "integratedTerminal",
+	},
+	{
+		name = "Attach to process",
+		type = "node",
+		request = "attach",
+		processId = require("dap.utils").pick_process,
+	},
+}
+
+vim.g.dapStatus = false
+function M.DapToggle()
+	dapui.toggle()
+	if vim.g.dapStatus then
+		dap.terminate()
+	else
+		dap.continue()
+	end
+	vim.g.dapStatus = not vim.g.dapStatus
+end
+
+return M

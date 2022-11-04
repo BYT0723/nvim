@@ -1,5 +1,6 @@
 local servers = {
-	"angularls",
+	-- "angularls",
+	-- "vuels",
 	"bashls",
 	"clangd",
 	"cssls",

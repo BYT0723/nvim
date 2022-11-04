@@ -42,7 +42,7 @@ map("n", "bh", "<cmd>BufferFirst<CR>", opt)
 map("n", "bl", "<cmd>BufferLast<CR>", opt)
 map("n", "bs", "<cmd>BufferPick<CR>", opt) -- buffer select
 map("n", "bp", "<cmd>BufferPin<CR>", opt) -- buffer pin
-map("n", "bq", "<cmd>BufferDelete<CR>", opt) -- buffer quit
+map("n", "bq", "<cmd>BufferDelete!<CR>", opt) -- buffer quit
 
 -- syntax tree
 map("n", "<leader>v", "<cmd>LSoutlineToggle<CR>", opt)
@@ -56,7 +56,7 @@ map("n", "<leader>gg", "<cmd>LazyGit<CR>", opt)
 map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", opt)
 
 -- debug
-map("n", "<leader>D", "<cmd>lua require('dap').continue()<CR>", opt)
+map("n", "<leader>D", "<cmd>lua require('lsp/dap-local').DapToggle()<CR>", opt)
 map("n", "<leader>bp", "<cmd>lua require('dap').toggle_breakpoint()<CR>", opt)
 map("n", "<leader>si", "<cmd>lua require('dap').step_into()<CR>", opt)
 map("n", "<leader>so", "<cmd>lua require('dap').step_over()<CR>", opt)
@@ -111,7 +111,7 @@ pluginKeys.maplsp = function(mapbuf, bufnr)
 	mapbuf(bufnr, "n", "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<CR>", opt)
 	-- go xx
 	mapbuf(bufnr, "n", "gd", "<cmd>Lspsaga peek_definition<CR>", opt)
-	mapbuf(bufnr, "n", "<leader>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opt)
+	-- mapbuf(bufnr, "n", "<leader>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opt)
 	mapbuf(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opt)
 	mapbuf(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opt)
 	mapbuf(bufnr, "n", "gr", "<cmd>Lspsaga lsp_finder<CR>", opt)

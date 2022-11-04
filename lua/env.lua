@@ -6,7 +6,7 @@ set.swapfile = false
 set.ignorecase = true
 set.showmatch = true
 -- 折叠
-set.wrap = false
+set.wrap = true
 -- 高亮行
 set.cursorline = true
 
@@ -22,7 +22,7 @@ set.relativenumber = true
 set.clipboard = "unnamedplus"
 
 -- markdown preview
-vim.g.mkdp_browser = "chromium"
+vim.g.mkdp_browser = "surf"
 
 -- vsnip
 vim.g.vsnip_snippet_dir = "~/.config/nvim/snippets"

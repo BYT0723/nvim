@@ -6,17 +6,17 @@ require("plugins")
 -- 导入快捷键绑定
 require("keybindings")
 
+-- colorscheme
+require("colorscheme")
+
 require("env")
 
 -- lsp
 require("lsp/lsp")
 require("lsp/nvim-cmp")
+require("lsp/dap-local")
 require("lsp/linter")
 require("lsp/formatter")
-require("lsp/dap-local")
-
--- colorscheme
-require("colorscheme")
 
 -- config
 require("plugin-config/barbar")
