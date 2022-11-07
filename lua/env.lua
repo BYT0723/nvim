@@ -6,7 +6,7 @@ set.swapfile = false
 set.ignorecase = true
 set.showmatch = true
 -- 折叠
-set.wrap = true
+set.wrap = false
 -- 高亮行
 set.cursorline = true
 

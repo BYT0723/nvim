@@ -109,6 +109,7 @@ pluginKeys.maplsp = function(mapbuf, bufnr)
 	mapbuf(bufnr, "n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opt)
 	-- code action
 	mapbuf(bufnr, "n", "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<CR>", opt)
+	mapbuf(bufnr, "v", "<leader>a", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", opt)
 	-- go xx
 	mapbuf(bufnr, "n", "gd", "<cmd>Lspsaga peek_definition<CR>", opt)
 	-- mapbuf(bufnr, "n", "<leader>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opt)

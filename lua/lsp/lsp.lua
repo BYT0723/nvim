@@ -39,7 +39,9 @@ for _, lsp in pairs(servers) do
 		capabilities = capabilities,
 	})
 end
-require("lsp_signature").setup()
+require("lsp_signature").setup({
+	hint_enable = false, -- virtual hint enable
+})
 
 --
 -- specific lsp config
