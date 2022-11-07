@@ -2,7 +2,7 @@ local lspkind = require("lspkind")
 local cmp = require("cmp")
 package.path = package.path .. ";..\\?.lua;"
 
-vim.opt.completeopt = { "noselect", "menuone", "menu" }
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
 cmp.setup({
 

@@ -37,3 +37,6 @@ require("plugin-config/toggleterm")
 
 -- 16进制颜色显示
 require("colorizer").setup()
+require("nvim-surround").setup()
+require("hop").setup({ keys = "asdfghjklqwertyuiopzxcvbnm" })
+require("project_nvim").setup()

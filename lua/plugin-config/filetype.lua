@@ -4,6 +4,7 @@ require("filetype").setup({
 		extensions = {
 			-- Set the filetype of *.pn files to potion
 			api = "goctl",
+			gd = "gdscript",
 		},
 		literal = {
 			-- Set the filetype of files named "MyBackupFile" to lua

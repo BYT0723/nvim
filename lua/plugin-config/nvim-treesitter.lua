@@ -9,6 +9,7 @@ require("nvim-treesitter.configs").setup({
 		"css",
 		"dockerfile",
 		"gitignore",
+		"gdscript",
 		"go",
 		"gomod",
 		"html",

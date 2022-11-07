@@ -39,6 +39,11 @@ for _, lsp in pairs(servers) do
 		capabilities = capabilities,
 	})
 end
+require("lspconfig").gdscript.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+})
+
 require("lsp_signature").setup({
 	hint_enable = false, -- virtual hint enable
 })
