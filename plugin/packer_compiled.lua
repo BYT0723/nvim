@@ -334,6 +334,11 @@ _G.packer_plugins = {
     path = "/home/walter/.local/share/nvim/site/pack/packer/start/vim-godot",
     url = "https://github.com/habamax/vim-godot"
   },
+  ["vim-illuminate"] = {
+    loaded = true,
+    path = "/home/walter/.local/share/nvim/site/pack/packer/start/vim-illuminate",
+    url = "https://github.com/RRethy/vim-illuminate"
+  },
   ["vim-visual-multi"] = {
     loaded = true,
     path = "/home/walter/.local/share/nvim/site/pack/packer/start/vim-visual-multi",

@@ -36,6 +36,7 @@ return require("packer").startup({
 			"p00f/nvim-ts-rainbow",
 			"romgrk/barbar.nvim",
 			"nvim-lualine/lualine.nvim", -- 底部状态栏
+			"RRethy/vim-illuminate",
 		})
 
 		-- common code plugin
@@ -114,4 +115,9 @@ return require("packer").startup({
 			require("packer").sync()
 		end
 	end,
+	config = {
+		display = {
+			open_fn = require("packer.util").float,
+		},
+	},
 })
