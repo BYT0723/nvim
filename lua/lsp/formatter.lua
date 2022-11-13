@@ -1,13 +1,27 @@
 local util = require("formatter.util")
 local defaults = require("formatter.defaults")
 
+local excFile = {
+	lua = { "keybindings.lua", "plugins.lua" },
+	cpp = { "config.h" },
+}
+
+local function isExcFile()
+	for _, v in ipairs(excFile[vim.bo.filetype]) do
+		if util.get_current_buffer_file_name() == v then
+			return true
+		end
+	end
+	return false
+end
+
 require("formatter").setup({
 	logging = true,
 	log_level = vim.log.levels.WARN,
 	filetype = {
 		lua = {
 			function()
-				if util.get_current_buffer_file_name() == "keybindings.lua" then
+				if isExcFile() then
 					return nil
 				end
 
@@ -29,7 +43,7 @@ require("formatter").setup({
 		},
 		cpp = {
 			function()
-				if util.get_current_buffer_file_name() == "config.h" then
+				if isExcFile() then
 					return nil
 				end
 				return {
