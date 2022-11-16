@@ -1,12 +1,71 @@
 {
-  "digraph": {
+  "graph": {
     "prefix": "graph",
-    "body": ["digraph ${1:name} {", "\t${2}", "}${0}"],
-    "description": "digraph"
+    "body": ["graph {", "\tlabel = \"${1:Graph}\";", "\t${2}", "}${0}"],
+    "description": "无向图"
   },
-  "subdigraph": {
+  "digraph": {
+    "prefix": "digraph",
+    "body": ["digraph {", "\tlabel = \"${1:Graph}\";", "\t${2}", "}${0}"],
+    "description": "有向图"
+  },
+  "init": {
+    "prefix": "init",
+    "body": [
+      "/*",
+      "  graph defintion",
+      "  bgcolor: background color, value: red / blue / green or #rrggbb theme",
+      "  rankdir: rank direction, vlalue: TB(top to bottom) / BT(bottom to top) / LR(left to right) / RL(right to left)",
+      "  rotate: image contrarotate ",
+      "  ratio: width / height, fill / compress/ auto or a float number",
+      "*/",
+      "graph [rankdir = LR, bgcolor = white]",
+      "/*",
+      "  node global defintion",
+      "  label: content",
+      "  shape: Mrecord(圆角矩形) / record / circle / box / egg / doublecircle / plaintext / ellipse (椭圆)",
+      "  style: filled / dotted(点状边框) / solid / dashed(虚线边框) / bold / invis(隐形)",
+      "  color: border color",
+      "  fillcolor: filled color when style = filled",
+      "  width / height",
+      "  peripheries: border number",
+      "  fontcolor: font color",
+      "*/",
+      "node [shape = Mrecord, style = solid ]",
+      "/*",
+      "  edge global defintion",
+      "  label: text",
+      "  style: solid / dashed / dotted / bold / invis",
+      "  color: edge color",
+      "  arrowhead: arrow style, value of none / empty / odiamond",
+      "*/",
+      "edge [style = solid]"
+    ],
+    "description": "init graph"
+  },
+  "subgraph": {
     "prefix": "subgraph",
-    "body": ["subdigraph cluster_${1:name} {", "\t${2}", "}${0}"],
-    "description": "sub digraph"
+    "body": [
+      "subgraph cluster_${1:graph} {",
+      "\tlabel = \"${2:title}\"",
+      "\t${3}",
+      "}${0}"
+    ],
+    "description": "无向图子图"
+  },
+  "node": {
+    "prefix": "node",
+    "body": ["${1:name} [label = \"${1:name}\"]"],
+    "description": "node 节点"
+  },
+  "edge": {
+    "prefix": "edge",
+    "body": ["${1:node_a} -> ${2:node_b} [label = \"${3}\"]"],
+    "description": "edge 边"
+  },
+  "table": {
+    "prefix": "table",
+    "body": ["${1:name} [shape = record, label = \"{$2:{a|b|c}}\"]"],
+    "description": "table"
   }
 }
