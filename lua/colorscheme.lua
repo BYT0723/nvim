@@ -1,6 +1,6 @@
 require("tokyonight").setup({
-	style = "storm", -- storm / night / moon / day
 	transparent = true,
+	style = "moon", -- storm / night / moon / day
 	terminal_colors = true,
 	styles = {
 		comments = { italic = true },
@@ -10,7 +10,7 @@ require("tokyonight").setup({
 		sidebars = "transparent", -- dark / transparent / normal
 		floats = "transparent",
 	},
-	sidebars = { "qf", "toggleterm", "Outline", "NvimTree" },
+	sidebars = { "qf", "toggleterm", "lspsagaoutline", "NvimTree" },
 	day_brightness = 0.3,
 	hide_inactive_statusline = false,
 	dim_inactive = false,

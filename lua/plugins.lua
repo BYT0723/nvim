@@ -23,7 +23,7 @@ return require("packer").startup({
 		use({
 			"lewis6991/impatient.nvim", -- 加速plugin加载
 			"nathom/filetype.nvim",     -- 代替nvim中默认的filetype检测，速度提升
-			"folke/which-key.nvim",     -- nvim键盘映射提示
+			-- "folke/which-key.nvim",     -- nvim键盘映射提示
 			"glepnir/dashboard-nvim",   -- nvim面板
 		})
 
@@ -36,11 +36,12 @@ return require("packer").startup({
 			"p00f/nvim-ts-rainbow",                 -- 彩色括号
 			"romgrk/barbar.nvim",                   -- buffer bar
 			"nvim-lualine/lualine.nvim",            -- status bar
-			"RRethy/vim-illuminate",                -- 
+			"RRethy/vim-illuminate",                -- keyword highlight
 		})
 
 		-- common code plugin
 		use({
+		  "kyazdani42/nvim-tree.lua",        -- 文件树
 			"windwp/nvim-autopairs",          -- 括号自动闭合
 			"numToStr/Comment.nvim",          -- 注释
 			"mg979/vim-visual-multi",         -- 多选
@@ -79,9 +80,6 @@ return require("packer").startup({
 		})
 		use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
 
-		-- nvim-tree
-		use("kyazdani42/nvim-tree.lua")
-
 		-- complete and lsp
 		use({
 			-- cmp
@@ -91,7 +89,7 @@ return require("packer").startup({
       "hrsh7th/cmp-path",         -- { name = 'path' }
       "hrsh7th/cmp-cmdline",      -- { name = 'cmdline' }
       "hrsh7th/cmp-vsnip",        -- { name = 'vsnip' }
-      "hrsh7th/vim-vsnip",        -- 一些代码片段
+      "hrsh7th/vim-vsnip",        -- vscode的json code snippet的支持
 			"rafamadriz/friendly-snippets", -- 各种语言常用的代码片段
 			"onsails/lspkind-nvim",     -- 补全中的图标
 			"ray-x/lsp_signature.nvim", -- 补全时的文档显示
