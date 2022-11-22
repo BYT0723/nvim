@@ -21,7 +21,7 @@ require("lspsaga").init_lsp_saga({
 	-- preview lines of lsp_finder and definition preview
 	max_preview_lines = 10,
 	-- use emoji lightbulb in default
-	code_action_icon = "💡",
+	code_action_icon = " ",
 	-- if true can press number to execute the codeaction in codeaction window
 	code_action_num_shortcut = true,
 	-- same as nvim-lightbulb but async
@@ -32,7 +32,7 @@ require("lspsaga").init_lsp_saga({
 		sign = true,
 		update_time = 150,
 		sign_priority = 20,
-		virtual_text = true,
+		virtual_text = false,
 	},
 	-- finder icons
 	finder_icons = {
@@ -49,10 +49,10 @@ require("lspsaga").init_lsp_saga({
 		vsplit = "v",
 		split = "i",
 		tabe = "t",
-		quit = "q",
+		quit = "<Esc>",
 	},
 	code_action_keys = {
-		quit = "q",
+		quit = "<Esc>",
 		exec = "<CR>",
 	},
 	definition_action_keys = {
@@ -60,10 +60,10 @@ require("lspsaga").init_lsp_saga({
 		vsplit = "<C-c>v",
 		split = "<C-c>i",
 		tabe = "<C-c>t",
-		quit = "q",
+		quit = "<Esc>",
 	},
-	rename_action_quit = "<C-c>",
-	rename_in_select = true,
+	rename_action_quit = "<Esc>",
+	rename_in_select = false,
 	-- show symbols in winbar must nightly
 	-- in_custom mean use lspsaga api to get symbols
 	-- and set it to your custom winbar or some winbar plugins.
@@ -71,13 +71,13 @@ require("lspsaga").init_lsp_saga({
 	symbol_in_winbar = {
 		in_custom = false,
 		enable = true,
-		separator = " ",
+		separator = "  ",
 		show_file = true,
 		-- define how to customize filename, eg: %:., %
 		-- if not set, use default value `%:t`
 		-- more information see `vim.fn.expand` or `expand`
 		-- ## only valid after set `show_file = true`
-		file_formatter = "",
+		file_formatter = "%:t",
 		click_support = false,
 	},
 	-- show outline
@@ -86,7 +86,7 @@ require("lspsaga").init_lsp_saga({
 		--set special filetype win that outline window split.like NvimTree neotree
 		-- defx, db_ui
 		win_with = "",
-		win_width = 30,
+		win_width = 40,
 		auto_enter = true,
 		auto_preview = true,
 		virt_text = "┃",

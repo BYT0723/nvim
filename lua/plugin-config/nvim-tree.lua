@@ -94,7 +94,7 @@ require("nvim-tree").setup({ -- BEGIN_DEFAULT_OPTS
 		},
 	},
 	trash = {
-		cmd = "mv -t ~/Trash/",
+		cmd = "gio trash",
 		require_confirm = true,
 	},
 	log = {

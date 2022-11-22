@@ -23,7 +23,6 @@ return require("packer").startup({
 		use({
 			"lewis6991/impatient.nvim", -- 加速plugin加载
 			"nathom/filetype.nvim",     -- 代替nvim中默认的filetype检测，速度提升
-			-- "folke/which-key.nvim",     -- nvim键盘映射提示
 			"glepnir/dashboard-nvim",   -- nvim面板
 		})
 
@@ -100,7 +99,6 @@ return require("packer").startup({
 			"williamboman/mason-lspconfig.nvim",
 			"glepnir/lspsaga.nvim",               -- lsp wrapper
 			"mfussenegger/nvim-lint",             -- linter配置
-			"simrat39/symbols-outline.nvim",      -- 语法树
 			"mhartington/formatter.nvim",         -- formatter配置
 			"mfussenegger/nvim-dap",              -- debug配置
 			"rcarriga/nvim-dap-ui",               -- debug UI

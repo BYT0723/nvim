@@ -284,11 +284,6 @@ _G.packer_plugins = {
     path = "/home/walter/.local/share/nvim/site/pack/packer/start/refactoring.nvim",
     url = "https://github.com/ThePrimeagen/refactoring.nvim"
   },
-  ["symbols-outline.nvim"] = {
-    loaded = true,
-    path = "/home/walter/.local/share/nvim/site/pack/packer/start/symbols-outline.nvim",
-    url = "https://github.com/simrat39/symbols-outline.nvim"
-  },
   ["telescope-fzf-native.nvim"] = {
     loaded = true,
     path = "/home/walter/.local/share/nvim/site/pack/packer/start/telescope-fzf-native.nvim",

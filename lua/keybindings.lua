@@ -39,7 +39,6 @@ map("n", "bq", "<cmd>BufferDelete!<CR>", opt) -- buffer quit
 
 -- syntax tree
 map("n", "<leader>v", "<cmd>LSoutlineToggle<CR>", opt)
--- map("n", "<leader>v", "<cmd>SymbolsOutline<CR>", opt)
 
 -- trouble
 map("n", "<leader>d", "<cmd>TroubleToggle<CR>", opt)
@@ -75,8 +74,8 @@ map("n", "<C-l>", "<cmd>vertical resize +5<CR>", opt)
 map("n", "<C-j>", "<cmd>resize +5<CR>", opt)
 map("n", "<C-k>", "<cmd>resize -5<CR>", opt)
 
--- map("", "gh", "^", opt)
--- map("", "ge", "$", opt)
+map("", "gh", "^", opt)
+map("", "ge", "$", opt)
 
 map("n", "tk", "<cmd>tabp<CR>", opt)
 map("n", "tj", "<cmd>tabn<CR>", opt)
@@ -103,8 +102,7 @@ pluginKeys.maplsp = function(mapbuf, bufnr)
 	-- rename
 	mapbuf(bufnr, "n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opt)
 	-- code action
-	mapbuf(bufnr, "n", "<leader>a", "<cmd>lua vim.lsp.buf.code_action()<CR>", opt)
-	mapbuf(bufnr, "v", "<leader>a", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", opt)
+	mapbuf(bufnr, "n", "<leader>a", "<cmd>Lspsaga code_action<CR>", opt)
 	-- go xx
 	mapbuf(bufnr, "n", "gd", "<cmd>Lspsaga peek_definition<CR>", opt)
 	-- mapbuf(bufnr, "n", "<leader>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opt)
@@ -171,23 +169,6 @@ pluginKeys.trouble = function()
 		toggle_fold = { "zA", "za" }, -- toggle fold of current file
 		previous = "k", -- preview item
 		next = "j", -- next item
-	}
-end
-
-pluginKeys.symbols_outline = function()
-	return { -- These keymaps can be a string or a table for multiple keys
-		close = { "<Esc>", "q" },
-		goto_location = "<Cr>",
-		focus_location = "o",
-		hover_symbol = "<C-space>",
-		toggle_preview = "K",
-		rename_symbol = "r",
-		code_actions = "a",
-		fold = "h",
-		unfold = "l",
-		fold_all = "W",
-		unfold_all = "E",
-		fold_reset = "R",
 	}
 end
 
