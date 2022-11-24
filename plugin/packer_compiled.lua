@@ -164,11 +164,6 @@ _G.packer_plugins = {
     path = "/home/walter/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
     url = "https://github.com/lukas-reineke/indent-blankline.nvim"
   },
-  ["lazygit.nvim"] = {
-    loaded = true,
-    path = "/home/walter/.local/share/nvim/site/pack/packer/start/lazygit.nvim",
-    url = "https://github.com/kdheepak/lazygit.nvim"
-  },
   ["lsp_signature.nvim"] = {
     loaded = true,
     path = "/home/walter/.local/share/nvim/site/pack/packer/start/lsp_signature.nvim",

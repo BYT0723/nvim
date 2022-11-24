@@ -1,10 +1,12 @@
 local M = {}
 
+local Terminal = require("toggleterm.terminal").Terminal
 local util = require("util")
 
 local lf = "~/.config/nvim/lua/launcher.lua"
 
 local runProjectCmd = {
+	["/home/walter/Workspace/Study/rust/rocket-demo"] = "cargo run",
 	-- run project command
 }
 
@@ -34,30 +36,37 @@ local function runFileCmd(type)
 	return cmd
 end
 
-local Terminal = require("toggleterm.terminal").Terminal
+local runFileTerm = Terminal:new({ cmd = "", direction = "horizontal", close_on_exit = false, auto_scroll = true })
+local runProjectTerm = Terminal:new({ cmd = "", direction = "horizontal", close_on_exit = false, auto_scroll = true })
+local lazygit = Terminal:new({ cmd = "lazygit", direction = "float" })
+local lazydocker = Terminal:new({ cmd = "lazydocker", direction = "float" })
 
-function NewTerm(cmd)
-	return Terminal:new({
-		cmd = cmd,
-		direction = "horizontal", -- vertical / horizontal / tab / float
-		close_on_exit = false,
-		auto_scroll = true,
-	})
+-- lazygit
+function M.layzgitToggle()
+	lazygit:toggle()
 end
 
+-- lazydocker
+function M.lazydockerToggle()
+	lazydocker:toggle()
+end
+
+-- run file
 function M.runFile()
-	local cmd = runFileCmd(vim.bo.filetype)
-	NewTerm(cmd):toggle()
+	runFileTerm.cmd = runFileCmd(vim.bo.filetype)
+	runFileTerm:toggle()
 end
 
+-- run project cmd
 function M.runProject()
-	local cmd = runProjectCmd[util.cwd()]
-	if cmd == nil then
-		cmd = M.writeRunProjectCmd()
+	runProjectTerm.cmd = runProjectCmd[util.cwd()]
+	if runProjectTerm.cmd == nil then
+		runProjectTerm.cmd = M.writeRunProjectCmd()
 	end
-	NewTerm(cmd):toggle()
+	runProjectTerm:toggle()
 end
 
+-- 添加run project command
 function M.writeRunProjectCmd()
 	local res = ""
 	-- 读取run project command的line number
@@ -75,14 +84,14 @@ function M.writeRunProjectCmd()
 	return res
 end
 
+-- 移除 run project command
 function M.removeRunProjectCmd()
-	-- 移除 run project command
 	vim.cmd("!sed -i '/" .. string.gsub(util.cwd(), "/", "\\/") .. "/d' " .. lf)
 	package.loaded["launcher"] = nil
 end
 
+-- 获取 run project command
 function M.getRunProjectCmd()
-	-- 获取 run project command
 	vim.cmd("!sed -n '/" .. string.gsub(util.cwd(), "/", "\\/") .. "/p' " .. lf)
 	package.loaded["launcher"] = nil
 end

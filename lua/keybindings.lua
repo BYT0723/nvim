@@ -44,7 +44,7 @@ map("n", "<leader>v", "<cmd>LSoutlineToggle<CR>", opt)
 map("n", "<leader>d", "<cmd>TroubleToggle<CR>", opt)
 
 -- git
-map("n", "<leader>gg", "<cmd>LazyGit<CR>", opt)
+map("n", "<leader>gg", "<cmd>lua require('launcher').layzgitToggle()<CR>", opt)
 map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", opt)
 
 -- debug
@@ -62,7 +62,7 @@ map("n", "<leader>p", "<cmd>Telescope projects<CR>", opt)
 -- map("n", "<leader>ft", "<cmd>lua require('telescope.builtin').help_tags()<CR>", opt)
 
 -- term
-map("t", "<Esc>", "<C-\\><C-n>", opt)
+map("t", "<leader><Esc>", "<C-\\><C-n>", opt)
 map("t", "<C-w>j", "<cmd>wincmd j<CR>", opt)
 map("t", "<C-w>k", "<cmd>wincmd k<CR>", opt)
 map("t", "<C-w>h", "<cmd>wincmd h<CR>", opt)

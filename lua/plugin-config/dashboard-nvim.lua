@@ -1,9 +1,9 @@
 local home = os.getenv("HOME")
 local db = require("dashboard")
-db.preview_command = "cat | lolcat -F 0.3"
-db.preview_file_path = home .. "/.config/nvim/neovim.cat"
-db.preview_file_height = 8
-db.preview_file_width = 55
+-- db.preview_command = "cat | lolcat -F 0.3"
+-- db.preview_file_path = home .. "/.config/nvim/neovim.cat"
+-- db.preview_file_height = 8
+-- db.preview_file_width = 55
 db.default_banner = {
 	"                                                       ",
 	" ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗",

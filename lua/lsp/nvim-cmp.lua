@@ -14,7 +14,7 @@ cmp.setup({
 	},
 	-- 窗体样式
 	window = {
-		completion = cmp.config.window.bordered(),
+		-- completion = cmp.config.window.bordered(),
 		documentation = cmp.config.window.bordered(),
 	},
 	-- 来源
