@@ -43,8 +43,9 @@ map("n", "<leader>v", "<cmd>LSoutlineToggle<CR>", opt)
 -- trouble
 map("n", "<leader>d", "<cmd>TroubleToggle<CR>", opt)
 
+map("n", "<leader>ld", "<cmd>lua require('launcher').toolToggle('lazydocker')<CR>", opt)
 -- git
-map("n", "<leader>gg", "<cmd>lua require('launcher').layzgitToggle()<CR>", opt)
+map("n", "<leader>lg", "<cmd>lua require('launcher').toolToggle('lazygit')<CR>", opt)
 map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", opt)
 
 -- debug
@@ -62,7 +63,7 @@ map("n", "<leader>p", "<cmd>Telescope projects<CR>", opt)
 -- map("n", "<leader>ft", "<cmd>lua require('telescope.builtin').help_tags()<CR>", opt)
 
 -- term
-map("t", "<leader><Esc>", "<C-\\><C-n>", opt)
+map("t", "<C-q>", "<C-\\><C-n>", opt)
 map("t", "<C-w>j", "<cmd>wincmd j<CR>", opt)
 map("t", "<C-w>k", "<cmd>wincmd k<CR>", opt)
 map("t", "<C-w>h", "<cmd>wincmd h<CR>", opt)
@@ -106,7 +107,8 @@ pluginKeys.maplsp = function(mapbuf, bufnr)
 	-- go xx
 	mapbuf(bufnr, "n", "gd", "<cmd>Lspsaga peek_definition<CR>", opt)
 	-- mapbuf(bufnr, "n", "<leader>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opt)
-	mapbuf(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opt)
+	-- mapbuf(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opt)
+	mapbuf(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.definition()<CR>", opt)
 	mapbuf(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opt)
 	mapbuf(bufnr, "n", "gr", "<cmd>Lspsaga lsp_finder<CR>", opt)
 	mapbuf(bufnr, "n", "K", "<cmd>Lspsaga hover_doc<CR>", opt)

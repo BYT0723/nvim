@@ -38,9 +38,7 @@ require("formatter").setup({
 				}
 			end,
 		},
-		c = {
-			require("formatter.filetypes.c").clangformat,
-		},
+		c = { require("formatter.filetypes.c").clangformat },
 		cpp = {
 			function()
 				if isExcFile() then
@@ -58,8 +56,8 @@ require("formatter").setup({
 			end,
 		},
 		go = {
-			require("formatter.filetypes.go").gofmt,
 			require("formatter.filetypes.go").goimports,
+			require("formatter.filetypes.go").gofmt,
 		},
 		goctl = {},
 		rust = {
@@ -71,12 +69,8 @@ require("formatter").setup({
 				}
 			end,
 		},
-		sh = {
-			require("formatter.filetypes.sh").shfmt,
-		},
-		toml = {
-			require("formatter.filetypes.toml").taplo,
-		},
+		sh = { require("formatter.filetypes.sh").shfmt },
+		toml = { require("formatter.filetypes.toml").taplo },
 		proto = {
 			function()
 				return {
@@ -94,48 +88,18 @@ require("formatter").setup({
 				}
 			end,
 		},
-		html = {
-			require("formatter.filetypes.html").prettierd,
-		},
-		json = {
-			require("formatter.filetypes.json").prettierd,
-		},
-		javascript = {
-			require("formatter.filetypes.javascript").prettierd,
-		},
-		typescript = {
-			require("formatter.filetypes.typescript").prettierd,
-		},
-		yaml = {
-			require("formatter.filetypes.yaml").prettierd,
-		},
-		markdown = {
-			require("formatter.filetypes.markdown").prettierd,
-		},
-		css = {
-			require("formatter.filetypes.css").prettierd,
-		},
-		vue = {
-			function()
-				return util.copyf(defaults.prettierd)
-			end,
-		},
-		angular = {
-			function()
-				return util.copyf(defaults.prettierd)
-			end,
-		},
-		less = {
-			function()
-				return util.copyf(defaults.prettierd)
-			end,
-		},
-		scss = {
-			function()
-				return util.copyf(defaults.prettierd)
-			end,
-		},
+		json = { util.copyf(defaults.prettierd) },
+		html = { util.copyf(defaults.prettierd) },
+		javascript = { util.copyf(defaults.prettierd) },
+		typescript = { util.copyf(defaults.prettierd) },
+		yaml = { util.copyf(defaults.prettierd) },
+		markdown = { util.copyf(defaults.prettierd) },
+		css = { util.copyf(defaults.prettierd) },
+		less = { util.copyf(defaults.prettierd) },
+		scss = { util.copyf(defaults.prettierd) },
+		vue = { util.copyf(defaults.prettierd) },
+		angular = { util.copyf(defaults.prettierd) },
 	},
 })
 
-vim.api.nvim_command("au BufWritePost * FormatWrite")
+vim.api.nvim_command("au BufWritePost * FormatWriteLock")

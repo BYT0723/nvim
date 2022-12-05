@@ -39,5 +39,5 @@ require("plugin-config/vim-illuminate")
 -- 16进制颜色显示
 require("colorizer").setup()
 require("nvim-surround").setup()
-require("hop").setup({ keys = "asdfghjklqwertyuiopzxcvbnm" })
+require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
 require("project_nvim").setup()

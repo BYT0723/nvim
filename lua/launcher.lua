@@ -6,6 +6,7 @@ local util = require("util")
 local lf = "~/.config/nvim/lua/launcher.lua"
 
 local runProjectCmd = {
+	["/home/walter/Workspace/Study/rust/yew-demo"] = "trunk serve",
 	["/home/walter/Workspace/Study/rust/rocket-demo"] = "cargo run",
 	-- run project command
 }
@@ -38,17 +39,12 @@ end
 
 local runFileTerm = Terminal:new({ cmd = "", direction = "horizontal", close_on_exit = false, auto_scroll = true })
 local runProjectTerm = Terminal:new({ cmd = "", direction = "horizontal", close_on_exit = false, auto_scroll = true })
-local lazygit = Terminal:new({ cmd = "lazygit", direction = "float" })
-local lazydocker = Terminal:new({ cmd = "lazydocker", direction = "float" })
+local tool = Terminal:new({ cmd = "", direction = "tab" })
 
--- lazygit
-function M.layzgitToggle()
-	lazygit:toggle()
-end
-
--- lazydocker
-function M.lazydockerToggle()
-	lazydocker:toggle()
+function M.toolToggle(cmd)
+	tool.cmd = cmd
+	tool.dir = vim.fn.getcwd()
+	tool:toggle()
 end
 
 -- run file

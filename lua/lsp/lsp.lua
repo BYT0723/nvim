@@ -1,8 +1,7 @@
 local servers = {
 	-- "angularls",
-	-- "vuels",
-	"bashls",
-	"clangd",
+	"bufls",
+	-- "clangd",
 	"cssls",
 	"dotls",
 	"dockerls",
@@ -17,6 +16,8 @@ local servers = {
 	"taplo",
 	"tsserver",
 	"vimls",
+	"volar",
+	"yamlls",
 }
 require("mason-lspconfig").setup({
 	ensure_installed = servers,

@@ -77,7 +77,7 @@ require("lspsaga").init_lsp_saga({
 		-- if not set, use default value `%:t`
 		-- more information see `vim.fn.expand` or `expand`
 		-- ## only valid after set `show_file = true`
-		file_formatter = "%:t",
+		file_formatter = "%:.",
 		click_support = function(node, clicks, button, modifiers)
 			-- To see all avaiable details: vim.pretty_print(node)
 			local st = node.range.start

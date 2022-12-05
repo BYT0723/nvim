@@ -18,7 +18,7 @@ require("lint").linters_by_ft = {
 		"codespell",
 	},
 	proto = {
-		"buf",
+		-- "buf",
 		"codespell",
 	},
 	markdown = {
