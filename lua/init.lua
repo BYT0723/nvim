@@ -1,8 +1,9 @@
+-- 导入packer-plugins
+require("plugins")
+
 -- 加速启动
 require("impatient").enable_profile()
 
--- 导入packer-plugins
-require("plugins")
 -- 导入快捷键绑定
 require("keybindings")
 

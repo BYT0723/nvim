@@ -60,6 +60,9 @@ require("formatter").setup({
 			require("formatter.filetypes.go").gofmt,
 		},
 		goctl = {},
+		python = {
+			require("formatter.filetypes.python").autopep8,
+		},
 		rust = {
 			function()
 				return {
@@ -102,4 +105,4 @@ require("formatter").setup({
 	},
 })
 
-vim.api.nvim_command("au BufWritePost * FormatWriteLock")
+vim.api.nvim_command("au BufWritePost * FormatWrite")
