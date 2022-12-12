@@ -42,3 +42,7 @@ require("colorizer").setup()
 require("nvim-surround").setup()
 require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
 require("project_nvim").setup()
+
+vim.api.nvim_command(
+	"au BufWritePost " .. vim.fn.stdpath("config") .. "/lua/*.lua lua require('util').source_luafile()"
+)

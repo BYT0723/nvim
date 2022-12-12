@@ -39,4 +39,11 @@ function M.toggle_quickfix()
 	end
 end
 
+function M.source_luafile()
+	local path = vim.fn.fnamemodify(M.relative_path(), ":r")
+	local res = string.sub(path, string.find(path, "/") + 1, string.len(path))
+	package.loaded[res] = nil
+	require(res)
+end
+
 return M

@@ -58,6 +58,10 @@ function M.runProject()
 	runProjectTerm.cmd = runProjectCmd[util.cwd()]
 	if runProjectTerm.cmd == nil then
 		runProjectTerm.cmd = M.writeRunProjectCmd()
+		if runProjectCmd.cmd == nil or runProjectCmd.cmd == "" then
+			vim.notify("Failed to set run project command!")
+			return
+		end
 	end
 	runProjectTerm:toggle()
 end
@@ -69,7 +73,6 @@ function M.writeRunProjectCmd()
 	local rn = io.popen("cat " .. lf .. " | grep 'local runProjectCmd' -n | awk -F ':' '{print $1}' | head -n 1"):read()
 	vim.ui.input({ prompt = "Set Project [" .. util.project_name() .. "] Run Command：" }, function(input)
 		if input == nil or input == "" then
-			vim.cmd("silent echom 'set run project command failed !'")
 			return
 		end
 		-- 写入 run project command
