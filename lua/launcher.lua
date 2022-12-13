@@ -57,8 +57,9 @@ end
 function M.runProject()
 	runProjectTerm.cmd = runProjectCmd[util.cwd()]
 	if runProjectTerm.cmd == nil then
-		runProjectTerm.cmd = M.writeRunProjectCmd()
-		if runProjectCmd.cmd == nil or runProjectCmd.cmd == "" then
+		M.editRunProjectCmd()
+		runProjectCmd.cmd = runProjectCmd[util.cwd()]
+		if runProjectCmd.cmd == nil then
 			vim.notify("Failed to set run project command!")
 			return
 		end
@@ -66,32 +67,57 @@ function M.runProject()
 	runProjectTerm:toggle()
 end
 
--- 添加run project command
-function M.writeRunProjectCmd()
-	local res = ""
-	-- 读取run project command的line number
-	local rn = io.popen("cat " .. lf .. " | grep 'local runProjectCmd' -n | awk -F ':' '{print $1}' | head -n 1"):read()
-	vim.ui.input({ prompt = "Set Project [" .. util.project_name() .. "] Run Command：" }, function(input)
+-- 编辑run project command
+function M.editRunProjectCmd()
+	local cmd = runProjectCmd[util.cwd()]
+	vim.ui.input({ prompt = "Project [" .. util.project_name() .. "] Run ==> ", default = cmd }, function(input)
 		if input == nil or input == "" then
 			return
 		end
 		-- 写入 run project command
-		vim.cmd(string.format('!sed -i \'%sa\\\t["%s"] = "%s",\' %s', tonumber(rn), util.cwd(), input, lf))
-		package.loaded["launcher"] = nil
-		res = input
+		-- 1. 不存在则Insert
+		-- 2. 存在则Update
+		if cmd == nil or cmd == "" then
+			local lineNum =
+				io.popen("cat " .. lf .. " | grep 'local runProjectCmd' -n | awk -F ':' '{print $1}' | head -n 1")
+					:read()
+			vim.cmd(string.format('!sed -i \'%sa\\\t["%s"] = "%s",\' %s', tonumber(lineNum), util.cwd(), input, lf))
+		else
+			vim.cmd(
+				string.format(
+					'!sed -i \'s/\\["%s"\\] = "%s"/\\["%s"\\] = "%s"/1\' %s',
+					string.gsub(util.cwd(), "/", "\\/"),
+					runProjectCmd[util.cwd()],
+					string.gsub(util.cwd(), "/", "\\/"),
+					input,
+					lf
+				)
+			)
+		end
 	end)
-	return res
+	package.loaded["launcher"] = nil
+	require("launcher")
 end
 
 -- 移除 run project command
 function M.removeRunProjectCmd()
-	vim.cmd("!sed -i '/" .. string.gsub(util.cwd(), "/", "\\/") .. "/d' " .. lf)
+	local res = io.popen("sed -i '/" .. string.gsub(util.cwd(), "/", "\\/") .. "/d' " .. lf):close()
+	if res then
+		print("SUCCESS!")
+	else
+		print("FAILED!")
+	end
 	package.loaded["launcher"] = nil
 end
 
 -- 获取 run project command
 function M.getRunProjectCmd()
-	vim.cmd("!sed -n '/" .. string.gsub(util.cwd(), "/", "\\/") .. "/p' " .. lf)
+	-- local cmd = io.popen("sed -n '/" .. string.gsub(util.cwd(), "/", "\\/") .. "/p' " .. lf):read()
+	local cmd = runProjectCmd[util.cwd()]
+	if cmd == nil then
+		cmd = ""
+	end
+	print("Project [ " .. util.project_name() .. " ] Run ==> [ " .. cmd .. " ]")
 	package.loaded["launcher"] = nil
 end
 

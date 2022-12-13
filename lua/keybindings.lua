@@ -15,6 +15,7 @@ map("n", "<leader>c", "<cmd>lua require('util').toggle_quickfix()<CR>", opt)
 map("n", "<leader>rf", "<cmd>lua require('launcher').runFile()<CR>", opt)
 map("n", "<leader>rp", "<cmd>lua require('launcher').runProject()<CR>", opt)
 map("n", "<leader>ri", "<cmd>lua require('launcher').getRunProjectCmd()<CR>", opt)
+map("n", "<leader>re", "<cmd>lua require('launcher').editRunProjectCmd()<CR>", opt)
 map("n", "<leader>rm", "<cmd>lua require('launcher').removeRunProjectCmd()<CR>", opt)
 
 -- hop
