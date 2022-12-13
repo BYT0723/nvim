@@ -40,7 +40,17 @@ for _, lsp in pairs(servers) do
 		capabilities = capabilities,
 	})
 end
+
+-- godot engine
+-- Arch: sudo pacman -S godot
 require("lspconfig").gdscript.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+})
+
+-- flutter
+-- Arch: sudo pacman -S dart
+require("lspconfig").dartls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
