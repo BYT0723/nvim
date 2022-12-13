@@ -43,6 +43,7 @@ require("nvim-surround").setup()
 require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
 require("project_nvim").setup()
 
+-- 保存lua config文件时，实时source配置文件
 vim.api.nvim_command(
 	"au BufWritePost " .. vim.fn.stdpath("config") .. "/lua/*.lua lua require('util').source_luafile()"
 )

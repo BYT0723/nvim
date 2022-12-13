@@ -12,27 +12,27 @@ local runProjectCmd = {
 }
 
 local function runFileCmd(type)
-	local rp = util.relative_path()
-	local rpef = util.relative_path_ex_name()
-	local fns = util.filename_ex_suffix()
+	local relativePath = util.relative_path()
+	local relativePathExclueName = util.relative_path_ex_name()
+	local filenameExcludeSuffix = util.filename_ex_suffix()
 
 	local cmd = ""
 	if type == "c" or type == "cpp" then
-		cmd = "g++ -o ./bin/" .. fns .. " " .. rp .. " && ./bin/" .. fns
+		cmd = "g++ -o ./bin/" .. filenameExcludeSuffix .. " " .. relativePath .. " && ./bin/" .. filenameExcludeSuffix
 	elseif type == "rust" then
 		cmd = "cargo run"
 	elseif type == "go" then
-		cmd = "go run " .. rp
+		cmd = "go run " .. relativePath
 	elseif type == "sh" or type == "bash" then
-		cmd = "bash " .. rp
+		cmd = "bash " .. relativePath
 	elseif type == "zsh" then
-		cmd = "zsh " .. rp
+		cmd = "zsh " .. relativePath
 	elseif type == "javascript" or type == "typescript" then
-		cmd = "node " .. rp
+		cmd = "node " .. relativePath
 	elseif type == "html" then
-		cmd = "surf " .. rp
-	elseif type == "proto" then
-		cmd = "protoc --proto_path=" .. rpef .. " --go_out=plugins=grpc:" .. rpef .. "/pb " .. rp
+		cmd = "surf " .. relativePath
+		-- elseif type == "proto" then
+		-- 	cmd = "protoc --proto_path=" .. relativePathExclueName .. " --go_out=plugins=grpc:" .. relativePathExclueName .. "/pb " .. relativePath
 	end
 	return cmd
 end
