@@ -105,4 +105,4 @@ require("formatter").setup({
 	},
 })
 
-vim.api.nvim_command("au BufWritePost * FormatWrite")
+vim.api.nvim_command("au BufWritePost * FormatWriteLock")
