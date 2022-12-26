@@ -66,8 +66,15 @@ return require("packer").startup({
 			"fatih/vim-go",
 			"habamax/vim-godot",
 			"BYT0723/vim-goctl",
-			"saecki/crates.nvim",
 		})
+        use {
+            'saecki/crates.nvim',
+            tag = 'v0.3.0',
+            requires = { 'nvim-lua/plenary.nvim' },
+            config = function()
+                require('crates').setup()
+            end,
+        }
 
 		-- markdown preview
 		use({
