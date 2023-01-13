@@ -5,12 +5,14 @@ local util = require("util")
 
 local lf = "~/.config/nvim/lua/launcher.lua"
 
+-- command dictionary [ project's path --- command ]
 local runProjectCmd = {
 	["/home/walter/Workspace/Study/rust/yew-demo"] = "trunk serve",
 	["/home/walter/Workspace/Study/rust/rocket-demo"] = "cargo run",
 	-- run project command
 }
 
+-- Map file types to corresponding commands
 local function runFileCmd(type)
 	local relativePath = util.relative_path()
 	local relativePathExclueName = util.relative_path_ex_name()
@@ -67,7 +69,7 @@ function M.runProject()
 	runProjectTerm:toggle()
 end
 
--- 编辑run project command
+-- edit run project command
 function M.editRunProjectCmd()
 	local cmd = runProjectCmd[util.cwd()]
 	vim.ui.input({ prompt = "Project [" .. util.project_name() .. "] Run ==> ", default = cmd }, function(input)
@@ -99,7 +101,7 @@ function M.editRunProjectCmd()
 	require("launcher")
 end
 
--- 移除 run project command
+-- remove run project command
 function M.removeRunProjectCmd()
 	local res = io.popen("sed -i '/" .. string.gsub(util.cwd(), "/", "\\/") .. "/d' " .. lf):close()
 	if res then
@@ -110,7 +112,7 @@ function M.removeRunProjectCmd()
 	package.loaded["launcher"] = nil
 end
 
--- 获取 run project command
+-- get run project command
 function M.getRunProjectCmd()
 	-- local cmd = io.popen("sed -n '/" .. string.gsub(util.cwd(), "/", "\\/") .. "/p' " .. lf):read()
 	local cmd = runProjectCmd[util.cwd()]

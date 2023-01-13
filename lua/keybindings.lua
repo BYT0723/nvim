@@ -1,4 +1,4 @@
--- 设置leader
+-- set leader key
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -76,7 +76,7 @@ map("n", "<leader>p", "<cmd>Telescope projects<CR>", opt)
 -- map("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<CR>", opt)
 -- map("n", "<leader>ft", "<cmd>lua require('telescope.builtin').help_tags()<CR>", opt)
 
--- term
+-- terminal
 map("t", "<C-q>", "<C-\\><C-n>", opt)
 map("t", "<C-w>j", "<cmd>wincmd j<CR>", opt)
 map("t", "<C-w>k", "<cmd>wincmd k<CR>", opt)
@@ -107,7 +107,7 @@ local pluginKeys = {}
 
 -- lsp keybind
 pluginKeys.maplsp = function(mapbuf, bufnr)
-  -- diagnostic
+    -- diagnostic
 	-- map('n', '<leader>f', '<cmd>lua vim.diagnostic.open_float()<CR>', opt)
 	-- map('n', '<leader>l', '<cmd>lua vim.diagnostic.setloclist()<CR>', opt)
 	map("n", "dk", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opt)

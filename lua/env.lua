@@ -40,12 +40,14 @@ if vim.fn.exists("g:neovide") then
 	set.guifont = "CaskaydiaCove Nerd Font SemiLight:i:h10"
 end
 
+-- vim-go configuration
 vim.g.go_term_enabled = true
 vim.g.go_term_mode = "split"
 vim.g.go_term_reuse = true
 vim.g.go_term_height = 10
 vim.g.go_term_width = 20
 
+-- indent by filetype
 vim.api.nvim_command(
 	"au FileType html,javascript,typescript,css,less,scss,vue,proto,json set tabstop=2 softtabstop=2 shiftwidth=2"
 )
