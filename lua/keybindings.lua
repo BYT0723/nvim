@@ -26,18 +26,6 @@ map("n", "<leader>n", "<cmd>DashboardNewFile<CR>", opt)
 
 -- NvimTree
 map("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", opt)
-
--- bufferline
-map("n", "bk", "<cmd>BufferPrevious<CR>", opt)
-map("n", "bj", "<cmd>BufferNext<CR>", opt)
-map("n", "bK", "<cmd>BufferMovePrevious<CR>", opt)
-map("n", "bJ", "<cmd>BufferMoveNext<CR>", opt)
-map("n", "bh", "<cmd>BufferFirst<CR>", opt)
-map("n", "bl", "<cmd>BufferLast<CR>", opt)
-map("n", "bs", "<cmd>BufferPick<CR>", opt) -- buffer select
-map("n", "bp", "<cmd>BufferPin<CR>", opt) -- buffer pin
-map("n", "bq", "<cmd>BufferDelete!<CR>", opt) -- buffer quit
-
 -- syntax tree
 map("n", "<leader>v", "<cmd>LSoutlineToggle<CR>", opt)
 
@@ -45,6 +33,26 @@ map("n", "<leader>v", "<cmd>LSoutlineToggle<CR>", opt)
 map("n", "<leader>d", "<cmd>TroubleToggle<CR>", opt)
 
 map("n", "<leader>ld", "<cmd>lua require('launcher').toolToggle('lazydocker')<CR>", opt)
+-- barbar.nvim
+-- map("n", "bk", "<cmd>BufferPrevious<CR>", opt)
+-- map("n", "bj", "<cmd>BufferNext<CR>", opt)
+-- map("n", "bK", "<cmd>BufferMovePrevious<CR>", opt)
+-- map("n", "bJ", "<cmd>BufferMoveNext<CR>", opt)
+-- map("n", "bh", "<cmd>BufferFirst<CR>", opt)
+-- map("n", "bl", "<cmd>BufferLast<CR>", opt)
+-- map("n", "bs", "<cmd>BufferPick<CR>", opt) -- buffer select
+-- map("n", "bp", "<cmd>BufferPin<CR>", opt) -- buffer pin
+-- map("n", "bq", "<cmd>BufferDelete!<CR>", opt) -- buffer quit
+
+-- bufferline.nvim
+map("n", "bk", "<cmd>BufferLineCyclePrev<CR>", opt)
+map("n", "bj", "<cmd>BufferLineCycleNext<CR>", opt)
+map("n", "bK", "<cmd>BufferLineMovePrev<CR>", opt)
+map("n", "bJ", "<cmd>BufferLineMoveNext<CR>", opt)
+map("n", "bs", "<cmd>BufferLinePick<CR>", opt)
+map("n", "bp", "<cmd>BufferLineTogglePin<CR>", opt) -- buffer pin
+map("n", "bq", "<cmd>bdelete!<CR>", opt) -- buffer quit
+
 -- git
 map("n", "<leader>lg", "<cmd>lua require('launcher').toolToggle('lazygit')<CR>", opt)
 map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", opt)

@@ -39,12 +39,13 @@ return require("packer").startup({
 		use {
 			"kyazdani42/nvim-web-devicons",         -- 文件图标
 			"lukas-reineke/indent-blankline.nvim",  -- 退格设置
-			"folke/tokyonight.nvim",                -- colorscheme
 			"norcalli/nvim-colorizer.lua",          -- 16进制颜色显示(例如: #999901)
-			"romgrk/barbar.nvim",                   -- buffer bar
+			-- "romgrk/barbar.nvim",                   -- buffer bar
 			"nvim-lualine/lualine.nvim",            -- status bar
 			"RRethy/vim-illuminate",                -- keyword highlight
 		}
+        use 'folke/tokyonight.nvim'
+        use {'akinsho/bufferline.nvim', tag = "v3.*"}
 
 		-- common code plugin
 		use {

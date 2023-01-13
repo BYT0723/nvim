@@ -12,8 +12,7 @@ require("bufferline").setup({
 		-- and so changing this is NOT recommended, this is intended
 		-- as an escape hatch for people who cannot bear it for whatever reason
 		indicator = {
-			icon = "▎", -- this should be omitted if indicator style is not 'icon'
-			style = "none",
+			style = "underline", -- none / underline / icon
 		},
 		buffer_close_icon = "",
 		modified_icon = "●",
@@ -27,20 +26,20 @@ require("bufferline").setup({
 		name_formatter = function(buf) -- buf contains a "name", "path" and "bufnr"
 			return buf.name
 		end,
-		max_name_length = 18,
-		max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
-		tab_size = 18,
+		max_name_length = 20,
+		max_prefix_length = 20, -- prefix used when a buffer is de-duplicated
+		tab_size = 20,
 		diagnostics = "nvim_lsp",
-		-- diagnostics_update_in_insert = false,
-		-- diagnostics_indicator = function(count, level, diagnostics_dict, context)
-		--     local icon = level:match("error") and theme.diagnostic.error or theme.diagnostic.warn
-		--     for e, n in pairs(diagnostics_dict) do
-		--         if e == level then
-		--             return icon .. n
-		--         end
-		--     end
-		--     return ""
-		-- end,
+		diagnostics_update_in_insert = false,
+		diagnostics_indicator = function(count, level, diagnostics_dict, context)
+			local icon = level:match("error") and theme.diagnostic.error or theme.diagnostic.warn
+			for e, n in pairs(diagnostics_dict) do
+				if e == level then
+					return icon .. n
+				end
+			end
+			return ""
+		end,
 		-- NOTE: this will be called a lot so don't do any heavy processing here
 		custom_filter = function(buf_number, buf_numbers)
 			-- filter out filetypes you don't want to see
@@ -68,7 +67,7 @@ require("bufferline").setup({
 		},
 		color_icons = true, -- whether or not to add the filetype icon highlights
 		show_buffer_icons = true, -- disable filetype icons for buffers
-		show_buffer_close_icons = false,
+		show_buffer_close_icons = true,
 		show_buffer_default_icon = true, -- whether or not an unrecognised filetype should show a default icon
 		show_close_icon = false,
 		show_tab_indicators = true,
@@ -76,7 +75,7 @@ require("bufferline").setup({
 		-- can also be a table containing 2 custom separators
 		-- [focused and unfocused]. eg: { '|', '|' }
 		-- slant / thick / thin
-		separator_style = "thick",
+		separator_style = "slant",
 		-- true can't diff same buffer name
 		enforce_regular_tabs = false,
 		always_show_bufferline = true,
