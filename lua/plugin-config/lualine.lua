@@ -29,7 +29,7 @@ local conditions = {
 		return gitdir and #gitdir > 0 and #gitdir < #filepath
 	end,
 	except = function()
-		local exceptFileType = { "NvimTree", "Outline", "qf" }
+		local exceptFileType = { "NvimTree", "Outline", "qf", "lspsagaoutline" }
 
 		for _, ft in pairs(exceptFileType) do
 			if ft == vim.bo.filetype then
@@ -41,7 +41,7 @@ local conditions = {
 }
 
 -- Config
-local config = {
+local noNerdFontConfig = {
 	options = {
 		component_separators = "",
 		section_separators = "",
@@ -71,12 +71,12 @@ local config = {
 
 -- Inserts a component in lualine_c at left section
 local function ins_left(component)
-	table.insert(config.sections.lualine_c, component)
+	table.insert(noNerdFontConfig.sections.lualine_c, component)
 end
 
 -- Inserts a component in lualine_x or right section
 local function ins_right(component)
-	table.insert(config.sections.lualine_x, component)
+	table.insert(noNerdFontConfig.sections.lualine_x, component)
 end
 
 ins_left({
@@ -127,9 +127,10 @@ ins_left({
 ins_left({
 	"filename",
 	file_status = true, -- Displays file status (readonly status, modified status)
-	path = 1, -- 0: Just the filename
+	-- 0: Just the filename
 	-- 1: Relative path
 	-- 2: Absolute path
+	path = 1,
 	shorting_target = 40, -- Shortens path to leave 40 spaces in the window
 	-- for other components. (terrible name, any suggestions?)
 	cond = conditions.buffer_not_empty and conditions.except,
@@ -155,6 +156,7 @@ ins_left({
 	end,
 })
 
+-- LSP Information
 ins_left({
 	function()
 		local msg = ""
@@ -179,7 +181,7 @@ ins_left({
 ins_right({
 	"diagnostics",
 	sources = { "nvim_diagnostic" },
-	symbols = { error = " ", warn = " ", info = " " },
+	symbols = theme.diagnostic,
 	diagnostics_color = {
 		color_error = { fg = colors.red },
 		color_warn = { fg = colors.yellow },
@@ -187,23 +189,6 @@ ins_right({
 	},
 	cond = conditions.hide_in_width,
 })
-
--- ins_left({
--- 	function()
--- 		local opt = {
--- 			indicator_size = 50,
--- 			type_patterns = { "class", "function", "method" },
--- 			transform_fn = function(line)
--- 				return line:gsub("%s*[%[%(%{]*%s*$", "")
--- 			end,
--- 			separator = "   ",
--- 		}
--- 		local res = vim.fn["nvim_treesitter#statusline"](opt)
--- 		return res ~= vim.NIL and res or ""
--- 	end,
--- 	cond = conditions.hide_in_width,
--- 	color = { fg = "#FF8800", gui = "bold" },
--- })
 
 ins_right({ "location" })
 ins_right({ "progress", color = { fg = colors.fg, gui = "bold" }, cond = conditions.hide_in_width })
@@ -225,5 +210,46 @@ ins_right({
 	padding = { left = 1 },
 })
 
+local defaultConfig = {
+	options = {
+		icons_enabled = true,
+		theme = "auto",
+		component_separators = { left = "", right = "" },
+		section_separators = { left = "", right = "" },
+		disabled_filetypes = {
+			statusline = {},
+			winbar = {},
+		},
+		ignore_focus = {},
+		always_divide_middle = true,
+		globalstatus = false,
+		refresh = {
+			statusline = 1000,
+			tabline = 1000,
+			winbar = 1000,
+		},
+	},
+	sections = {
+		lualine_a = { "mode" },
+		lualine_b = { "branch", "diff", "diagnostics" },
+		lualine_c = { "filename" },
+		lualine_x = { "encoding", "fileformat", "filetype" },
+		lualine_y = { "progress" },
+		lualine_z = { "location" },
+	},
+	inactive_sections = {
+		lualine_a = {},
+		lualine_b = {},
+		lualine_c = { "filename" },
+		lualine_x = { "location" },
+		lualine_y = {},
+		lualine_z = {},
+	},
+	tabline = {},
+	winbar = {},
+	inactive_winbar = {},
+	extensions = {},
+}
+
 -- Now don't forget to initialize lualine
-require("lualine").setup(config)
+require("lualine").setup(noNerdFontConfig)
