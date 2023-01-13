@@ -112,13 +112,17 @@ return require("packer").startup({
 			"neovim/nvim-lspconfig",              -- lsp配置
 			"williamboman/mason.nvim",            -- lsp管理
 			"williamboman/mason-lspconfig.nvim",
-			"glepnir/lspsaga.nvim",               -- lsp wrapper
 			"mfussenegger/nvim-lint",             -- linter配置
 			"mhartington/formatter.nvim",         -- formatter配置
 			"mfussenegger/nvim-dap",              -- debug配置
 			"rcarriga/nvim-dap-ui",               -- debug UI
 
 		})
+
+        use({
+            "glepnir/lspsaga.nvim", -- lsp wrapper
+            branch = "main",
+        })
 
         -- treesitter 语法分析
 		use({

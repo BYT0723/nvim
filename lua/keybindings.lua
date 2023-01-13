@@ -32,8 +32,7 @@ map("n", "<leader>n", "<cmd>DashboardNewFile<CR>", opt)
 -- NvimTree
 map("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", opt)
 -- syntax tree
-map("n", "<leader>v", "<cmd>LSoutlineToggle<CR>", opt)
-
+map("n", "<leader>v", "<cmd>Lspsaga outline<CR>", opt)
 -- trouble
 map("n", "<leader>d", "<cmd>TroubleToggle<CR>", opt)
 
