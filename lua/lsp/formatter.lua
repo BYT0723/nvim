@@ -105,4 +105,14 @@ require("formatter").setup({
 	},
 })
 
-vim.api.nvim_command("au BufWritePost * FormatWriteLock")
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+	callback = function()
+		local diagnostic_list = vim.diagnostic.get(0, nil)
+		for k, v in pairs(diagnostic_list) do
+			if v.severity == vim.diagnostic.severity.ERROR then
+				return
+			end
+		end
+		vim.cmd("FormatWriteLock")
+	end,
+})
