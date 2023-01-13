@@ -36,7 +36,6 @@ map("n", "<leader>v", "<cmd>Lspsaga outline<CR>", opt)
 -- trouble
 map("n", "<leader>d", "<cmd>TroubleToggle<CR>", opt)
 
-map("n", "<leader>ld", "<cmd>lua require('launcher').toolToggle('lazydocker')<CR>", opt)
 -- barbar.nvim
 -- map("n", "bk", "<cmd>BufferPrevious<CR>", opt)
 -- map("n", "bj", "<cmd>BufferNext<CR>", opt)
@@ -57,8 +56,10 @@ map("n", "bs", "<cmd>BufferLinePick<CR>", opt)
 map("n", "bp", "<cmd>BufferLineTogglePin<CR>", opt) -- buffer pin
 map("n", "bq", "<cmd>bdelete!<CR>", opt) -- buffer quit
 
+-- docker
+map("n", "<leader>ld", "<cmd>lua require('launcher').toolToggle('lazydocker', 'Docker')<CR>", opt)
 -- git
-map("n", "<leader>lg", "<cmd>lua require('launcher').toolToggle('lazygit')<CR>", opt)
+map("n", "<leader>lg", "<cmd>lua require('launcher').toolToggle('lazygit', 'Git')<CR>", opt)
 map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", opt)
 
 -- debug
