@@ -5,6 +5,11 @@ vim.g.maplocalleader = " "
 local map = vim.api.nvim_set_keymap
 local opt = { noremap = true, silent = true }
 
+-- translator
+map('n','<leader>tw',"<Plug>TranslateW",opt)
+map('v','<leader>tw',"<Plug>TranslateWV",opt)
+map('v','<leader>tr',"<Plug>TranslateRV",opt)
+
 -- quickfix
 map("n", "ck", "<cmd>cp<CR>", opt)
 map("n", "cj", "<cmd>cn<CR>", opt)

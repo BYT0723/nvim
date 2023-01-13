@@ -60,6 +60,7 @@ return require("packer").startup({
 			"lewis6991/gitsigns.nvim",        -- git样式，包括blame,修改标记
 			"sindrets/diffview.nvim",         -- diffview
 			"lilydjwg/fcitx.vim",             -- fcitx 输入法模式隔离
+            "voldikss/vim-translator",        -- translator
 		}
 
 		-- language
