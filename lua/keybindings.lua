@@ -78,6 +78,8 @@ map("n", "<leader>p", "<cmd>Telescope projects<CR>", opt)
 
 -- terminal
 map("t", "<C-q>", "<C-\\><C-n>", opt)
+map("t", "<C-b>j","<cmd>lua require('launcher').term_next()<CR>" ,opt)
+map("t", "<C-b>k","<cmd>lua require('launcher').term_prev()<CR>" ,opt)
 map("t", "<C-w>j", "<cmd>wincmd j<CR>", opt)
 map("t", "<C-w>k", "<cmd>wincmd k<CR>", opt)
 map("t", "<C-w>h", "<cmd>wincmd h<CR>", opt)

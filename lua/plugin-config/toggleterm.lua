@@ -1,7 +1,7 @@
 require("toggleterm").setup({
 	size = function(term)
 		if term.direction == "horizontal" then
-			return 12
+			return 15
 		elseif term.direction == "vertical" then
 			return vim.o.columns * 0.4
 		end
@@ -27,6 +27,6 @@ require("toggleterm").setup({
 		winblend = 3,
 	},
 	winbar = {
-		enabled = false,
+		enabled = true,
 	},
 })

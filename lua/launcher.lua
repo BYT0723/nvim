@@ -1,12 +1,16 @@
 local M = {}
 
+local term_api = require("toggleterm.terminal")
 local Terminal = require("toggleterm.terminal").Terminal
 local util = require("util")
 
-local lf = "~/.config/nvim/lua/launcher.lua"
+-- The file path containing the project run command
+local launchFile = "~/.config/nvim/lua/launcher.lua"
 
 -- command dictionary [ project's path --- command ]
 local runProjectCmd = {
+	["/home/walter/Workspace/Study/js/electron-demo"] = "npm run dev",
+	["/home/walter/Workspace/Study/go/QManager"] = "go run main.go",
 	["/home/walter/Workspace/Study/rust/yew-demo"] = "trunk serve",
 	["/home/walter/Workspace/Study/rust/rocket-demo"] = "cargo run",
 	-- run project command
@@ -33,40 +37,56 @@ local function runFileCmd(type)
 		cmd = "node " .. relativePath
 	elseif type == "html" then
 		cmd = "surf " .. relativePath
+	elseif type == "python" then
+		cmd = "python " .. relativePath
 		-- elseif type == "proto" then
 		-- 	cmd = "protoc --proto_path=" .. relativePathExclueName .. " --go_out=plugins=grpc:" .. relativePathExclueName .. "/pb " .. relativePath
 	end
 	return cmd
 end
 
-local runFileTerm = Terminal:new({ cmd = "", direction = "horizontal", close_on_exit = false, auto_scroll = true })
-local runProjectTerm = Terminal:new({ cmd = "", direction = "horizontal", close_on_exit = false, auto_scroll = true })
-local tool = Terminal:new({ cmd = "", direction = "tab" })
+local runFileTerm = Terminal:new({ direction = "horizontal", display_name = "RUN FILE" })
+local runProjectTerm = Terminal:new({ direction = "horizontal", display_name = "RUN PROJECT" })
+local tool = Terminal:new({ direction = "tab" })
 
-function M.toolToggle(cmd)
+function M.toolToggle(cmd, term_name)
 	tool.cmd = cmd
+	tool.display_name = term_name
 	tool.dir = vim.fn.getcwd()
 	tool:toggle()
 end
 
 -- run file
 function M.runFile()
-	runFileTerm.cmd = runFileCmd(vim.bo.filetype)
-	runFileTerm:toggle()
+	local cmd = runFileCmd(vim.bo.filetype)
+
+	runFileTerm.dir = vim.fn.getcwd()
+
+	if not runFileTerm:is_open() then
+		runFileTerm:open()
+	end
+	runFileTerm:send(cmd, true)
 end
 
 -- run project cmd
 function M.runProject()
-	runProjectTerm.cmd = runProjectCmd[util.cwd()]
-	if runProjectTerm.cmd == nil then
+	local cmd = runProjectCmd[util.cwd()]
+
+	runProjectTerm.dir = vim.fn.getcwd()
+
+	if cmd == nil then
 		M.editRunProjectCmd()
-		runProjectCmd.cmd = runProjectCmd[util.cwd()]
-		if runProjectCmd.cmd == nil then
+		cmd = runProjectCmd[util.cwd()]
+		if cmd == nil then
 			vim.notify("Failed to set run project command!")
 			return
 		end
 	end
-	runProjectTerm:toggle()
+
+	if not runProjectTerm:is_open() then
+		runProjectTerm:open()
+	end
+	runProjectTerm:send(cmd, true)
 end
 
 -- edit run project command
@@ -80,10 +100,12 @@ function M.editRunProjectCmd()
 		-- 1. 不存在则Insert
 		-- 2. 存在则Update
 		if cmd == nil or cmd == "" then
-			local lineNum =
-				io.popen("cat " .. lf .. " | grep 'local runProjectCmd' -n | awk -F ':' '{print $1}' | head -n 1")
-					:read()
-			vim.cmd(string.format('!sed -i \'%sa\\\t["%s"] = "%s",\' %s', tonumber(lineNum), util.cwd(), input, lf))
+			local lineNum = io.popen(
+				"cat " .. launchFile .. " | grep 'local runProjectCmd' -n | awk -F ':' '{print $1}' | head -n 1"
+			):read()
+			vim.cmd(
+				string.format('!sed -i \'%sa\\\t["%s"] = "%s",\' %s', tonumber(lineNum), util.cwd(), input, launchFile)
+			)
 		else
 			vim.cmd(
 				string.format(
@@ -92,7 +114,7 @@ function M.editRunProjectCmd()
 					runProjectCmd[util.cwd()],
 					string.gsub(util.cwd(), "/", "\\/"),
 					input,
-					lf
+					launchFile
 				)
 			)
 		end
@@ -103,7 +125,7 @@ end
 
 -- remove run project command
 function M.removeRunProjectCmd()
-	local res = io.popen("sed -i '/" .. string.gsub(util.cwd(), "/", "\\/") .. "/d' " .. lf):close()
+	local res = io.popen("sed -i '/" .. string.gsub(util.cwd(), "/", "\\/") .. "/d' " .. launchFile):close()
 	if res then
 		print("SUCCESS!")
 	else
@@ -121,6 +143,71 @@ function M.getRunProjectCmd()
 	end
 	print("Project [ " .. util.project_name() .. " ] Run ==> [ " .. cmd .. " ]")
 	package.loaded["launcher"] = nil
+end
+
+-- get current buffer terminal id
+local current_term_id = function()
+	local buf_name = vim.fn.bufname()
+	local start, _ = string.find(buf_name, "#%d")
+	return tonumber(string.sub(buf_name, start + 1))
+end
+
+-- exchange term
+local exchange_term = function(target, current)
+	current:close()
+	if not target:is_open() then
+		target:open()
+	end
+	target:focus()
+	vim.cmd("startinsert")
+end
+
+-- toggleterm : move to previous term in list which order by term_id
+function M.term_prev()
+	local all = term_api.get_all(true)
+	local id = current_term_id()
+	local target_id = id
+
+	for index, term in pairs(all) do
+		if index == id then
+			break
+		end
+		target_id = index
+	end
+
+	local current_term, target_term = term_api.get(id), term_api.get(target_id)
+	if current_term == nil or target_term == nil then
+		return
+	end
+
+	exchange_term(target_term, current_term)
+end
+
+-- toggleterm : move to next term in list which order by term_id
+function M.term_next()
+	local all = term_api.get_all(true)
+	local id = current_term_id()
+	local target_id = id
+
+	for index, term in pairs(all) do
+		if index > id then
+			target_id = index
+			break
+		end
+	end
+
+	-- create a new terminal, if current term is last.
+	if id == target_id then
+		target_id = target_id + 1
+		Terminal:new({ id = target_id }):open()
+	end
+
+	local current_term, target_term = term_api.get(id), term_api.get(target_id)
+	if current_term == nil or target_term == nil then
+		return
+	end
+
+	exchange_term(target_term, current_term)
 end
 
 return M
