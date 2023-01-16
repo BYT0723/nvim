@@ -1,9 +1,6 @@
--- Load the colorscheme
-vim.cmd([[colorscheme tokyonight]])
-
 -- configure tokyonight
 require("tokyonight").setup({
-	transparent = false,
+	transparent = true,
 	style = "moon", -- storm / night / moon / day
 	terminal_colors = true,
 	styles = {
@@ -35,3 +32,6 @@ require("tokyonight").setup({
 		highlights.TelescopeResultsTitle = { bg = transparent }
 	end,
 })
+
+-- Load the colorscheme
+vim.cmd([[colorscheme tokyonight]])
