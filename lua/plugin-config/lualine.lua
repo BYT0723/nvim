@@ -28,20 +28,18 @@ local conditions = {
 		local gitdir = vim.fn.finddir(".git", filepath .. ";")
 		return gitdir and #gitdir > 0 and #gitdir < #filepath
 	end,
-	except = function()
-		local exceptFileType = { "NvimTree", "Outline", "qf", "lspsagaoutline" }
-
-		for _, ft in pairs(exceptFileType) do
-			if ft == vim.bo.filetype then
-				return false
-			end
-		end
-		return true
-	end,
 }
 
+local special_line = {
+	sections = { lualine_a = {
+		function()
+			return "LspSaga Outline"
+		end,
+	} },
+	filetypes = { "lspsagaoutline" },
+}
 -- Config
-local noNerdFontConfig = {
+local config = {
 	options = {
 		component_separators = "",
 		section_separators = "",
@@ -59,24 +57,26 @@ local noNerdFontConfig = {
 		lualine_z = {},
 	},
 	inactive_sections = {
-		lualine_a = { "filename" },
+		lualine_a = {
+			{ "filename", color = { fg = colors.cyan, gui = "italic" } },
+		},
 		lualine_b = {},
 		lualine_c = {},
 		lualine_x = {},
 		lualine_y = {},
 		lualine_z = {},
 	},
-	extensions = { "quickfix", "toggleterm", "symbols-outline", "nvim-tree", "nvim-dap-ui" },
+	extensions = { "quickfix", "toggleterm", "symbols-outline", "nvim-tree", "nvim-dap-ui", special_line },
 }
 
 -- Inserts a component in lualine_c at left section
 local function ins_left(component)
-	table.insert(noNerdFontConfig.sections.lualine_c, component)
+	table.insert(config.sections.lualine_c, component)
 end
 
 -- Inserts a component in lualine_x or right section
 local function ins_right(component)
-	table.insert(noNerdFontConfig.sections.lualine_x, component)
+	table.insert(config.sections.lualine_x, component)
 end
 
 ins_left({
@@ -133,7 +133,7 @@ ins_left({
 	path = 1,
 	shorting_target = 40, -- Shortens path to leave 40 spaces in the window
 	-- for other components. (terrible name, any suggestions?)
-	cond = conditions.buffer_not_empty and conditions.except,
+	cond = conditions.buffer_not_empty,
 	color = { fg = colors.magenta, gui = "bold" },
 })
 
@@ -210,46 +210,5 @@ ins_right({
 	padding = { left = 1 },
 })
 
-local defaultConfig = {
-	options = {
-		icons_enabled = true,
-		theme = "auto",
-		component_separators = { left = "", right = "" },
-		section_separators = { left = "", right = "" },
-		disabled_filetypes = {
-			statusline = {},
-			winbar = {},
-		},
-		ignore_focus = {},
-		always_divide_middle = true,
-		globalstatus = false,
-		refresh = {
-			statusline = 1000,
-			tabline = 1000,
-			winbar = 1000,
-		},
-	},
-	sections = {
-		lualine_a = { "mode" },
-		lualine_b = { "branch", "diff", "diagnostics" },
-		lualine_c = { "filename" },
-		lualine_x = { "encoding", "fileformat", "filetype" },
-		lualine_y = { "progress" },
-		lualine_z = { "location" },
-	},
-	inactive_sections = {
-		lualine_a = {},
-		lualine_b = {},
-		lualine_c = { "filename" },
-		lualine_x = { "location" },
-		lualine_y = {},
-		lualine_z = {},
-	},
-	tabline = {},
-	winbar = {},
-	inactive_winbar = {},
-	extensions = {},
-}
-
 -- Now don't forget to initialize lualine
-require("lualine").setup(noNerdFontConfig)
+require("lualine").setup(config)
