@@ -1,5 +1,7 @@
 local theme = require("theme")
 
+local exceptType = { "qf", "dap-repl" }
+
 require("bufferline").setup({
 	options = {
 		mode = "buffers", -- set to "tabs" to only show tabpages instead
@@ -26,9 +28,9 @@ require("bufferline").setup({
 		name_formatter = function(buf) -- buf contains a "name", "path" and "bufnr"
 			return buf.name
 		end,
-		max_name_length = 20,
-		max_prefix_length = 20, -- prefix used when a buffer is de-duplicated
-		tab_size = 20,
+		max_name_length = 15,
+		max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
+		tab_size = 15,
 		diagnostics = "nvim_lsp",
 		diagnostics_update_in_insert = false,
 		diagnostics_indicator = function(count, level, diagnostics_dict, context)
@@ -43,10 +45,11 @@ require("bufferline").setup({
 		-- NOTE: this will be called a lot so don't do any heavy processing here
 		custom_filter = function(buf_number, buf_numbers)
 			-- filter out filetypes you don't want to see
-			if vim.bo[buf_number].filetype == "qf" then
-				return false
+			for _, ft in pairs(exceptType) do
+				if vim.bo[buf_number].filetype == ft then
+					return false
+				end
 			end
-			-- filter out by buffer name
 			if vim.fn.bufname(buf_number) ~= "<?>" then
 				return true
 			end
@@ -59,11 +62,13 @@ require("bufferline").setup({
 			if buf_numbers[1] ~= buf_number then
 				return true
 			end
+			return true
 		end,
 		-- 显示File Explorer的偏移量
 		offsets = {
 			{ filetype = "NvimTree", text = "File Explorer", highlight = "Directory", text_align = "center" },
-			{ filetype = "Outline", text = "Syntax Tree", highlight = "Directory", text_align = "center" },
+			{ filetype = "lspsagaoutline", text = "Syntax Tree", highlight = "Directory", text_align = "center" },
+			{ filetype = "toggleterm", text = "Terminal", highlight = "Directory", text_align = "center" },
 		},
 		color_icons = true, -- whether or not to add the filetype icon highlights
 		show_buffer_icons = true, -- disable filetype icons for buffers
@@ -75,7 +80,7 @@ require("bufferline").setup({
 		-- can also be a table containing 2 custom separators
 		-- [focused and unfocused]. eg: { '|', '|' }
 		-- slant / thick / thin
-		separator_style = "slant",
+		separator_style = { "|", "|" },
 		-- true can't diff same buffer name
 		enforce_regular_tabs = false,
 		always_show_bufferline = true,
