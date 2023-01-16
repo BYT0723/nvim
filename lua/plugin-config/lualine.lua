@@ -30,13 +30,17 @@ local conditions = {
 	end,
 }
 
+local specialBuf = {
+	lspsagaoutline = "LspSaga Outline",
+	Trouble = "Trouble Diagnostics",
+}
 local special_line = {
 	sections = { lualine_a = {
 		function()
-			return "LspSaga Outline"
+			return specialBuf[vim.bo.filetype]
 		end,
 	} },
-	filetypes = { "lspsagaoutline" },
+	filetypes = { "lspsagaoutline", "Trouble" },
 }
 -- Config
 local config = {
