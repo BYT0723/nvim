@@ -36,17 +36,6 @@ map("n", "<leader>v", "<cmd>Lspsaga outline<CR>", opt)
 -- trouble
 map("n", "<leader>d", "<cmd>TroubleToggle<CR>", opt)
 
--- barbar.nvim
--- map("n", "bk", "<cmd>BufferPrevious<CR>", opt)
--- map("n", "bj", "<cmd>BufferNext<CR>", opt)
--- map("n", "bK", "<cmd>BufferMovePrevious<CR>", opt)
--- map("n", "bJ", "<cmd>BufferMoveNext<CR>", opt)
--- map("n", "bh", "<cmd>BufferFirst<CR>", opt)
--- map("n", "bl", "<cmd>BufferLast<CR>", opt)
--- map("n", "bs", "<cmd>BufferPick<CR>", opt) -- buffer select
--- map("n", "bp", "<cmd>BufferPin<CR>", opt) -- buffer pin
--- map("n", "bq", "<cmd>BufferDelete!<CR>", opt) -- buffer quit
-
 -- bufferline.nvim
 map("n", "bk", "<cmd>BufferLineCyclePrev<CR>", opt)
 map("n", "bj", "<cmd>BufferLineCycleNext<CR>", opt)

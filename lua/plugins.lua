@@ -40,7 +40,6 @@ return require("packer").startup({
 			"kyazdani42/nvim-web-devicons", -- 文件图标
 			"lukas-reineke/indent-blankline.nvim", -- 退格设置
 			"norcalli/nvim-colorizer.lua", -- 16进制颜色显示(例如: #999901)
-			-- "romgrk/barbar.nvim",                   -- buffer bar
 			"nvim-lualine/lualine.nvim", -- status bar
 			"RRethy/vim-illuminate", -- keyword highlight
 		})
