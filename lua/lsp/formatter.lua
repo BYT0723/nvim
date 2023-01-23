@@ -1,13 +1,14 @@
 local util = require("formatter.util")
 local defaults = require("formatter.defaults")
+local api = vim.api
 
-local excFile = {
-	lua = { "keybindings.lua", "plugins.lua" },
+local exc_file = {
+	lua = { "keybindings.lua" },
 	cpp = { "config.h" },
 }
 
-local function isExcFile()
-	for _, v in ipairs(excFile[vim.bo.filetype]) do
+local function is_exc_file()
+	for _, v in ipairs(exc_file[vim.bo.filetype]) do
 		if util.get_current_buffer_file_name() == v then
 			return true
 		end
@@ -21,7 +22,7 @@ require("formatter").setup({
 	filetype = {
 		lua = {
 			function()
-				if isExcFile() then
+				if is_exc_file() then
 					return nil
 				end
 
@@ -41,7 +42,7 @@ require("formatter").setup({
 		c = { require("formatter.filetypes.c").clangformat },
 		cpp = {
 			function()
-				if isExcFile() then
+				if is_exc_file() then
 					return nil
 				end
 				return {
@@ -105,13 +106,33 @@ require("formatter").setup({
 	},
 })
 
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-	callback = function()
-		local diagnostic_list = vim.diagnostic.get(0, nil)
-		for k, v in pairs(diagnostic_list) do
-			if v.severity == vim.diagnostic.severity.ERROR then
-				return
+-- formatting condition
+local formatCond = {
+	-- return true, if buf is empty
+	is_empty = function()
+		for _, line_text in pairs(api.nvim_buf_get_lines(0, 0, api.nvim_buf_line_count(0), 0)) do
+			if line_text ~= "" then
+				return false
 			end
+		end
+		return true
+	end,
+
+	-- return true, if there is any error.
+	have_error = function()
+		local diagnostic_list = vim.diagnostic.get(0, nil)
+		for _, v in pairs(diagnostic_list) do
+			if v.severity == vim.diagnostic.severity.ERROR then
+				return true
+			end
+		end
+		return false
+	end,
+}
+api.nvim_create_autocmd({ "BufWritePost" }, {
+	callback = function()
+		if formatCond.is_empty() or formatCond.have_error() then
+			return
 		end
 		vim.cmd("FormatWriteLock")
 	end,
