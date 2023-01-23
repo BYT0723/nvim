@@ -5,6 +5,7 @@ local servers = {
 	"cssls",
 	"dotls",
 	"dockerls",
+	"emmet_ls",
 	"gopls",
 	"html",
 	"jsonls",
@@ -90,6 +91,21 @@ require("lspconfig").sumneko_lua.setup({
 			-- Do not send telemetry data containing a randomized but unique identifier
 			telemetry = {
 				enable = false,
+			},
+		},
+	},
+})
+
+-- emmet
+require("lspconfig").emmet_ls.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+	filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "rust" },
+	init_options = {
+		html = {
+			options = {
+				-- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
+				["bem.enabled"] = true,
 			},
 		},
 	},
