@@ -1,5 +1,5 @@
 local function is_transparent()
-	if vim.fn.exists("g:neovide") then
+	if vim.fn.exists("g:neovide") ~= 0 then
 		return false
 	end
 	return true

@@ -29,7 +29,7 @@ vim.g.mkdp_browser = "surf"
 vim.g.vsnip_snippet_dir = "~/.config/nvim/snippets"
 
 -- neovide
-if vim.fn.exists("g:neovide") then
+if vim.fn.exists("g:neovide") ~= 0 then
 	vim.g.neovide_refresh_rate = 60
 	vim.g.neovide_refresh_rate_idle = 20
 	vim.g.neovide_transparency = 0.8
@@ -37,7 +37,7 @@ if vim.fn.exists("g:neovide") then
 	vim.g.neovide_cursor_animation_length = 0.1
 	vim.g.neovide_cursor_trail_size = 0.5
 	vim.g.neovide_remember_window_size = true
-	set.guifont = "CaskaydiaCove Nerd Font SemiLight:i:h10"
+	set.guifont = "CaskaydiaCove Nerd Font SemiLight:h7"
 end
 
 -- vim-go configuration
