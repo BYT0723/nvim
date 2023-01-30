@@ -32,7 +32,11 @@ return require("packer").startup({
 		use({
 			"lewis6991/impatient.nvim", -- 加速plugin加载
 			"nathom/filetype.nvim", -- 代替nvim中默认的filetype检测，速度提升
-			"glepnir/dashboard-nvim", -- nvim面板
+		})
+
+		use({
+			"glepnir/dashboard-nvim",
+			event = "VimEnter",
 		})
 
 		-- theme
@@ -60,6 +64,7 @@ return require("packer").startup({
 			"sindrets/diffview.nvim", -- diffview
 			"lilydjwg/fcitx.vim", -- fcitx 输入法模式隔离
 			"voldikss/vim-translator", -- translator
+			"junegunn/vim-easy-align", -- char align
 		})
 
 		-- language
