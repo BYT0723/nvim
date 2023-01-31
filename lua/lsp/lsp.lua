@@ -1,10 +1,12 @@
 local servers = {
 	-- "angularls",
+	"bashls",
 	"bufls",
-	-- "clangd",
+	"clangd",
 	"cssls",
 	"dotls",
 	"dockerls",
+	"eslint",
 	"emmet_ls",
 	"gopls",
 	"html",
@@ -100,7 +102,7 @@ require("lspconfig").sumneko_lua.setup({
 require("lspconfig").emmet_ls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-	filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "rust" },
+	filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
 	init_options = {
 		html = {
 			options = {

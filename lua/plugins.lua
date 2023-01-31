@@ -21,7 +21,44 @@ end
 local packer_bootstrap = ensure_packer()
 
 return require("packer").startup({
-	function()
+	function(use)
+		-- eg:
+		-- use {
+		--   'myusername/example',        -- The plugin location string
+		--
+		--   -- The following keys are all optional
+		--   disable = boolean,           -- Mark a plugin as inactive
+		--   as = string,                 -- Specifies an alias under which to install the plugin
+		--   installer = function,        -- Specifies custom installer. See "custom installers" below.
+		--   updater = function,          -- Specifies custom updater. See "custom installers" below.
+		--   after = string or list,      -- Specifies plugins to load before this plugin. See "sequencing" below
+		--   rtp = string,                -- Specifies a subdirectory of the plugin to add to runtimepath.
+		--   opt = boolean,               -- Manually marks a plugin as optional.
+		--   bufread = boolean,           -- Manually specifying if a plugin needs BufRead after being loaded
+		--   branch = string,             -- Specifies a git branch to use
+		--   tag = string,                -- Specifies a git tag to use. Supports '*' for "latest tag"
+		--   commit = string,             -- Specifies a git commit to use
+		--   lock = boolean,              -- Skip updating this plugin in updates/syncs. Still cleans.
+		--   run = string, function, or table, -- Post-update/install hook. See "update/install hooks".
+		--   requires = string or list,   -- Specifies plugin dependencies. See "dependencies".
+		--   rocks = string or list,      -- Specifies Luarocks dependencies for the plugin
+		--   config = string or function, -- Specifies code to run after this plugin is loaded.
+		--   -- The setup key implies opt = true
+		--   setup = string or function,  -- Specifies code to run before this plugin is loaded. The code is ran even if
+		--                                -- the plugin is waiting for other conditions (ft, cond...) to be met.
+		--   -- The following keys all imply lazy-loading and imply opt = true
+		--   cmd = string or list,        -- Specifies commands which load this plugin. Can be an autocmd pattern.
+		--   ft = string or list,         -- Specifies filetypes which load this plugin.
+		--   keys = string or list,       -- Specifies maps which load this plugin. See "Keybindings".
+		--   event = string or list,      -- Specifies autocommand events which load this plugin.
+		--   fn = string or list          -- Specifies functions which load this plugin.
+		--   cond = string, function, or list of strings/functions,   -- Specifies a conditional test to load this plugin
+		--   module = string or list      -- Specifies Lua module names for require. When requiring a string which starts
+		--                                -- with one of these module names, the plugin will be loaded.
+		--   module_pattern = string/list -- Specifies Lua pattern of Lua module names for require. When
+		--                                -- requiring a string which matches one of these patterns, the plugin will be loaded.
+		-- }
+
 		-- base
 		use("nvim-lua/plenary.nvim")
 
@@ -34,20 +71,17 @@ return require("packer").startup({
 			"nathom/filetype.nvim", -- 代替nvim中默认的filetype检测，速度提升
 		})
 
-		use({
-			"glepnir/dashboard-nvim",
-			event = "VimEnter",
-		})
+		use({ "glepnir/dashboard-nvim", event = "VimEnter" })
 
 		-- theme
 		use({
+			"folke/tokyonight.nvim", -- colorscheme
 			"kyazdani42/nvim-web-devicons", -- 文件图标
 			"lukas-reineke/indent-blankline.nvim", -- 退格设置
 			"norcalli/nvim-colorizer.lua", -- 16进制颜色显示(例如: #999901)
 			"nvim-lualine/lualine.nvim", -- status bar
 			"RRethy/vim-illuminate", -- keyword highlight
 		})
-		use("folke/tokyonight.nvim")
 		use({ "akinsho/bufferline.nvim", tag = "v3.*" })
 
 		-- common code plugin
@@ -69,18 +103,11 @@ return require("packer").startup({
 
 		-- language
 		use({
-			"fatih/vim-go",
 			"habamax/vim-godot",
-			"BYT0723/vim-goctl",
 		})
-		use({
-			"saecki/crates.nvim",
-			tag = "v0.3.0",
-			requires = { "nvim-lua/plenary.nvim" },
-			config = function()
-				require("crates").setup()
-			end,
-		})
+		use({ "fatih/vim-go", ft = "go" })
+		use({ "BYT0723/vim-goctl", ft = "gotctl" })
+		use({ "saecki/crates.nvim", tag = "v0.3.0", event = "BufRead Cargo.toml" })
 
 		-- markdown preview
 		use({
@@ -98,7 +125,7 @@ return require("packer").startup({
 		})
 		use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
 
-		-- complete and lsp
+		-- completion and lsp configuration
 		use({
 			-- cmp
 			"hrsh7th/nvim-cmp",
@@ -116,25 +143,17 @@ return require("packer").startup({
 			"neovim/nvim-lspconfig", -- lsp配置
 			"williamboman/mason.nvim", -- lsp管理
 			"williamboman/mason-lspconfig.nvim",
-			-- "glepnir/lspsaga.nvim", -- lsp wrapper
+			"glepnir/lspsaga.nvim", -- lsp wrapper
 			"mfussenegger/nvim-lint", -- linter配置
 			"mhartington/formatter.nvim", -- formatter配置
 			"mfussenegger/nvim-dap", -- debug配置
 			"rcarriga/nvim-dap-ui", -- debug UI
 		})
 
-		use({
-			"glepnir/lspsaga.nvim", -- lsp wrapper
-			branch = "main",
-		})
-
 		-- treesitter 语法分析
-		use({
-			"nvim-treesitter/nvim-treesitter",
-			run = ":TSUpdate",
-			"p00f/nvim-ts-rainbow", -- 彩色括号
-			"ThePrimeagen/refactoring.nvim", -- 代码重构
-		})
+		use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
+		use("p00f/nvim-ts-rainbow") -- 彩色括号
+		use("ThePrimeagen/refactoring.nvim") -- 代码重构
 
 		if packer_bootstrap then
 			require("packer").sync()
@@ -143,6 +162,10 @@ return require("packer").startup({
 	config = {
 		display = {
 			open_fn = require("packer.util").float,
+		},
+		profile = {
+			enable = true,
+			threshold = 1, -- the amount in ms that a plugin's load time must be over for it to be included in the profile
 		},
 	},
 })

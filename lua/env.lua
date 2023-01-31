@@ -49,7 +49,8 @@ vim.g.go_term_width = 20
 
 -- indent by filetype
 vim.api.nvim_command(
-	"au FileType html,javascript,typescript,css,less,scss,vue,proto,json,c,cpp set tabstop=2 softtabstop=2 shiftwidth=2"
+	"au FileType html,javascript,typescript,css,less,scss,vue,proto,json,c,cpp,lua set tabstop=2 softtabstop=2 shiftwidth=2"
 )
 
-vim.g.translator_default_engines = { "bing", "youdao" }
+-- translator engine
+vim.g.translator_default_engines = { "bing", "youdao", "haici" }

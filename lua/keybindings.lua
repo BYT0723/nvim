@@ -95,8 +95,7 @@ map("n", "W", "<cmd>w!<CR>", opt)
 map("n", "Q", "<cmd>q!<CR>", opt)
 
 -- go file keymap only
-vim.api.nvim_command("au FileType go nnoremap <leader>ta :GoAddTags json <CR>")
-vim.api.nvim_command("au FileType go nnoremap <leader>to :GoAddTags json,omitempty <CR>")
+vim.api.nvim_command("au FileType go nnoremap <leader>ta :GoAddTags json,omitempty <CR>")
 vim.api.nvim_command("au FileType go nnoremap <leader>tr :GoRemoveTags json <CR>")
 
 local pluginKeys = {}
@@ -114,6 +113,7 @@ pluginKeys.maplsp = function(mapbuf, bufnr)
 	mapbuf(bufnr, "n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opt)
 	-- code action
 	mapbuf(bufnr, "n", "<leader>a", "<cmd>Lspsaga code_action<CR>", opt)
+	mapbuf(bufnr, "v", "<leader>a", "<cmd>Lspsaga code_action<CR>", opt)
 	-- go xx
 	mapbuf(bufnr, "n", "gd", "<cmd>Lspsaga peek_definition<CR>", opt)
 	-- mapbuf(bufnr, "n", "<leader>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opt)

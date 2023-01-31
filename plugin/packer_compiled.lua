@@ -14,7 +14,7 @@ _G._packer.inside_compile = true
 
 local time
 local profile_info
-local should_profile = false
+local should_profile = true
 if should_profile then
   local hrtime = vim.loop.hrtime
   profile_info = {}
@@ -110,9 +110,11 @@ _G.packer_plugins = {
     url = "https://github.com/hrsh7th/cmp-vsnip"
   },
   ["crates.nvim"] = {
-    config = { "\27LJ\2\n4\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\vcrates\frequire\0" },
-    loaded = true,
-    path = "/home/walter/.local/share/nvim/site/pack/packer/start/crates.nvim",
+    after_files = { "/home/walter/.local/share/nvim/site/pack/packer/opt/crates.nvim/after/plugin/cmp_crates.lua" },
+    loaded = false,
+    needs_bufread = false,
+    only_cond = false,
+    path = "/home/walter/.local/share/nvim/site/pack/packer/opt/crates.nvim",
     url = "https://github.com/saecki/crates.nvim"
   },
   ["dashboard-nvim"] = {
@@ -318,13 +320,17 @@ _G.packer_plugins = {
     url = "https://github.com/junegunn/vim-easy-align"
   },
   ["vim-go"] = {
-    loaded = true,
-    path = "/home/walter/.local/share/nvim/site/pack/packer/start/vim-go",
+    loaded = false,
+    needs_bufread = true,
+    only_cond = false,
+    path = "/home/walter/.local/share/nvim/site/pack/packer/opt/vim-go",
     url = "https://github.com/fatih/vim-go"
   },
   ["vim-goctl"] = {
-    loaded = true,
-    path = "/home/walter/.local/share/nvim/site/pack/packer/start/vim-goctl",
+    loaded = false,
+    needs_bufread = true,
+    only_cond = false,
+    path = "/home/walter/.local/share/nvim/site/pack/packer/opt/vim-goctl",
     url = "https://github.com/BYT0723/vim-goctl"
   },
   ["vim-godot"] = {
@@ -355,16 +361,26 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: crates.nvim
-time([[Config for crates.nvim]], true)
-try_loadstring("\27LJ\2\n4\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\vcrates\frequire\0", "config", "crates.nvim")
-time([[Config for crates.nvim]], false)
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
+  -- Filetype lazy-loads
+time([[Defining lazy-load filetype autocommands]], true)
+vim.cmd [[au FileType go ++once lua require("packer.load")({'vim-go'}, { ft = "go" }, _G.packer_plugins)]]
+vim.cmd [[au FileType gotctl ++once lua require("packer.load")({'vim-goctl'}, { ft = "gotctl" }, _G.packer_plugins)]]
+time([[Defining lazy-load filetype autocommands]], false)
   -- Event lazy-loads
 time([[Defining lazy-load event autocommands]], true)
 vim.cmd [[au VimEnter * ++once lua require("packer.load")({'dashboard-nvim'}, { event = "VimEnter *" }, _G.packer_plugins)]]
+vim.cmd [[au BufRead Cargo.toml ++once lua require("packer.load")({'crates.nvim'}, { event = "BufRead Cargo.toml" }, _G.packer_plugins)]]
 time([[Defining lazy-load event autocommands]], false)
+vim.cmd("augroup END")
+vim.cmd [[augroup filetypedetect]]
+time([[Sourcing ftdetect script at: /home/walter/.local/share/nvim/site/pack/packer/opt/vim-go/ftdetect/gofiletype.vim]], true)
+vim.cmd [[source /home/walter/.local/share/nvim/site/pack/packer/opt/vim-go/ftdetect/gofiletype.vim]]
+time([[Sourcing ftdetect script at: /home/walter/.local/share/nvim/site/pack/packer/opt/vim-go/ftdetect/gofiletype.vim]], false)
+time([[Sourcing ftdetect script at: /home/walter/.local/share/nvim/site/pack/packer/opt/vim-goctl/ftdetect/goctl.vim]], true)
+vim.cmd [[source /home/walter/.local/share/nvim/site/pack/packer/opt/vim-goctl/ftdetect/goctl.vim]]
+time([[Sourcing ftdetect script at: /home/walter/.local/share/nvim/site/pack/packer/opt/vim-goctl/ftdetect/goctl.vim]], false)
 vim.cmd("augroup END")
 
 _G._packer.inside_compile = false
@@ -373,7 +389,7 @@ if _G._packer.needs_bufread == true then
 end
 _G._packer.needs_bufread = false
 
-if should_profile then save_profiles() end
+if should_profile then save_profiles(1) end
 
 end)
 
