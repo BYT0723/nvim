@@ -134,6 +134,6 @@ api.nvim_create_autocmd({ "BufWritePost" }, {
 		if formatCond.is_empty() or formatCond.have_error() then
 			return
 		end
-		vim.cmd("FormatWriteLock")
+		vim.cmd("FormatWrite")
 	end,
 })

@@ -150,7 +150,6 @@ ins_left({
 		modified = { fg = colors.orange },
 		removed = { fg = colors.red },
 	},
-	cond = conditions.hide_in_width,
 })
 
 -- Insert mid section. You can make any number of sections in neovim :)
@@ -192,13 +191,16 @@ ins_right({
 		color_warn = { fg = colors.yellow },
 		color_info = { fg = colors.cyan },
 	},
-	cond = conditions.hide_in_width,
 })
 
 ins_right({ "location" })
 ins_right({ "progress", color = { fg = colors.fg, gui = "bold" }, cond = conditions.hide_in_width })
 
-ins_right({ "encoding", color = { fg = colors.green, gui = "bold" } })
+ins_right({
+	"encoding",
+	color = { fg = colors.green, gui = "bold" },
+	cond = conditions.hide_in_width,
+})
 ins_right({
 	"fileformat",
 	icons_enabled = true,

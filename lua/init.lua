@@ -1,15 +1,16 @@
--- 导入packer-plugins
+-- import packer-plugins
 require("plugins")
 
--- 加速启动
+-- quick start
 require("impatient").enable_profile()
 
--- 导入快捷键绑定
+-- keymap binding
 require("keybindings")
 
 -- colorscheme
 require("colorscheme")
 
+-- vim environment (some variable)
 require("env")
 
 -- lsp
@@ -21,7 +22,7 @@ require("lsp/dap-local")
 require("lsp/linter")
 require("lsp/formatter")
 
--- config
+-- plugin startup to be configured
 require("plugin-config/filetype")
 require("plugin-config/dashboard-nvim")
 require("plugin-config/bufferline")
@@ -37,14 +38,14 @@ require("plugin-config/indent-blankline")
 require("plugin-config/nvim-autopairs")
 require("plugin-config/vim-illuminate")
 
--- 16进制颜色显示
+-- plugin quick startup
 require("colorizer").setup()
 require("nvim-surround").setup()
 require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
 require("project_nvim").setup()
 require("crates").setup()
 
--- 保存lua config文件时，实时source配置文件
+-- when lua config be saved, source lua file in neovim now.
 vim.api.nvim_command(
 	"au BufWritePost " .. vim.fn.stdpath("config") .. "/lua/*.lua lua require('util').source_luafile()"
 )

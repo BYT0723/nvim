@@ -39,8 +39,15 @@ local function runFileCmd(type)
 		cmd = "surf " .. relativePath
 	elseif type == "python" then
 		cmd = "python " .. relativePath
-		-- elseif type == "proto" then
-		-- 	cmd = "protoc --proto_path=" .. relativePathExclueName .. " --go_out=plugins=grpc:" .. relativePathExclueName .. "/pb " .. relativePath
+	elseif type == "proto" then
+		cmd = "protoc --proto_path="
+			.. relativePathExclueName
+			.. " --go_out=plugins=grpc:"
+			.. relativePathExclueName
+			.. "/pb "
+			.. relativePath
+	elseif type == "gdscript" then
+		cmd = "godot " .. relativePath
 	end
 	return cmd
 end
