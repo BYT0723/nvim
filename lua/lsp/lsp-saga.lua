@@ -9,11 +9,17 @@ require("lspsaga").setup({
 	},
 	request_timeout = 2000,
 	finder = {
-		edit = { "o", "<CR>" },
-		vsplit = "s",
-		split = "i",
-		tabe = "t",
-		quit = { "q", "<ESC>" },
+		--percentage
+		max_height = 0.5,
+		keys = {
+			jump_to = "p",
+			edit = { "o", "<CR>" },
+			vsplit = "s",
+			split = "i",
+			tabe = "t",
+			quit = { "q", "<ESC>" },
+			close_in_preview = "<ESC>",
+		},
 	},
 	definition = {
 		edit = "<C-c>o",
@@ -25,6 +31,7 @@ require("lspsaga").setup({
 	},
 	code_action = {
 		num_shortcut = true,
+		show_server_name = false,
 		keys = {
 			quit = "<Esc>",
 			exec = "<CR>",
@@ -38,9 +45,14 @@ require("lspsaga").setup({
 		virtual_text = false,
 	},
 	diagnostic = {
-		twice_into = false,
 		show_code_action = true,
 		show_source = true,
+		jump_num_shortcut = true,
+		max_width = 0.7,
+		custom_fix = nil,
+		custom_msg = nil,
+		text_hl_follow = false,
+		border_follow = true,
 		keys = {
 			exec_action = "o",
 			quit = "<Esc>",
@@ -50,6 +62,8 @@ require("lspsaga").setup({
 	rename = {
 		quit = "<Esc>",
 		exec = "<CR>",
+		mark = "x",
+		confirm = "CR>",
 		in_select = true,
 	},
 	outline = {
@@ -85,10 +99,17 @@ require("lspsaga").setup({
 		hide_keyword = true,
 		show_file = true,
 		folder_level = 2,
+		respect_root = false,
+		color_mode = true,
+	},
+	beacon = {
+		enable = true,
+		frequency = 7,
 	},
 	ui = {
 		-- currently only round theme
 		theme = "round",
+		title = true,
 		-- border type can be single,double,rounded,solid,shadow.
 		border = "double",
 		winblend = 0,
