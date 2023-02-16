@@ -49,3 +49,12 @@ require("crates").setup()
 vim.api.nvim_command(
 	"au BufWritePost " .. vim.fn.stdpath("config") .. "/lua/*.lua lua require('util').source_luafile()"
 )
+
+-- add myself plugin to runtimepath
+local selfPlug = {
+	"/home/walter/Workspace/Github/goctl.nvim",
+}
+
+for _, v in pairs(selfPlug) do
+	vim.o.runtimepath = vim.o.runtimepath .. "," .. v
+end
