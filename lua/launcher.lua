@@ -16,6 +16,12 @@ local runProjectCmd = {
 	-- run project command
 }
 
+local VimCommands = {
+	["vim"] = "source %",
+	["lua"] = "luafile %",
+	["markdown"] = "MarkdownPreviewToggle",
+}
+
 -- Map file types to corresponding commands
 local function runFileCmd(type)
 	local relativePath = util.relative_path()
@@ -65,7 +71,14 @@ end
 
 -- run file
 function M.runFile()
-	local cmd = runFileCmd(vim.bo.filetype)
+	local cmd = VimCommands[vim.bo.filetype]
+	if cmd ~= nil and cmd ~= "" then
+		print(cmd)
+		vim.cmd(cmd)
+		return
+	end
+
+	cmd = runFileCmd(vim.bo.filetype)
 
 	runFileTerm.dir = vim.fn.getcwd()
 
@@ -215,6 +228,10 @@ function M.term_next()
 	end
 
 	exchange_term(target_term, current_term)
+end
+
+function M.luaPlugDev()
+	vim.o.runtimepath = vim.o.runtimepath .. "," .. util.cwd()
 end
 
 return M
