@@ -230,8 +230,4 @@ function M.term_next()
 	exchange_term(target_term, current_term)
 end
 
-function M.luaPlugDev()
-	vim.o.runtimepath = vim.o.runtimepath .. "," .. util.cwd()
-end
-
 return M
