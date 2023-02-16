@@ -62,6 +62,9 @@ return require("packer").startup({
 		-- base
 		use("nvim-lua/plenary.nvim")
 
+		-- develop
+		use("folke/neodev.nvim")
+
 		-- Packer can manage itself
 		use("wbthomason/packer.nvim")
 
@@ -106,7 +109,7 @@ return require("packer").startup({
 			"habamax/vim-godot",
 		})
 		use({ "fatih/vim-go", ft = "go" })
-		use({ "BYT0723/vim-goctl", ft = "gotctl" })
+		use({ "BYT0723/vim-goctl", ft = "goctl" })
 		use({ "saecki/crates.nvim", tag = "v0.3.0", event = "BufRead Cargo.toml" })
 
 		-- markdown preview
