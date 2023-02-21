@@ -59,14 +59,6 @@ lspconfig.dartls.setup({
 	capabilities = capabilities,
 })
 
-require("lsp_signature").setup({
-	hint_enable = false, -- virtual hint enable
-})
-
---
--- specific lsp config
---
-
 -- lua
 require("neodev").setup()
 local runtime_path = vim.split(package.path, ";")
@@ -116,4 +108,8 @@ lspconfig.emmet_ls.setup({
 			},
 		},
 	},
+})
+
+require("lsp_signature").setup({
+	hint_enable = false, -- virtual hint enable
 })
