@@ -47,9 +47,7 @@
   "handler": {
     "prefix": "handler",
     "body": [
-      "@doc(",
-      "\tsummary: $1",
-      ")",
+      "@doc \"$1\"",
       "@handler ${2:handlerName}",
       "${3:http_method} /${4:your/url/path}(${5:RequestBoday}) returns(${6:ResponseBoday})",
       "",
