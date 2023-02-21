@@ -66,6 +66,10 @@ function M.source_luafile()
 	for _, v in pairs(runtimepath) do
 		if v == pwd then
 			local path = vim.fn.fnamemodify(M.relative_path(), ":r")
+			local rp_col = string.find(path, "/")
+			if rp_col == nil then
+				return
+			end
 			local res = string.sub(path, string.find(path, "/") + 1, string.len(path))
 			package.loaded[res] = nil
 			require(res)
