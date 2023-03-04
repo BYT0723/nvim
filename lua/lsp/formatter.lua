@@ -60,7 +60,14 @@ require("formatter").setup({
 			require("formatter.filetypes.go").goimports,
 			require("formatter.filetypes.go").gofmt,
 		},
-		goctl = {},
+		goctl = {
+			function()
+				return {
+					exe = "goctl api format --stdin",
+					stdin = true,
+				}
+			end,
+		},
 		python = {
 			require("formatter.filetypes.python").autopep8,
 		},
