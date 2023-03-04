@@ -44,6 +44,7 @@ require("nvim-surround").setup()
 require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
 require("project_nvim").setup()
 require("crates").setup()
+require("goctl").setup()
 
 -- when lua config be saved, source lua file in neovim now.
 vim.api.nvim_command("au BufWritePost *.lua lua require('util').source_luafile()")

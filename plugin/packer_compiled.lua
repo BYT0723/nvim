@@ -110,11 +110,8 @@ _G.packer_plugins = {
     url = "https://github.com/hrsh7th/cmp-vsnip"
   },
   ["crates.nvim"] = {
-    after_files = { "/home/walter/.local/share/nvim/site/pack/packer/opt/crates.nvim/after/plugin/cmp_crates.lua" },
-    loaded = false,
-    needs_bufread = false,
-    only_cond = false,
-    path = "/home/walter/.local/share/nvim/site/pack/packer/opt/crates.nvim",
+    loaded = true,
+    path = "/home/walter/.local/share/nvim/site/pack/packer/start/crates.nvim",
     url = "https://github.com/saecki/crates.nvim"
   },
   ["dashboard-nvim"] = {
@@ -153,6 +150,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/walter/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
     url = "https://github.com/lewis6991/gitsigns.nvim"
+  },
+  ["goctl.nvim"] = {
+    loaded = true,
+    path = "/home/walter/.local/share/nvim/site/pack/packer/start/goctl.nvim",
+    url = "https://github.com/BYT0723/goctl.nvim"
   },
   ["hop.nvim"] = {
     loaded = true,
@@ -336,13 +338,6 @@ _G.packer_plugins = {
     path = "/home/walter/.local/share/nvim/site/pack/packer/opt/vim-go",
     url = "https://github.com/fatih/vim-go"
   },
-  ["vim-goctl"] = {
-    loaded = false,
-    needs_bufread = true,
-    only_cond = false,
-    path = "/home/walter/.local/share/nvim/site/pack/packer/opt/vim-goctl",
-    url = "https://github.com/BYT0723/vim-goctl"
-  },
   ["vim-godot"] = {
     loaded = true,
     path = "/home/walter/.local/share/nvim/site/pack/packer/start/vim-godot",
@@ -376,18 +371,13 @@ vim.cmd [[au!]]
   -- Filetype lazy-loads
 time([[Defining lazy-load filetype autocommands]], true)
 vim.cmd [[au FileType go ++once lua require("packer.load")({'vim-go'}, { ft = "go" }, _G.packer_plugins)]]
-vim.cmd [[au FileType goctl ++once lua require("packer.load")({'vim-goctl'}, { ft = "goctl" }, _G.packer_plugins)]]
 time([[Defining lazy-load filetype autocommands]], false)
   -- Event lazy-loads
 time([[Defining lazy-load event autocommands]], true)
-vim.cmd [[au BufRead Cargo.toml ++once lua require("packer.load")({'crates.nvim'}, { event = "BufRead Cargo.toml" }, _G.packer_plugins)]]
 vim.cmd [[au VimEnter * ++once lua require("packer.load")({'dashboard-nvim'}, { event = "VimEnter *" }, _G.packer_plugins)]]
 time([[Defining lazy-load event autocommands]], false)
 vim.cmd("augroup END")
 vim.cmd [[augroup filetypedetect]]
-time([[Sourcing ftdetect script at: /home/walter/.local/share/nvim/site/pack/packer/opt/vim-goctl/ftdetect/goctl.vim]], true)
-vim.cmd [[source /home/walter/.local/share/nvim/site/pack/packer/opt/vim-goctl/ftdetect/goctl.vim]]
-time([[Sourcing ftdetect script at: /home/walter/.local/share/nvim/site/pack/packer/opt/vim-goctl/ftdetect/goctl.vim]], false)
 time([[Sourcing ftdetect script at: /home/walter/.local/share/nvim/site/pack/packer/opt/vim-go/ftdetect/gofiletype.vim]], true)
 vim.cmd [[source /home/walter/.local/share/nvim/site/pack/packer/opt/vim-go/ftdetect/gofiletype.vim]]
 time([[Sourcing ftdetect script at: /home/walter/.local/share/nvim/site/pack/packer/opt/vim-go/ftdetect/gofiletype.vim]], false)
