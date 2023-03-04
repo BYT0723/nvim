@@ -1,4 +1,9 @@
 {
+  "version": {
+    "prefix": "version",
+    "body": ["syntax = \"v${1:1}\"$0"],
+    "description": "version"
+  },
   "single import": {
     "prefix": "im",
     "body": "import \"${1:package}\"",
@@ -49,9 +54,7 @@
     "body": [
       "@doc \"$1\"",
       "@handler ${2:handlerName}",
-      "${3:http_method} /${4:your/url/path}(${5:RequestBoday}) returns(${6:ResponseBoday})",
-      "",
-      "$0"
+      "${3:http_method} /${4:your/url/path}(${5:RequestBoday}) returns(${6:ResponseBoday})$0"
     ],
     "description": "route rule"
   },
