@@ -7,7 +7,7 @@ end
 -- configure tokyonight
 require("tokyonight").setup({
 	transparent = is_transparent(),
-	style = "storm", -- storm / night / moon / day
+	style = "moon", -- storm / night / moon / day
 	terminal_colors = true,
 	styles = {
 		comments = { italic = true },

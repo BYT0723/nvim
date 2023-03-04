@@ -81,7 +81,7 @@ require("nvim-tree").setup({ -- BEGIN_DEFAULT_OPTS
 		},
 		open_file = {
 			quit_on_open = true,
-			resize_window = false,
+			resize_window = true,
 			window_picker = {
 				enable = true,
 				chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
