@@ -3,6 +3,16 @@ local theme = require("theme")
 local exceptType = { "qf", "dap-repl" }
 
 require("bufferline").setup({
+	highlights = function()
+		local bg = "#002b36"
+		return {
+			fill = { bg = bg },
+			separator_selected = { fg = bg },
+			separator_visible = { fg = bg },
+			separator = { fg = bg },
+			offset_separator = { fg = bg },
+		}
+	end,
 	options = {
 		mode = "buffers", -- set to "tabs" to only show tabpages instead
 		numbers = "none",
@@ -80,7 +90,7 @@ require("bufferline").setup({
 		-- can also be a table containing 2 custom separators
 		-- [focused and unfocused]. eg: { '|', '|' }
 		-- slant / thick / thin
-		separator_style = { "|", "|" },
+		separator_style = "slant",
 		-- true can't diff same buffer name
 		enforce_regular_tabs = false,
 		always_show_bufferline = true,
