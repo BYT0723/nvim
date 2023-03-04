@@ -108,6 +108,7 @@ return require("packer").startup({
 		use({
 			"habamax/vim-godot",
 		})
+		use("simrat39/rust-tools.nvim")
 		use({ "fatih/vim-go", ft = "go" })
 		use({ "BYT0723/vim-goctl", ft = "goctl" })
 		use({ "saecki/crates.nvim", tag = "v0.3.0", event = "BufRead Cargo.toml" })

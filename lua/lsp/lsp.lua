@@ -15,7 +15,7 @@ local servers = {
 	"lua_ls",
 	"marksman",
 	"pyright",
-	"rust_analyzer",
+	-- "rust_analyzer",
 	"sqls",
 	"taplo",
 	"tsserver",
@@ -44,6 +44,14 @@ for _, lsp in pairs(servers) do
 		capabilities = capabilities,
 	})
 end
+
+-- rust-tools.nvim
+require("rust-tools").setup({
+	server = {
+		on_attach = on_attach,
+		capabilities = capabilities,
+	},
+})
 
 -- godot engine
 -- Arch: sudo pacman -S godot
