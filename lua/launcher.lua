@@ -60,11 +60,15 @@ end
 
 local runFileTerm = Terminal:new({ direction = "horizontal", display_name = "RUN FILE" })
 local runProjectTerm = Terminal:new({ direction = "horizontal", display_name = "RUN PROJECT" })
-local tool = Terminal:new({ direction = "tab" })
 
-function M.toolToggle(cmd, term_name)
-	tool.cmd = cmd
-	tool.display_name = term_name
+local tools = {
+	git = Terminal:new({ cmd = "lazygit", display_name = "LazyGit", direction = "tab" }),
+	docker = Terminal:new({ cmd = "lazydocker", display_name = "LazyDocker", direction = "tab" }),
+	ranger = Terminal:new({ cmd = "ranger", display_name = "Ranger", direction = "float" }),
+}
+
+function M.toolToggle(name)
+	local tool = tools[name]
 	tool.dir = vim.fn.getcwd()
 	tool:toggle()
 end
@@ -184,11 +188,10 @@ end
 
 -- toggleterm : move to previous term in list which order by term_id
 function M.term_prev()
-	local all = term_api.get_all(true)
 	local id = current_term_id()
 	local target_id = id
 
-	for index, term in pairs(all) do
+	for index, _ in pairs(term_api.get_all(true)) do
 		if index == id then
 			break
 		end
@@ -205,11 +208,10 @@ end
 
 -- toggleterm : move to next term in list which order by term_id
 function M.term_next()
-	local all = term_api.get_all(true)
 	local id = current_term_id()
 	local target_id = id
 
-	for index, term in pairs(all) do
+	for index, _ in pairs(term_api.get_all(true)) do
 		if index > id then
 			target_id = index
 			break

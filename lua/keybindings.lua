@@ -49,10 +49,16 @@ map("n", "bs", "<cmd>BufferLinePick<CR>", opt)
 map("n", "bp", "<cmd>BufferLineTogglePin<CR>", opt) -- buffer pin
 map("n", "bq", "<cmd>bdelete!<CR>", opt) -- buffer quit
 
+
+-- ranger 
+map("n", "<leader>lr", "<cmd>lua require('launcher').toolToggle('ranger')<CR>", opt)
+map("t", "<C-l>r", "<cmd>lua require('launcher').toolToggle('ranger')<CR>", opt)
 -- docker
-map("n", "<leader>ld", "<cmd>lua require('launcher').toolToggle('lazydocker', 'Docker')<CR>", opt)
+map("n", "<leader>ld", "<cmd>lua require('launcher').toolToggle('docker')<CR>", opt)
+map("t", "<C-l>d", "<cmd>lua require('launcher').toolToggle('docker')<CR>", opt)
 -- git
-map("n", "<leader>lg", "<cmd>lua require('launcher').toolToggle('lazygit', 'Git')<CR>", opt)
+map("n", "<leader>lg", "<cmd>lua require('launcher').toolToggle('git')<CR>", opt)
+map("t", "<C-l>g", "<cmd>lua require('launcher').toolToggle('git')<CR>", opt)
 map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", opt)
 
 -- debug
