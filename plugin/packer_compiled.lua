@@ -79,6 +79,11 @@ _G.packer_plugins = {
     path = "/home/walter/.local/share/nvim/site/pack/packer/start/Comment.nvim",
     url = "https://github.com/numToStr/Comment.nvim"
   },
+  ["LanguageClient-neovim"] = {
+    loaded = true,
+    path = "/home/walter/.local/share/nvim/site/pack/packer/start/LanguageClient-neovim",
+    url = "https://github.com/autozimu/LanguageClient-neovim"
+  },
   ["bufferline.nvim"] = {
     loaded = true,
     path = "/home/walter/.local/share/nvim/site/pack/packer/start/bufferline.nvim",
