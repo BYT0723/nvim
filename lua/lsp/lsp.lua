@@ -1,5 +1,5 @@
 local lspconfig = require("lspconfig")
-local servers = {
+local install_servers = {
 	-- "angularls",
 	"bashls",
 	"bufls",
@@ -24,7 +24,7 @@ local servers = {
 	"yamlls",
 }
 require("mason-lspconfig").setup({
-	ensure_installed = servers,
+	ensure_installed = install_servers,
 	automatic_installation = true,
 })
 
@@ -35,71 +35,76 @@ local on_attach = function(client, bufnr)
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 end
 
+require("neodev").setup()
+local runtime_path = vim.split(package.path, ";")
+table.insert(runtime_path, "lua/?.lua")
+table.insert(runtime_path, "lua/?/?.lua")
+table.insert(runtime_path, "lua/?/?/?.lua")
+local settings = {
+	Lua = {
+		runtime = {
+			-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+			version = "LuaJIT",
+			-- Setup your lua path
+			path = runtime_path,
+		},
+		diagnostics = {
+			-- Get the language server to recognize the `vim` global
+			globals = { "vim" },
+		},
+		workspace = {
+			-- Make the server aware of Neovim runtime files
+			library = vim.api.nvim_get_runtime_file("", true),
+		},
+		-- Do not send telemetry data containing a randomized but unique identifier
+		telemetry = {
+			enable = false,
+		},
+		completion = {
+			callSnippet = "Replace",
+		},
+	},
+	gopls = {
+		usePlaceholders = true,
+		codelenses = {
+			generate = true,
+			test = true,
+		},
+	},
+	yaml = {
+		keyOrdering = false,
+	},
+	html = {
+		options = {
+			-- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
+			["bem.enabled"] = true,
+		},
+	},
+}
+
+table.insert(install_servers, "gdscript")
+table.insert(install_servers, "dartls")
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()) --nvim-cmp
-for _, lsp in pairs(servers) do
+for _, lsp in pairs(install_servers) do
 	lspconfig[lsp].setup({
 		on_attach = on_attach,
 		capabilities = capabilities,
+		settings = settings,
 	})
 end
+
+require("lsp_signature").setup({
+	hint_enable = false, -- virtual hint enable
+})
 
 -- rust-tools.nvim
 require("rust-tools").setup({
 	server = {
 		on_attach = on_attach,
 		capabilities = capabilities,
-	},
-})
-
--- godot engine
--- Arch: sudo pacman -S godot
-lspconfig.gdscript.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-})
-
--- flutter
--- Arch: sudo pacman -S dart
-lspconfig.dartls.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-})
-
--- lua
-require("neodev").setup()
-local runtime_path = vim.split(package.path, ";")
-table.insert(runtime_path, "lua/?.lua")
-table.insert(runtime_path, "lua/?/?.lua")
-table.insert(runtime_path, "lua/?/?/?.lua")
-lspconfig.lua_ls.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-	settings = {
-		Lua = {
-			runtime = {
-				-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-				version = "LuaJIT",
-				-- Setup your lua path
-				path = runtime_path,
-			},
-			diagnostics = {
-				-- Get the language server to recognize the `vim` global
-				globals = { "vim" },
-			},
-			workspace = {
-				-- Make the server aware of Neovim runtime files
-				library = vim.api.nvim_get_runtime_file("", true),
-			},
-			-- Do not send telemetry data containing a randomized but unique identifier
-			telemetry = {
-				enable = false,
-			},
-			completion = {
-				callSnippet = "Replace",
-			},
-		},
+		settings = settings,
 	},
 })
 
@@ -108,16 +113,5 @@ lspconfig.emmet_ls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
 	filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
-	init_options = {
-		html = {
-			options = {
-				-- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
-				["bem.enabled"] = true,
-			},
-		},
-	},
-})
-
-require("lsp_signature").setup({
-	hint_enable = false, -- virtual hint enable
+	init_options = settings,
 })
