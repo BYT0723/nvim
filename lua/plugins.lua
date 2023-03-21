@@ -71,6 +71,8 @@ return require("packer").startup({
 		})
 		use("wakatime/vim-wakatime")
 
+		-- gui
+		use("rcarriga/nvim-notify")
 		-- Packer can manage itself
 		use("wbthomason/packer.nvim")
 

@@ -1,5 +1,7 @@
 local set = vim.opt
 
+set.termguicolors = true
+
 -- 交换文件
 set.swapfile = false
 -- 忽略大小写
