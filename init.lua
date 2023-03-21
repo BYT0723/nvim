@@ -4,14 +4,15 @@ require("plugins")
 -- quick start
 require("impatient").enable_profile()
 
+-- vim environment (some variable)
+require("env")
+
 -- keymap binding
 require("keybindings")
 
 -- colorscheme
 require("colorscheme")
 
--- vim environment (some variable)
-require("env")
 require("plugin-config/nvim-notify")
 require("plugin-config/noice")
 
