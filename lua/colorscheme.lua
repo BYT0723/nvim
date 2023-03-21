@@ -1,12 +1,8 @@
-local function is_transparent()
-	if vim.fn.exists("g:neovide") ~= 0 then
-		return false
-	end
-	return true
-end
 -- configure tokyonight
 require("tokyonight").setup({
-	transparent = is_transparent(),
+	transparent = function()
+		return vim.fn.exists("g:neovide") == 0
+	end,
 	style = "moon", -- storm / night / moon / day
 	terminal_colors = true,
 	styles = {

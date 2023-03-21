@@ -4,14 +4,16 @@ local exceptType = { "qf", "dap-repl" }
 
 require("bufferline").setup({
 	highlights = function()
-		local bg = "#002b36"
-		return {
-			fill = { bg = bg },
-			separator_selected = { fg = bg },
-			separator_visible = { fg = bg },
-			separator = { fg = bg },
-			offset_separator = { fg = bg },
-		}
+		if vim.fn.exists("g:neovide") == 0 then
+			local bg = "#002b36"
+			return {
+				fill = { bg = bg },
+				separator_selected = { fg = bg },
+				separator_visible = { fg = bg },
+				separator = { fg = bg },
+				offset_separator = { fg = bg },
+			}
+		end
 	end,
 	options = {
 		mode = "buffers", -- set to "tabs" to only show tabpages instead
