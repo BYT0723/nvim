@@ -72,7 +72,10 @@ return require("packer").startup({
 		use("wakatime/vim-wakatime")
 
 		-- gui
+		use("MunifTanjim/nui.nvim")
 		use("rcarriga/nvim-notify")
+		use("folke/noice.nvim")
+
 		-- Packer can manage itself
 		use("wbthomason/packer.nvim")
 

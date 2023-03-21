@@ -13,6 +13,7 @@ require("colorscheme")
 -- vim environment (some variable)
 require("env")
 require("plugin-config/nvim-notify")
+require("plugin-config/noice")
 
 -- lsp
 require("plugin-config/mason")
