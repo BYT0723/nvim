@@ -69,6 +69,7 @@ return require("packer").startup({
 			branch = "next",
 			run = "bash install.sh",
 		})
+		use("wakatime/vim-wakatime")
 
 		-- Packer can manage itself
 		use("wbthomason/packer.nvim")
