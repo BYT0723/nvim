@@ -20,85 +20,73 @@ require("formatter").setup({
 	logging = true,
 	log_level = vim.log.levels.WARN,
 	filetype = {
-		lua = {
-			function()
-				if is_exc_file() then
-					return nil
-				end
+		lua = function()
+			if is_exc_file() then
+				return {}
+			end
 
-				return {
-					exe = "stylua",
-					args = {
-						"--search-parent-directories",
-						"--stdin-filepath",
-						util.escape_path(util.get_current_buffer_file_path()),
-						"--",
-						"-",
-					},
-					stdin = true,
-				}
-			end,
-		},
+			return {
+				exe = "stylua",
+				args = {
+					"--search-parent-directories",
+					"--stdin-filepath",
+					util.escape_path(util.get_current_buffer_file_path()),
+					"--",
+					"-",
+				},
+				stdin = true,
+			}
+		end,
 		c = { require("formatter.filetypes.c").clangformat },
-		cpp = {
-			function()
-				if is_exc_file() then
-					return nil
-				end
-				return {
-					exe = "clang-format",
-					args = {
-						"-assume-filename",
-						util.escape_path(util.get_current_buffer_file_name()),
-					},
-					stdin = true,
-					try_node_modules = true,
-				}
-			end,
-		},
+		cpp = function()
+			if is_exc_file() then
+				return {}
+			end
+			return {
+				exe = "clang-format",
+				args = {
+					"-assume-filename",
+					util.escape_path(util.get_current_buffer_file_name()),
+				},
+				stdin = true,
+				try_node_modules = true,
+			}
+		end,
 		go = {
 			require("formatter.filetypes.go").goimports,
 			require("formatter.filetypes.go").gofmt,
 		},
-		goctl = {
-			function()
-				return {
-					exe = "goctl api format --stdin",
-					stdin = true,
-				}
-			end,
-		},
+		goctl = function()
+			return {
+				exe = "goctl api format --stdin",
+				stdin = true,
+			}
+		end,
 		python = {
 			require("formatter.filetypes.python").autopep8,
 		},
-		rust = {
-			function()
-				return {
-					exe = "rustfmt",
-					args = { "--edition 2021" },
-					stdin = true,
-				}
-			end,
-		},
+		rust = function()
+			return {
+				exe = "rustfmt",
+				args = { "--edition 2021" },
+				stdin = true,
+			}
+		end,
 		sh = { require("formatter.filetypes.sh").shfmt },
 		toml = { require("formatter.filetypes.toml").taplo },
-		proto = {
-			function()
-				return {
-					exe = "buf",
-					args = { "format", util.escape_path(util.get_current_buffer_file_path()) },
-					stdin = true,
-				}
-			end,
-		},
-		sql = {
-			function()
-				return {
-					exe = "sql-formatter",
-					stdin = true,
-				}
-			end,
-		},
+		proto = function()
+			return {
+				exe = "buf",
+				args = { "format", util.escape_path(util.get_current_buffer_file_path()) },
+				stdin = true,
+			}
+		end,
+		sql = function()
+			return {
+				exe = "sql-formatter",
+				stdin = true,
+			}
+		end,
 		json = { util.copyf(defaults.prettierd) },
 		html = { util.copyf(defaults.prettierd) },
 		javascript = { util.copyf(defaults.prettierd) },
@@ -115,32 +103,30 @@ require("formatter").setup({
 
 -- formatting condition
 local formatCond = {
-	-- return true, if buf is empty
-	is_empty = function()
-		for _, line_text in pairs(api.nvim_buf_get_lines(0, 0, api.nvim_buf_line_count(0), 0)) do
-			if line_text ~= "" then
-				return false
-			end
-		end
-		return true
-	end,
-
-	-- return true, if there is any error.
-	have_error = function()
-		local diagnostic_list = vim.diagnostic.get(0, nil)
-		for _, v in pairs(diagnostic_list) do
-			if v.severity == vim.diagnostic.severity.ERROR then
-				return true
-			end
-		end
-		return false
-	end,
+	is_empty = {
+		msg = "buffer is empty",
+		level = vim.log.levels.INFO,
+		func = function()
+			return table.concat(api.nvim_buf_get_lines(0, 0, api.nvim_buf_line_count(0), false)) == ""
+		end,
+	},
+	have_error = {
+		msg = "current buffer have errors",
+		level = vim.log.levels.ERROR,
+		func = function()
+			local diagnostic_list = vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
+			return #diagnostic_list ~= 0
+		end,
+	},
 }
 api.nvim_create_autocmd({ "BufWritePost" }, {
 	callback = function()
-		if formatCond.is_empty() or formatCond.have_error() then
-			return
+		for _, v in pairs(formatCond) do
+			if v.func() then
+				vim.notify(v.msg, v.level)
+				return
+			end
 		end
-		vim.cmd("FormatWrite")
+		vim.cmd("FormatWriteLock")
 	end,
 })

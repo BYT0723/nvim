@@ -3,7 +3,7 @@ local ensure_packer = function()
 	local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 	if fn.empty(fn.glob(install_path)) > 0 then
 		-- cann't connect to github.com
-		-- fn.system({ "git", "clone", "--depth", "1", "https://kgithub.com/wbthomason/packer.nvim.git", install_path })
+		-- fn.system({ "git", "clone", "--depth", "1", "https://gitee.com/BYT0723/packer.nvim.git", install_path })
 		fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim.git", install_path })
 		vim.cmd([[packadd packer.nvim]])
 		return true

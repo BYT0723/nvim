@@ -1,5 +1,6 @@
 local set = vim.opt
 
+-- fix nvim-notify bug
 set.termguicolors = true
 
 -- 交换文件
@@ -39,7 +40,7 @@ if vim.fn.exists("g:neovide") ~= 0 then
 	vim.g.neovide_cursor_animation_length = 0.1
 	vim.g.neovide_cursor_trail_size = 0.5
 	vim.g.neovide_remember_window_size = true
-	set.guifont = "CaskaydiaCove Nerd Font SemiLight:h7"
+	set.guifont = "CaskaydiaCove Nerd Font SemiLight:h13"
 end
 
 -- vim-go configuration
@@ -56,3 +57,8 @@ vim.api.nvim_command(
 
 -- translator engine
 vim.g.translator_default_engines = { "bing", "youdao", "haici" }
+
+-- lsp developer
+vim.g.LanguageClient_serverCommands = {
+	goctl = { "tcp://127.0.0.1:7998" },
+}

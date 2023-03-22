@@ -5,7 +5,7 @@ require("plugins")
 require("impatient").enable_profile()
 
 -- vim environment (some variable)
-require("env")
+require("environment")
 
 -- keymap binding
 require("keybindings")
@@ -39,6 +39,7 @@ require("plugin-config/nvim-tree")
 require("plugin-config/comment")
 require("plugin-config/indent-blankline")
 require("plugin-config/nvim-autopairs")
+-- key highlight
 require("plugin-config/vim-illuminate")
 
 -- plugin quick startup
@@ -51,12 +52,3 @@ require("goctl").setup()
 
 -- when lua config be saved, source lua file in neovim now.
 vim.api.nvim_command("au BufWritePost *.lua lua require('util').source_luafile()")
-
--- add myself plugin to runtimepath
-local selfPlug = {
-	"/home/walter/Workspace/Github/goctl.nvim",
-}
-
-for _, v in pairs(selfPlug) do
-	vim.o.runtimepath = vim.o.runtimepath .. "," .. v
-end

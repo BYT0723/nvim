@@ -97,7 +97,7 @@ require("noice").setup({
 	},
 	lsp = {
 		progress = {
-			enabled = true,
+			enabled = false,
 			-- Lsp Progress is formatted using the builtins for lsp_progress. See config.format.builtin
 			-- See the section on formatting for more details on how to customize.
 			--- @type NoiceFormat|string
@@ -116,7 +116,7 @@ require("noice").setup({
 			["cmp.entry.get_documentation"] = false,
 		},
 		hover = {
-			enabled = true,
+			enabled = false,
 			view = nil, -- when nil, use defaults from documentation
 			---@type NoiceViewOptions
 			opts = {}, -- merged with defaults from documentation
