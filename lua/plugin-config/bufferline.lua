@@ -1,5 +1,3 @@
-local theme = require('theme')
-
 local exceptType = { 'qf', 'dap-repl' }
 local icons = {
   buffer_close_icon = '',
@@ -53,7 +51,7 @@ require('bufferline').setup({
     diagnostics = 'nvim_lsp',
     diagnostics_update_in_insert = false,
     diagnostics_indicator = function(count, level, diagnostics_dict, context)
-      local icon = level:match('error') and " " or " "
+      local icon = level:match('error') and ' ' or ' '
       return icon .. count
     end,
     -- NOTE: this will be called a lot so don't do any heavy processing here
