@@ -243,7 +243,7 @@ pluginKeys.nvim_tree = function()
 		{ key = "H", action = "toggle_dotfiles" },
 		{ key = "R", action = "refresh" },
 		{ key = "a", action = "create" },
-		{ key = "DD", action = "remove" },
+		{ key = "<Delete>", action = "remove" },
 		{ key = "D", action = "trash" },
 		{ key = "r", action = "rename" },
 		{ key = "<C-r>", action = "full_rename" },
