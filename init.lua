@@ -14,7 +14,7 @@ require('keybindings')
 require('colorscheme')
 
 require('plugin-config/nvim-notify')
--- require('plugin-config/noice')
+require('plugin-config/noice')
 
 -- lsp
 require('plugin-config/mason')

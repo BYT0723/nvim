@@ -97,7 +97,7 @@ require('noice').setup({
   },
   lsp = {
     progress = {
-      enabled = false,
+      enabled = true,
       -- Lsp Progress is formatted using the builtins for lsp_progress. See config.format.builtin
       -- See the section on formatting for more details on how to customize.
       --- @type NoiceFormat|string
@@ -188,7 +188,9 @@ require('noice').setup({
   throttle = 1000 / 30, -- how frequently does Noice need to check for ui updates? This has no effect when in blocking mode.
   ---@type NoiceConfigViews
   views = {
-    mini = {},
+    cmdline_popup = {
+      position = { row = '30%', col = '50%' },
+    },
   }, ---@see section on views
   ---@type NoiceRouteConfig[]
   routes = {}, --- @see section on routes
