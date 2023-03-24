@@ -1,9 +1,9 @@
-local theme = require('theme')
+-- stylua: ignore
 local signs = {
-  { name = 'DiagnosticSignError', text = theme.diagnostic.error },
-  { name = 'DiagnosticSignWarn', text = theme.diagnostic.warn },
-  { name = 'DiagnosticSignHint', text = theme.diagnostic.hint },
-  { name = 'DiagnosticSignInfo', text = theme.diagnostic.info },
+  { name = 'DiagnosticSignError', text = ' ' },
+  { name = 'DiagnosticSignWarn',  text = ' ' },
+  { name = 'DiagnosticSignHint',  text = ' ' },
+  { name = 'DiagnosticSignInfo',  text = ' ' },
 }
 
 for _, sign in ipairs(signs) do

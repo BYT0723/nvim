@@ -1,8 +1,4 @@
-local theme = require('theme')
--- setup with all defaults
--- each of these are documented in `:help nvim-tree.OPTION_NAME`
--- nested options are documented by accessing them with `.` (eg: `:help nvim-tree.view.mappings.list`).
-require('nvim-tree').setup({ -- BEGIN_DEFAULT_OPTS
+require('nvim-tree').setup({
   auto_reload_on_write = true,
   disable_netrw = false,
   hijack_cursor = false,
@@ -36,7 +32,41 @@ require('nvim-tree').setup({ -- BEGIN_DEFAULT_OPTS
         none = '  ',
       },
     },
-    icons = theme.nvim_tree,
+    icons = {
+      webdev_colors = true,
+      git_placement = 'after',
+      padding = ' ',
+      symlink_arrow = ' ➛ ',
+      show = {
+        file = true,
+        folder = true,
+        folder_arrow = true,
+        git = true,
+      },
+      glyphs = {
+        default = '',
+        symlink = '',
+        git = {
+          unstaged = '',
+          staged = '',
+          unmerged = '',
+          renamed = 'ﲖ',
+          untracked = '',
+          deleted = '',
+          ignored = '',
+        },
+        folder = {
+          arrow_open = '',
+          arrow_closed = '',
+          default = '',
+          open = '',
+          empty = '',
+          empty_open = '',
+          symlink = '',
+          symlink_open = '',
+        },
+      },
+    },
   },
   hijack_directories = {
     enable = true,
@@ -56,10 +86,10 @@ require('nvim-tree').setup({ -- BEGIN_DEFAULT_OPTS
     enable = true,
     show_on_dirs = true,
     icons = {
-      error = theme.diagnostic.error,
-      warning = theme.diagnostic.warn,
-      hint = theme.diagnostic.hint,
-      info = theme.diagnostic.info,
+      error = ' ',
+      warning = ' ',
+      hint = ' ',
+      info = ' ',
     },
   },
   filters = {

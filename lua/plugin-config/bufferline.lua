@@ -1,6 +1,13 @@
 local theme = require('theme')
 
 local exceptType = { 'qf', 'dap-repl' }
+local icons = {
+  buffer_close_icon = '',
+  modified_icon = '●',
+  close_icon = '',
+  left_trunc_marker = '',
+  right_trunc_marker = '',
+}
 
 require('bufferline').setup({
   highlights = function()
@@ -28,11 +35,11 @@ require('bufferline').setup({
     indicator = {
       style = 'none', -- none / underline / icon
     },
-    buffer_close_icon = '',
-    modified_icon = '●',
-    close_icon = '',
-    left_trunc_marker = '',
-    right_trunc_marker = '',
+    buffer_close_icon = icons.buffer_close_icon,
+    modified_icon = icons.modified_icon,
+    close_icon = icons.close_icon,
+    left_trunc_marker = icons.left_trunc_marker,
+    right_trunc_marker = icons.right_trunc_marker,
     --- name_formatter can be used to change the buffer's label in the bufferline.
     --- Please note some names can/will break the
     --- bufferline so use this at your discretion knowing that it has
@@ -46,13 +53,8 @@ require('bufferline').setup({
     diagnostics = 'nvim_lsp',
     diagnostics_update_in_insert = false,
     diagnostics_indicator = function(count, level, diagnostics_dict, context)
-      local icon = level:match('error') and theme.diagnostic.error or theme.diagnostic.warn
-      for e, n in pairs(diagnostics_dict) do
-        if e == level then
-          return icon .. n
-        end
-      end
-      return ''
+      local icon = level:match('error') and " " or " "
+      return icon .. count
     end,
     -- NOTE: this will be called a lot so don't do any heavy processing here
     custom_filter = function(buf_number, buf_numbers)

@@ -1,6 +1,3 @@
-local theme = require('theme')
-
--- Color table for highlights
 -- stylua: ignore
 local colors = {
   bg       = '#202328',
@@ -48,10 +45,6 @@ local config = {
     component_separators = '',
     section_separators = '',
     theme = 'auto',
-    -- theme = {
-    -- 	normal = { c = { fg = colors.fg, bg = colors.bg } },
-    -- 	inactive = { c = { fg = colors.fg, bg = colors.bg } },
-    -- },
   },
   sections = {
     lualine_a = {},
@@ -144,7 +137,7 @@ ins_left({
 
 ins_left({
   'diff',
-  symbols = theme.lualine.git,
+  symbols = { added = ' ', modified = ' ', removed = ' ' },
   diff_color = {
     added = { fg = colors.green },
     modified = { fg = colors.orange },
@@ -185,7 +178,12 @@ ins_left({
 ins_right({
   'diagnostics',
   sources = { 'nvim_diagnostic' },
-  symbols = theme.diagnostic,
+  symbols = {
+      error = ' ',
+      warning = ' ',
+      hint = ' ',
+      Information = ' ',
+  },
   diagnostics_color = {
     color_error = { fg = colors.red },
     color_warn = { fg = colors.yellow },
