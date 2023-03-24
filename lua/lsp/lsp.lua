@@ -5,10 +5,10 @@ local install_servers = {
   'bufls',
   'clangd',
   'cssls',
-  'dotls',
   'dockerls',
-  'eslint',
+  'dotls',
   'emmet_ls',
+  'eslint',
   'gopls',
   'html',
   'jsonls',
@@ -23,6 +23,12 @@ local install_servers = {
   'volar',
   'yamlls',
 }
+
+local other_servers = {
+  'gdscript',
+  'dartls',
+}
+
 require('mason-lspconfig').setup({
   ensure_installed = install_servers,
   automatic_installation = true,
@@ -82,12 +88,18 @@ local settings = {
   },
 }
 
-table.insert(install_servers, 'gdscript')
-table.insert(install_servers, 'dartls')
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()) --nvim-cmp
 for _, lsp in pairs(install_servers) do
+  lspconfig[lsp].setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = settings,
+  })
+end
+
+for _, lsp in pairs(other_servers) do
   lspconfig[lsp].setup({
     on_attach = on_attach,
     capabilities = capabilities,
