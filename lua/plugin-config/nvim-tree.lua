@@ -75,7 +75,7 @@ require('nvim-tree').setup({
   update_focused_file = {
     enable = true,
     update_root = true,
-    ignore_list = { 'toggleterm', 'term' },
+    ignore_list = {},
   },
   ignore_ft_on_setup = {},
   system_open = {
