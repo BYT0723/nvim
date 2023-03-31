@@ -63,7 +63,7 @@ require('lspsaga').setup({
     quit = '<Esc>',
     exec = '<CR>',
     mark = 'x',
-    confirm = 'CR>',
+    confirm = '<CR>',
     in_select = true,
   },
   outline = {
