@@ -1,6 +1,5 @@
-local util = require('formatter.util')
-local defaults = require('formatter.defaults')
 local api = vim.api
+local util = require('util')
 
 local exc_file = {
   lua = { 'keybindings.lua' },
@@ -8,11 +7,16 @@ local exc_file = {
 }
 
 local function is_exc_file()
+  if exc_file[vim.bo.filetype] == nil then
+    return false
+  end
+
   for _, v in ipairs(exc_file[vim.bo.filetype]) do
-    if util.get_current_buffer_file_name() == v then
+    if util.filename() == v then
       return true
     end
   end
+
   return false
 end
 
@@ -20,64 +24,33 @@ require('formatter').setup({
   logging = true,
   log_level = vim.log.levels.WARN,
   filetype = {
-    lua = function()
-      if is_exc_file() then
-        return {}
-      end
-
-      return {
-        exe = 'stylua',
-        args = {
-          '--search-parent-directories',
-          '--stdin-filepath',
-          util.escape_path(util.get_current_buffer_file_path()),
-          '--',
-          '-',
-        },
-        stdin = true,
-      }
-    end,
+    lua = { require('formatter.filetypes.lua').stylua },
     c = { require('formatter.filetypes.c').clangformat },
-    cpp = function()
-      if is_exc_file() then
-        return {}
-      end
-      return {
-        exe = 'clang-format',
-        args = {
-          '-assume-filename',
-          util.escape_path(util.get_current_buffer_file_name()),
-        },
-        stdin = true,
-        try_node_modules = true,
-      }
-    end,
+    cpp = { require('formatter.filetypes.cpp').clangformat },
     go = {
       require('formatter.filetypes.go').goimports,
       require('formatter.filetypes.go').gofmt,
     },
-    goctl = function()
-      return {
-        exe = 'goctl api format --stdin',
-        stdin = true,
-      }
-    end,
-    python = {
-      require('formatter.filetypes.python').autopep8,
-    },
-    rust = function()
-      return {
-        exe = 'rustfmt',
-        args = { '--edition 2021' },
-        stdin = true,
-      }
-    end,
+    python = { require('formatter.filetypes.python').autopep8 },
+    rust = { require('formatter.filetypes.rust').rustfmt },
     sh = { require('formatter.filetypes.sh').shfmt },
     toml = { require('formatter.filetypes.toml').taplo },
+    json = { require('formatter.defaults').prettierd },
+    html = { require('formatter.defaults').prettierd },
+    javascript = { require('formatter.defaults').prettierd },
+    typescript = { require('formatter.defaults').prettierd },
+    yaml = { require('formatter.defaults').prettierd },
+    markdown = { require('formatter.defaults').prettierd },
+    css = { require('formatter.defaults').prettierd },
+    less = { require('formatter.defaults').prettierd },
+    scss = { require('formatter.defaults').prettierd },
+    vue = { require('formatter.defaults').prettierd },
+    angular = { require('formatter.defaults').prettierd },
+
     proto = function()
       return {
         exe = 'buf',
-        args = { 'format', util.escape_path(util.get_current_buffer_file_path()) },
+        args = { 'format', util.relative_path() },
         stdin = true,
       }
     end,
@@ -87,17 +60,12 @@ require('formatter').setup({
         stdin = true,
       }
     end,
-    json = { util.copyf(defaults.prettierd) },
-    html = { util.copyf(defaults.prettierd) },
-    javascript = { util.copyf(defaults.prettierd) },
-    typescript = { util.copyf(defaults.prettierd) },
-    yaml = { util.copyf(defaults.prettierd) },
-    markdown = { util.copyf(defaults.prettierd) },
-    css = { util.copyf(defaults.prettierd) },
-    less = { util.copyf(defaults.prettierd) },
-    scss = { util.copyf(defaults.prettierd) },
-    vue = { util.copyf(defaults.prettierd) },
-    angular = { util.copyf(defaults.prettierd) },
+    goctl = function()
+      return {
+        exe = 'goctl api format --stdin',
+        stdin = true,
+      }
+    end,
   },
 })
 
@@ -119,11 +87,15 @@ local formatCond = {
     end,
   },
 }
+
 api.nvim_create_autocmd({ 'BufWritePost' }, {
   callback = function()
+    if is_exc_file() then
+      return
+    end
     for _, v in pairs(formatCond) do
       if v.func() then
-        vim.notify(v.msg, v.level)
+        -- vim.notify(v.msg, v.level)
         return
       end
     end
