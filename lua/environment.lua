@@ -55,9 +55,6 @@ vim.api.nvim_command(
   'au FileType html,javascript,typescript,css,less,scss,vue,proto,json,c,cpp,lua,dart set tabstop=2 softtabstop=2 shiftwidth=2'
 )
 
--- translator engine
-vim.g.translator_default_engines = { 'bing', 'youdao', 'haici' }
-
 -- lsp developer
 vim.g.LanguageClient_serverCommands = {
   goctl = { 'tcp://127.0.0.1:7998' },
