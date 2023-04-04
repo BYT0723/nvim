@@ -26,6 +26,7 @@ map("n", "<leader>rm", "<cmd>lua require('launcher').removeRunProjectCmd()<CR>",
 
 -- hop
 map("", "f", "<cmd>lua require'hop'.hint_char1({ current_line_only = true })<cr>", opt)
+map("", "F", "<cmd>lua require'hop'.hint_char2()<cr>", opt)
 
 -- easy align
 map("n", "ga", "<Plug>(EasyAlign)", opt)
