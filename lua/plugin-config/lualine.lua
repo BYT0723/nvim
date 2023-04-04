@@ -179,10 +179,10 @@ ins_right({
   'diagnostics',
   sources = { 'nvim_diagnostic' },
   symbols = {
-      error = ' ',
-      warning = ' ',
-      hint = ' ',
-      Information = ' ',
+    error = ' ',
+    warning = ' ',
+    hint = ' ',
+    Information = ' ',
   },
   diagnostics_color = {
     color_error = { fg = colors.red },
@@ -204,8 +204,9 @@ ins_right({
   icons_enabled = true,
   color = { fg = colors.green, gui = 'bold' },
   cond = conditions.hide_in_width,
+  padding = { left = 1 },
 })
-ins_right({ 'filesize', cond = conditions.buffer_not_empty and conditions.hide_in_width })
+ins_right({ 'filesize', cond = conditions.buffer_not_empty and conditions.hide_in_width, padding = { left = 1 } })
 
 ins_right({
   function()
