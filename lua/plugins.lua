@@ -170,6 +170,9 @@ return require('packer').startup({
     use('p00f/nvim-ts-rainbow') -- 彩色括号
     use('ThePrimeagen/refactoring.nvim') -- 代码重构
 
+    -- highlight block by nvim-treesitter
+    use('folke/twilight.nvim')
+
     if packer_bootstrap then
       require('packer').sync()
     end
