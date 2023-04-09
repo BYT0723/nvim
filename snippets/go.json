@@ -34,8 +34,8 @@
       "/*",
       "   Author  : BYT0723",
       "   Date    : $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE",
-      "   Email   : twang9739@gmail.com",
-      "*/"
+      "   Email   : ${1:email}",
+      "*/$0"
     ],
     "description": "Author"
   },

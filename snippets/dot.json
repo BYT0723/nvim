@@ -65,7 +65,7 @@
   },
   "table": {
     "prefix": "table",
-    "body": ["${1:name} [shape = record, label = \"{$2:{a|b|c}}\"]"],
+    "body": ["${1:name} [shape = record, label = \"{${2:a|b|c}}\"]"],
     "description": "table"
   }
 }
