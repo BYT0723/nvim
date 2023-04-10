@@ -30,6 +30,10 @@ function M.filename_ex_suffix()
   return vim.fn.fnamemodify(M.absolute_path(), ':t:r')
 end
 
+function M.filename_suffix()
+  return vim.fn.fnamemodify(M.absolute_path(), ':e')
+end
+
 function M.toggle_quickfix()
   local id = vim.fn.getqflist({ winid = 1 }).winid
   if id > 0 then
