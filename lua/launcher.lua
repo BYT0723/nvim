@@ -19,6 +19,7 @@ local runProjectCmd = {
 local VimCommands = {
   ['vim'] = 'source %',
   ['lua'] = 'luafile %',
+  ['dot'] = '!vimdot %',
   ['markdown'] = 'MarkdownPreviewToggle',
 }
 
