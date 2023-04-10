@@ -27,6 +27,8 @@ set.clipboard = 'unnamedplus'
 
 -- markdown preview
 vim.g.mkdp_browser = 'surf'
+vim.g.mkdp_refresh_slow = 1
+vim.g.mkdp_auto_close = 0
 
 -- vsnip
 vim.g.vsnip_snippet_dir = '~/.config/nvim/snippets'
@@ -49,6 +51,9 @@ vim.g.go_term_mode = 'split'
 vim.g.go_term_reuse = true
 vim.g.go_term_height = 10
 vim.g.go_term_width = 20
+
+vim.g.do_filetype_lua = true
+vim.g.did_load_filetypes = false
 
 -- indent by filetype
 vim.api.nvim_command(
