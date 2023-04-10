@@ -1,7 +1,7 @@
 -- configure tokyonight
 require('tokyonight').setup({
   transparent = function()
-    return vim.fn.exists('g:neovide') == 0
+    return vim.fn.exists('g:neovide') == 1
   end,
   style = 'moon', -- storm / night / moon / day
   terminal_colors = true,
