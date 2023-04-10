@@ -16,7 +16,7 @@ local install_servers = {
   'marksman',
   'pyright',
   -- "rust_analyzer",
-  'sqls',
+  'sqlls',
   'taplo',
   'tsserver',
   'vimls',
