@@ -84,7 +84,13 @@ return require('packer').startup({
       'lewis6991/impatient.nvim', -- 加速plugin加载
     })
 
-    use({ 'glepnir/dashboard-nvim', event = 'VimEnter' })
+    use({
+      'glepnir/dashboard-nvim',
+      event = 'VimEnter',
+      config = function()
+        require('plugin-config/dashboard-nvim')
+      end,
+    })
 
     -- theme
     use({
