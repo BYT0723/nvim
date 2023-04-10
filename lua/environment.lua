@@ -54,8 +54,3 @@ vim.g.go_term_width = 20
 vim.api.nvim_command(
   'au FileType html,javascript,typescript,css,less,scss,vue,proto,json,c,cpp,lua,dart set tabstop=2 softtabstop=2 shiftwidth=2'
 )
-
--- lsp developer
-vim.g.LanguageClient_serverCommands = {
-  goctl = { 'tcp://127.0.0.1:7998' },
-}

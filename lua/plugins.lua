@@ -64,11 +64,6 @@ return require('packer').startup({
 
     -- develop
     use('folke/neodev.nvim')
-    use({
-      'autozimu/LanguageClient-neovim',
-      branch = 'next',
-      run = 'bash install.sh',
-    })
     use('wakatime/vim-wakatime')
 
     -- gui

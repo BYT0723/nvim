@@ -120,6 +120,7 @@ _G.packer_plugins = {
     url = "https://github.com/saecki/crates.nvim"
   },
   ["dashboard-nvim"] = {
+    config = { "\27LJ\2\n<\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0!plugin-config/dashboard-nvim\frequire\0" },
     loaded = false,
     needs_bufread = false,
     only_cond = false,
@@ -135,11 +136,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/walter/.local/share/nvim/site/pack/packer/start/fcitx.vim",
     url = "https://github.com/lilydjwg/fcitx.vim"
-  },
-  ["filetype.nvim"] = {
-    loaded = true,
-    path = "/home/walter/.local/share/nvim/site/pack/packer/start/filetype.nvim",
-    url = "https://github.com/nathom/filetype.nvim"
   },
   ["formatter.nvim"] = {
     loaded = true,
@@ -357,7 +353,6 @@ _G.packer_plugins = {
     url = "https://github.com/folke/trouble.nvim"
   },
   ["twilight.nvim"] = {
-    config = { "\27LJ\2\n:\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\rtwilight\frequire\0" },
     loaded = true,
     path = "/home/walter/.local/share/nvim/site/pack/packer/start/twilight.nvim",
     url = "https://github.com/folke/twilight.nvim"
@@ -407,10 +402,6 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: twilight.nvim
-time([[Config for twilight.nvim]], true)
-try_loadstring("\27LJ\2\n:\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\rtwilight\frequire\0", "config", "twilight.nvim")
-time([[Config for twilight.nvim]], false)
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
