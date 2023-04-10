@@ -27,7 +27,6 @@ require('lsp/linter')
 require('lsp/formatter')
 
 -- plugin startup to be configured
-require('plugin-config/filetype')
 require('plugin-config/dashboard-nvim')
 require('plugin-config/bufferline')
 require('plugin-config/lualine')

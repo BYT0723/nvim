@@ -82,7 +82,6 @@ return require('packer').startup({
     -- startup
     use({
       'lewis6991/impatient.nvim', -- 加速plugin加载
-      'nathom/filetype.nvim', -- 代替nvim中默认的filetype检测，速度提升
     })
 
     use({ 'glepnir/dashboard-nvim', event = 'VimEnter' })
