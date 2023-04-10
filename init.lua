@@ -1,11 +1,11 @@
+-- vim environment (some variable)
+require('environment')
+
 -- import packer-plugins
 require('plugins')
 
 -- quick start
 require('impatient').enable_profile()
-
--- vim environment (some variable)
-require('environment')
 
 -- keymap binding
 require('keybindings')
