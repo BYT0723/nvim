@@ -104,7 +104,7 @@ map("n", "W", "<cmd>w!<CR>", opt)
 map("n", "Q", "<cmd>q!<CR>", opt)
 
 -- go file keymap only
-vim.api.nvim_command("au FileType go nnoremap <leader>ta :GoAddTags json,omitempty <CR>")
+vim.api.nvim_command("au FileType go nnoremap <leader>ta :GoAddTags json <CR>")
 vim.api.nvim_command("au FileType go nnoremap <leader>tr :GoRemoveTags json <CR>")
 
 local pluginKeys = {}
