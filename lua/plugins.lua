@@ -92,35 +92,98 @@ return require('packer').startup({
       'folke/tokyonight.nvim', -- colorscheme
       'kyazdani42/nvim-web-devicons', -- 文件图标
       'lukas-reineke/indent-blankline.nvim', -- 退格设置
-      'norcalli/nvim-colorizer.lua', -- 16进制颜色显示(例如: #999901)
       'nvim-lualine/lualine.nvim', -- status bar
       'RRethy/vim-illuminate', -- keyword highlight
+      -- buffer bar
+      { 'akinsho/bufferline.nvim', tag = 'v3.*' },
+      -- 16进制颜色显示(例如: #999901)
+      {
+        'norcalli/nvim-colorizer.lua',
+        config = function()
+          require('colorizer').setup()
+        end,
+      },
     })
-    use({ 'akinsho/bufferline.nvim', tag = 'v3.*' })
 
     -- common code plugin
     use({
-      'kyazdani42/nvim-tree.lua', -- 文件树
       'windwp/nvim-autopairs', -- 括号自动闭合
-      'numToStr/Comment.nvim', -- 注释
       'mg979/vim-visual-multi', -- 多选
-      'folke/trouble.nvim', -- 错误统计
       'akinsho/toggleterm.nvim', -- 终端
-      'kylechui/nvim-surround', -- 代码包裹
-      'phaazon/hop.nvim', -- 快速移动
+      'kyazdani42/nvim-tree.lua', -- 文件树
       'lewis6991/gitsigns.nvim', -- git样式，包括blame,修改标记
-      'sindrets/diffview.nvim', -- diffview
       'lilydjwg/fcitx.vim', -- fcitx 输入法模式隔离
+      'numToStr/Comment.nvim', -- 注释
       'voldikss/vim-translator', -- translator
       'junegunn/vim-easy-align', -- char align
+      -- todo comment
+      {
+        'folke/todo-comments.nvim',
+        config = function()
+          require('plugin-config.todo-comments')
+        end,
+      },
+      -- 错误统计
+      {
+        'folke/trouble.nvim',
+        cmd = { 'TroubleToggle', 'TodoTrouble' },
+        config = function()
+          require('plugin-config.trouble')
+        end,
+      },
+      -- 代码包裹
+      {
+        'kylechui/nvim-surround',
+        config = function()
+          require('nvim-surround').setup()
+        end,
+      },
+      -- 快速移动
+      {
+        'phaazon/hop.nvim',
+        branch = 'v2',
+        cmd = { 'HopChar1CurrentLine', 'HopChar2' },
+        config = function()
+          require('hop').setup({ keys = 'etovxqpdygfblzhckisuran' })
+        end,
+      },
+      -- diffview
+      {
+        'sindrets/diffview.nvim',
+        cmd = 'DiffviewOpen',
+        config = function()
+          require('plugin-config.diffview')
+        end,
+      },
     })
 
-    -- language
-    use('habamax/vim-godot')
-    use('simrat39/rust-tools.nvim')
-    use({ 'fatih/vim-go', ft = 'go' })
-    use({ 'BYT0723/goctl.nvim' })
-    use({ 'saecki/crates.nvim', tag = 'v0.3.0' })
+    -- godot
+    use({
+      'habamax/vim-godot',
+      ft = { 'gdscript', 'gdresource' },
+    })
+
+    -- rust
+    use({ 'simrat39/rust-tools.nvim' })
+    use({
+      'saecki/crates.nvim',
+      tag = 'v0.3.0',
+      ft = 'toml',
+      config = function()
+        require('crates').setup()
+      end,
+    })
+
+    -- golang
+    use({ 'fatih/vim-go', ft = { 'go', 'gomod' } })
+    -- go-zero
+    use({
+      'BYT0723/goctl.nvim',
+      ft = { 'api', 'proto', 'sql' },
+      config = function()
+        require('goctl').setup()
+      end,
+    })
 
     -- markdown preview
     use({
@@ -128,15 +191,21 @@ return require('packer').startup({
       run = function()
         vim.fn['mkdp#util#install']()
       end,
+      ft = 'markdown',
     })
 
     -- finder
     use({
       'nvim-telescope/telescope.nvim',
       'nvim-telescope/telescope-ui-select.nvim',
-      'ahmedkhalf/project.nvim',
+      {
+        'ahmedkhalf/project.nvim',
+        config = function()
+          require('project_nvim').setup()
+        end,
+      },
+      { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
     })
-    use({ 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' })
 
     -- completion and lsp configuration
     use({
@@ -156,8 +225,15 @@ return require('packer').startup({
       'neovim/nvim-lspconfig', -- lsp配置
       'williamboman/mason.nvim', -- lsp管理
       'williamboman/mason-lspconfig.nvim',
-      'glepnir/lspsaga.nvim', -- lsp wrapper
       'mfussenegger/nvim-lint', -- linter配置
+      -- lsp wrapper
+      {
+        'glepnir/lspsaga.nvim',
+        cmd = 'Lspsaga',
+        config = function()
+          require('lsp/lsp-saga')
+        end,
+      },
       'mhartington/formatter.nvim', -- formatter配置
       'mfussenegger/nvim-dap', -- debug配置
       'rcarriga/nvim-dap-ui', -- debug UI
@@ -171,7 +247,13 @@ return require('packer').startup({
     use('ThePrimeagen/refactoring.nvim') -- 代码重构
 
     -- highlight block by nvim-treesitter
-    use('folke/twilight.nvim')
+    use({
+      'folke/twilight.nvim',
+      cmd = 'Twilight',
+      config = function()
+        require('plugin-config.twilight')
+      end,
+    })
 
     if packer_bootstrap then
       require('packer').sync()

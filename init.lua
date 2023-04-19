@@ -19,8 +19,6 @@ require('plugin-config/noice')
 -- lsp
 require('plugin-config/mason')
 require('lsp/lsp')
-require('lsp/diagnostic')
-require('lsp/lsp-saga')
 require('lsp/nvim-cmp')
 require('lsp/dap-local')
 require('lsp/linter')
@@ -32,23 +30,14 @@ require('plugin-config/lualine')
 require('plugin-config/toggleterm')
 require('plugin-config/gitsigns')
 require('plugin-config/telescope')
+require('plugin-config/nvim-tree')
 require('plugin-config/nvim-treesitter')
 require('plugin-config/nvim-treesitter-context')
-require('plugin-config.twilight')
-require('plugin-config/nvim-tree')
 require('plugin-config/comment')
 require('plugin-config/indent-blankline')
 require('plugin-config/nvim-autopairs')
 -- key highlight
 require('plugin-config/vim-illuminate')
-
--- plugin quick startup
-require('colorizer').setup()
-require('nvim-surround').setup()
-require('hop').setup({ keys = 'etovxqpdygfblzhckisuran' })
-require('project_nvim').setup()
-require('crates').setup()
-require('goctl').setup()
 
 -- when lua config be saved, source lua file in neovim now.
 vim.api.nvim_command("au BufWritePost *.lua lua require('util').source_luafile()")

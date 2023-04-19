@@ -6,8 +6,8 @@ local map = vim.api.nvim_set_keymap
 local opt = { noremap = true, silent = true }
 
 -- translator
-map('n','<leader>tw',"<Plug>TranslateW",opt)
-map('v','<leader>tw',"<Plug>TranslateWV",opt)
+map('n','<leader>tw',"<cmd>TranslateW --target_lang=cn<CR>",opt)
+map('v','<leader>tw',"<cmd>'<,'>TranslateW  --target_lang=cn<CR>",opt)
 map('n','<leader>tr',"<cmd>TranslateR --target_lang=en<CR>",opt)
 map('v','<leader>tr',"<cmd>'<,'>TranslateR --target_lang=en<CR>",opt)
 
@@ -25,15 +25,12 @@ map("n", "<leader>re", "<cmd>lua require('launcher').editRunProjectCmd()<CR>", o
 map("n", "<leader>rm", "<cmd>lua require('launcher').removeRunProjectCmd()<CR>", opt)
 
 -- hop
-map("", "f", "<cmd>lua require'hop'.hint_char1({ current_line_only = true })<cr>", opt)
-map("", "F", "<cmd>lua require'hop'.hint_char2()<cr>", opt)
+map("", "f", "<cmd>HopChar1CurrentLine<cr>", opt)
+map("", "F", "<cmd>HopChar2<cr>", opt)
 
 -- easy align
-map("n", "ga", "<Plug>(EasyAlign)", opt)
-map("x", "ga", "<Plug>(EasyAlign)", opt)
-
--- dashboard
-map("n", "<leader>n", "<cmd>DashboardNewFile<CR>", opt)
+map("n", "ga", "<cmd>EasyAlign<CR>", opt)
+map("x", "ga", "<cmd>'<,'>EasyAlign<CR>", opt)
 
 -- NvimTree
 map("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", opt)
@@ -41,6 +38,8 @@ map("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", opt)
 map("n", "<leader>v", "<cmd>Lspsaga outline<CR>", opt)
 -- trouble
 map("n", "<leader>d", "<cmd>TroubleToggle<CR>", opt)
+-- todo-comments
+map("n", "<leader>td", "<cmd>TodoTrouble keywords=TODO,FIX,HACK<CR>" ,opt)
 
 -- bufferline.nvim
 map("n", "bk", "<cmd>BufferLineCyclePrev<CR>", opt)
@@ -54,13 +53,10 @@ map("n", "bq", "<cmd>bdelete!<CR>", opt) -- buffer quit
 
 -- ranger 
 map("n", "<leader>lr", "<cmd>lua require('launcher').toolToggle('ranger')<CR>", opt)
-map("t", "<C-l>r", "<cmd>lua require('launcher').toolToggle('ranger')<CR>", opt)
 -- docker
 map("n", "<leader>ld", "<cmd>lua require('launcher').toolToggle('docker')<CR>", opt)
-map("t", "<C-l>d", "<cmd>lua require('launcher').toolToggle('docker')<CR>", opt)
 -- git
 map("n", "<leader>lg", "<cmd>lua require('launcher').toolToggle('git')<CR>", opt)
-map("t", "<C-l>g", "<cmd>lua require('launcher').toolToggle('git')<CR>", opt)
 map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", opt)
 
 -- debug
@@ -82,6 +78,8 @@ map("n", "<leader>p", "<cmd>Telescope projects<CR>", opt)
 map("t", "<C-q>", "<C-\\><C-n>", opt)
 map("t", "<C-b>j","<cmd>lua require('launcher').term_next()<CR>" ,opt)
 map("t", "<C-b>k","<cmd>lua require('launcher').term_prev()<CR>" ,opt)
+map("n", "<C-b>j","<cmd>lua require('launcher').term_next()<CR>" ,opt)
+map("n", "<C-b>k","<cmd>lua require('launcher').term_prev()<CR>" ,opt)
 map("t", "<C-w>j", "<cmd>wincmd j<CR>", opt)
 map("t", "<C-w>k", "<cmd>wincmd k<CR>", opt)
 map("t", "<C-w>h", "<cmd>wincmd h<CR>", opt)
@@ -102,10 +100,6 @@ map("n", "tq", "<cmd>tabclose<CR>", opt)
 
 map("n", "W", "<cmd>w!<CR>", opt)
 map("n", "Q", "<cmd>q!<CR>", opt)
-
--- go file keymap only
-vim.api.nvim_command("au FileType go nnoremap <leader>ta :GoAddTags json <CR>")
-vim.api.nvim_command("au FileType go nnoremap <leader>tr :GoRemoveTags json <CR>")
 
 local pluginKeys = {}
 
