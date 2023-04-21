@@ -20,7 +20,7 @@ local hyper_config = {
   shortcut = {
     { desc = 'Files', key = 'f', action = 'NvimTreeOpen', group = 'DashboardRecentTitle' },
     { desc = 'Search', key = 's', action = 'Telescope fd', group = 'DashboardRecentTitle' },
-    { desc = 'Update', key = 'u', action = 'PackerSync', group = 'DashboardRecentTitle' },
+    { desc = 'Update', key = 'u', action = 'Lazy', group = 'DashboardRecentTitle' },
     {
       desc = 'Dotfile',
       key = 'd',
@@ -75,7 +75,7 @@ local doom_config = {
     {
       icon = '  ',
       desc = 'Plugin Update                 ',
-      action = 'PackerSync',
+      action = 'Lazy',
       key = '       ',
     },
     {
