@@ -6,10 +6,10 @@ local map = vim.api.nvim_set_keymap
 local opt = { noremap = true, silent = true }
 
 -- translator
-map('n','<leader>tw',"<cmd>TranslateW --target_lang=cn<CR>",opt)
-map('v','<leader>tw',"<cmd>'<,'>TranslateW  --target_lang=cn<CR>",opt)
-map('n','<leader>tr',"<cmd>TranslateR --target_lang=en<CR>",opt)
-map('v','<leader>tr',"<cmd>'<,'>TranslateR --target_lang=en<CR>",opt)
+map('n','<leader>tw',"<Plug>TranslateW",opt)
+map('v','<leader>tw',"<Plug>TranslateWV",opt)
+map('n','<leader>tr',"<Plug>TranslateR --target_lang=en<CR>",opt)
+map('v','<leader>tr',"<Plug>TranslateRV --target_lang=en<CR>",opt)
 
 -- quickfix
 map("n", "ck", "<cmd>cp<CR>", opt)
