@@ -18,10 +18,5 @@ local function addGlobals(linters)
   return res
 end
 
-require('lint').linters_by_ft = addGlobals(linters_by_ft)
+return addGlobals(linters_by_ft)
 
-vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
-  callback = function()
-    require('lint').try_lint()
-  end,
-})

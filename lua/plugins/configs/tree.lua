@@ -51,7 +51,7 @@ local function on_attach(bufnr)
   vim.keymap.set('n', '.', api.node.run.cmd, opts('Run Command'))
 end
 
-require('nvim-tree').setup({
+local options = {
   auto_reload_on_write = true,
   disable_netrw = false,
   hijack_cursor = false,
@@ -207,4 +207,6 @@ require('nvim-tree').setup({
       profile = false,
     },
   },
-})
+}
+
+return options

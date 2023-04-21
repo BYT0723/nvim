@@ -1,4 +1,4 @@
-require('trouble').setup({
+local options = {
   position = 'bottom', -- position of the list can be: bottom, top, left, right
   height = 10, -- height of the trouble list when position is top or bottom
   width = 50, -- width of the list when position is left or right
@@ -16,4 +16,6 @@ require('trouble').setup({
   auto_fold = false, -- automatically fold a file trouble list at creation
   auto_jump = { 'lsp_definitions' }, -- for the given modes, automatically jump if there is only a single result
   use_diagnostic_signs = false, -- enabling this will use the signs defined in your lsp client
-})
+}
+
+return options

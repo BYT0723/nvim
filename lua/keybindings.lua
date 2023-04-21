@@ -60,7 +60,6 @@ map("n", "<leader>lg", "<cmd>lua require('launcher').toolToggle('git')<CR>", opt
 map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", opt)
 
 -- debug
-map("n", "<leader>D", "<cmd>lua require('lsp/dap-local').DapToggle()<CR>", opt)
 map("n", "<leader>bp", "<cmd>lua require('dap').toggle_breakpoint()<CR>", opt)
 map("n", "<leader>si", "<cmd>lua require('dap').step_into()<CR>", opt)
 map("n", "<leader>so", "<cmd>lua require('dap').step_over()<CR>", opt)

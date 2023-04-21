@@ -1,4 +1,4 @@
-require('telescope').setup({
+local options = {
   defaults = {
     -- Default configuration for telescope goes here:
     -- config_key = value,
@@ -45,9 +45,7 @@ require('telescope').setup({
     projects = {},
     ['ui-select'] = { require('telescope.themes').get_cursor({}) },
   },
-})
-require('telescope').load_extension('fzf')
-require('telescope').load_extension('projects')
-require('telescope').load_extension('ui-select')
-require('telescope').load_extension('notify')
-require('telescope').load_extension('noice')
+  extensions_list = { 'fzf', 'projects', 'ui-select', 'notify', 'noice' },
+}
+
+return options

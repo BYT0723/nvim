@@ -1,11 +1,11 @@
 local lspkind = require('lspkind')
 local cmp = require('cmp')
+
 package.path = package.path .. ';..\\?.lua;'
 
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
-cmp.setup({
-
+local options = {
   -- 指定 snippet 引擎
   snippet = {
     expand = function(args)
@@ -41,22 +41,22 @@ cmp.setup({
       return kind
     end,
   },
-})
-
--- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline('/', {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = {
-    { name = 'buffer' },
+  cmdline = {
+    ['/'] = {
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = {
+        { name = 'buffer' },
+      },
+      [':'] = {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = 'path' },
+        }, {
+          { name = 'cmdline' },
+        }),
+      },
+    },
   },
-})
+}
 
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline(':', {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources({
-    { name = 'path' },
-  }, {
-    { name = 'cmdline' },
-  }),
-})
+return options

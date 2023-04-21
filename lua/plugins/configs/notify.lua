@@ -1,4 +1,4 @@
-require('notify').setup({
+local options = {
   -- background_colour = "NotifyBackground",
   background_colour = '#000000',
   fps = 30,
@@ -15,6 +15,6 @@ require('notify').setup({
   stages = 'static', -- fade_in_slide_out / fade / slide / static
   timeout = 5000,
   top_down = true,
-})
+}
 
-vim.notify = require('notify')
+return options

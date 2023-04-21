@@ -1,4 +1,4 @@
-local required_tools = {
+local ensure_installed = {
   -- DAP
   'cpptools',
   'delve',
@@ -18,13 +18,14 @@ local required_tools = {
   'sql-formatter',
   'stylua',
 }
-require('mason').setup({
+
+local options = {
   -- Where Mason should put its bin location in your PATH. Can be one of:
   -- - "prepend" (default, Mason's bin location is put first in PATH)
   -- - "append" (Mason's bin location is put at the end of PATH)
   -- - "skip" (doesn't modify PATH)
   ---@type '"prepend"' | '"append"' | '"skip"'
-  PATH = 'append',
+  PATH = 'prepend',
 
   -- Controls to which degree logs are written to the log file. It's useful to set this to vim.log.levels.DEBUG when
   -- debugging issues with package installations.
@@ -58,4 +59,7 @@ require('mason').setup({
 
     keymaps = require('keybindings').mason(),
   },
-})
+  ensure_installed = ensure_installed
+}
+
+return options

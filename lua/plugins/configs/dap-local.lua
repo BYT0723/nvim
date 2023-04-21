@@ -83,6 +83,7 @@ dap.adapters.node = {
   type = 'executable',
   command = 'js-debug-adapter',
 }
+
 dap.configurations.javascript = {
   {
     name = 'Launch',
@@ -103,6 +104,7 @@ dap.configurations.javascript = {
 }
 
 vim.g.dapStatus = false
+
 function M.DapToggle()
   dapui.toggle()
   if vim.g.dapStatus then

@@ -1,4 +1,4 @@
-require('noice').setup({
+local options = {
   cmdline = {
     enabled = true, -- enables the Noice cmdline UI
   },
@@ -94,4 +94,6 @@ require('noice').setup({
   status = {}, --- @see section on statusline components
   ---@type NoiceFormatOptions
   format = {}, --- @see section on formatting
-})
+}
+
+return options

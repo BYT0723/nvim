@@ -1,4 +1,4 @@
-require('gitsigns').setup({
+local options = {
   signs = {
     add = { hl = 'GitSignsAdd', text = '▊', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
     change = { hl = 'GitSignsChange', text = '▊', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
@@ -39,4 +39,6 @@ require('gitsigns').setup({
   yadm = {
     enable = false,
   },
-})
+}
+
+return options

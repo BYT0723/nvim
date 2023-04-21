@@ -1,4 +1,4 @@
-require('toggleterm').setup({
+local options = {
   size = function(term)
     if term.direction == 'horizontal' then
       return 15
@@ -40,4 +40,6 @@ require('toggleterm').setup({
   winbar = {
     enabled = true,
   },
-})
+}
+
+return options

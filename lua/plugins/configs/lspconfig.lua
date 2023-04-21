@@ -28,11 +28,10 @@ local other_servers = {
   'gdscript',
   'dartls',
 }
-
-require('mason-lspconfig').setup({
-  ensure_installed = install_servers,
-  automatic_installation = true,
-})
+require("mason-lspconfig").setup {
+    ensure_installed = ensure_installed,
+    automatic_installation = true,
+}
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -46,6 +45,7 @@ local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/?.lua')
 table.insert(runtime_path, 'lua/?/?/?.lua')
+
 local settings = {
   Lua = {
     runtime = {

@@ -55,10 +55,17 @@ vim.g.go_term_width = 20
 vim.g.do_filetype_lua = true
 vim.g.did_load_filetypes = false
 
+vim.opt.termguicolors = true
+vim.opt.list = true
+vim.opt.listchars:append('space:⋅')
+-- vim.opt.listchars:append("eol:")
+
 -- indent by filetype
 vim.api.nvim_command(
   'au FileType html,javascript,typescript,css,less,scss,vue,proto,json,c,cpp,lua,dart set tabstop=2 softtabstop=2 shiftwidth=2'
 )
+
+vim.api.nvim_command('au BufRead *.api set filetype=goctl')
 
 -- stylua: ignore
 local signs = {

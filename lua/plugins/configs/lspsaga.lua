@@ -1,4 +1,4 @@
-require('lspsaga').setup({
+local options = {
   preview = {
     lines_above = 0,
     lines_below = 10,
@@ -122,4 +122,6 @@ require('lspsaga').setup({
     outgoing = ' ',
     kind = {},
   },
-})
+}
+
+return options

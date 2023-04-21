@@ -216,5 +216,4 @@ ins_right({
   padding = { left = 1 },
 })
 
--- Now don't forget to initialize lualine
-require('lualine').setup(config)
+return config

@@ -1,26 +1,28 @@
+local M = {}
+
 local api = vim.api
 local util = require('util')
 
-local exc_file = {
+M.exc_file = {
   lua = { 'keybindings.lua' },
   cpp = { 'config.h' },
 }
 
-local function is_exc_file()
-  if exc_file[vim.bo.filetype] == nil then
+function M.is_exc_file()
+  if M.exc_file[vim.bo.filetype] == nil then
     return false
   end
 
-  for _, v in ipairs(exc_file[vim.bo.filetype]) do
+  for _, v in ipairs(M.exc_file[vim.bo.filetype]) do
     if util.filename() == v then
       return true
     end
   end
 
-  return false
+return false
 end
 
-require('formatter').setup({
+M.options = {
   logging = true,
   log_level = vim.log.levels.WARN,
   filetype = {
@@ -67,10 +69,10 @@ require('formatter').setup({
       }
     end,
   },
-})
+}
 
 -- formatting condition
-local formatCond = {
+M.formatCond = {
   is_empty = {
     msg = 'buffer is empty',
     level = vim.log.levels.INFO,
@@ -88,17 +90,4 @@ local formatCond = {
   },
 }
 
-api.nvim_create_autocmd({ 'BufWritePost' }, {
-  callback = function()
-    if is_exc_file() then
-      return
-    end
-    for _, v in pairs(formatCond) do
-      if v.func() then
-        -- vim.notify(v.msg, v.level)
-        return
-      end
-    end
-    vim.cmd('FormatWriteLock')
-  end,
-})
+return M

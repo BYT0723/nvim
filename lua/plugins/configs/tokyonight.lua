@@ -1,5 +1,5 @@
 -- configure tokyonight
-require('tokyonight').setup({
+local options = {
   transparent = function()
     return vim.fn.exists('g:neovide') == 1
   end,
@@ -33,7 +33,6 @@ require('tokyonight').setup({
     highlights.TelescopePreviewTitle = { bg = transparent }
     highlights.TelescopeResultsTitle = { bg = transparent }
   end,
-})
+}
 
--- Load the colorscheme
-vim.cmd([[colorscheme tokyonight]])
+return options
