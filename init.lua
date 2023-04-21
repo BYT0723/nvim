@@ -8,4 +8,4 @@ require('plugins')
 require('keybindings')
 
 -- input method
--- require('plugins.fcitx')
+require('plugins.fcitx')

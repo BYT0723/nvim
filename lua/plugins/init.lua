@@ -17,7 +17,6 @@ require('lazy').setup({
   { 'MunifTanjim/nui.nvim', lazy = true },
 
   -- develop
-  'folke/neodev.nvim',
   'wakatime/vim-wakatime',
 
   -- gui
@@ -276,7 +275,6 @@ require('lazy').setup({
   -- completion
   {
     'hrsh7th/nvim-cmp',
-    -- event = 'InsertEnter',
     dependencies = {
       'hrsh7th/cmp-nvim-lsp', -- { name = nvim_lsp }
       'hrsh7th/cmp-buffer', -- { name = 'buffer' },
@@ -286,18 +284,13 @@ require('lazy').setup({
       'hrsh7th/vim-vsnip', -- vscode的json code snippet的支持
       'rafamadriz/friendly-snippets', -- 各种语言常用的代码片段
       'onsails/lspkind-nvim', -- 补全中的图标
-      'ray-x/lsp_signature.nvim', -- 补全时的文档显示
     },
     opts = function()
       return require('plugins.configs.cmp')
     end,
 
     config = function(_, opts)
-      local cmp = require('cmp')
-      cmp.setup(opts)
-      for prefix, cmdline in pairs(opts.cmdline) do
-        cmp.setup.cmdline(prefix, cmdline)
-      end
+      require('cmp').setup(opts)
     end,
   },
 
@@ -320,6 +313,15 @@ require('lazy').setup({
     'neovim/nvim-lspconfig',
     dependencies = {
       'williamboman/mason-lspconfig.nvim',
+      'folke/neodev.nvim',
+      {
+        'ray-x/lsp_signature.nvim', -- 补全时的文档显示
+        config = function()
+          require('lsp_signature').setup({
+            hint_enable = false, -- virtual hint enable
+          })
+        end,
+      },
     },
     config = function()
       require('plugins.configs.lspconfig')
@@ -359,12 +361,11 @@ require('lazy').setup({
       vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
         callback = function()
           if formatter.is_exc_file() then
-            vim.notify('is exc file')
             return
           end
           for _, v in pairs(formatter.formatCond) do
             if v.func() then
-              vim.notify(v.msg, v.level)
+              -- vim.notify(v.msg, v.level)
               return
             end
           end
