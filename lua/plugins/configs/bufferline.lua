@@ -1,4 +1,9 @@
-local exceptType = { 'qf', 'dap-repl' }
+local exceptType = {
+  ['qf'] = '',
+  ['dap-repl'] = '',
+  ['wiki'] = '',
+  ['org'] = '~/Documents/org',
+}
 local icons = {
   buffer_close_icon = '',
   modified_icon = '●',
@@ -57,23 +62,22 @@ local options = {
     -- NOTE: this will be called a lot so don't do any heavy processing here
     custom_filter = function(buf_number, buf_numbers)
       -- filter out filetypes you don't want to see
-      for _, ft in pairs(exceptType) do
-        if vim.bo[buf_number].filetype == ft then
-          return false
+      for ft, onlyPath in pairs(exceptType) do
+        if onlyPath == '' or onlyPath == nil then
+          if vim.bo[buf_number].filetype == ft then
+            return false
+          end
+        else
+          if vim.fn.getcwd ~= onlyPath and vim.bo[buf_number].filetype == 'org' then
+            return false
+          end
         end
       end
+
       if vim.fn.bufname(buf_number) ~= '<?>' then
         return true
       end
-      -- filter out based on arbitrary rules
-      -- e.g. filter out vim wiki buffer from tabline in your work repo
-      if vim.fn.getcwd() == '<work-repo>' and vim.bo[buf_number].filetype ~= 'wiki' then
-        return true
-      end
-      -- filter out by it's index number in list (don't show first buffer)
-      if buf_numbers[1] ~= buf_number then
-        return true
-      end
+
       return true
     end,
     -- 显示File Explorer的偏移量
