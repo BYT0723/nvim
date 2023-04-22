@@ -410,6 +410,18 @@ require('lazy').setup({
       { 'nvim-treesitter/nvim-treesitter-context' },
       'p00f/nvim-ts-rainbow', -- 彩色括号
       'ThePrimeagen/refactoring.nvim', -- 代码重构
+      {
+        'nvim-orgmode/orgmode',
+        config = function()
+          require('orgmode').setup_ts_grammar()
+          require('orgmode').setup({
+            org_agenda_files = { '~/Documents/org/*' },
+            org_default_notes_file = '~/Documents/org/refile.org',
+            -- win_split_mode = { 'float', 0.6 },
+            win_border = { '╔', '═', '╗', '║', '╝', '═', '╚', '║' },
+          })
+        end,
+      },
     },
   },
   -- highlight block by nvim-treesitter

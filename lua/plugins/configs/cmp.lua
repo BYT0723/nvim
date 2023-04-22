@@ -25,6 +25,7 @@ local options = {
     { name = 'buffer' },
     { name = 'path' },
     { name = 'crates' },
+    { name = 'orgmode' },
   }),
 
   -- 快捷键

@@ -16,6 +16,7 @@ local options = {
     'lua',
     'markdown',
     'markdown_inline',
+    'org',
     'proto',
     'python',
     'query',
