@@ -1,18 +1,17 @@
 <!--toc:start-->
-
 - [Previews](#previews)
 - [Required](#required)
 - [Startup process of lua configuration](#startup-process-of-lua-configuration)
-- [Plugins in `lua/plugins.lua`](#plugins-in-luapluginslua)
-- [Keymap in `lua/keybindings.lua`](#keymap-in-luakeybindingslua)
-- [Colorscheme in `lua/colorscheme.lua`](#colorscheme-in-luacolorschemelua)
+- [Plugins be Loaded in `lua/plugins/init.lua` by `lazy.nvim`](#plugins-be-loaded-in-luapluginsinitlua-by-lazynvim)
+- [Plugin configuration in `lua/plugins/config/`](#plugin-configuration-in-luapluginsconfig)
+- [Custom Keymap in `lua/keybindings.lua`](#custom-keymap-in-luakeybindingslua)
 <!--toc:end-->
 
 > neovim configuration of lua only
 
 ### Previews
 
-![neovim-preview](./imgs/nvim-preview.png)
+![neovim-preview](./imgs/2023-04-23_09-03-34.jpg)
 
 ### Required
 
@@ -23,127 +22,100 @@ check your depend by `:checkhealth`
 
 ### Startup process of lua configuration
 
-1. init.vim
-
-```vimscript
-" load lua/init.lua
-lua require('init')
+```
+├── init.lua    // startup
+├── lua
+│   ├── environment.lua     // vim setting
+│   ├── keybindings.lua     // key mapping
+│   ├── launcher.lua        // task manage
+│   ├── plugins
+│   │   ├── configs   // plugins config
+│   │   ├── fcitx.lua // IM manage
+│   │   └── init.lua  // lazy.nvim startup
+│   └── util.lua
+└─── snippets // vsnip
 ```
 
-2. init.lua
+1. `init.lua`
 
 > Require Load the configuration files of each plug-in function
 
 ```lua
--- 导入packer-plugins
-require("plugins")
+-- vim environment (some variable)
+require('environment')
 
--- 加速启动
-require("impatient").enable_profile()
+-- import packer-plugins
+require('plugins')
 
--- 导入快捷键绑定
-require("keybindings")
+-- keymap binding
+require('keybindings').Load_Keys('Common')
 
--- colorscheme
-require("colorscheme")
-
-require("env")
-
--- lsp
-require("lsp/lsp")
-require("lsp/diagnostic")
-require("lsp/nvim-cmp")
-...
-require("lsp/formatter")
-
--- config
-require("plugin-config/dashboard-nvim")
-require("plugin-config/bufferline")
-require("plugin-config/lualine")
-require("plugin-config/toggleterm")
-...
-require("plugin-config/nvim-tree")
-require("plugin-config/nvim-treesitter")
-require("plugin-config/comment")
-
--- 16进制颜色显示
-require("colorizer").setup()
-require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
+-- input method
+require('plugins.fcitx')
 ```
 
-- eg: Terminal
-
-![plugin-toggleterm](./imgs/toggleterm.png)
-
-configuration
+### Plugins be Loaded in `lua/plugins/init.lua` by `lazy.nvim`
 
 ```lua
-require("toggleterm").setup({
-	size = function(term)
-		if term.direction == "horizontal" then
-			return 12
-		elseif term.direction == "vertical" then
-			return vim.o.columns * 0.4
-		end
-	end,
-	open_mapping = [[<c-\>]],
-	hide_numbers = true, -- hide the number column in toggleterm buffers
-	shade_filetypes = {},
-	autochdir = false, -- when neovim changes it current directory the terminal will change it's own when next it's opened
-	highlights = {},
-	shade_terminals = true, -- NOTE: this option takes priority over highlights specified so if you specify Normal highlights you should set this to false
-	shading_factor = "1", -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
-	start_in_insert = true,
-	insert_mappings = true, -- whether or not the open mapping applies in insert mode
-	terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
-	persist_size = true,
-	persist_mode = true, -- if set to true (default) the previous terminal mode will be remembered
-	direction = "horizontal", -- vertical / horizontal / tab / float
-	close_on_exit = true, -- close the terminal window when the process exits
-	shell = vim.o.shell, -- change the default shell
-	auto_scroll = true, -- automatically scroll to the bottom on terminal output
-	float_opts = {
-		border = "single", -- single / double / shadow / curved
-		winblend = 3,
-	},
-	winbar = {
-		enabled = false,
-	},
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    'git',
+    'clone',
+    '--filter=blob:none',
+    'https://github.com/folke/lazy.nvim.git',
+    '--branch=stable', -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+
+require('lazy').setup({
+  -- base or lib
+  'nvim-lua/plenary.nvim',
+  { 'MunifTanjim/nui.nvim', lazy = true },
+
+  -- develop
+  'wakatime/vim-wakatime',
+
+  -- gui
+  {
+    'rcarriga/nvim-notify',
+    opts = function()
+      return require('plugins.configs.notify')
+    end,
+    config = function(_, opts)
+      local notify = require('notify')
+      notify.setup(opts)
+      vim.notify = notify
+    end,
+  },
+  ......
 })
 ```
 
-### Plugins in `lua/plugins.lua`
+### Plugin configuration in `lua/plugins/config/`
+if you want to custom yourself plugin, create a lua configuration in `lua/plugins/config/` and add property `opts` and `config` for your custom plugin in `lua/plugins/init.lua`.
 
-```lua
-return require('packer').startup(function()
-    use '...package name'
-end)
-```
-
-### Keymap in `lua/keybindings.lua`
+### Custom Keymap in `lua/keybindings.lua`
 
 ```lua
 -- set leader key
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-local map = vim.api.nvim_set_keymap
-local opt = { noremap = true, silent = true }
-
--- translator
-map('n','<leader>tw',"<cmd>TranslateW<CR>",opt)
-map('v','<leader>tw',"<Plug>TranslateWV",opt)
-map('v','<leader>tr',"<Plug>TranslateRV",opt)
-```
-
-### Colorscheme in `lua/colorscheme.lua`
-
-it use tokyonight theme. if you want to use custom theme, change `colorscheme tokyonight`.
-
-```lua
--- Load the colorscheme
-vim.cmd([[colorscheme tokyonight]])
-
--- configure tokyonight
-require("tokyonight").setup({...})
+M.Translator = {
+  -- all mode
+  [""] = {...}
+  -- normal mode
+  n = {
+    ['<leader>tw'] = '<Plug>TranslateW',
+    ['<leader>tr'] = '<Plug>TranslateR --target_lang=en',
+  },
+  -- visual mode
+  v = {
+    ['<leader>tw'] = '<Plug>TranslateWV',
+    ['<leader>tr'] = '<Plug>TranslateRV --target_lang=en',
+  },
+}
 ```
