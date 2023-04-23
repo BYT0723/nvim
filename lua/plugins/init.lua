@@ -100,6 +100,9 @@ require('lazy').setup({
   {
     'akinsho/bufferline.nvim',
     version = 'v3.*',
+    init = function()
+      require('keybindings').Load_Keys('Bufferline')
+    end,
     opts = function()
       return require('plugins.configs.bufferline')
     end,
@@ -134,6 +137,9 @@ require('lazy').setup({
   {
     'nvim-tree/nvim-tree.lua',
     cmd = { 'NvimTreeToggle', 'NvimTreeFocus' },
+    init = function()
+      require('keybindings').Load_Keys('NvimTree')
+    end,
     opts = function()
       return require('plugins.configs.tree')
     end,
@@ -143,6 +149,9 @@ require('lazy').setup({
   },
   {
     'akinsho/toggleterm.nvim', -- 终端
+    init = function()
+      require('keybindings').Load_Keys('ToggleTerm')
+    end,
     opts = function()
       return require('plugins.configs.toggleterm')
     end,
@@ -168,12 +177,27 @@ require('lazy').setup({
     end,
   },
   'mg979/vim-visual-multi', -- 多选
-  'voldikss/vim-translator', -- translator
-  'junegunn/vim-easy-align', -- char align
+  -- translator
+  {
+    'voldikss/vim-translator',
+    init = function()
+      require('keybindings').Load_Keys('Translator')
+    end,
+  },
+  -- char align
+  {
+    'junegunn/vim-easy-align',
+    init = function()
+      require('keybindings').Load_Keys('EasyAlign')
+    end,
+  },
   -- todo comment
   {
     'folke/todo-comments.nvim',
     cmd = 'TodoTrouble',
+    init = function()
+      require('keybindings').Load_Keys('TodoComments')
+    end,
     config = function()
       require('todo-comments').setup()
     end,
@@ -182,6 +206,9 @@ require('lazy').setup({
   {
     'folke/trouble.nvim',
     cmd = { 'TroubleToggle', 'TodoTrouble' },
+    init = function()
+      require('keybindings').Load_Keys('Trouble')
+    end,
     opts = function()
       return require('plugins.configs.trouble')
     end,
@@ -201,6 +228,9 @@ require('lazy').setup({
     'phaazon/hop.nvim',
     branch = 'v2',
     cmd = { 'HopChar1CurrentLine', 'HopChar2' },
+    init = function()
+      require('keybindings').Load_Keys('Hop')
+    end,
     config = function()
       require('hop').setup({ keys = 'etovxqpdygfblzhckisuran' })
     end,
@@ -209,6 +239,9 @@ require('lazy').setup({
   {
     'sindrets/diffview.nvim',
     cmd = 'DiffviewOpen',
+    init = function()
+      require('keybindings').Load_Keys('Diffview')
+    end,
     opts = function()
       require('plugins.configs.diffview')
     end,
@@ -249,6 +282,9 @@ require('lazy').setup({
   {
     'nvim-telescope/telescope.nvim',
     cmd = 'Telescope',
+    init = function()
+      require('keybindings').Load_Keys('Telescope')
+    end,
     dependencies = {
       'nvim-telescope/telescope-ui-select.nvim',
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
@@ -344,6 +380,9 @@ require('lazy').setup({
   {
     'glepnir/lspsaga.nvim',
     cmd = 'Lspsaga',
+    init = function()
+      require('keybindings').Load_Keys('Lspsaga')
+    end,
     opts = function()
       return require('plugins.configs.lspsaga')
     end,
@@ -381,6 +420,9 @@ require('lazy').setup({
     dependencies = {
       'rcarriga/nvim-dap-ui', -- debug UI
     },
+    init = function()
+      require('keybindings').Load_Keys('Dap')
+    end,
     config = function()
       local dap_local = require('plugins.configs.dap-local')
       vim.api.nvim_create_user_command('DapToggle', function()
@@ -392,7 +434,8 @@ require('lazy').setup({
   -- treesitter
   {
     'nvim-treesitter/nvim-treesitter',
-    cmd = { 'TSInstall', 'TSBufEnable', 'TSBufDisable', 'TSModuleInfo' },
+    -- cmd = { 'TSInstall', 'TSBufEnable', 'TSBufDisable', 'TSModuleInfo' },
+    event = 'BufEnter',
     build = ':TSUpdate',
     opts = function()
       return require('plugins.configs.treesitter')

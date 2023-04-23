@@ -5,7 +5,7 @@ require('environment')
 require('plugins')
 
 -- keymap binding
-require('keybindings')
+require('keybindings').Load_Keys('Common')
 
 -- input method
 require('plugins.fcitx')

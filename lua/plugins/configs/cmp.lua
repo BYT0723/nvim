@@ -29,7 +29,34 @@ local options = {
   }),
 
   -- 快捷键
-  mapping = require('keybindings').cmp(cmp),
+  mapping = function()
+    local feedkey = function(key, mode)
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+    end
+    return {
+      ['<Tab>'] = cmp.mapping.select_next_item(),
+      ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+      ['<C-j>'] = cmp.mapping(function()
+        feedkey('<Plug>(vsnip-jump-next)', '')
+      end, { 'i', 's' }),
+      ['<C-k>'] = cmp.mapping(function()
+        feedkey('<Plug>(vsnip-jump-prev)', '')
+      end, { 'i', 's' }),
+
+      -- ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+      ['<C-u>'] = cmp.mapping.scroll_docs(-2),
+      ['<C-d>'] = cmp.mapping.scroll_docs(2),
+      -- 出现补全
+      ['<C-.>'] = cmp.mapping.complete(),
+      -- 取消
+      ['<C-,>'] = cmp.mapping.abort(),
+      -- 确认
+      -- Accept currently selected item. If none selected, `select` first item.
+      -- Set `select` to `false` to only confirm explicitly selected items.
+      ['<CR>'] = cmp.mapping.confirm({ select = false }),
+    }
+  end,
+
   -- 使用lspkind-nvim显示类型图标
   formatting = {
     fields = { 'kind', 'abbr', 'menu' },

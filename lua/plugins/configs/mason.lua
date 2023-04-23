@@ -40,7 +40,7 @@ local options = {
     check_outdated_packages_on_open = true,
 
     -- The border to use for the UI window. Accepts same border values as |nvim_open_win()|.
-    border = 'rounded', -- none / single / double / rounded / solid / shadow
+    border = 'double', -- none / single / double / rounded / solid / shadow
     -- Width of the window. Accepts:
     -- - Integer greater than 1 for fixed width.
     -- - Float in the range of 0-1 for a percentage of screen width.
@@ -56,10 +56,20 @@ local options = {
       package_pending = '➜',
       package_uninstalled = '✗',
     },
-
-    keymaps = require('keybindings').mason(),
+    keymaps = {
+      toggle_package_expand = '<CR>',
+      install_package = 'i',
+      update_package = 'u',
+      check_package_version = 'c',
+      update_all_packages = 'U',
+      -- Keymap to check which installed packages are outdated
+      check_outdated_packages = 'C',
+      uninstall_package = 'X',
+      cancel_installation = '<C-c>',
+      apply_language_filter = '<C-f>',
+    },
   },
-  ensure_installed = ensure_installed
+  ensure_installed = ensure_installed,
 }
 
 return options

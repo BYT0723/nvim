@@ -37,7 +37,6 @@ require('mason-lspconfig').setup({
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
   require('keybindings').maplsp(vim.api.nvim_buf_set_keymap, bufnr)
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 end
 
 require('neodev').setup()
