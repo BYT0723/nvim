@@ -22,6 +22,9 @@ require('lazy').setup({
   -- gui
   {
     'rcarriga/nvim-notify',
+    init = function()
+      require('keybindings').Load_Keys('Notify')
+    end,
     opts = function()
       return require('plugins.configs.notify')
     end,

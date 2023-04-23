@@ -49,6 +49,12 @@ M.Common = {
   },
 }
 
+M.Notify = {
+  n = {
+    ["<leader>un"] = "<cmd>lua require('notify').dismiss()<CR>",
+  }
+}
+
 M.Translator = {
   n = {
     ['<leader>tw'] = '<Plug>TranslateW',
@@ -90,13 +96,19 @@ M.Lspsaga = {
 
 M.Trouble = {
   n = {
-    ['<leader>d'] = '<cmd>TroubleToggle<CR>',
+    ['<leader>xx'] = '<cmd>TroubleToggle<CR>',
+    ['<leader>xw'] = '<cmd>TroubleToggle workspace_diagnostics<CR>',
+    ['<leader>xd'] = '<cmd>TroubleToggle document_diagnostics<CR>',
+    ['<leader>xq'] = '<cmd>TroubleToggle quickfix<CR>',
+    ['<leader>xl'] = '<cmd>TroubleToggle loclist<CR>',
+    ['gR'] = '<cmd>TroubleToggle lsp_references<CR>',
   },
 }
 
 M.TodoComments = {
   n = {
-    ['<leader>td'] = '<cmd>TodoTrouble keywords=TODO,FIX,HACK<CR>',
+    ['<leader>xt'] = '<cmd>TroubleToggle todo<CR>',
+    ['<leader>xT'] = '<cmd>TroubleToggle todo keywords=TODO,FIX<CR>',
   },
 }
 
@@ -120,10 +132,13 @@ M.Diffview = {
 
 M.Dap = {
   n = {
-    ['<leader>D'] = '<cmd>DapToggle<CR>',
-    ['<leader>bp'] = "<cmd>lua require('dap').toggle_breakpoint()<CR>",
-    ['<leader>si'] = "<cmd>lua require('dap').step_into()<CR>",
-    ['<leader>so'] = "<cmd>lua require('dap').step_over()<CR>",
+    ['<leader>du'] = '<cmd>DapToggle<CR>',
+    ['<leader>db'] = "<cmd>lua require('dap').toggle_breakpoint()<CR>",
+    ['<leader>dc'] = "<cmd>lua require('dap').continue()<CR>",
+    ['<leader>di'] = "<cmd>lua require('dap').step_into()<CR>",
+    ['<leader>do'] = "<cmd>lua require('dap').step_out()<CR>",
+    ['<leader>dO'] = "<cmd>lua require('dap').step_over()<CR>",
+    ['<leader>de'] = '<cmd>lua require("dapui").eval()<CR>',
   },
 }
 
@@ -132,8 +147,8 @@ M.Telescope = {
     ['<leader>ff'] = "<cmd>lua require('telescope.builtin').find_files()<CR>",
     ['<leader>fg'] = "<cmd>lua require('telescope.builtin').live_grep()<CR>",
     ['<leader>fr'] = "<cmd>lua require('telescope.builtin').oldfiles()<CR>",
-    ["<leader>'"] = "<cmd>lua require('telescope.builtin').marks()<CR>",
-    ['<leader>p'] = '<cmd>Telescope projects<CR>',
+    ['<leader>fp'] = '<cmd>Telescope projects<CR>',
+    ["<leader>f'"] = "<cmd>lua require('telescope.builtin').marks()<CR>",
   },
 }
 
