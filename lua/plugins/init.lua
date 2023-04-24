@@ -19,6 +19,25 @@ require('lazy').setup({
   -- develop
   'wakatime/vim-wakatime',
 
+  {
+    'potamides/pantran.nvim',
+    init = function()
+      require('keybindings').Load_Keys('PanTran')
+    end,
+    config = function()
+      local pantran = require('pantran')
+      pantran.setup({
+        default_engine = 'google',
+        engines = {
+          google = {
+            default_source = 'auto',
+            default_target = 'en',
+          },
+        },
+      })
+    end,
+  },
+
   -- gui
   {
     'rcarriga/nvim-notify',
@@ -180,13 +199,6 @@ require('lazy').setup({
     end,
   },
   'mg979/vim-visual-multi', -- 多选
-  -- translator
-  {
-    'voldikss/vim-translator',
-    init = function()
-      require('keybindings').Load_Keys('Translator')
-    end,
-  },
   -- char align
   {
     'junegunn/vim-easy-align',

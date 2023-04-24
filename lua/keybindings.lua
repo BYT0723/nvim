@@ -55,14 +55,15 @@ M.Notify = {
   }
 }
 
-M.Translator = {
+M.PanTran = {
   n = {
-    ['<leader>tw'] = '<Plug>TranslateW',
-    ['<leader>tr'] = '<Plug>TranslateR --target_lang=en',
+    ['<leader>tw'] = '<cmd>Pantran mode=hover target=zh<CR>',
+    ['<leader>tr'] = '<cmd>Pantran mode=replace target=en<CR>',
+    ['<leader>ta'] = '<cmd>Pantran mode=append target=en<CR>',
+    ['<leader>ti'] = '<cmd>Pantran mode=interactive<CR>',
   },
-  v = {
-    ['<leader>tw'] = '<Plug>TranslateWV',
-    ['<leader>tr'] = '<Plug>TranslateRV --target_lang=en',
+  x = {
+    ['<leader>ti'] = "<cmd>'<,'>Pantran mode=interactive<CR>",
   },
 }
 
