@@ -51,8 +51,8 @@ M.Common = {
 
 M.Notify = {
   n = {
-    ["<leader>un"] = "<cmd>lua require('notify').dismiss()<CR>",
-  }
+    ['<leader>un'] = "<cmd>lua require('notify').dismiss()<CR>",
+  },
 }
 
 M.PanTran = {
@@ -93,6 +93,12 @@ M.Lspsaga = {
   n = {
     ['<leader>v'] = '<cmd>Lspsaga outline<CR>',
   },
+}
+
+M.Gitsigns = {
+  n = {
+    ['<leader>gb'] = '<cmd>Gitsigns blame_line<CR>'
+  }
 }
 
 M.Trouble = {

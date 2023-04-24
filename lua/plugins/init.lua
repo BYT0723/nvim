@@ -191,6 +191,9 @@ require('lazy').setup({
   -- git样式，包括blame,修改标记
   {
     'lewis6991/gitsigns.nvim',
+    init = function()
+      require('keybindings').Load_Keys('Gitsigns')
+    end,
     opts = function()
       return require('plugins.configs.gitsigns')
     end,
