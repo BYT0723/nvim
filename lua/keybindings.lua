@@ -178,10 +178,10 @@ M.maplsp = function(mapbuf, bufnr)
   -- diagnostic
   -- map('n', '<leader>f', '<cmd>lua vim.diagnostic.open_float()<CR>', opt)
   -- map('n', '<leader>l', '<cmd>lua vim.diagnostic.setloclist()<CR>', opt)
-  mapbuf('n', 'dk', '<cmd>Lspsaga diagnostic_jump_prev<CR>', opt)
-  mapbuf('n', 'dj', '<cmd>Lspsaga diagnostic_jump_next<CR>', opt)
-  mapbuf('n', 'dh', "<cmd>lua require('lspsaga.diagnostic').goto_prev({ severity = vim.diagnostic.severity.ERROR })<CR>", opt)
-  mapbuf('n', 'dl', "<cmd>lua require('lspsaga.diagnostic').goto_next({ severity = vim.diagnostic.severity.ERROR })<CR>", opt)
+  mapbuf(bufnr, 'n', 'dk', '<cmd>Lspsaga diagnostic_jump_prev<CR>', opt)
+  mapbuf(bufnr, 'n', 'dj', '<cmd>Lspsaga diagnostic_jump_next<CR>', opt)
+  mapbuf(bufnr, 'n', 'dh', "<cmd>lua require('lspsaga.diagnostic').goto_prev({ severity = vim.diagnostic.severity.ERROR })<CR>", opt)
+  mapbuf(bufnr, 'n', 'dl', "<cmd>lua require('lspsaga.diagnostic').goto_next({ severity = vim.diagnostic.severity.ERROR })<CR>", opt)
   -- rename
   mapbuf(bufnr, 'n', '<leader>rn', '<cmd>Lspsaga rename<CR>', opt)
   -- code action

@@ -106,10 +106,6 @@ for _, lsp in pairs(other_servers) do
   })
 end
 
-require('lsp_signature').setup({
-  hint_enable = false, -- virtual hint enable
-})
-
 -- rust-tools.nvim
 require('rust-tools').setup({
   server = {
