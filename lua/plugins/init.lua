@@ -115,7 +115,9 @@ require('lazy').setup({
     'RRethy/vim-illuminate',
     event = 'BufEnter',
     config = function()
-      require('illuminate').configure()
+      require('illuminate').configure({
+        filetypes_denylist = { 'NvimTree', 'Trouble', 'Dashboard', 'lspsagaoutline', 'toggleterm' },
+      })
     end,
   },
   -- buffer bar
