@@ -31,7 +31,19 @@ local function runFileCmd(type)
 
   local cmd = ''
   if type == 'c' or type == 'cpp' then
-    cmd = 'g++ -o ./bin/' .. filenameExcludeSuffix .. ' ' .. relativePath .. ' && ./bin/' .. filenameExcludeSuffix
+    -- Create a directory to store binaries
+    local binDir = util.cwd() .. '/.bin'
+    if vim.fn.isdirectory(binDir) == 0 then
+      vim.fn.mkdir(binDir)
+    end
+    cmd = string.format(
+      'g++ -o %s/%s %s && %s/%s',
+      binDir,
+      filenameExcludeSuffix,
+      relativePath,
+      binDir,
+      filenameExcludeSuffix
+    )
   elseif type == 'rust' then
     cmd = 'cargo run'
   elseif type == 'go' then
