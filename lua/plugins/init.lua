@@ -14,31 +14,34 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- base or lib
   'nvim-lua/plenary.nvim',
-  { 'MunifTanjim/nui.nvim', lazy = true },
 
-  -- develop
-  'wakatime/vim-wakatime',
-
+  -- colorscheme
   {
-    'potamides/pantran.nvim',
-    init = function()
-      require('keybindings').Load_Keys('PanTran')
+    'folke/tokyonight.nvim',
+    opts = function()
+      return require('plugins.configs.tokyonight')
     end,
-    config = function()
-      local pantran = require('pantran')
-      pantran.setup({
-        default_engine = 'google',
-        engines = {
-          google = {
-            default_source = 'auto',
-            default_target = 'en',
-          },
-        },
-      })
+    config = function(_, opts)
+      require('tokyonight').setup(opts)
+      -- Load the colorscheme
+      vim.cmd([[colorscheme tokyonight]])
+    end,
+    priority = 1000,
+  },
+  -- Dashboard
+  {
+    'glepnir/dashboard-nvim',
+    event = 'VimEnter',
+    opts = function()
+      return require('plugins.configs.dashboard')
+    end,
+    config = function(_, opts)
+      require('dashboard').setup(opts)
     end,
   },
 
   -- gui
+  { 'MunifTanjim/nui.nvim', lazy = true },
   {
     'rcarriga/nvim-notify',
     init = function()
@@ -62,30 +65,8 @@ require('lazy').setup({
       require('noice').setup(opts)
     end,
   },
-
-  -- theme
-  -- colorscheme
-  {
-    'folke/tokyonight.nvim',
-    opts = function()
-      return require('plugins.configs.tokyonight')
-    end,
-    config = function(_, opts)
-      require('tokyonight').setup(opts)
-      -- Load the colorscheme
-      vim.cmd([[colorscheme tokyonight]])
-    end,
-  },
   -- 文件图标
   { 'nvim-tree/nvim-web-devicons', lazy = true },
-  -- Dashboard
-  {
-    'glepnir/dashboard-nvim',
-    event = 'VimEnter',
-    config = function()
-      require('dashboard').setup(require('plugins.configs.dashboard'))
-    end,
-  },
   -- 退格设置
   {
     'lukas-reineke/indent-blankline.nvim',
@@ -269,6 +250,25 @@ require('lazy').setup({
       require('diffview').setup(opts)
     end,
   },
+  -- tranlator
+  {
+    'potamides/pantran.nvim',
+    init = function()
+      require('keybindings').Load_Keys('PanTran')
+    end,
+    config = function()
+      local pantran = require('pantran')
+      pantran.setup({
+        default_engine = 'google',
+        engines = {
+          google = {
+            default_source = 'auto',
+            default_target = 'en',
+          },
+        },
+      })
+    end,
+  },
 
   -- language
   -- godot
@@ -308,12 +308,6 @@ require('lazy').setup({
     dependencies = {
       'nvim-telescope/telescope-ui-select.nvim',
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-      {
-        'ahmedkhalf/project.nvim',
-        config = function()
-          require('project_nvim').setup()
-        end,
-      },
     },
     opts = function()
       return require('plugins.configs.telescope')
@@ -325,6 +319,12 @@ require('lazy').setup({
       for _, ext in ipairs(opts.extensions_list) do
         telescope.load_extension(ext)
       end
+    end,
+  },
+  {
+    'ahmedkhalf/project.nvim',
+    config = function()
+      require('project_nvim').setup()
     end,
   },
 
@@ -495,4 +495,7 @@ require('lazy').setup({
       require('twilight').setup()
     end,
   },
+
+  -- wakatime tool
+  'wakatime/vim-wakatime',
 })
