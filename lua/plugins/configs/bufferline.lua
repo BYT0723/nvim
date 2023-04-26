@@ -14,7 +14,7 @@ local icons = {
 
 local options = {
   highlights = function()
-    if vim.fn.exists('g:neovide') == 0 then
+    if require('plugins.configs.tokyonight').transparent then
       local bg = '#002b36'
       return {
         fill = { bg = bg },
@@ -95,7 +95,7 @@ local options = {
     persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
     -- can also be a table containing 2 custom separators
     -- [focused and unfocused]. eg: { '|', '|' }
-    -- slant / thick / thin
+    -- slant / padded_slant / slope / thick / thin
     separator_style = 'slant',
     -- true can't diff same buffer name
     enforce_regular_tabs = false,

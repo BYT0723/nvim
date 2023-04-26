@@ -1,9 +1,7 @@
 -- configure tokyonight
 local options = {
-  transparent = function()
-    return vim.fn.exists('g:neovide') == 1
-  end,
-  style = 'moon', -- storm / night / moon / day
+  transparent = false,
+  style = 'storm', -- storm / night / moon / day
   terminal_colors = true,
   styles = {
     comments = { italic = true },
