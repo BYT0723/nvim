@@ -7,6 +7,7 @@ local ensure_installed = {
   'cmakelang',
   'codespell',
   'cpplint',
+  'eslint_d',
   'golangci-lint',
   'vint',
   -- Formatter
