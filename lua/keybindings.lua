@@ -108,14 +108,15 @@ M.Trouble = {
     ['<leader>xd'] = '<cmd>TroubleToggle document_diagnostics<CR>',
     ['<leader>xq'] = '<cmd>TroubleToggle quickfix<CR>',
     ['<leader>xl'] = '<cmd>TroubleToggle loclist<CR>',
-    ['gR'] = '<cmd>TroubleToggle lsp_references<CR>',
+    ['<leader>xk'] = '<cmd>lua require("trouble").previous({skip_groups = true, jump = true})<CR>',
+    ['<leader>xj'] = '<cmd>lua require("trouble").next({skip_groups = true, jump = true})<CR>',
   },
 }
 
 M.TodoComments = {
   n = {
     ['<leader>xt'] = '<cmd>TroubleToggle todo<CR>',
-    ['<leader>xT'] = '<cmd>TroubleToggle todo keywords=TODO,FIX<CR>',
+    ['<leader>xT'] = '<cmd>TroubleToggle todo keywords=TODO,FIX disable_not_found_warnings=true<CR>',
   },
 }
 
@@ -180,8 +181,8 @@ M.maplsp = function(mapbuf, bufnr)
   -- map('n', '<leader>l', '<cmd>lua vim.diagnostic.setloclist()<CR>', opt)
   mapbuf(bufnr, 'n', 'dk', '<cmd>Lspsaga diagnostic_jump_prev<CR>', opt)
   mapbuf(bufnr, 'n', 'dj', '<cmd>Lspsaga diagnostic_jump_next<CR>', opt)
-  mapbuf(bufnr, 'n', 'dh', "<cmd>lua require('lspsaga.diagnostic').goto_prev({ severity = vim.diagnostic.severity.ERROR })<CR>", opt)
-  mapbuf(bufnr, 'n', 'dl', "<cmd>lua require('lspsaga.diagnostic').goto_next({ severity = vim.diagnostic.severity.ERROR })<CR>", opt)
+  mapbuf(bufnr, 'n', 'dK', "<cmd>lua require('lspsaga.diagnostic').goto_prev({ severity = vim.diagnostic.severity.ERROR })<CR>", opt)
+  mapbuf(bufnr, 'n', 'dJ', "<cmd>lua require('lspsaga.diagnostic').goto_next({ severity = vim.diagnostic.severity.ERROR })<CR>", opt)
   -- rename
   mapbuf(bufnr, 'n', '<leader>rn', '<cmd>Lspsaga rename<CR>', opt)
   -- code action
