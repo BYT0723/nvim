@@ -1,0 +1,17 @@
+{
+  "NewTimedTask": {
+    "prefix": "job",
+    "body": [
+      "# minute hour day month week[0-6][sunday-saturday] command",
+      "${2:*} ${3:*} ${4:*} ${5:*} ${6:*} ${1:command}"
+    ],
+    "description": "timed task"
+  },
+  "NewClock": {
+    "prefix": "clock",
+    "body": [
+      "${1:minute} ${2:hour} */1 * ${3:week} bash /home/walter/.dwm/clock.sh ${4|WORK,HOME,STUDY,DIET|} ${5:message}"
+    ],
+    "description": "add a new clock"
+  }
+}
