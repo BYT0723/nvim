@@ -287,6 +287,7 @@ require('lazy').setup({
     config = function()
       require('goctl').setup()
     end,
+    dev = true,
   },
 
   -- markdown preview
@@ -499,4 +500,26 @@ require('lazy').setup({
 
   -- wakatime tool
   'wakatime/vim-wakatime',
+  -- which key
+  {
+    'folke/which-key.nvim',
+    config = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 500
+      require('which-key').setup({
+        window = {
+          border = 'double', -- none, single, double, shadow
+        },
+      })
+    end,
+  },
+}, {
+  ui = {
+    border = 'double',
+  },
+  dev = {
+    path = '~/Workspace/GitHub/Neovim',
+    patterns = {},
+    fallback = false,
+  },
 })
