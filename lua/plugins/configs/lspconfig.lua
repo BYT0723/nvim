@@ -1,6 +1,7 @@
 local lspconfig = require('lspconfig')
 local install_servers = {
   -- "angularls",
+  'asm_lsp',
   'bashls',
   'bufls',
   'clangd',
@@ -121,4 +122,13 @@ lspconfig.emmet_ls.setup({
   capabilities = capabilities,
   filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less' },
   init_options = settings,
+})
+
+lspconfig.asm_lsp.setup({
+  root_dir = function()
+    return vim.fn.getcwd()
+  end,
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = settings,
 })
