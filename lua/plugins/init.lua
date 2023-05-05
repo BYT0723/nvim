@@ -278,6 +278,14 @@ require('lazy').setup({
   },
   -- rust
   'simrat39/rust-tools.nvim',
+  {
+    'saecki/crates.nvim',
+    ft = 'toml',
+    tag = 'v0.3.0',
+    config = function()
+      require('crates').setup()
+    end,
+  },
   -- golang
   { 'fatih/vim-go', ft = { 'go', 'gomod' } },
   -- go-zero
