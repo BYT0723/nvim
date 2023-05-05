@@ -25,11 +25,11 @@ local options = {
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'vsnip' },
-  }, {
     { name = 'buffer' },
     { name = 'path' },
     { name = 'crates' },
     { name = 'orgmode' },
+    { name = 'vim-dadbod-completion' },
   }),
 
   -- 快捷键

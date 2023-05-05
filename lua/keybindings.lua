@@ -189,6 +189,12 @@ M.ToggleTerm = {
   },
 }
 
+M.DB = {
+  n = {
+    ['<leader>zz'] = { cmd = "<cmd>DBUIToggle<CR>", desc = 'Database Manager'}
+  }
+}
+
 -- lsp keybind
 M.maplsp = function(mapbuf, bufnr)
   lsp_keys = {

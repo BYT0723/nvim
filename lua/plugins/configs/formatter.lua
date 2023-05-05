@@ -19,7 +19,7 @@ function M.is_exc_file()
     end
   end
 
-return false
+  return false
 end
 
 M.options = {
@@ -56,12 +56,12 @@ M.options = {
         stdin = true,
       }
     end,
-    sql = function()
-      return {
-        exe = 'sql-formatter',
-        stdin = true,
-      }
-    end,
+    -- sql = function()
+    --   return {
+    --     exe = 'sql-formatter',
+    --     stdin = true,
+    --   }
+    -- end,
     goctl = function()
       return {
         exe = 'goctl api format --stdin',

@@ -297,6 +297,26 @@ require('lazy').setup({
     end,
     dev = true,
   },
+  -- sql
+  {
+    'kristijanhusak/vim-dadbod-ui',
+    cmd = 'DBUIToggle',
+    init = function()
+      require('keybindings').Load_Keys('DB')
+    end,
+    dependencies = {
+      'tpope/vim-dadbod',
+      'kristijanhusak/vim-dadbod-completion',
+    },
+    config = function()
+      vim.api.nvim_create_autocmd({ 'FileType' }, {
+        pattern = { 'mysql' },
+        callback = function()
+          vim.opt.filetype = 'sql'
+        end,
+      })
+    end,
+  },
 
   -- markdown preview
   {
