@@ -200,17 +200,17 @@ end
 -- toggleterm : move to previous term in list which order by term_id
 function M.term_prev()
   local id = current_term_id()
-  local target_id = id
+  local current_term = term_api.get(id)
+  local target_term = nil
 
-  for index, _ in pairs(term_api.get_all(true)) do
-    if index == id then
+  for _, term in pairs(term_api.get_all(true)) do
+    if term.id == id then
       break
     end
-    target_id = index
+    target_term = term
   end
 
-  local current_term, target_term = term_api.get(id), term_api.get(target_id)
-  if current_term == nil or target_term == nil then
+  if target_term == nil then
     return
   end
 
@@ -220,24 +220,19 @@ end
 -- toggleterm : move to next term in list which order by term_id
 function M.term_next()
   local id = current_term_id()
-  local target_id = id
+  local current_term = term_api.get(id)
+  local target_term = nil
 
-  for index, _ in pairs(term_api.get_all(true)) do
-    if index > id then
-      target_id = index
+  for _, term in pairs(term_api.get_all(true)) do
+    if term.id > id then
+      target_term = term
       break
     end
   end
 
   -- create a new terminal, if current term is last.
-  if id == target_id then
-    target_id = target_id + 1
-    Terminal:new({ id = target_id }):open()
-  end
-
-  local current_term, target_term = term_api.get(id), term_api.get(target_id)
-  if current_term == nil or target_term == nil then
-    return
+  if target_term == nil then
+    target_term = Terminal:new({ id = id + 1, direction = current_term.direction })
   end
 
   exchange_term(target_term, current_term)
