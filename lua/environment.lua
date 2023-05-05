@@ -42,7 +42,7 @@ if vim.fn.exists('g:neovide') ~= 0 then
   vim.g.neovide_cursor_animation_length = 0.1
   vim.g.neovide_cursor_trail_size = 0.5
   vim.g.neovide_remember_window_size = true
-  set.guifont = 'CaskaydiaCove Nerd Font SemiLight:h13'
+  set.guifont = 'CaskaydiaCove Nerd Font SemiLight:h14'
 end
 
 -- vim-go configuration

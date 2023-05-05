@@ -85,9 +85,7 @@ M.EasyAlign = {
 
 M.NvimTree = {
   n = {
-    ['<leader>ee'] = { cmd = '<cmd>NvimTreeFocus<CR>', desc = "NvimTree" },
-    ['<leader>ec'] = { cmd = '<cmd>NvimTreeCollapseKeepBuffers<CR>', desc = "NvimTree Collapse" },
-    ['<leader>eC'] = { cmd = '<cmd>NvimTreeCollapseKeepBuffers<CR>', desc = "NvimTree Collapse All" },
+    ['<leader>e'] = { cmd = '<cmd>NvimTreeToggle<CR>', desc = "NvimTree" },
   },
 }
 

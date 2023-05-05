@@ -394,6 +394,9 @@ require('lazy').setup({
         vim.cmd('MasonInstall ' .. table.concat(opts.ensure_installed, ' '))
       end, {})
     end,
+    dependencies = {
+      'nvim-telescope/telescope.nvim',
+    },
   },
   {
     'neovim/nvim-lspconfig',
@@ -550,7 +553,7 @@ require('lazy').setup({
     border = 'double',
   },
   dev = {
-    path = '~/Workspace/GitHub/Neovim',
+    path = '~/Workspace/Github/Neovim',
     patterns = {},
     fallback = false,
   },
