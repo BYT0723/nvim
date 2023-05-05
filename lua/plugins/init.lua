@@ -513,6 +513,10 @@ require('lazy').setup({
       })
     end,
   },
+  {
+    'lilydjwg/fcitx.vim',
+    event = 'InsertEnter',
+  },
 }, {
   ui = {
     border = 'double',

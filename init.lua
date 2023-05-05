@@ -6,6 +6,3 @@ require('plugins')
 
 -- keymap binding
 require('keybindings').Load_Keys('Common')
-
--- input method
-require('plugins.fcitx')
