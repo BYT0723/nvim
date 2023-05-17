@@ -44,8 +44,18 @@ local options = {
     separator = '  ',
   },
   ui = {
-    -- border type can be single,double,rounded,solid,shadow.
+    -- This option only works in Neovim 0.9
+    title = true,
+    -- Border type can be single, double, rounded, solid, shadow.
     border = 'double',
+    winblend = 0,
+    expand = '',
+    collapse = '',
+    code_action = '',
+    incoming = ' ',
+    outgoing = ' ',
+    hover = ' ',
+    kind = {},
   },
 }
 
