@@ -45,29 +45,27 @@
     "description": "fmt.Sprintf()"
   },
   "middleware": {
-    "prefix": "middle",
+    "prefix": "mwchain",
     "body": [
-      "type Middleware func(http.HandlerFunc) http.HandlerFunc",
+      "type Middleware func(http.Handler) http.Handler",
       "",
-      "func Chain(f http.HandlerFunc, middlewares ...Middleware) http.HandlerFunc {",
+      "func Chain(h http.Handler, middlewares ...Middleware) http.Handler {",
       "\tfor _, m := range middlewares {",
-      "\t\tf = m(f)",
+      "\t\th = m(h)",
       "\t}",
-      "\treturn f",
+      "\treturn h",
       "}$0"
     ],
     "description": "base of middleware"
   },
   "middleFunction": {
-    "prefix": "fmiddle",
+    "prefix": "middleware",
     "body": [
-      "func ${1:Name}($2) Middleware {",
-      "\treturn func(hf http.HandlerFunc) http.HandlerFunc {",
-      "\t\treturn func(rw http.ResponseWriter, r *http.Request) {",
-      "\t\t\t$3",
-      "\t\t\thf(rw, r)",
-      "\t\t}",
-      "\t}",
+      "func ${1:Name}(next http.Handler) http.Handler {",
+      "\treturn http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {",
+      "\t\t${2:// coding here ......}",
+      "\t\tnext.ServeHTTP(w,r)",
+      "\t})",
       "}$0"
     ],
     "description": "function of middleware"
