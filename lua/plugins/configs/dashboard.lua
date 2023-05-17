@@ -38,44 +38,44 @@ local doom_config = {
   center = {
     {
       icon = '  ',
-      desc = 'New Buffer                    ',
+      desc = 'New Buffer',
       action = 'enew',
       key = 'SPC   n',
     },
     {
       icon = 'פּ  ',
-      desc = 'File Manager                  ',
+      desc = 'File Manager',
       action = 'NvimTreeOpen',
       key = 'SPC   e',
     },
     {
       icon = '  ',
-      desc = 'Recently Files                ',
+      desc = 'Recent Files',
       action = 'Telescope oldfiles',
       key = 'SPC f r',
     },
     {
       icon = '  ',
-      desc = 'Recent Projects               ',
+      desc = 'Recent Projects',
       action = 'Telescope projects',
       key = 'SPC   p',
     },
     {
       icon = '  ',
-      desc = 'Search File                   ',
+      desc = 'Search File',
       action = 'Telescope fd',
       key = 'SPC f f',
     },
     {
       icon = '  ',
-      desc = 'Search Context                ',
+      desc = 'Search Context',
       action = 'Telescope live_grep',
       key = 'SPC f g',
     },
     {
       icon = '  ',
-      desc = 'Plugin Update                 ',
-      action = 'Lazy',
+      desc = 'Plugin Update',
+      action = 'Lazy update',
       key = '       ',
     },
     {
