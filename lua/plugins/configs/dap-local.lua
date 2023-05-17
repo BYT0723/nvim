@@ -105,6 +105,8 @@ dap.configurations.javascript = {
 
 vim.g.dapStatus = false
 
+vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'Error', linehl = '', numhl = '' })
+
 function M.DapToggle()
   dapui.toggle()
   if vim.g.dapStatus then
