@@ -5,6 +5,7 @@ local install_servers = {
   'bashls',
   'bufls',
   'clangd',
+  'cmake',
   'cssls',
   'dockerls',
   'dotls',

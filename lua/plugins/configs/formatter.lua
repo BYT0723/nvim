@@ -29,6 +29,7 @@ M.options = {
     lua = { require('formatter.filetypes.lua').stylua },
     c = { require('formatter.filetypes.c').clangformat },
     cpp = { require('formatter.filetypes.cpp').clangformat },
+    cmake = { require('formatter.filetypes.cmake').cmakeformat },
     go = {
       require('formatter.filetypes.go').goimports,
       require('formatter.filetypes.go').gofmt,
