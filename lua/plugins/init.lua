@@ -84,6 +84,7 @@ require('lazy').setup({
   -- status bar
   {
     'nvim-lualine/lualine.nvim',
+    event = 'VimEnter',
     opts = function()
       return require('plugins.configs.lualine')
     end,
@@ -104,6 +105,7 @@ require('lazy').setup({
   -- buffer bar
   {
     'akinsho/bufferline.nvim',
+    event = 'VimEnter',
     version = 'v3.*',
     init = function()
       require('keybindings').Load_Keys('Bufferline')
@@ -418,8 +420,9 @@ require('lazy').setup({
   },
   {
     'mfussenegger/nvim-lint',
+    event = 'BufEnter',
     init = function()
-      vim.api.nvim_create_autocmd({ 'BufWritePost', 'InsertLeave' }, {
+      vim.api.nvim_create_autocmd({ 'BufRead', 'BufWritePost', 'InsertLeave' }, {
         callback = function()
           require('lint').try_lint()
         end,
@@ -445,7 +448,7 @@ require('lazy').setup({
   },
   {
     'mhartington/formatter.nvim', -- formatter配置
-    init = function() end,
+    event = 'BufWritePre',
     config = function()
       local formatter = require('plugins.configs.formatter')
       require('formatter').setup(formatter.options)
@@ -536,16 +539,17 @@ require('lazy').setup({
     'folke/which-key.nvim',
     config = function()
       vim.o.timeout = true
-      vim.o.timeoutlen = 500
+      vim.o.timeoutlen = 300
       require('which-key').setup({
         window = {
           border = 'double', -- none, single, double, shadow
+          position = 'top',
         },
       })
     end,
   },
   {
-    'lilydjwg/fcitx.vim',
+    'h-hg/fcitx.nvim',
     event = 'InsertEnter',
   },
 }, {
