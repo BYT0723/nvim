@@ -230,11 +230,18 @@ function M.term_next()
     end
   end
 
-  -- create a new terminal, if current term is last.
   if target_term == nil then
-    target_term = Terminal:new({ id = id + 1, direction = current_term.direction })
+    return
   end
 
+  exchange_term(target_term, current_term)
+end
+
+-- toggleterm : create a new terminal
+function M.term_new()
+  local current_term = term_api.get(current_term_id())
+  local id = term_api.get_all(true)[#term_api.get_all(true)].id + 1
+  local target_term = Terminal:new({ id = id })
   exchange_term(target_term, current_term)
 end
 

@@ -178,10 +178,12 @@ M.ToggleTerm = {
     ['<leader>lr'] = { cmd = "<cmd>lua require('launcher').toolToggle('ranger')<CR>", desc = 'Ranger' },
     ['<leader>ld'] = { cmd = "<cmd>lua require('launcher').toolToggle('docker')<CR>", desc = 'LazyDocker' },
     ['<leader>lg'] = { cmd = "<cmd>lua require('launcher').toolToggle('git')<CR>",    desc = 'LazyGit' },
+    ['<C-b>n'] = { cmd = "<cmd>lua require('launcher').term_new()<CR>",               desc = 'New Terminal' },
     ['<C-b>k'] = { cmd = "<cmd>lua require('launcher').term_prev()<CR>",              desc = 'Previous Terminal' },
     ['<C-b>j'] = { cmd = "<cmd>lua require('launcher').term_next()<CR>",              desc = 'Next Terminal' },
   },
   t = {
+    ['<C-b>n'] = "<cmd>lua require('launcher').term_new()<CR>",
     ['<C-b>k'] = "<cmd>lua require('launcher').term_prev()<CR>",
     ['<C-b>j'] = "<cmd>lua require('launcher').term_next()<CR>",
   },
