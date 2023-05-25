@@ -403,7 +403,6 @@ require('lazy').setup({
   {
     'neovim/nvim-lspconfig',
     dependencies = {
-      'williamboman/mason-lspconfig.nvim',
       'folke/neodev.nvim',
       {
         'ray-x/lsp_signature.nvim', -- 补全时的文档显示

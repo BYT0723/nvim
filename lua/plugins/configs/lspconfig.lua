@@ -24,16 +24,10 @@ local install_servers = {
   'vimls',
   'volar',
   'yamlls',
-}
-
-local other_servers = {
+  -- Other non-installation servers
   'gdscript',
   'dartls',
 }
-require('mason-lspconfig').setup({
-  ensure_installed = install_servers,
-  automatic_installation = true,
-})
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -93,14 +87,6 @@ local settings = {
 -- map buffer local keybindings when the language server attaches
 local capabilities = require('cmp_nvim_lsp').default_capabilities() --nvim-cmp
 for _, lsp in pairs(install_servers) do
-  lspconfig[lsp].setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-    settings = settings,
-  })
-end
-
-for _, lsp in pairs(other_servers) do
   lspconfig[lsp].setup({
     on_attach = on_attach,
     capabilities = capabilities,

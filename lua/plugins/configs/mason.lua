@@ -1,5 +1,31 @@
 local ensure_installed = {
-  -- DAP
+  -- LSP
+  -- 'angular-language-server',
+  'asm-lsp',
+  'bash-language-server',
+  'buf-language-server',
+  'clangd',
+  'cmake-language-server',
+  'css-lsp',
+  'dockerfile-language-server',
+  'docker-compose-language-service',
+  'dot-language-server',
+  'emmet-ls',
+  'eslint-lsp',
+  -- 'gopls', -- vim-go will install gopls
+  'html-lsp',
+  'json-lsp',
+  'lua-language-server',
+  'marksman',
+  'pyright',
+  -- 'rust-analyzer', -- Use rustup to install the rust toolchain
+  'sqlls',
+  'taplo',
+  'typescript-language-server',
+  'vim-language-server',
+  'vue-language-server',
+  'yaml-language-server',
+  --- DAP
   'cpptools',
   'delve',
   -- Linter
@@ -12,7 +38,6 @@ local ensure_installed = {
   'vint',
   -- Formatter
   'autopep8',
-  'cmakelang',
   'goimports',
   'prettierd',
   'shfmt',
