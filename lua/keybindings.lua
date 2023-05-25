@@ -197,36 +197,35 @@ M.DB = {
 
 -- lsp keybind
 M.maplsp = function(mapbuf, bufnr)
-  lsp_keys = {
+  local lsp_keys = {
     n = {
       -- diagnostic
       -- ['<leader>f'] = { cmd = '<cmd>lua vim.diagnostic.open_float()<CR>',                                                 desc = 'Hover Diagnostic' },
       -- ['<leader>l'] = { cmd = '<cmd>lua vim.diagnostic.setloclist()<CR>',                                                 desc = 'Loclist Diagnostic' },
-      ['dk'] = { cmd = '<cmd>Lspsaga diagnostic_jump_prev<CR>',                                                              desc = "Prev Diagnostic" },
-      ['dj'] = { cmd = '<cmd>Lspsaga diagnostic_jump_next<CR>',                                                              desc = "Next Diagnostic" },
-      ['dK'] = { cmd = "<cmd>lua require('lspsaga.diagnostic').goto_prev({ severity = vim.diagnostic.severity.ERROR })<CR>", desc = "Prev Diagnostic [ERROR]" },
-      ['dJ'] = { cmd = "<cmd>lua require('lspsaga.diagnostic').goto_next({ severity = vim.diagnostic.severity.ERROR })<CR>", desc = "Next Diagnostic [ERROR]" },
-      -- rename
-      ['<leader>rn'] = { cmd = '<cmd>Lspsaga rename<CR>',                                                                    desc = "Global Rename"},
-      -- code action
-      ['<leader>a'] = { cmd = '<cmd>Lspsaga code_action<CR>',                                                                desc = "Code Actions"},
-      -- go xx
-      ['gd'] = { cmd = '<cmd>Lspsaga peek_definition<CR>',                                                                   desc = "Hover Definition"},
-      ['gD'] = { cmd = '<cmd>lua vim.lsp.buf.definition()<CR>',                                                              desc = "Jump to Definition"},
-      -- ["<leader>D"] = { cmd = "<cmd>lua vim.lsp.buf.type_definition()<CR>",                                               desc = 'Jump to Type Definition' },
-      -- ["gD"] = { cmd = "<cmd>lua vim.lsp.buf.declaration()<CR>",                                                          desc = 'Jump to Declaration' },
-      ['gi'] = { cmd = '<cmd>lua vim.lsp.buf.implementation()<CR>',                                                          desc = 'Jump to Implementation' },
-      ['gr'] = { cmd = '<cmd>Lspsaga lsp_finder<CR>',                                                                        desc = 'LSP Finder' },
-      ['K'] = { cmd = '<cmd>Lspsaga hover_doc<CR>',                                                                          desc = 'Hover Document' },
-      ['<leader>='] = { cmd ='<cmd>lua vim.lsp.buf.formatting()<CR>',                                                        desc = 'LSP Format' },
-      ['<leader>wa'] = { cmd = '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>',                                            desc = 'Add Folder' },
-      ['<leader>wr'] = { cmd = '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>',                                         desc = 'Remove Folder' },
-      ['<leader>wl'] = { cmd = '<cmd>lua vim.notify(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>',                 desc = 'List Workspace Folders' },
+      ['dk'] = { cmd = '<cmd>Lspsaga diagnostic_jump_prev<CR>',                                                              desc = 'Prev Diagnostic', },
+      ['dj'] = { cmd = '<cmd>Lspsaga diagnostic_jump_next<CR>',                                                              desc = 'Next Diagnostic', },
+      ['dK'] = { cmd = "<cmd>lua require('lspsaga.diagnostic').goto_prev({ severity = vim.diagnostic.severity.ERROR })<CR>", desc = 'Prev Diagnostic [ERROR]', },
+      ['dJ'] = { cmd = "<cmd>lua require('lspsaga.diagnostic').goto_next({ severity = vim.diagnostic.severity.ERROR })<CR>", desc = 'Next Diagnostic [ERROR]', },
+      -- rename and code_action
+      ['<leader>rn'] = { cmd = '<cmd>Lspsaga rename<CR>',      desc = 'Global Rename' },
+      ['<leader>a']  = { cmd = '<cmd>Lspsaga code_action<CR>', desc = 'Code Actions' },
+      -- goto xx
+      ['gD']  = { cmd = '<cmd>lua vim.lsp.buf.declaration()<CR>',     desc = 'Jump to Declaration' },
+      ['gd']  = { cmd = '<cmd>lua vim.lsp.buf.definition()<CR>',      desc = 'Jump to Definition' },
+      ['gtd'] = { cmd = '<cmd>lua vim.lsp.buf.type_definition()<CR>', desc = 'Jump to Type Definition' },
+      ['gi']  = { cmd = '<cmd>lua vim.lsp.buf.implementation()<CR>',  desc = 'List Implementation' },
+      ['gr']  = { cmd = '<cmd>Lspsaga lsp_finder<CR>',                desc = 'LSP Finder' },
+      ['K']   = { cmd = '<cmd>lua vim.lsp.buf.hover()<CR>',           desc = 'Hover Document' },
+
+      ['<leader>=']  = { cmd = '<cmd>lua vim.lsp.buf.formatting()<CR>',                                      desc = 'LSP Format', },
+      ['<leader>wa'] = { cmd = '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>',                            desc = 'Add Folder', },
+      ['<leader>wr'] = { cmd = '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>',                         desc = 'Remove Folder', },
+      ['<leader>wl'] = { cmd = '<cmd>lua vim.notify(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', desc = 'List Workspace Folders', },
     },
     v = {
       ['<leader>a'] = { cmd = '<cmd>Lspsaga code_action<CR>',                desc = 'Code Actions of Range' },
       ['<leader>='] = { cmd = '<cmd>lua vim.lsp.buf.range_formatting()<CR>', desc = 'Format of Range' },
-    }
+    },
   }
   for mode, kv in pairs(lsp_keys) do
     for key, item in pairs(kv) do
