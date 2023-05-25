@@ -4,7 +4,7 @@ local options = {
   },
   messages = {
     enabled = false, -- enables the Noice messages UI
-    view = 'notify', -- default view for messages
+    view = 'mini', -- default view for messages
     view_error = 'notify', -- view for errors
     view_warn = 'notify', -- view for warnings
     view_history = 'messages', -- view for :messages
@@ -12,7 +12,7 @@ local options = {
   },
   lsp = {
     progress = {
-      enabled = false,
+      enabled = true,
       -- Lsp Progress is formatted using the builtins for lsp_progress. See config.format.builtin
       -- See the section on formatting for more details on how to customize.
       --- @type NoiceFormat|string
@@ -31,13 +31,15 @@ local options = {
       ['cmp.entry.get_documentation'] = false,
     },
     hover = {
-      enabled = false,
+      enabled = true,
       view = nil, -- when nil, use defaults from documentation
       ---@type NoiceViewOptions
-      opts = {}, -- merged with defaults from documentation
+      opts = {
+        border = { style = 'double' },
+      }, -- merged with defaults from documentation
     },
     signature = {
-      enabled = false, -- have issue with plugin <lsp-signature>
+      enabled = true, -- have issue with plugin <lsp-signature>
       auto_open = {
         enabled = true,
         trigger = true, -- Automatically show signature help when typing a trigger character from the LSP
@@ -46,7 +48,9 @@ local options = {
       },
       view = nil, -- when nil, use defaults from documentation
       ---@type NoiceViewOptions
-      opts = {}, -- merged with defaults from documentation
+      opts = {
+        border = { style = 'double' },
+      }, -- merged with defaults from documentation
     },
     message = {
       -- Messages shown by lsp servers

@@ -120,6 +120,7 @@ require('lazy').setup({
   -- 16进制颜色显示(例如: #999901)
   {
     'norcalli/nvim-colorizer.lua',
+    event = 'BufEnter',
     config = function()
       require('colorizer').setup()
     end,
@@ -169,6 +170,7 @@ require('lazy').setup({
   -- 注释
   {
     'numToStr/Comment.nvim',
+    keys = { { 'gcc', mode = 'n' }, { 'gbb', mode = 'n' }, { 'gc', mode = 'v' }, { 'gb', mode = 'v' } },
     config = function()
       require('Comment').setup()
     end,
@@ -186,7 +188,11 @@ require('lazy').setup({
       require('gitsigns').setup(opts)
     end,
   },
-  'mg979/vim-visual-multi', -- 多选
+  -- 多选
+  {
+    'mg979/vim-visual-multi',
+    keys = { { '<C-n>', mode = 'n' }, { '<C-n>', mode = 'v' } },
+  },
   -- char align
   {
     'junegunn/vim-easy-align',
@@ -222,6 +228,13 @@ require('lazy').setup({
   -- 代码包裹
   {
     'kylechui/nvim-surround',
+    keys = {
+      { 'ys', mode = 'n' },
+      { 'yS', mode = 'n' },
+      { 'ds', mode = 'n' },
+      { 'cs', mode = 'n' },
+      { 'S', mode = 'v' },
+    },
     config = function()
       require('nvim-surround').setup()
     end,
@@ -255,6 +268,7 @@ require('lazy').setup({
   -- tranlator
   {
     'potamides/pantran.nvim',
+    cmd = { 'Pantran' },
     init = function()
       require('keybindings').Load_Keys('PanTran')
     end,
@@ -279,7 +293,7 @@ require('lazy').setup({
     ft = { 'gdscript', 'gdresource' },
   },
   -- rust
-  'simrat39/rust-tools.nvim',
+  { 'simrat39/rust-tools.nvim' },
   {
     'saecki/crates.nvim',
     ft = 'toml',
@@ -339,6 +353,12 @@ require('lazy').setup({
     dependencies = {
       'nvim-telescope/telescope-ui-select.nvim',
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+      {
+        'ahmedkhalf/project.nvim',
+        config = function()
+          require('project_nvim').setup()
+        end,
+      },
     },
     opts = function()
       return require('plugins.configs.telescope')
@@ -350,12 +370,6 @@ require('lazy').setup({
       for _, ext in ipairs(opts.extensions_list) do
         telescope.load_extension(ext)
       end
-    end,
-  },
-  {
-    'ahmedkhalf/project.nvim',
-    config = function()
-      require('project_nvim').setup()
     end,
   },
 
@@ -384,33 +398,29 @@ require('lazy').setup({
 
   -- lsp
   {
-    'williamboman/mason.nvim',
-    cmd = { 'Mason', 'MasonInstall', 'MasonInstallAll', 'MasonUninstall', 'MasonUninstallAll', 'MasonLog' },
-    opts = function()
-      return require('plugins.configs.mason')
-    end,
-    config = function(_, opts)
-      require('mason').setup(opts)
-      -- custom nvchad cmd to install all mason binaries listed
-      vim.api.nvim_create_user_command('MasonInstallAll', function()
-        vim.cmd('MasonInstall ' .. table.concat(opts.ensure_installed, ' '))
-      end, {})
-    end,
-    dependencies = {
-      'nvim-telescope/telescope.nvim',
-    },
-  },
-  {
     'neovim/nvim-lspconfig',
     dependencies = {
-      'folke/neodev.nvim',
       {
-        'ray-x/lsp_signature.nvim', -- 补全时的文档显示
+        'folke/neodev.nvim',
         config = function()
-          require('lsp_signature').setup({
-            hint_enable = false, -- virtual hint enable
-          })
+          require('neodev').setup()
         end,
+      },
+      {
+        'williamboman/mason.nvim',
+        opts = function()
+          return require('plugins.configs.mason')
+        end,
+        config = function(_, opts)
+          require('mason').setup(opts)
+          -- custom nvchad cmd to install all mason binaries listed
+          vim.api.nvim_create_user_command('MasonInstallAll', function()
+            vim.cmd('MasonInstall ' .. table.concat(opts.ensure_installed, ' '))
+          end, {})
+        end,
+        dependencies = {
+          'nvim-telescope/telescope.nvim',
+        },
       },
     },
     config = function()
@@ -536,6 +546,7 @@ require('lazy').setup({
   -- which key
   {
     'folke/which-key.nvim',
+    cmd = 'WhichKey',
     config = function()
       vim.o.timeout = true
       vim.o.timeoutlen = 300
