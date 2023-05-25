@@ -8,6 +8,7 @@ local install_servers = {
   'cmake',
   'cssls',
   'dockerls',
+  'docker_compose_language_service',
   'dotls',
   'emmet_ls',
   'eslint',
