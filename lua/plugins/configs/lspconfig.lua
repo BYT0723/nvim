@@ -34,13 +34,18 @@ local install_servers = {
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
   require('keybindings').maplsp(vim.api.nvim_buf_set_keymap, bufnr)
+  if client.name == 'clangd' then
+    vim.api.nvim_buf_set_keymap(
+      bufnr,
+      'n',
+      'gs',
+      '<cmd>ClangdSwitchSourceHeader<CR>',
+      { noremap = true, silent = true, desc = 'jump between header and c/cpp' }
+    )
+  end
 end
 
-require('neodev').setup()
 local runtime_path = vim.split(package.path, ';')
-table.insert(runtime_path, 'lua/?.lua')
-table.insert(runtime_path, 'lua/?/?.lua')
-table.insert(runtime_path, 'lua/?/?/?.lua')
 
 local settings = {
   Lua = {
@@ -48,7 +53,7 @@ local settings = {
       -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
       version = 'LuaJIT',
       -- Setup your lua path
-      path = runtime_path,
+      path = { unpack(runtime_path), 'lua/?.lua', 'lua/?/?.lua', 'lua/?/?/?.lua' },
     },
     diagnostics = {
       -- Get the language server to recognize the `vim` global
