@@ -33,10 +33,6 @@ local options = {
     hover = {
       enabled = true,
       view = nil, -- when nil, use defaults from documentation
-      ---@type NoiceViewOptions
-      opts = {
-        border = { style = 'double' },
-      }, -- merged with defaults from documentation
     },
     signature = {
       enabled = true, -- have issue with plugin <lsp-signature>
@@ -47,10 +43,6 @@ local options = {
         throttle = 50, -- Debounce lsp signature help request by 50ms
       },
       view = nil, -- when nil, use defaults from documentation
-      ---@type NoiceViewOptions
-      opts = {
-        border = { style = 'double' },
-      }, -- merged with defaults from documentation
     },
     message = {
       -- Messages shown by lsp servers
@@ -68,6 +60,8 @@ local options = {
         render = 'plain',
         format = { '{message}' },
         win_options = { concealcursor = 'n', conceallevel = 3 },
+        position = { row = 2, col = 0 },
+        border = { style = 'double', padding = { 0, 1 } },
       },
     },
   },
@@ -90,6 +84,7 @@ local options = {
     },
     mini = {
       position = { row = -2, col = '100%' },
+      win_options = { winblend = 0 },
     },
   }, ---@see section on views
   ---@type NoiceRouteConfig[]
