@@ -1,8 +1,6 @@
 local lspkind = require('lspkind')
 local cmp = require('cmp')
 
-package.path = package.path .. ';..\\..\\?.lua;'
-
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
 local feedkey = function(key, mode)

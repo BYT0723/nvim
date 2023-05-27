@@ -177,6 +177,7 @@ ins_left({
 
 ins_right({
   'diagnostics',
+  icon = ' ',
   sources = { 'nvim_diagnostic' },
   symbols = {
     error = ' ',
