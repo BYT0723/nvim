@@ -63,6 +63,17 @@ require('lazy').setup({
     end,
     config = function(_, opts)
       require('noice').setup(opts)
+      vim.keymap.set({ 'n', 'i', 's' }, '<c-d>', function()
+        if not require('noice.lsp').scroll(4) then
+          return '<c-d>'
+        end
+      end, { silent = true, expr = true })
+
+      vim.keymap.set({ 'n', 'i', 's' }, '<c-u>', function()
+        if not require('noice.lsp').scroll(-4) then
+          return '<c-u>'
+        end
+      end, { silent = true, expr = true })
     end,
   },
   -- 文件图标
