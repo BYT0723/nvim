@@ -18,7 +18,7 @@ local ensure_installed = {
   'lua-language-server',
   'marksman',
   'pyright',
-  -- 'rust-analyzer', -- Use rustup to install the rust toolchain
+  'rust-analyzer',
   'sqlls',
   'taplo',
   'typescript-language-server',
@@ -35,6 +35,7 @@ local ensure_installed = {
   'cpplint',
   'eslint_d',
   'golangci-lint',
+  'proselint',
   'vint',
   -- Formatter
   'autopep8',
