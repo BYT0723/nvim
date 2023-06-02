@@ -13,7 +13,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
   -- base or lib
-  'nvim-lua/plenary.nvim',
+  { 'nvim-lua/plenary.nvim', event = 'VeryLazy' },
 
   -- colorscheme
   {
@@ -41,7 +41,8 @@ require('lazy').setup({
   },
 
   -- gui
-  { 'MunifTanjim/nui.nvim', lazy = true },
+  { 'MunifTanjim/nui.nvim', event = 'VeryLazy' },
+  -- notify
   {
     'rcarriga/nvim-notify',
     init = function()
@@ -77,7 +78,7 @@ require('lazy').setup({
     end,
   },
   -- 文件图标
-  { 'nvim-tree/nvim-web-devicons', lazy = true },
+  { 'nvim-tree/nvim-web-devicons', event = 'VeryLazy' },
   -- 退格设置
   {
     'lukas-reineke/indent-blankline.nvim',
@@ -214,7 +215,7 @@ require('lazy').setup({
   -- todo comment
   {
     'folke/todo-comments.nvim',
-    cmd = 'TodoTrouble',
+    -- cmd = 'TodoTrouble',
     init = function()
       require('keybindings').Load_Keys('TodoComments')
     end,
@@ -442,7 +443,7 @@ require('lazy').setup({
     'mfussenegger/nvim-lint',
     event = 'BufEnter',
     init = function()
-      vim.api.nvim_create_autocmd({ 'BufRead', 'BufWritePost', 'InsertLeave' }, {
+      vim.api.nvim_create_autocmd({ 'BufRead', 'BufWritePost' }, {
         callback = function()
           require('lint').try_lint()
         end,
@@ -485,6 +486,23 @@ require('lazy').setup({
             end
           end
           vim.cmd('FormatWriteLock')
+        end,
+      })
+    end,
+  },
+  {
+    'lvimuser/lsp-inlayhints.nvim',
+    event = 'LspAttach',
+    branch = 'anticonceal',
+    init = function()
+      vim.api.nvim_create_autocmd('LspAttach', {
+        group = vim.api.nvim_create_augroup('LspAttach_inlayhints', {}),
+        callback = function(args)
+          if not (args.data and args.data.client_id) then
+            return
+          end
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          require('lsp-inlayhints').on_attach(client, args.buf)
         end,
       })
     end,

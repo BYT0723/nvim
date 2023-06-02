@@ -215,7 +215,7 @@ M.maplsp = function(mapbuf, bufnr)
       ['gtd'] = { cmd = '<cmd>lua vim.lsp.buf.type_definition()<CR>', desc = 'Jump to Type Definition' },
       ['gi']  = { cmd = '<cmd>lua vim.lsp.buf.implementation()<CR>',  desc = 'List Implementation' },
       ['gr']  = { cmd = '<cmd>Lspsaga lsp_finder<CR>',                desc = 'LSP Finder' },
-      ['K']   = { cmd = '<cmd>lua vim.lsp.buf.hover()<CR>',           desc = 'Hover Document' },
+      ['K']   = { cmd = '<cmd>Lspsaga hover_doc<CR>',                 desc = 'Hover Document' },
 
       ['<leader>=']  = { cmd = '<cmd>lua vim.lsp.buf.formatting()<CR>',                                      desc = 'LSP Format', },
       ['<leader>wa'] = { cmd = '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>',                            desc = 'Add Folder', },

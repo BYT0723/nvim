@@ -77,6 +77,14 @@ local settings = {
       generate = true,
       test = true,
     },
+    hints = {
+      assignVariableTypes = true,
+      compositeLiteralFields = true,
+      constantValues = true,
+      functionTypeParameters = true,
+      parameterNames = true,
+      rangeVariableTypes = true,
+    },
   },
   yaml = {
     keyOrdering = false,
@@ -106,6 +114,11 @@ require('rust-tools').setup({
     on_attach = on_attach,
     capabilities = capabilities,
     settings = settings,
+  },
+  tools = {
+    inlay_hints = {
+      auto = false,
+    },
   },
 })
 

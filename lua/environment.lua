@@ -61,7 +61,7 @@ vim.opt.list = true
 
 -- indent by filetype
 vim.api.nvim_command(
-  'au FileType html,javascript,typescript,css,less,scss,vue,proto,json,c,cpp,lua,dart set tabstop=2 softtabstop=2 shiftwidth=2'
+  'au FileType html,javascript,typescript,css,less,scss,vue,proto,json,c,cpp,lua,dart,markdown set tabstop=2 softtabstop=2 shiftwidth=2'
 )
 
 vim.api.nvim_command('au BufRead *.api set filetype=goctl')
@@ -89,7 +89,7 @@ local config = {
   float = {
     focusable = false,
     style = 'minimal',
-    border = 'single',
+    border = 'double',
     source = 'always',
     header = '',
     prefix = '',
