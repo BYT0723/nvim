@@ -12,7 +12,7 @@ local ensure_installed = {
   'dot-language-server',
   'emmet-ls',
   'eslint-lsp',
-  -- 'gopls', -- vim-go will install gopls
+  'gopls',
   'html-lsp',
   'json-lsp',
   'lua-language-server',
