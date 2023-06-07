@@ -126,6 +126,13 @@ M.Trouble = {
   },
 }
 
+M.LspInlayHints = {
+  n = {
+    ['<leader>it'] = { cmd = '<cmd>lua require("lsp-inlayhints").toggle()<CR>', desc = 'LspInlayHints Toggle' },
+    ['<leader>ir'] = { cmd = '<cmd>lua require("lsp-inlayhints").reset()<CR>',  desc = 'LspInlayHints Reset' },
+  }
+}
+
 M.TodoComments = {
   n = {
     ['<leader>xt'] = { cmd = '<cmd>TroubleToggle todo<CR>',                                                   desc = 'Todo-Comments' },

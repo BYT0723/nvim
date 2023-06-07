@@ -496,6 +496,7 @@ require('lazy').setup({
     event = 'LspAttach',
     branch = 'anticonceal',
     init = function()
+      require('keybindings').Load_Keys('LspInlayHints')
       require('lsp-inlayhints').setup({
         -- inlay_hints = { highlight = 'Comment' },
       })
