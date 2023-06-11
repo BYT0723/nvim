@@ -1,4 +1,5 @@
 <!--toc:start-->
+
 - [Previews](#previews)
 - [Required](#required)
 - [Startup process of lua configuration](#startup-process-of-lua-configuration)
@@ -11,7 +12,7 @@
 
 ### Previews
 
-![neovim-preview](./imgs/2023-04-23_09-03-34.jpg)
+![neovim-preview](https://i.imgur.com/2TEvcP4.png)
 
 ### Required
 
@@ -95,6 +96,7 @@ require('lazy').setup({
 ```
 
 ### Plugin configuration in `lua/plugins/config/`
+
 if you want to custom yourself plugin, create a lua configuration in `lua/plugins/config/` and add property `opts` and `config` for your custom plugin in `lua/plugins/init.lua`.
 
 ### Custom Keymap in `lua/keybindings.lua`
