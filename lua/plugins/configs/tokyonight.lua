@@ -1,6 +1,6 @@
 -- configure tokyonight
 local options = {
-  transparent = false,
+  transparent = true,
   style = 'storm', -- storm / night / moon / day
   terminal_colors = true,
   styles = {

@@ -495,6 +495,7 @@ require('lazy').setup({
     'lvimuser/lsp-inlayhints.nvim',
     event = 'LspAttach',
     branch = 'anticonceal',
+    enabled = false,
     init = function()
       require('keybindings').Load_Keys('LspInlayHints')
       require('lsp-inlayhints').setup({
