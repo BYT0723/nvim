@@ -43,9 +43,8 @@ local options = {
       -- the default case_mode is "smart_case"
     },
     projects = {},
-    ['ui-select'] = { require('telescope.themes').get_dropdown({}) },
   },
-  extensions_list = { 'fzf', 'projects', 'ui-select', 'notify', 'noice' },
+  extensions_list = { 'fzf', 'projects', 'notify', 'noice' },
 }
 
 return options

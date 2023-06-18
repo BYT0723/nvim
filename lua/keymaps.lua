@@ -58,7 +58,7 @@ M.Bufferline = {
 
 -- stylua: ignore
 M.Notify = {
-  { '<leader>un', function() require('notify').dismiss() end, desc = 'Hide all notifications', },
+  { '<leader>un', function() require('notify').dismiss({}) end, desc = 'Hide all notifications', },
 }
 
 -- stylua: ignore
@@ -169,69 +169,33 @@ M.DB = {
 }
 
 -- lsp keybind
-M.maplsp = function(mapbuf, bufnr)
+M.maplsp = function(bufnr)
+  -- stylua: ignore
   local lsp_keys = {
-    n = {
-      -- diagnostic
-      -- ['<leader>f'] = { cmd = '<cmd>lua vim.diagnostic.open_float()<CR>',                                                 desc = 'Hover Diagnostic' },
-      -- ['<leader>l'] = { cmd = '<cmd>lua vim.diagnostic.setloclist()<CR>',                                                 desc = 'Loclist Diagnostic' },
-      ['dk'] = {
-        cmd = '<cmd>Lspsaga diagnostic_jump_prev<CR>',
-        desc = 'Prev Diagnostic',
-      },
-      ['dj'] = {
-        cmd = '<cmd>Lspsaga diagnostic_jump_next<CR>',
-        desc = 'Next Diagnostic',
-      },
-      ['dK'] = {
-        cmd = "<cmd>lua require('lspsaga.diagnostic').goto_prev({ severity = vim.diagnostic.severity.ERROR })<CR>",
-        desc = 'Prev Diagnostic [ERROR]',
-      },
-      ['dJ'] = {
-        cmd = "<cmd>lua require('lspsaga.diagnostic').goto_next({ severity = vim.diagnostic.severity.ERROR })<CR>",
-        desc = 'Next Diagnostic [ERROR]',
-      },
-      -- rename and code_action
-      ['<leader>rn'] = { cmd = '<cmd>Lspsaga rename<CR>', desc = 'Global Rename' },
-      ['<leader>a'] = { cmd = '<cmd>Lspsaga code_action<CR>', desc = 'Code Actions' },
-      -- goto xx
-      ['gD'] = { cmd = '<cmd>lua vim.lsp.buf.declaration()<CR>', desc = 'Jump to Declaration' },
-      ['gd'] = { cmd = '<cmd>lua vim.lsp.buf.definition()<CR>', desc = 'Jump to Definition' },
-      ['gtd'] = { cmd = '<cmd>lua vim.lsp.buf.type_definition()<CR>', desc = 'Jump to Type Definition' },
-      ['gi'] = { cmd = '<cmd>lua vim.lsp.buf.implementation()<CR>', desc = 'List Implementation' },
-      ['gr'] = { cmd = '<cmd>Lspsaga lsp_finder<CR>', desc = 'LSP Finder' },
-      ['K'] = { cmd = '<cmd>Lspsaga hover_doc<CR>', desc = 'Hover Document' },
-
-      ['<leader>='] = {
-        cmd = '<cmd>lua vim.lsp.buf.formatting()<CR>',
-        desc = 'LSP Format',
-      },
-      ['<leader>wa'] = {
-        cmd = '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>',
-        desc = 'Add Folder',
-      },
-      ['<leader>wr'] = {
-        cmd = '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>',
-        desc = 'Remove Folder',
-      },
-      ['<leader>wl'] = {
-        cmd = '<cmd>lua vim.notify(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>',
-        desc = 'List Workspace Folders',
-      },
-    },
-    v = {
-      ['<leader>a'] = { cmd = '<cmd>Lspsaga code_action<CR>', desc = 'Code Actions of Range' },
-      ['<leader>='] = { cmd = '<cmd>lua vim.lsp.buf.range_formatting()<CR>', desc = 'Format of Range' },
-    },
+    -- diagnostic
+    -- { '<leader>f', function() vim.diagnostic.open_float() end, desc = 'Hover Diagnostic', },
+    -- { '<leader>l', function() vim.diagnostic.setloclist() end, desc = 'Loclist Diagnostic', },
+    { 'dk', function() vim.diagnostic.goto_prev() end, desc = 'Prev Diagnostic', },
+    { 'dj', function() vim.diagnostic.goto_next() end, desc = 'Next Diagnostic', },
+    { 'dK', function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, desc = 'Prev Diagnostic [ERROR]', },
+    { 'dJ', function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, desc = 'Next Diagnostic [ERROR]', },
+    -- rename and code_action
+    { '<leader>rn', function() vim.lsp.buf.rename() end,      desc = 'Global Rename', },
+    { '<leader>a',  function() vim.lsp.buf.code_action() end, desc = 'Code Actions',  },
+    { '<leader>a',  function() vim.lsp.buf.code_action() end, mode = 'v',             desc = 'Code Actions of Range' },
+    -- goto xx
+    { 'gD',  function() vim.lsp.buf.declaration() end,     desc = 'Jump to Declaration' },
+    { 'gd',  function() vim.lsp.buf.definition() end,      desc = 'Jump to Definition' },
+    { 'gtd', function() vim.lsp.buf.type_definition() end, desc = 'Jump to Type Definition' },
+    { 'gi',  function() vim.lsp.buf.implementation() end,  desc = 'List Implementation' },
+    { 'gr',  function() vim.lsp.buf.references() end,      desc = 'LSP Finder' },
+    { 'K',   function() vim.lsp.buf.hover() end,           desc = 'Hover Document' },
+    -- format
+    {'<leader>=', function() vim.lsp.buf.formatting() end,       desc = 'LSP Format', },
+    {'<leader>=', function() vim.lsp.buf.range_formatting() end, mode = 'v',          desc = 'Format of Range' },
   }
-  for mode, kv in pairs(lsp_keys) do
-    for key, item in pairs(kv) do
-      if type(item) == 'table' then
-        mapbuf(bufnr, mode, key, item.cmd, { noremap = true, silent = true, desc = item.desc })
-      elseif type(item) == 'string' then
-        mapbuf(bufnr, mode, key, item, { noremap = true, silent = true })
-      end
-    end
+  for _, key in pairs(lsp_keys) do
+    vim.keymap.set(key.mode or 'n', key[1], key[2], { buffer = bufnr, silent = true })
   end
 end
 

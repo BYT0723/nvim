@@ -78,6 +78,11 @@ require('lazy').setup({
       return require('plugins.configs.noice')
     end,
   },
+  {
+    'stevearc/dressing.nvim',
+    event = 'VeryLazy',
+    opts = {},
+  },
   -- 退格设置
   {
     'lukas-reineke/indent-blankline.nvim',
@@ -283,7 +288,6 @@ require('lazy').setup({
     cmd = 'Telescope',
     keys = keymaps.Telescope,
     dependencies = {
-      'nvim-telescope/telescope-ui-select.nvim',
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
       {
         'ahmedkhalf/project.nvim',
@@ -350,14 +354,14 @@ require('lazy').setup({
     end,
   },
   -- lsp wrapper
-  {
-    'glepnir/lspsaga.nvim',
-    cmd = 'Lspsaga',
-    keys = keymaps.Lspsaga,
-    opts = function()
-      return require('plugins.configs.lspsaga')
-    end,
-  },
+  -- {
+  --   'glepnir/lspsaga.nvim',
+  --   cmd = 'Lspsaga',
+  --   keys = keymaps.Lspsaga,
+  --   opts = function()
+  --     return require('plugins.configs.lspsaga')
+  --   end,
+  -- },
   {
     'jose-elias-alvarez/null-ls.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
