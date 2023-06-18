@@ -389,21 +389,7 @@ require('lazy').setup({
     end,
     config = function(_, opts)
       require('null-ls').setup(opts)
-      local formatter = require('plugins.configs.formatter')
-      -- set auto format after writen
-      vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
-        callback = function()
-          -- stylua: ignore
-          -- 如果是排除文件则不进行格式化
-          if formatter.is_exc_file() then return end
-          -- stylua: ignore
-          for _, v in pairs(formatter.formatCond) do
-            -- 如果不符合格式化条件则不进行格式化
-            if v.func() then return end
-          end
-          vim.lsp.buf.format()
-        end,
-      })
+      require('plugins.configs.formatter').setup()
     end,
   },
   {
