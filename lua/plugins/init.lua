@@ -355,15 +355,6 @@ require('lazy').setup({
       end, {})
     end,
   },
-  -- lsp wrapper
-  {
-    'glepnir/lspsaga.nvim',
-    event = 'LspAttach',
-    keys = keymaps.Lspsaga,
-    opts = function()
-      return require('plugins.configs.lspsaga')
-    end,
-  },
   {
     'jose-elias-alvarez/null-ls.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
@@ -371,7 +362,7 @@ require('lazy').setup({
     opts = function()
       local nls = require('null-ls')
       return {
-        root_dir = require('null-ls.utils').root_pattern('.null-ls-root', '.neoconf.json', 'Makefile', '.git'),
+        -- root_dir = require('null-ls.utils').root_pattern('.null-ls-root', '.neoconf.json', 'Makefile', '.git'),
         sources = {
           --lint
           --
@@ -396,6 +387,15 @@ require('lazy').setup({
     config = function(_, opts)
       require('null-ls').setup(opts)
       require('plugins.configs.formatter').setup()
+    end,
+  },
+  -- lsp wrapper
+  {
+    'glepnir/lspsaga.nvim',
+    cmd = 'Lspsaga',
+    keys = keymaps.Lspsaga,
+    opts = function()
+      return require('plugins.configs.lspsaga')
     end,
   },
   {
