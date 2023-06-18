@@ -22,56 +22,6 @@ function M.is_exc_file()
   return false
 end
 
-M.options = {
-  logging = true,
-  log_level = vim.log.levels.WARN,
-  filetype = {
-    lua = { require('formatter.filetypes.lua').stylua },
-    c = { require('formatter.filetypes.c').clangformat },
-    cpp = { require('formatter.filetypes.cpp').clangformat },
-    cmake = { require('formatter.filetypes.cmake').cmakeformat },
-    go = {
-      require('formatter.filetypes.go').goimports,
-      require('formatter.filetypes.go').gofmt,
-    },
-    python = { require('formatter.filetypes.python').autopep8 },
-    rust = { require('formatter.filetypes.rust').rustfmt },
-    sh = { require('formatter.filetypes.sh').shfmt },
-    toml = { require('formatter.filetypes.toml').taplo },
-    json = { require('formatter.defaults').prettierd },
-    html = { require('formatter.defaults').prettierd },
-    javascript = { require('formatter.defaults').prettierd },
-    typescript = { require('formatter.defaults').prettierd },
-    yaml = { require('formatter.defaults').prettierd },
-    markdown = { require('formatter.defaults').prettierd },
-    css = { require('formatter.defaults').prettierd },
-    less = { require('formatter.defaults').prettierd },
-    scss = { require('formatter.defaults').prettierd },
-    vue = { require('formatter.defaults').prettierd },
-    angular = { require('formatter.defaults').prettierd },
-
-    proto = function()
-      return {
-        exe = 'buf',
-        args = { 'format', util.relative_path() },
-        stdin = true,
-      }
-    end,
-    -- sql = function()
-    --   return {
-    --     exe = 'sql-formatter',
-    --     stdin = true,
-    --   }
-    -- end,
-    goctl = function()
-      return {
-        exe = 'goctl api format --stdin',
-        stdin = true,
-      }
-    end,
-  },
-}
-
 -- formatting condition
 M.formatCond = {
   is_empty = {

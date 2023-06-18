@@ -11,9 +11,15 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+local keymaps = require('keymaps')
+
 require('lazy').setup({
   -- base or lib
-  { 'nvim-lua/plenary.nvim', event = 'VeryLazy' },
+  { 'nvim-lua/plenary.nvim', lazy = true },
+  -- gui
+  { 'MunifTanjim/nui.nvim', lazy = true },
+  -- 文件图标
+  { 'nvim-tree/nvim-web-devicons', lazy = true },
 
   -- colorscheme
   {
@@ -21,8 +27,7 @@ require('lazy').setup({
     opts = function()
       return require('plugins.configs.tokyonight')
     end,
-    config = function(_, opts)
-      require('tokyonight').setup(opts)
+    init = function()
       -- Load the colorscheme
       vim.cmd([[colorscheme tokyonight]])
     end,
@@ -35,62 +40,14 @@ require('lazy').setup({
     opts = function()
       return require('plugins.configs.dashboard')
     end,
-    config = function(_, opts)
-      require('dashboard').setup(opts)
-    end,
   },
-
-  -- gui
-  { 'MunifTanjim/nui.nvim', event = 'VeryLazy' },
-  -- notify
+  -- buffer bar
   {
-    'rcarriga/nvim-notify',
-    init = function()
-      require('keybindings').Load_Keys('Notify')
-    end,
+    'akinsho/bufferline.nvim',
+    event = 'VimEnter',
+    keys = keymaps.Bufferline,
     opts = function()
-      return require('plugins.configs.notify')
-    end,
-    config = function(_, opts)
-      local notify = require('notify')
-      notify.setup(opts)
-      vim.notify = notify
-    end,
-  },
-  {
-    'folke/noice.nvim',
-    opts = function()
-      return require('plugins.configs.noice')
-    end,
-    config = function(_, opts)
-      require('noice').setup(opts)
-      vim.keymap.set({ 'n', 'i', 's' }, '<c-d>', function()
-        if not require('noice.lsp').scroll(4) then
-          return '<c-d>'
-        end
-      end, { silent = true, expr = true })
-
-      vim.keymap.set({ 'n', 'i', 's' }, '<c-u>', function()
-        if not require('noice.lsp').scroll(-4) then
-          return '<c-u>'
-        end
-      end, { silent = true, expr = true })
-    end,
-  },
-  -- 文件图标
-  { 'nvim-tree/nvim-web-devicons', event = 'VeryLazy' },
-  -- 退格设置
-  {
-    'lukas-reineke/indent-blankline.nvim',
-    event = 'BufEnter',
-    config = function()
-      require('indent_blankline').setup({
-        show_end_of_line = true,
-        space_char_blankline = ' ',
-        show_current_context = true, -- 高亮显示当前代码块的条
-        show_current_context_start = true, -- 高亮显示当前代码块的起始位置
-        filetype_exclude = { 'dashboard' },
-      })
+      return require('plugins.configs.bufferline')
     end,
   },
   -- status bar
@@ -100,40 +57,55 @@ require('lazy').setup({
     opts = function()
       return require('plugins.configs.lualine')
     end,
-    config = function(_, opts)
-      require('lualine').setup(opts)
+  },
+
+  -- notify
+  {
+    'rcarriga/nvim-notify',
+    keys = keymaps.Notify,
+    opts = function()
+      return require('plugins.configs.notify')
     end,
+    init = function()
+      vim.notify = require('notify')
+    end,
+  },
+  {
+    'folke/noice.nvim',
+    event = 'VeryLazy',
+    keys = keymaps.Noice,
+    opts = function()
+      return require('plugins.configs.noice')
+    end,
+  },
+  -- 退格设置
+  {
+    'lukas-reineke/indent-blankline.nvim',
+    event = { 'BufReadPost', 'BufNewFile' },
+    opts = {
+      show_end_of_line = true,
+      space_char_blankline = ' ',
+      show_current_context = true, -- 高亮显示当前代码块的条
+      show_current_context_start = true, -- 高亮显示当前代码块的起始位置
+      filetype_exclude = { 'dashboard' },
+    },
   },
   -- keyword highlight
   {
     'RRethy/vim-illuminate',
-    event = 'BufEnter',
-    config = function()
-      require('illuminate').configure({
-        filetypes_denylist = { 'NvimTree', 'Trouble', 'Dashboard', 'lspsagaoutline', 'toggleterm' },
-      })
-    end,
-  },
-  -- buffer bar
-  {
-    'akinsho/bufferline.nvim',
-    event = 'VimEnter',
-    version = 'v3.*',
-    init = function()
-      require('keybindings').Load_Keys('Bufferline')
-    end,
-    opts = function()
-      return require('plugins.configs.bufferline')
-    end,
+    event = { 'BufReadPost', 'BufNewFile' },
+    opts = {
+      filetypes_denylist = { 'NvimTree', 'Trouble', 'Dashboard', 'lspsagaoutline', 'toggleterm' },
+    },
     config = function(_, opts)
-      require('bufferline').setup(opts)
+      require('illuminate').configure(opts)
     end,
   },
   -- 16进制颜色显示(例如: #999901)
   {
     'norcalli/nvim-colorizer.lua',
-    event = 'BufEnter',
-    config = function()
+    event = { 'BufReadPost', 'BufNewFile' },
+    init = function()
       require('colorizer').setup()
     end,
   },
@@ -141,101 +113,85 @@ require('lazy').setup({
   -- common
   {
     'windwp/nvim-autopairs', -- 括号自动闭合
-    event = 'BufEnter',
-    config = function()
-      require('nvim-autopairs').setup({
-        check_ts = true,
-        ts_config = {
-          lua = { 'string' }, -- it will not add a pair on that treesitter node
-          javascript = { 'template_string' },
-          java = false, -- don't check treesitter on java
-        },
-      })
-    end,
+    event = { 'BufReadPost', 'BufNewFile' },
+    opts = {
+      check_ts = true,
+      ts_config = {
+        lua = { 'string' }, -- it will not add a pair on that treesitter node
+        javascript = { 'template_string' },
+        java = false, -- don't check treesitter on java
+      },
+    },
   },
   -- 文件树
   {
     'nvim-tree/nvim-tree.lua',
     cmd = { 'NvimTreeToggle', 'NvimTreeFocus' },
-    init = function()
-      require('keybindings').Load_Keys('NvimTree')
-    end,
+    keys = keymaps.NvimTree,
     opts = function()
       return require('plugins.configs.tree')
     end,
-    config = function(_, opts)
-      require('nvim-tree').setup(opts)
-    end,
   },
+  -- 终端
+  -- TODO: 终端的键盘映射
   {
-    'akinsho/toggleterm.nvim', -- 终端
-    init = function()
-      require('keybindings').Load_Keys('ToggleTerm')
-    end,
+    'akinsho/toggleterm.nvim',
     opts = function()
       return require('plugins.configs.toggleterm')
-    end,
-    config = function(_, opts)
-      require('toggleterm').setup(opts)
     end,
   },
   -- 注释
   {
     'numToStr/Comment.nvim',
-    keys = { { 'gcc', mode = 'n' }, { 'gbb', mode = 'n' }, { 'gc', mode = 'v' }, { 'gb', mode = 'v' } },
-    config = function()
-      require('Comment').setup()
-    end,
+    keys = {
+      { 'gcc', mode = 'n' },
+      { 'gbc', mode = 'n' },
+      { 'gc', mode = 'v' },
+      { 'gb', mode = 'v' },
+      { 'gco', mode = 'n' },
+      { 'gcO', mode = 'n' },
+      { 'gcA', mode = 'n' },
+    },
+    opts = {
+      mappings = {
+        basic = true,
+        extra = true,
+      },
+    },
   },
   -- git样式，包括blame,修改标记
   {
     'lewis6991/gitsigns.nvim',
-    init = function()
-      require('keybindings').Load_Keys('Gitsigns')
-    end,
+    -- keymap in options
     opts = function()
       return require('plugins.configs.gitsigns')
-    end,
-    config = function(_, opts)
-      require('gitsigns').setup(opts)
     end,
   },
   -- 多选
   {
     'mg979/vim-visual-multi',
-    keys = { { '<C-n>', mode = 'n' }, { '<C-n>', mode = 'v' } },
+    keys = { '<C-n>' },
   },
   -- char align
   {
     'junegunn/vim-easy-align',
-    init = function()
-      require('keybindings').Load_Keys('EasyAlign')
-    end,
-  },
-  -- todo comment
-  {
-    'folke/todo-comments.nvim',
-    -- cmd = 'TodoTrouble',
-    init = function()
-      require('keybindings').Load_Keys('TodoComments')
-    end,
-    config = function()
-      require('todo-comments').setup()
-    end,
+    keys = keymaps.EasyAlign,
   },
   -- 错误统计
   {
     'folke/trouble.nvim',
     cmd = { 'TroubleToggle', 'TodoTrouble' },
-    init = function()
-      require('keybindings').Load_Keys('Trouble')
-    end,
+    keys = keymaps.Trouble,
     opts = function()
       return require('plugins.configs.trouble')
     end,
-    config = function(_, opts)
-      require('trouble').setup(opts)
-    end,
+  },
+  -- todo comment
+  {
+    'folke/todo-comments.nvim',
+    cmd = 'TodoTrouble',
+    keys = keymaps.TodoComments,
+    opts = {},
   },
   -- 代码包裹
   {
@@ -247,96 +203,58 @@ require('lazy').setup({
       { 'cs', mode = 'n' },
       { 'S', mode = 'v' },
     },
-    config = function()
-      require('nvim-surround').setup()
-    end,
+    opts = {},
   },
   -- 快速移动
   {
     'phaazon/hop.nvim',
-    branch = 'v2',
     cmd = { 'HopChar1CurrentLine', 'HopChar2' },
-    init = function()
-      require('keybindings').Load_Keys('Hop')
-    end,
-    config = function()
-      require('hop').setup({ keys = 'etovxqpdygfblzhckisuran' })
-    end,
+    keys = keymaps.Hop,
+    opts = {
+      keys = 'etovxqpdygfblzhckisuran',
+    },
   },
   -- diffview
   {
     'sindrets/diffview.nvim',
     cmd = 'DiffviewOpen',
-    init = function()
-      require('keybindings').Load_Keys('Diffview')
-    end,
+    keys = keymaps.Diffview,
     opts = function()
       require('plugins.configs.diffview')
-    end,
-    config = function(_, opts)
-      require('diffview').setup(opts)
     end,
   },
   -- tranlator
   {
     'potamides/pantran.nvim',
-    cmd = { 'Pantran' },
-    init = function()
-      require('keybindings').Load_Keys('PanTran')
-    end,
-    config = function()
-      local pantran = require('pantran')
-      pantran.setup({
-        default_engine = 'google',
-        engines = {
-          google = {
-            default_source = 'auto',
-            default_target = 'en',
-          },
+    cmd = 'Pantran',
+    keys = keymaps.PanTran,
+    opts = {
+      default_engine = 'google',
+      engines = {
+        google = {
+          default_source = 'auto',
+          default_target = 'en',
         },
-      })
-    end,
+      },
+    },
   },
 
   -- language
-  -- godot
-  {
-    'habamax/vim-godot',
-    ft = { 'gdscript', 'gdresource' },
-  },
   -- rust
   { 'simrat39/rust-tools.nvim' },
-  {
-    'saecki/crates.nvim',
-    ft = 'toml',
-    tag = 'v0.3.0',
-    config = function()
-      require('crates').setup()
-    end,
-  },
+  { 'saecki/crates.nvim', ft = 'toml', opts = {} },
   -- golang
   { 'fatih/vim-go', ft = { 'go', 'gomod' } },
-  -- go-zero
-  {
-    'BYT0723/goctl.nvim',
-    ft = { 'goctl', 'proto', 'sql' },
-    config = function()
-      require('goctl').setup()
-    end,
-    dev = true,
-  },
   -- sql
   {
     'kristijanhusak/vim-dadbod-ui',
     cmd = 'DBUIToggle',
-    init = function()
-      require('keybindings').Load_Keys('DB')
-    end,
+    keys = keymaps.DB,
     dependencies = {
       'tpope/vim-dadbod',
       'kristijanhusak/vim-dadbod-completion',
     },
-    config = function()
+    init = function()
       vim.api.nvim_create_autocmd({ 'FileType' }, {
         pattern = { 'mysql' },
         callback = function()
@@ -345,29 +263,31 @@ require('lazy').setup({
       })
     end,
   },
+  -- go-zero
+  { 'BYT0723/goctl.nvim', ft = { 'goctl', 'proto', 'sql' }, opts = {}, dev = true },
+  -- godot
+  { 'habamax/vim-godot', ft = { 'gdscript', 'gdresource' } },
 
   -- markdown preview
   {
     'iamcco/markdown-preview.nvim',
+    ft = 'markdown',
     build = function()
       vim.fn['mkdp#util#install']()
     end,
-    ft = 'markdown',
   },
 
   --finder
   {
     'nvim-telescope/telescope.nvim',
     cmd = 'Telescope',
-    init = function()
-      require('keybindings').Load_Keys('Telescope')
-    end,
+    keys = keymaps.Telescope,
     dependencies = {
       'nvim-telescope/telescope-ui-select.nvim',
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
       {
         'ahmedkhalf/project.nvim',
-        config = function()
+        init = function()
           require('project_nvim').setup()
         end,
       },
@@ -402,90 +322,86 @@ require('lazy').setup({
     opts = function()
       return require('plugins.configs.cmp')
     end,
-
-    config = function(_, opts)
-      require('cmp').setup(opts)
-    end,
   },
 
   -- lsp
   {
     'neovim/nvim-lspconfig',
     dependencies = {
-      {
-        'folke/neodev.nvim',
-        config = function()
-          require('neodev').setup()
-        end,
-      },
-      {
-        'williamboman/mason.nvim',
-        opts = function()
-          return require('plugins.configs.mason')
-        end,
-        config = function(_, opts)
-          require('mason').setup(opts)
-          -- custom nvchad cmd to install all mason binaries listed
-          vim.api.nvim_create_user_command('MasonInstallAll', function()
-            vim.cmd('MasonInstall ' .. table.concat(opts.ensure_installed, ' '))
-          end, {})
-        end,
-        dependencies = {
-          'nvim-telescope/telescope.nvim',
-        },
-      },
+      { 'folke/neodev.nvim', opts = {} },
+      'williamboman/mason.nvim',
     },
-    config = function()
+    init = function()
       require('plugins.configs.lspconfig')
     end,
   },
+  -- lsp 管理
   {
-    'mfussenegger/nvim-lint',
-    event = 'BufEnter',
-    init = function()
-      vim.api.nvim_create_autocmd({ 'BufRead', 'BufWritePost' }, {
-        callback = function()
-          require('lint').try_lint()
-        end,
-      })
+    'williamboman/mason.nvim',
+    opts = function()
+      return require('plugins.configs.mason')
     end,
-    config = function()
-      require('lint').linters_by_ft = require('plugins.configs.linter')
+    config = function(_, opts)
+      require('mason').setup(opts)
+      -- custom nvchad cmd to install all mason binaries listed
+      vim.api.nvim_create_user_command('MasonInstallAll', function()
+        vim.cmd('MasonInstall ' .. table.concat(opts.ensure_installed, ' '))
+      end, {})
     end,
   },
   -- lsp wrapper
   {
     'glepnir/lspsaga.nvim',
     cmd = 'Lspsaga',
-    init = function()
-      require('keybindings').Load_Keys('Lspsaga')
-    end,
+    keys = keymaps.Lspsaga,
     opts = function()
       return require('plugins.configs.lspsaga')
     end,
-    config = function(_, opts)
-      require('lspsaga').setup(opts)
-    end,
   },
   {
-    'mhartington/formatter.nvim', -- formatter配置
-    event = 'BufWritePre',
-    config = function()
+    'jose-elias-alvarez/null-ls.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = { 'mason.nvim' },
+    opts = function()
+      local nls = require('null-ls')
+      return {
+        root_dir = require('null-ls.utils').root_pattern('.null-ls-root', '.neoconf.json', 'Makefile', '.git'),
+        sources = {
+          --lint
+          --
+          -- TODO: 下面两个会引发encodingoffset警告
+          --
+          -- nls.builtins.diagnostics.cpplint,
+          -- nls.builtins.diagnostics.codespell,
+          nls.builtins.diagnostics.golangci_lint,
+          nls.builtins.diagnostics.proselint,
+          nls.builtins.code_actions.eslint_d,
+          -- format
+          nls.builtins.formatting.stylua,
+          nls.builtins.formatting.shfmt,
+          nls.builtins.formatting.cmake_format,
+          nls.builtins.formatting.goimports,
+          nls.builtins.diagnostics.flake8,
+          nls.builtins.formatting.taplo,
+          nls.builtins.formatting.prettierd,
+        },
+      }
+    end,
+    config = function(_, opts)
+      require('null-ls').setup(opts)
       local formatter = require('plugins.configs.formatter')
-      require('formatter').setup(formatter.options)
       -- set auto format after writen
-      vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
+      vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
         callback = function()
-          if formatter.is_exc_file() then
-            return
-          end
+          -- stylua: ignore
+          -- 如果是排除文件则不进行格式化
+          if formatter.is_exc_file() then return end
+          -- stylua: ignore
           for _, v in pairs(formatter.formatCond) do
-            if v.func() then
-              -- vim.notify(v.msg, v.level)
-              return
-            end
+            -- 如果不符合格式化条件则不进行格式化
+            if v.func() then return end
           end
-          vim.cmd('FormatWriteLock')
+          vim.lsp.buf.format()
         end,
       })
     end,
@@ -496,10 +412,10 @@ require('lazy').setup({
     event = 'LspAttach',
     branch = 'anticonceal',
     enabled = false,
+    keys = keymaps.LspInlayHints,
     init = function()
-      require('keybindings').Load_Keys('LspInlayHints')
       require('lsp-inlayhints').setup({
-        -- inlay_hints = { highlight = 'Comment' },
+        inlay_hints = { highlight = 'Comment' },
       })
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('LspAttach_inlayhints', {}),
@@ -517,26 +433,20 @@ require('lazy').setup({
   {
     'mfussenegger/nvim-dap',
     cmd = 'DapToggle',
+    keys = keymaps.Dap,
     dependencies = {
       'rcarriga/nvim-dap-ui', -- debug UI
     },
-    init = function()
-      require('keybindings').Load_Keys('Dap')
-    end,
     config = function()
-      local dap_local = require('plugins.configs.dap-local')
-      vim.api.nvim_create_user_command('DapToggle', function()
-        dap_local.DapToggle()
-      end, {})
+      require('plugins.configs.dap-local')
     end,
   },
 
   -- treesitter
   {
     'nvim-treesitter/nvim-treesitter',
-    -- cmd = { 'TSInstall', 'TSBufEnable', 'TSBufDisable', 'TSModuleInfo' },
-    event = 'BufEnter',
     build = ':TSUpdate',
+    event = { 'BufReadPost', 'BufNewFile' },
     opts = function()
       return require('plugins.configs.treesitter')
     end,
@@ -553,50 +463,41 @@ require('lazy').setup({
       { 'nvim-treesitter/nvim-treesitter-context' },
       'p00f/nvim-ts-rainbow', -- 彩色括号
       'ThePrimeagen/refactoring.nvim', -- 代码重构
-      {
-        'nvim-orgmode/orgmode',
-        config = function()
-          require('orgmode').setup_ts_grammar()
-          require('orgmode').setup({
-            org_agenda_files = { '~/Documents/org/*' },
-            org_default_notes_file = '~/Documents/org/refile.org',
-            -- win_split_mode = { 'float', 0.6 },
-            win_border = { '╔', '═', '╗', '║', '╝', '═', '╚', '║' },
-          })
-        end,
-      },
+      'JoosepAlviste/nvim-ts-context-commentstring',
     },
   },
-  -- highlight block by nvim-treesitter
+
   {
-    'folke/twilight.nvim',
-    cmd = 'Twilight',
-    config = function()
-      require('twilight').setup()
+    'nvim-orgmode/orgmode',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+    },
+    opts = {
+      org_agenda_files = { '~/Documents/org/*' },
+      org_default_notes_file = '~/Documents/org/refile.org',
+      -- win_split_mode = { 'float', 0.6 },
+      win_border = { '╔', '═', '╗', '║', '╝', '═', '╚', '║' },
+    },
+    init = function()
+      require('orgmode').setup_ts_grammar()
     end,
   },
 
   -- wakatime tool
-  'wakatime/vim-wakatime',
+  { 'wakatime/vim-wakatime', event = 'VeryLazy' },
   -- which key
   {
     'folke/which-key.nvim',
-    cmd = 'WhichKey',
-    config = function()
-      vim.o.timeout = true
-      vim.o.timeoutlen = 300
-      require('which-key').setup({
-        window = {
-          border = 'double', -- none, single, double, shadow
-          position = 'top',
-        },
-      })
-    end,
+    enalbe = true,
+    opts = {
+      window = {
+        border = 'double', -- none, single, double, shadow
+        position = 'top',
+      },
+    },
   },
-  {
-    'h-hg/fcitx.nvim',
-    event = 'InsertEnter',
-  },
+  -- normal/insert模式切换的输入法记忆
+  { 'h-hg/fcitx.nvim', event = 'VeryLazy' },
 }, {
   ui = {
     border = 'double',

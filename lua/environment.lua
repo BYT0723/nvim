@@ -60,11 +60,25 @@ vim.opt.list = true
 -- vim.opt.listchars:append("eol:")
 
 -- indent by filetype
-vim.api.nvim_command(
-  'au FileType html,javascript,typescript,css,less,scss,vue,proto,json,c,cpp,lua,dart,markdown set tabstop=2 softtabstop=2 shiftwidth=2'
-)
-
-vim.api.nvim_command('au BufRead *.api set filetype=goctl')
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = {
+    'html',
+    'javascript',
+    'typescript',
+    'css',
+    'less',
+    'scss',
+    'vue',
+    'proto',
+    'json',
+    'c',
+    'cpp',
+    'lua',
+    'dart',
+    'markdown',
+  },
+  command = 'set tabstop=2 softtabstop=2 shiftwidth=2',
+})
 
 -- stylua: ignore
 local signs = {
@@ -73,7 +87,6 @@ local signs = {
   { name = 'DiagnosticSignHint',  text = ' ' },
   { name = 'DiagnosticSignInfo',  text = ' ' },
 }
-
 for _, sign in ipairs(signs) do
   vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = '' })
 end
@@ -95,5 +108,4 @@ local config = {
     prefix = '',
   },
 }
-
 vim.diagnostic.config(config)

@@ -33,7 +33,7 @@ local install_servers = {
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-  require('keybindings').maplsp(vim.api.nvim_buf_set_keymap, bufnr)
+  require('keymaps').maplsp(vim.api.nvim_buf_set_keymap, bufnr)
   if client.name == 'clangd' then
     vim.api.nvim_buf_set_keymap(
       bufnr,
@@ -45,15 +45,13 @@ local on_attach = function(client, bufnr)
   end
 end
 
-local runtime_path = vim.split(package.path, ';')
-
 local settings = {
   Lua = {
     runtime = {
       -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
       version = 'LuaJIT',
       -- Setup your lua path
-      path = { unpack(runtime_path), 'lua/?.lua', 'lua/?/?.lua', 'lua/?/?/?.lua' },
+      path = { unpack(vim.split(package.path, ';')), 'lua/?.lua', 'lua/?/?.lua', 'lua/?/?/?.lua' },
     },
     diagnostics = {
       -- Get the language server to recognize the `vim` global

@@ -4,6 +4,10 @@ local dapui = require('dapui')
 
 dapui.setup()
 
+vim.g.dapStatus = false
+
+vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'Error', linehl = '', numhl = '' })
+
 dap.adapters.codelldb = {
   type = 'server',
   port = '${port}',
@@ -102,10 +106,6 @@ dap.configurations.javascript = {
     processId = require('dap.utils').pick_process,
   },
 }
-
-vim.g.dapStatus = false
-
-vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'Error', linehl = '', numhl = '' })
 
 function M.DapToggle()
   dapui.toggle()
