@@ -11,7 +11,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-local keymaps = require('keymaps')
+local keymaps = require('plugins.keymaps')
 
 require('lazy').setup({
   -- base or lib
@@ -81,7 +81,9 @@ require('lazy').setup({
   {
     'stevearc/dressing.nvim',
     event = 'VeryLazy',
-    opts = {},
+    opts = function()
+      return require('plugins.configs.dressing')
+    end,
   },
   -- 退格设置
   {
@@ -354,14 +356,14 @@ require('lazy').setup({
     end,
   },
   -- lsp wrapper
-  -- {
-  --   'glepnir/lspsaga.nvim',
-  --   cmd = 'Lspsaga',
-  --   keys = keymaps.Lspsaga,
-  --   opts = function()
-  --     return require('plugins.configs.lspsaga')
-  --   end,
-  -- },
+  {
+    'glepnir/lspsaga.nvim',
+    event = 'LspAttach',
+    keys = keymaps.Lspsaga,
+    opts = function()
+      return require('plugins.configs.lspsaga')
+    end,
+  },
   {
     'jose-elias-alvarez/null-ls.nvim',
     event = { 'BufReadPre', 'BufNewFile' },

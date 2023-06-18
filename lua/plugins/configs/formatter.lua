@@ -1,7 +1,7 @@
 local M = {}
 
 local api = vim.api
-local util = require('util')
+local util = require('base.util')
 
 M.exc_file = {
   lua = { 'keybindings.lua' },

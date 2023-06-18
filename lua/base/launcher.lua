@@ -2,10 +2,10 @@ local M = {}
 
 local term_api = require('toggleterm.terminal')
 local Terminal = require('toggleterm.terminal').Terminal
-local util = require('util')
+local util = require('base.util')
 
 -- The file path containing the project run command
-local launchFile = '~/.config/nvim/lua/launcher.lua'
+local launchFile = '~/.config/nvim/lua/base/launcher.lua'
 
 -- command dictionary [ project's path --- command ]
 local runProjectCmd = {
@@ -154,8 +154,8 @@ function M.editRunProjectCmd()
       )
     end
   end)
-  package.loaded['launcher'] = nil
-  require('launcher')
+  package.loaded['base.launcher'] = nil
+  require('base.launcher')
 end
 
 -- remove run project command
@@ -166,7 +166,7 @@ function M.removeRunProjectCmd()
   else
     print('FAILED!')
   end
-  package.loaded['launcher'] = nil
+  package.loaded['base.launcher'] = nil
 end
 
 -- get run project command
@@ -177,7 +177,7 @@ function M.getRunProjectCmd()
     cmd = ''
   end
   print('Project [ ' .. util.project_name() .. ' ] Run ==> [ ' .. cmd .. ' ]')
-  package.loaded['launcher'] = nil
+  package.loaded['base.launcher'] = nil
 end
 
 -- get current buffer terminal id

@@ -1,8 +1,5 @@
--- vim environment (some variable)
-require('environment')
+-- vim environment (base environment for non-plugins)
+require('base')
 
 -- import packer-plugins
 require('plugins')
-
--- keymap binding
-require('keymaps').Load_Keys('Common')
