@@ -33,7 +33,7 @@ local install_servers = {
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-  require('keymaps').maplsp(bufnr)
+  require('plugins.keymaps').maplsp(bufnr)
   if client.name == 'clangd' then
     vim.api.nvim_buf_set_keymap(
       bufnr,

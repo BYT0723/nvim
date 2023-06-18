@@ -1,7 +1,3 @@
--- set leader key
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
-
 local M = {}
 
 -- stylua: ignore
@@ -53,35 +49,21 @@ M.Lspsaga = {
   { '<leader>v', '<cmd>Lspsaga outline<CR>', desc = 'Syntax Tree' },
 }
 
+-- stylua: ignore
 M.Trouble = {
   { '<leader>xx', '<cmd>TroubleToggle<CR>', desc = 'Trouble' },
   { '<leader>xw', '<cmd>TroubleToggle workspace_diagnostics<CR>', desc = 'Workspace Diagnostics in Trouble' },
   { '<leader>xd', '<cmd>TroubleToggle document_diagnostics<CR>', desc = 'Document Diagnostics in Trouble' },
   { '<leader>xq', '<cmd>TroubleToggle quickfix<CR>', desc = 'Quickfix in Trouble' },
   { '<leader>xl', '<cmd>TroubleToggle loclist<CR>', desc = 'Loclist in Trouble' },
-  {
-    '<leader>xk',
-    function()
-      require('trouble').previous({ skip_groups = true, jump = true })
-    end,
-    desc = 'Previous in Trouble',
-  },
-  {
-    '<leader>xj',
-    function()
-      require('trouble').next({ skip_groups = true, jump = true })
-    end,
-    desc = 'Next in Trouble',
-  },
+  { '<leader>xk', function() require('trouble').previous({ skip_groups = true, jump = true }) end, desc = 'Previous in Trouble' },
+  { '<leader>xj', function() require('trouble').next({ skip_groups = true, jump = true }) end, desc = 'Next in Trouble' },
 }
 
+-- stylua: ignore
 M.TodoComments = {
   { '<leader>xt', '<cmd>TroubleToggle todo<CR>', desc = 'Todo-Comments' },
-  {
-    '<leader>xT',
-    '<cmd>TroubleToggle todo keywords=TODO,FIX disable_not_found_warnings=true<CR>',
-    desc = 'Todo-Comments [TODO|FIX]',
-  },
+  { '<leader>xT', '<cmd>TroubleToggle todo keywords=TODO,FIX disable_not_found_warnings=true<CR>', desc = 'Todo-Comments [TODO|FIX]' },
 }
 
 -- stylua: ignore
@@ -157,19 +139,7 @@ M.maplsp = function(bufnr)
     { '<leader>=', function() vim.lsp.buf.range_formatting() end, mode = 'v', desc = 'Format of Range', },
   }
   for _, key in pairs(lsp_keys) do
-    vim.keymap.set(key.mode or 'n', key[1], key[2], { buffer = bufnr, silent = true })
-  end
-end
-
-function M.Load_Keys(keys)
-  for mode, kv in pairs(M[keys]) do
-    for key, item in pairs(kv) do
-      if type(item) == 'table' then
-        vim.api.nvim_set_keymap(mode, key, item.cmd, { noremap = true, silent = true, desc = item.desc })
-      elseif type(item) == 'string' then
-        vim.api.nvim_set_keymap(mode, key, item, { noremap = true, silent = true })
-      end
-    end
+    vim.keymap.set(key.mode or 'n', key[1], key[2], { buffer = bufnr, silent = true, desc = key.desc })
   end
 end
 

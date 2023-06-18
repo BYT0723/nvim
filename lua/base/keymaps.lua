@@ -1,3 +1,7 @@
+-- set leader key
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
 -- stylua: ignore
 local baseKeymaps = {
   { 'gh', '^',           desc = 'line head',     mode = { 'n', 'v', 'x' } },
@@ -44,5 +48,5 @@ local baseKeymaps = {
 }
 
 for _, key in pairs(baseKeymaps) do
-  vim.keymap.set(key.mode or 'n', key[1], key[2], { silent = true })
+  vim.keymap.set(key.mode or 'n', key[1], key[2], { desc = key.desc, silent = true })
 end
