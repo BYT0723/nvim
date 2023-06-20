@@ -474,9 +474,6 @@ require('lazy').setup({
       require('orgmode').setup_ts_grammar()
     end,
   },
-
-  -- wakatime tool
-  { 'wakatime/vim-wakatime', event = 'VeryLazy' },
   -- which key
   {
     'folke/which-key.nvim',
