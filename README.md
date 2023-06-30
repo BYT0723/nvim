@@ -24,17 +24,54 @@ check your depend by `:checkhealth`
 ### Startup process of lua configuration
 
 ```
-├── init.lua    // startup
+.
+├── init.lua
+├── lazy-lock.json
 ├── lua
-│   ├── environment.lua     // vim setting
-│   ├── keybindings.lua     // key mapping
-│   ├── launcher.lua        // task manage
-│   ├── plugins
-│   │   ├── configs   // plugins config
-│   │   ├── fcitx.lua // IM manage
-│   │   └── init.lua  // lazy.nvim startup
-│   └── util.lua
-└─── snippets // vsnip
+│   ├── base
+│   │   ├── environment.lua
+│   │   ├── init.lua
+│   │   ├── keymaps.lua
+│   │   ├── launcher.lua
+│   │   └── util.lua
+│   └── plugins
+│       ├── configs
+│       │   ├── bufferline.lua
+│       │   ├── cmp.lua
+│       │   ├── dap-local.lua
+│       │   ├── dashboard.lua
+│       │   ├── diffview.lua
+│       │   ├── dressing.lua
+│       │   ├── formatter.lua
+│       │   ├── gitsigns.lua
+│       │   ├── lspconfig.lua
+│       │   ├── lspsaga.lua
+│       │   ├── lualine.lua
+│       │   ├── mason.lua
+│       │   ├── noice.lua
+│       │   ├── notify.lua
+│       │   ├── telescope.lua
+│       │   ├── toggleterm.lua
+│       │   ├── tokyonight.lua
+│       │   ├── tree.lua
+│       │   ├── treesitter.lua
+│       │   └── trouble.lua
+│       ├── init.lua
+│       └── keymaps.lua
+├── README.md
+├── snippets
+│   ├── crontab.json
+│   ├── dot.json
+│   ├── goctl.json
+│   ├── go.json
+│   ├── json.json
+│   ├── lua.json
+│   ├── markdown.json
+│   ├── proto.json
+│   ├── README.md
+│   ├── rust.json
+│   └── vim.json
+└── stylua.toml
 ```
 
 1. `init.lua`
