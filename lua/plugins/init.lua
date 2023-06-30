@@ -140,7 +140,6 @@ require('lazy').setup({
     end,
   },
   -- 终端
-  -- TODO: 终端的键盘映射
   {
     'akinsho/toggleterm.nvim',
     opts = function()
@@ -196,7 +195,7 @@ require('lazy').setup({
   -- todo comment
   {
     'folke/todo-comments.nvim',
-    cmd = 'TodoTrouble',
+    event = 'VeryLazy',
     keys = keymaps.TodoComments,
     opts = {},
   },
@@ -487,6 +486,12 @@ require('lazy').setup({
   },
   -- normal/insert模式切换的输入法记忆
   { 'h-hg/fcitx.nvim', event = 'VeryLazy' },
+  -- funny
+  {
+    'BYT0723/typist.nvim',
+    opts = {},
+    dev = true,
+  },
 }, {
   ui = {
     border = 'double',

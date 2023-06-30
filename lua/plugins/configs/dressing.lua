@@ -18,20 +18,6 @@ return {
   },
   select = {
     enabled = true,
-    backend = 'nui',
-    nui = {
-      position = '30%',
-      border = {
-        style = 'double',
-      },
-      win_options = {
-        winblend = 0,
-      },
-      max_width = 80,
-      max_height = 40,
-      min_width = 40,
-      min_height = 1,
-    },
     get_config = function(opts)
       if opts.kind == 'codeaction' then
         return {
