@@ -176,7 +176,10 @@ require('lazy').setup({
   -- 多选
   {
     'mg979/vim-visual-multi',
-    keys = { '<C-n>' },
+    keys = {
+      { '<C-n>', mode = 'n' },
+      { '<C-n>', mode = 'v' },
+    },
   },
   -- char align
   {
