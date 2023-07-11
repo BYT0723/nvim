@@ -61,7 +61,7 @@ local function runFileCmd(type)
   elseif type == 'proto' then
     cmd = 'protoc --proto_path='
       .. relativePathExclueName
-      .. ' --go_out=plugins=grpc:'
+      .. ' --go-grpc_out='
       .. relativePathExclueName
       .. '/pb '
       .. relativePath
