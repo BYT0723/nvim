@@ -40,11 +40,11 @@ local baseKeymaps = {
   { '<C-b>k',     function() require('base.launcher').term_prev() end,          mode = { 'n', 't' }, desc = 'Previous Terminal' },
   { '<C-b>j',     function() require('base.launcher').term_next() end,          mode = { 'n', 't' }, desc = 'Next Terminal' },
   -- terminal
-  { '<C-q>',  '<C-\\><C-n>',       desc = 'Exit terminal mode' },
-  { '<C-w>j', '<cmd>wincmd j<CR>', desc = 'Move to window below' },
-  { '<C-w>k', '<cmd>wincmd k<CR>', desc = 'Move to upper window' },
-  { '<C-w>h', '<cmd>wincmd h<CR>', desc = 'Move to left window' },
-  { '<C-w>l', '<cmd>wincmd l<CR>', desc = 'Move to right window' },
+  { '<C-q>',  '<C-\\><C-n>',       desc = 'Exit terminal mode', mode = "t" },
+  { '<C-w>j', '<cmd>wincmd j<CR>', desc = 'Move to window below', mode = "t" },
+  { '<C-w>k', '<cmd>wincmd k<CR>', desc = 'Move to upper window', mode = "t" },
+  { '<C-w>h', '<cmd>wincmd h<CR>', desc = 'Move to left window', mode = "t" },
+  { '<C-w>l', '<cmd>wincmd l<CR>', desc = 'Move to right window', mode = "t" },
 }
 
 for _, key in pairs(baseKeymaps) do
