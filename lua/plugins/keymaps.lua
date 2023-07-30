@@ -18,8 +18,8 @@ M.Notify = {
 
 -- stylua: ignore
 M.Noice = {
-  { '<c-d>', function() if not require('noice.lsp').scroll(4) then return '<c-d>' end end, mode = { 'n', 'i', 's' }, desc = 'Scroll Down', },
-  { '<c-u>', function() if not require('noice.lsp').scroll(4) then return '<c-u>' end end, mode = { 'n', 'i', 's' }, desc = 'Scroll Up', },
+  { '<c-f>', function() if not require('noice.lsp').scroll(4) then return '<c-f>' end end, mode = { 'n', 'i', 's' }, desc = 'Scroll Down', },
+  { '<c-u>', function() if not require('noice.lsp').scroll(4) then return '<c-b>' end end, mode = { 'n', 'i', 's' }, desc = 'Scroll Up', },
 }
 
 -- stylua: ignore
