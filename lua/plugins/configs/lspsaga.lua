@@ -20,7 +20,7 @@ local options = {
     title = true,
     devicon = true,
     -- Border type can be single, double, rounded, solid, shadow.
-    border = 'double',
+    border = 'shadow',
     winblend = 0,
     expand = '',
     collapse = '',

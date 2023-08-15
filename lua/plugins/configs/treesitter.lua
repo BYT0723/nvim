@@ -33,7 +33,13 @@ local options = {
   -- 启用代码高亮功能
   highlight = {
     enable = true,
-    additional_vim_regex_highlighting = false,
+    disable = function(lang, buf)
+      local max_filesize = 500 * 1024 -- 500KB
+      local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+      if ok and stats and stats.size > max_filesize then
+        return true
+      end
+    end,
   },
   -- 启用增量选择
   incremental_selection = {
@@ -53,7 +59,7 @@ local options = {
     enable = true,
     -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
     extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-    max_file_lines = nil, -- Do not enable for files with more than n lines, int
+    max_file_lines = 10000, -- Do not enable for files with more than n lines, int
     -- colors = {}, -- table of hex strings
     -- termcolors = {} -- table of colour name strings
   },
@@ -87,6 +93,7 @@ local options = {
     -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
     separator = nil,
     zindex = 20, -- The Z-index of the context window
+    on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
   },
   context_commentstring = {
     enable = true,

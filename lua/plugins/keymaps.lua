@@ -22,8 +22,13 @@ M.Noice = {
   { '<c-u>', function() if not require('noice.lsp').scroll(4) then return '<c-b>' end end, mode = { 'n', 'i', 's' }, desc = 'Scroll Up', },
 }
 
+-- -- stylua: ignore
+-- M.NvimTree = { { '<leader>e', function() require('nvim-tree.api').tree.toggle() end, desc = 'NvimTree', }, }
+
 -- stylua: ignore
-M.NvimTree = { { '<leader>e', function() require('nvim-tree.api').tree.toggle() end, desc = 'NvimTree', }, }
+M.Mini = {
+  { '<leader>e', function() require('mini.files').open() end, desc = 'Files Explorer', },
+}
 
 -- stylua: ignore
 M.PanTran = {
@@ -91,6 +96,7 @@ M.Dap = {
 M.Telescope = {
   { '<leader>ff', function() require('telescope.builtin').find_files() end, desc = 'Find Files' },
   { '<leader>fg', function() require('telescope.builtin').live_grep() end,  desc = 'Find Content' },
+  { '<leader>fb', function() require('telescope.builtin').buffers() end,    desc = 'Find Buffers' },
   { '<leader>fr', function() require('telescope.builtin').oldfiles() end,   desc = 'Recent Files' },
   { "<leader>f'", function() require('telescope.builtin').marks() end,      desc = 'List Marks' },
   { '<leader>fp', '<cmd>Telescope projects<CR>',                            desc = 'Recent Projects' },
@@ -98,6 +104,11 @@ M.Telescope = {
 
 M.DB = {
   { '<leader>zz', '<cmd>DBUIToggle<CR>', desc = 'Database Manager' },
+}
+
+-- stylua: ignore
+M.TreesitterContext = {
+  { '[c', function() require('treesitter-context').go_to_context() end, desc = 'previous context item', },
 }
 
 -- lsp keybind

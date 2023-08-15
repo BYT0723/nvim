@@ -1,6 +1,7 @@
 {
   "workspace.checkThirdParty": false,
-    "diagnostics.globals": [
-        "vim",
-    ],
+  "diagnostics.globals": ["vim"],
+    "diagnostics.disable": [
+        "missing-fields"
+    ]
 }

@@ -48,7 +48,7 @@ vim.diagnostic.config({
   float = {
     focusable = false,
     style = 'minimal',
-    border = 'double',
+    border = 'shadow',
     source = 'always',
     header = '',
     prefix = '',

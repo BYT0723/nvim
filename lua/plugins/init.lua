@@ -21,44 +21,12 @@ require('lazy').setup({
   -- 文件图标
   { 'nvim-tree/nvim-web-devicons', lazy = true },
 
-  -- colorscheme
   {
-    'folke/tokyonight.nvim',
-    opts = function()
-      return require('plugins.configs.tokyonight')
-    end,
-    init = function()
-      -- Load the colorscheme
-      vim.cmd([[colorscheme tokyonight]])
-    end,
-    priority = 1000,
+    'echasnovski/mini.nvim',
+    version = '*',
+    init = require('plugins.configs.mini'),
+    keys = keymaps.Mini,
   },
-  -- Dashboard
-  {
-    'glepnir/dashboard-nvim',
-    event = 'VimEnter',
-    opts = function()
-      return require('plugins.configs.dashboard')
-    end,
-  },
-  -- buffer bar
-  {
-    'akinsho/bufferline.nvim',
-    event = 'VimEnter',
-    keys = keymaps.Bufferline,
-    opts = function()
-      return require('plugins.configs.bufferline')
-    end,
-  },
-  -- status bar
-  {
-    'nvim-lualine/lualine.nvim',
-    event = 'VimEnter',
-    opts = function()
-      return require('plugins.configs.lualine')
-    end,
-  },
-
   -- notify
   {
     'rcarriga/nvim-notify',
@@ -71,72 +39,10 @@ require('lazy').setup({
     end,
   },
   {
-    'folke/noice.nvim',
-    event = 'VeryLazy',
-    keys = keymaps.Noice,
-    opts = function()
-      return require('plugins.configs.noice')
-    end,
-  },
-  {
     'stevearc/dressing.nvim',
     event = 'VeryLazy',
     opts = function()
       return require('plugins.configs.dressing')
-    end,
-  },
-  -- 退格设置
-  {
-    'lukas-reineke/indent-blankline.nvim',
-    event = { 'BufReadPost', 'BufNewFile' },
-    opts = {
-      show_end_of_line = true,
-      space_char_blankline = ' ',
-      show_current_context = true, -- 高亮显示当前代码块的条
-      show_current_context_start = true, -- 高亮显示当前代码块的起始位置
-      filetype_exclude = { 'dashboard' },
-    },
-  },
-  -- keyword highlight
-  {
-    'RRethy/vim-illuminate',
-    event = { 'BufReadPost', 'BufNewFile' },
-    opts = {
-      filetypes_denylist = { 'NvimTree', 'Trouble', 'Dashboard', 'lspsagaoutline', 'toggleterm' },
-    },
-    config = function(_, opts)
-      require('illuminate').configure(opts)
-    end,
-  },
-  -- 16进制颜色显示(例如: #999901)
-  {
-    'norcalli/nvim-colorizer.lua',
-    event = { 'BufReadPost', 'BufNewFile' },
-    init = function()
-      require('colorizer').setup()
-    end,
-  },
-
-  -- common
-  {
-    'windwp/nvim-autopairs', -- 括号自动闭合
-    event = { 'BufReadPost', 'BufNewFile' },
-    opts = {
-      check_ts = true,
-      ts_config = {
-        lua = { 'string' }, -- it will not add a pair on that treesitter node
-        javascript = { 'template_string' },
-        java = false, -- don't check treesitter on java
-      },
-    },
-  },
-  -- 文件树
-  {
-    'nvim-tree/nvim-tree.lua',
-    cmd = { 'NvimTreeToggle', 'NvimTreeFocus' },
-    keys = keymaps.NvimTree,
-    opts = function()
-      return require('plugins.configs.tree')
     end,
   },
   -- 终端
@@ -146,25 +52,6 @@ require('lazy').setup({
       return require('plugins.configs.toggleterm')
     end,
   },
-  -- 注释
-  {
-    'numToStr/Comment.nvim',
-    keys = {
-      { 'gcc', mode = 'n' },
-      { 'gbc', mode = 'n' },
-      { 'gc', mode = 'v' },
-      { 'gb', mode = 'v' },
-      { 'gco', mode = 'n' },
-      { 'gcO', mode = 'n' },
-      { 'gcA', mode = 'n' },
-    },
-    opts = {
-      mappings = {
-        basic = true,
-        extra = true,
-      },
-    },
-  },
   -- git样式，包括blame,修改标记
   {
     'lewis6991/gitsigns.nvim',
@@ -172,19 +59,6 @@ require('lazy').setup({
     opts = function()
       return require('plugins.configs.gitsigns')
     end,
-  },
-  -- 多选
-  {
-    'mg979/vim-visual-multi',
-    keys = {
-      { '<C-n>', mode = 'n' },
-      { '<C-n>', mode = 'v' },
-    },
-  },
-  -- char align
-  {
-    'junegunn/vim-easy-align',
-    keys = keymaps.EasyAlign,
   },
   -- 错误统计
   {
@@ -201,27 +75,6 @@ require('lazy').setup({
     event = 'VeryLazy',
     keys = keymaps.TodoComments,
     opts = {},
-  },
-  -- 代码包裹
-  {
-    'kylechui/nvim-surround',
-    keys = {
-      { 'ys', mode = 'n' },
-      { 'yS', mode = 'n' },
-      { 'ds', mode = 'n' },
-      { 'cs', mode = 'n' },
-      { 'S', mode = 'v' },
-    },
-    opts = {},
-  },
-  -- 快速移动
-  {
-    'phaazon/hop.nvim',
-    cmd = { 'HopChar1CurrentLine', 'HopChar2' },
-    keys = keymaps.Hop,
-    opts = {
-      keys = 'etovxqpdygfblzhckisuran',
-    },
   },
   -- diffview
   {
@@ -254,6 +107,10 @@ require('lazy').setup({
   { 'saecki/crates.nvim', ft = 'toml', opts = {} },
   -- golang
   { 'fatih/vim-go', ft = { 'go', 'gomod' } },
+  -- go-zero
+  { 'BYT0723/goctl.nvim', ft = { 'goctl', 'proto', 'sql' }, opts = {}, dev = true },
+  -- godot
+  { 'habamax/vim-godot', ft = { 'gdscript', 'gdresource' } },
   -- sql
   {
     'kristijanhusak/vim-dadbod-ui',
@@ -272,11 +129,6 @@ require('lazy').setup({
       })
     end,
   },
-  -- go-zero
-  { 'BYT0723/goctl.nvim', ft = { 'goctl', 'proto', 'sql' }, opts = {}, dev = true },
-  -- godot
-  { 'habamax/vim-godot', ft = { 'gdscript', 'gdresource' } },
-
   -- markdown preview
   {
     'iamcco/markdown-preview.nvim',
@@ -483,7 +335,7 @@ require('lazy').setup({
     enalbe = true,
     opts = {
       window = {
-        border = 'double', -- none, single, double, shadow
+        border = 'shadow', -- none, single, double, shadow
         position = 'top',
       },
     },
@@ -498,7 +350,7 @@ require('lazy').setup({
   },
 }, {
   ui = {
-    border = 'double',
+    border = 'shadow',
   },
   dev = {
     path = '~/Workspace/Github/Neovim',

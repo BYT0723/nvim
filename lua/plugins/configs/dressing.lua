@@ -1,7 +1,7 @@
 return {
   input = {
     enabled = true,
-    border = 'double',
+    border = 'shadow',
     relative = 'editor',
     min_width = { 50, 0.5 },
     win_options = {
