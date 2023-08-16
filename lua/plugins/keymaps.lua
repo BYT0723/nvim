@@ -26,8 +26,13 @@ M.Noice = {
 -- M.NvimTree = { { '<leader>e', function() require('nvim-tree.api').tree.toggle() end, desc = 'NvimTree', }, }
 
 -- stylua: ignore
-M.Mini = {
-  { '<leader>e', function() require('mini.files').open() end, desc = 'Files Explorer', },
+M.MiniFiles = {
+  {'<leader>e' , function() require('mini.files').open() end     , desc = 'Files Explorer',},
+}
+
+-- stylua: ignore
+M.MiniSession = {
+  {'<leader>fs', function() require('mini.sessions').select() end, desc = 'Find Session'  ,},
 }
 
 -- stylua: ignore

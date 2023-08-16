@@ -21,12 +21,8 @@ require('lazy').setup({
   -- 文件图标
   { 'nvim-tree/nvim-web-devicons', lazy = true },
 
-  {
-    'echasnovski/mini.nvim',
-    version = '*',
-    init = require('plugins.configs.mini'),
-    keys = keymaps.Mini,
-  },
+  require('plugins.configs.mini'),
+
   -- notify
   {
     'rcarriga/nvim-notify',
@@ -316,6 +312,7 @@ require('lazy').setup({
 
   {
     'nvim-orgmode/orgmode',
+    enabled = false,
     dependencies = {
       'nvim-treesitter/nvim-treesitter',
     },
@@ -335,7 +332,7 @@ require('lazy').setup({
     enalbe = true,
     opts = {
       window = {
-        border = 'shadow', -- none, single, double, shadow
+        border = 'none', -- none, single, double, shadow
         position = 'top',
       },
     },
