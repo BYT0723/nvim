@@ -21,7 +21,15 @@ require('lazy').setup({
   -- 文件图标
   { 'nvim-tree/nvim-web-devicons', lazy = true },
 
+  -- A series of mini.nvim plugins
   require('plugins.configs.mini'),
+
+  -- background transparent
+  {
+    'xiyaowong/transparent.nvim',
+    cmd = { 'TransparentToggle', 'TransparentEnable' },
+    opts = {},
+  },
 
   -- notify
   {
@@ -34,21 +42,20 @@ require('lazy').setup({
       vim.notify = require('notify')
     end,
   },
+  -- Wrap the input and select of vim.ui
   {
     'stevearc/dressing.nvim',
     event = 'VeryLazy',
-    opts = function()
-      return require('plugins.configs.dressing')
-    end,
+    opts = {},
   },
-  -- 终端
+  -- terminal
   {
     'akinsho/toggleterm.nvim',
     opts = function()
       return require('plugins.configs.toggleterm')
     end,
   },
-  -- git样式，包括blame,修改标记
+  -- git style, including blame, modify tags
   {
     'lewis6991/gitsigns.nvim',
     -- keymap in options
@@ -81,7 +88,7 @@ require('lazy').setup({
       require('plugins.configs.diffview')
     end,
   },
-  -- tranlator
+  -- translator
   {
     'potamides/pantran.nvim',
     cmd = 'Pantran',
@@ -191,6 +198,17 @@ require('lazy').setup({
       require('plugins.configs.lspconfig')
     end,
   },
+  {
+    'ray-x/lsp_signature.nvim',
+    event = 'VeryLazy',
+    opts = {
+      bind = true, -- This is mandatory, otherwise border config won't get registered.
+      hint_enable = false,
+      handler_opts = {
+        border = 'double',
+      },
+    },
+  },
   -- lsp 管理
   {
     'williamboman/mason.nvim',
@@ -209,34 +227,8 @@ require('lazy').setup({
     'jose-elias-alvarez/null-ls.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'mason.nvim' },
-    opts = function()
-      local nls = require('null-ls')
-      return {
-        -- root_dir = require('null-ls.utils').root_pattern('.null-ls-root', '.neoconf.json', 'Makefile', '.git'),
-        sources = {
-          --lint
-          --
-          -- TODO: 下面两个会引发encodingoffset警告
-          --
-          -- nls.builtins.diagnostics.cpplint,
-          -- nls.builtins.diagnostics.codespell,
-          nls.builtins.diagnostics.golangci_lint,
-          nls.builtins.diagnostics.proselint,
-          nls.builtins.diagnostics.flake8,
-          nls.builtins.code_actions.eslint_d,
-          -- format
-          nls.builtins.formatting.stylua,
-          nls.builtins.formatting.shfmt,
-          nls.builtins.formatting.cmake_format,
-          nls.builtins.formatting.goimports,
-          nls.builtins.formatting.gofumpt,
-          nls.builtins.formatting.taplo,
-          nls.builtins.formatting.prettierd,
-        },
-      }
-    end,
-    config = function(_, opts)
-      require('null-ls').setup(opts)
+    config = function(_, _)
+      require('null-ls').setup(require('plugins.configs.null-ls'))
       require('plugins.configs.formatter').setup()
     end,
   },
@@ -303,10 +295,38 @@ require('lazy').setup({
     end,
     dependencies = {
       'nvim-treesitter/playground',
-      { 'nvim-treesitter/nvim-treesitter-context' },
       'p00f/nvim-ts-rainbow', -- 彩色括号
-      'ThePrimeagen/refactoring.nvim', -- 代码重构
+      'nvim-treesitter/nvim-treesitter-context',
       'JoosepAlviste/nvim-ts-context-commentstring',
+    },
+  },
+  -- 代码重构
+  {
+    'ThePrimeagen/refactoring.nvim',
+    keys = keymaps.Refactor,
+    opts = {
+      prompt_func_return_type = {
+        go = true,
+        java = false,
+
+        cpp = true,
+        c = true,
+        h = true,
+        hpp = true,
+        cxx = true,
+      },
+      prompt_func_param_type = {
+        go = true,
+        java = false,
+
+        cpp = true,
+        c = true,
+        h = true,
+        hpp = true,
+        cxx = true,
+      },
+      printf_statements = {},
+      print_var_statements = {},
     },
   },
 
@@ -320,7 +340,7 @@ require('lazy').setup({
       org_agenda_files = { '~/Documents/org/*' },
       org_default_notes_file = '~/Documents/org/refile.org',
       -- win_split_mode = { 'float', 0.6 },
-      win_border = { '╔', '═', '╗', '║', '╝', '═', '╚', '║' },
+      -- win_border = { '╔', '═', '╗', '║', '╝', '═', '╚', '║' },
     },
     init = function()
       require('orgmode').setup_ts_grammar()

@@ -14,10 +14,10 @@ local header = '\
 return {
   -- colorscheme
   {
-    'echasnovski/mini.base16',
+    'echasnovski/mini.hues',
     version = false,
     init = function()
-      vim.cmd([[colorscheme minicyan]])
+      vim.cmd([[colorscheme randomhue]])
     end,
   },
   -- starter UI
@@ -69,6 +69,9 @@ return {
   {
     'echasnovski/mini.indentscope',
     version = false,
+    init = function()
+      vim.opt.list = false
+    end,
     opts = {
       mappings = {
         object_scope = 'ii',
@@ -180,6 +183,15 @@ return {
         func = nil,
       },
     },
+  },
+  -- code view
+  {
+    'echasnovski/mini.map',
+    opts = {},
+  },
+  {
+    'echasnovski/mini.trailspace',
+    opts = {},
   },
   -- file manager
   {

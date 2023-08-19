@@ -4,18 +4,6 @@ local term_api = require('toggleterm.terminal')
 local Terminal = require('toggleterm.terminal').Terminal
 local util = require('base.util')
 
--- The file path containing the project run command
-local launchFile = '~/.config/nvim/lua/base/launcher.lua'
-
--- command dictionary [ project's path --- command ]
-local runProjectCmd = {
-  ['/home/walter/Workspace/Study/js/electron-demo'] = 'npm run dev',
-  ['/home/walter/Workspace/Study/go/QManager'] = 'go run main.go',
-  ['/home/walter/Workspace/Study/rust/yew-demo'] = 'trunk serve',
-  ['/home/walter/Workspace/Study/rust/rocket-demo'] = 'cargo run',
-  -- run project command
-}
-
 local VimCommands = {
   ['vim'] = 'source %',
   ['lua'] = 'luafile %',
@@ -72,7 +60,6 @@ local function runFileCmd(type)
 end
 
 local runFileTerm = Terminal:new({ direction = 'horizontal', display_name = 'RUN FILE' })
-local runProjectTerm = Terminal:new({ direction = 'horizontal', display_name = 'RUN PROJECT' })
 
 local tools = {
   git = Terminal:new({ cmd = 'lazygit', display_name = 'LazyGit', direction = 'tab' }),
@@ -103,81 +90,6 @@ function M.runFile()
     runFileTerm:open()
   end
   runFileTerm:send(cmd, true)
-end
-
--- run project cmd
-function M.runProject()
-  local cmd = runProjectCmd[util.cwd()]
-
-  runProjectTerm.dir = vim.fn.getcwd()
-
-  if cmd == nil then
-    M.editRunProjectCmd()
-    cmd = runProjectCmd[util.cwd()]
-    if cmd == nil then
-      vim.notify('Failed to set run project command!')
-      return
-    end
-  end
-
-  if not runProjectTerm:is_open() then
-    runProjectTerm:open()
-  end
-  runProjectTerm:send(cmd, true)
-end
-
--- edit run project command
-function M.editRunProjectCmd()
-  local cmd = runProjectCmd[util.cwd()]
-  vim.ui.input({ prompt = 'Project [' .. util.project_name() .. '] Run ==> ', default = cmd }, function(input)
-    if input == nil or input == '' then
-      return
-    end
-    -- 写入 run project command
-    -- 1. 不存在则Insert
-    -- 2. 存在则Update
-    if cmd == nil or cmd == '' then
-      local lineNum =
-        io.popen('cat ' .. launchFile .. " | grep 'local runProjectCmd' -n | awk -F ':' '{print $1}' | head -n 1")
-          :read()
-      vim.cmd(string.format('!sed -i \'%sa\\\t["%s"] = "%s",\' %s', tonumber(lineNum), util.cwd(), input, launchFile))
-    else
-      vim.cmd(
-        string.format(
-          '!sed -i \'s/\\["%s"\\] = "%s"/\\["%s"\\] = "%s"/1\' %s',
-          string.gsub(util.cwd(), '/', '\\/'),
-          runProjectCmd[util.cwd()],
-          string.gsub(util.cwd(), '/', '\\/'),
-          input,
-          launchFile
-        )
-      )
-    end
-  end)
-  package.loaded['base.launcher'] = nil
-  require('base.launcher')
-end
-
--- remove run project command
-function M.removeRunProjectCmd()
-  local res = io.popen("sed -i '/" .. string.gsub(util.cwd(), '/', '\\/') .. "/d' " .. launchFile):close()
-  if res then
-    print('SUCCESS!')
-  else
-    print('FAILED!')
-  end
-  package.loaded['base.launcher'] = nil
-end
-
--- get run project command
-function M.getRunProjectCmd()
-  -- local cmd = io.popen("sed -n '/" .. string.gsub(util.cwd(), "/", "\\/") .. "/p' " .. lf):read()
-  local cmd = runProjectCmd[util.cwd()]
-  if cmd == nil then
-    cmd = ''
-  end
-  print('Project [ ' .. util.project_name() .. ' ] Run ==> [ ' .. cmd .. ' ]')
-  package.loaded['base.launcher'] = nil
 end
 
 -- get current buffer terminal id

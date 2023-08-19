@@ -26,13 +26,8 @@ local baseKeymaps = {
   { 'cj',         '<cmd>cn<CR>',                                         desc = 'next item in quickfix' },
   { 'cc',         '<cmd>cc<CR>',                                         desc = 'current item in quickfix' },
   { '<leader>cc', "<cmd>lua require('base.util').toggle_quickfix()<CR>", desc = 'Quickfix' },
-  -- launcher
-  { '<leader>rf', function() require('base.launcher').runFile() end,             desc = 'Run File' },
-  { '<leader>rp', function() require('base.launcher').runProject() end,          desc = 'Start Project' },
-  { '<leader>ri', function() require('base.launcher').getRunProjectCmd() end,    desc = 'Show project command' },
-  { '<leader>re', function() require('base.launcher').editRunProjectCmd() end,   desc = 'Edit project command' },
-  { '<leader>rm', function() require('base.launcher').removeRunProjectCmd() end, desc = 'Remove project command' },
   -- launcher - terminal
+  { '<leader>rf', function() require('base.launcher').runFile() end,             desc = 'Run File' },
   { '<leader>lr', function() require('base.launcher').toolToggle('ranger') end, mode = { 'n', 't' }, desc = 'Ranger' },
   { '<leader>ld', function() require('base.launcher').toolToggle('docker') end, mode = { 'n', 't' }, desc = 'LazyDocker' },
   { '<leader>lg', function() require('base.launcher').toolToggle('git') end,    mode = { 'n', 't' }, desc = 'LazyGit' },

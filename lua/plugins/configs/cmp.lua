@@ -41,16 +41,12 @@ local options = {
       feedkey('<Plug>(vsnip-jump-prev)', '')
     end, { 'i', 's' }),
 
-    -- ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+    -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+    -- ['<C-y>'] = cmp.config.disable,
     ['<C-u>'] = cmp.mapping.scroll_docs(-2),
     ['<C-d>'] = cmp.mapping.scroll_docs(2),
-    -- 出现补全
     ['<C-.>'] = cmp.mapping.complete(),
-    -- 取消
     ['<C-,>'] = cmp.mapping.abort(),
-    -- 确认
-    -- Accept currently selected item. If none selected, `select` first item.
-    -- Set `select` to `false` to only confirm explicitly selected items.
     ['<CR>'] = cmp.mapping.confirm({ select = false }),
   },
 
