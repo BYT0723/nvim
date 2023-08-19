@@ -30,7 +30,11 @@ require('lazy').setup({
     cmd = { 'TransparentToggle', 'TransparentEnable' },
     opts = {},
   },
-
+  -- multi cursor
+  {
+    'mg979/vim-visual-multi',
+    keys = { '<C-n>', '<C-Up>', '<C-Down>' },
+  },
   -- notify
   {
     'rcarriga/nvim-notify',
@@ -235,6 +239,7 @@ require('lazy').setup({
   -- lsp wrapper
   {
     'glepnir/lspsaga.nvim',
+    enabled = false,
     cmd = 'Lspsaga',
     keys = keymaps.Lspsaga,
     opts = function()
@@ -244,9 +249,9 @@ require('lazy').setup({
   {
     -- This plugin requires nvim-nightly
     'lvimuser/lsp-inlayhints.nvim',
+    enabled = false,
     event = 'LspAttach',
     branch = 'anticonceal',
-    enabled = false,
     keys = keymaps.LspInlayHints,
     init = function()
       require('lsp-inlayhints').setup({
