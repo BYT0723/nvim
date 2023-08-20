@@ -354,11 +354,11 @@ require('lazy').setup({
   -- which key
   {
     'folke/which-key.nvim',
-    enalbe = true,
+    enabled = true,
     opts = {
       window = {
-        border = 'none', -- none, single, double, shadow
-        position = 'top',
+        border = 'double', -- none, single, double, shadow
+        position = 'bottom',
       },
     },
   },
