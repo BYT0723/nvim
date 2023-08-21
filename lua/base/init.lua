@@ -30,8 +30,8 @@ vim.api.nvim_create_autocmd('FileType', {
 local signs = {
   { name = 'DiagnosticSignError', text = ' ' },
   { name = 'DiagnosticSignWarn', text = ' ' },
-  { name = 'DiagnosticSignHint', text = ' ' },
   { name = 'DiagnosticSignInfo', text = ' ' },
+  { name = 'DiagnosticSignHint', text = ' ' },
 }
 for _, sign in ipairs(signs) do
   vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = '' })
@@ -39,18 +39,22 @@ end
 
 vim.diagnostic.config({
   virtual_text = true,
-  signs = {
-    active = signs,
-  },
+  signs = { active = signs },
   update_in_insert = false,
   underline = true,
   severity_sort = true,
   float = {
-    focusable = false,
-    style = 'minimal',
     border = 'double',
-    source = 'always',
     header = '',
     prefix = '',
+    title = '  Diagnostic ',
+    format = function(diagnostic)
+      return string.format('%s %s [%s]', signs[diagnostic.severity].text, diagnostic.message, diagnostic.source)
+    end,
   },
+})
+
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = 'double',
+  title = '  Hover ',
 })

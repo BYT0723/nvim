@@ -1,29 +1,9 @@
 local M = {}
 
 -- stylua: ignore
-M.Bufferline = {
-  { 'bk', '<cmd>BufferLineCyclePrev<CR>', mode = 'n', desc = 'previous buffer' },
-  { 'bj', '<cmd>BufferLineCycleNext<CR>', mode = 'n', desc = 'next buffer' },
-  { 'bK', '<cmd>BufferLineMovePrev<CR>',  mode = 'n', desc = 'Move buffer forward' },
-  { 'bJ', '<cmd>BufferLineMoveNext<CR>',  mode = 'n', desc = 'Move buffer backward' },
-  { 'bp', '<cmd>BufferLinePick<CR>',      mode = 'n', desc = 'pick a buffer' },
-  { 'bP', '<cmd>BufferLineTogglePin<CR>', mode = 'n', desc = 'pin a buffer' },
-  { 'bq', '<cmd>bdelete!<CR>',            mode = 'n', desc = 'close buffer' },
-}
-
--- stylua: ignore
 M.Notify = {
   { '<leader>un', function() require('notify').dismiss({}) end, desc = 'Hide all notifications', },
 }
-
--- stylua: ignore
-M.Noice = {
-  { '<c-f>', function() if not require('noice.lsp').scroll(4) then return '<c-f>' end end, mode = { 'n', 'i', 's' }, desc = 'Scroll Down', },
-  { '<c-u>', function() if not require('noice.lsp').scroll(4) then return '<c-b>' end end, mode = { 'n', 'i', 's' }, desc = 'Scroll Up', },
-}
-
--- -- stylua: ignore
--- M.NvimTree = { { '<leader>e', function() require('nvim-tree.api').tree.toggle() end, desc = 'NvimTree', }, }
 
 -- stylua: ignore
 M.MiniFiles = {
@@ -41,18 +21,6 @@ M.PanTran = {
   { '<leader>tr', '<cmd>Pantran mode=replace target=en<CR>', mode = 'n', desc = 'Translate and Replace' },
   { '<leader>ta', '<cmd>Pantran mode=append target=en<CR>',  mode = 'n', desc = 'Translate and Append' },
   { '<leader>ti', '<cmd>Pantran mode=interactive<CR>',       mode = 'n', desc = 'Translate Interactive UI' },
-}
-
--- stylua: ignore
-M.Hop = {
-  { 'f', '<cmd>HopChar1CurrentLine<cr>', mode = { 'n', 'v', 'x' }, desc = 'find single char in current line' },
-  { 'F', '<cmd>HopChar2<cr>',            mode = { 'n', 'v', 'x' }, desc = 'find two connected char' },
-}
-
--- stylua: ignore
-M.EasyAlign = {
-  { 'ga',  '<Plug>(EasyAlign)', mode = { 'n', 'v', 'x' }, desc = 'Text Align' },
-  { 'gla', '<Plug>(EasyAlign)', mode = { 'n', 'v', 'x' }, desc = 'Text Align' },
 }
 
 M.Lspsaga = {
@@ -74,12 +42,6 @@ M.Trouble = {
 M.TodoComments = {
   { '<leader>xt', '<cmd>TroubleToggle todo<CR>', desc = 'Todo-Comments' },
   { '<leader>xT', '<cmd>TroubleToggle todo keywords=TODO,FIX disable_not_found_warnings=true<CR>', desc = 'Todo-Comments [TODO|FIX]' },
-}
-
--- stylua: ignore
-M.LspInlayHints = {
-  { '<leader>it', function() require("lsp-inlayhints").toggle() end, desc = 'LspInlayHints Toggle' },
-  { '<leader>ir', function() require("lsp-inlayhints").reset() end,  desc = 'LspInlayHints Reset' },
 }
 
 M.Diffview = {
