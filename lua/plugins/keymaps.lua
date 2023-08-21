@@ -2,17 +2,23 @@ local M = {}
 
 -- stylua: ignore
 M.Notify = {
-  { '<leader>un', function() require('notify').dismiss({}) end, desc = 'Hide all notifications', },
+  { '<leader>un', function() require('notify').dismiss({}) end, desc = 'Hide all notifications'},
 }
 
 -- stylua: ignore
 M.MiniFiles = {
-  {'<leader>e' , function() require('mini.files').open() end     , desc = 'Files Explorer',},
+  {'<leader>e' , function() require('mini.files').open() end     , desc = 'Files Explorer'},
 }
 
 -- stylua: ignore
 M.MiniSession = {
-  {'<leader>fs', function() require('mini.sessions').select() end, desc = 'Find Session'  ,},
+  {'<leader>fs', function() require('mini.sessions').select() end, desc = 'Find Session'},
+}
+
+-- stylua: ignore
+M.MiniMap = {
+  {'<leader>vm', function() require('mini.map').toggle() end, desc = 'Code Viewer'},
+  {'<leader>vi', function() require('mini.map').toggle_focus() end, desc = 'Get in Code Viewer'}
 }
 
 -- stylua: ignore

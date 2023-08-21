@@ -187,6 +187,7 @@ return {
   -- code view
   {
     'echasnovski/mini.map',
+    keys = keymaps.MiniMap,
     opts = {},
   },
   {
