@@ -44,8 +44,7 @@ local options = {
     },
     projects = {},
   },
-  -- extensions_list = { 'fzf', 'projects', 'notify', 'noice' },
-  extensions_list = { 'fzf', 'projects', 'notify' },
+  extensions_list = { 'fzf', 'projects', 'notify', 'noice' },
 }
 
 return options

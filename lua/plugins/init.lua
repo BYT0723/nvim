@@ -203,15 +203,12 @@ require('lazy').setup({
     end,
   },
   {
-    'ray-x/lsp_signature.nvim',
+    'folke/noice.nvim',
     event = 'VeryLazy',
-    opts = {
-      bind = true, -- This is mandatory, otherwise border config won't get registered.
-      hint_enable = false,
-      handler_opts = {
-        border = 'double',
-      },
-    },
+    keys = keymaps.Noice,
+    opts = function()
+      return require('plugins.configs.noice')
+    end,
   },
   -- lsp 管理
   {

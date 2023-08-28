@@ -6,6 +6,12 @@ M.Notify = {
 }
 
 -- stylua: ignore
+M.Noice = {
+  { '<c-f>', function() if not require('noice.lsp').scroll(4) then return '<c-f>' end end, mode = { 'n', 'i', 's' }, desc = 'Scroll Down', },
+  { '<c-u>', function() if not require('noice.lsp').scroll(4) then return '<c-b>' end end, mode = { 'n', 'i', 's' }, desc = 'Scroll Up', },
+}
+
+-- stylua: ignore
 M.MiniFiles = {
   {'<leader>e' , function() require('mini.files').open() end     , desc = 'Files Explorer'},
 }
