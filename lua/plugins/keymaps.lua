@@ -92,7 +92,7 @@ M.TreesitterContext = {
 
 -- stylua: ignore
 M.Refactor = {
-  {'<leader>rs', function() require('refactoring').select_refactor() end, desc = 'list of refactoring suggestions',},
+  {'<leader>rs', function() require('refactoring').select_refactor({}) end, desc = 'list of refactoring suggestions',},
 }
 
 -- lsp keybind

@@ -19,7 +19,7 @@ return {
     nls.builtins.formatting.goimports,
     nls.builtins.formatting.gofumpt,
     nls.builtins.formatting.taplo,
-    nls.builtins.formatting.prettierd,
+    nls.builtins.formatting.prettier,
 
     -- action
     --- language
