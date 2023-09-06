@@ -28,6 +28,11 @@ M.MiniMap = {
 }
 
 -- stylua: ignore
+M.SymbolOutline = {
+  {'<leader>vs', function() require('symbols-outline').toggle_outline() end, desc = 'Toggle SymbolOutline',},
+}
+
+-- stylua: ignore
 M.PanTran = {
   { '<leader>tw', '<cmd>Pantran mode=hover target=zh<CR>',   mode = 'n', desc = 'Translate line' },
   { '<leader>tr', '<cmd>Pantran mode=replace target=en<CR>', mode = 'n', desc = 'Translate and Replace' },
