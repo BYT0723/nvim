@@ -55,9 +55,9 @@ require('lazy').setup({
   -- terminal
   {
     'akinsho/toggleterm.nvim',
-    opts = function()
-      return require('plugins.configs.toggleterm')
-    end,
+    opts = {
+      open_mapping = [[<c-\>]],
+    },
   },
   -- git style, including blame, modify tags
   {
