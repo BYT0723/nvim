@@ -83,6 +83,12 @@ require('lazy').setup({
     keys = keymaps.TodoComments,
     opts = {},
   },
+  -- search and replace
+  {
+    'nvim-pack/nvim-spectre',
+    keys = keymaps.Spectre,
+    opts = {},
+  },
   -- diffview
   {
     'sindrets/diffview.nvim',
