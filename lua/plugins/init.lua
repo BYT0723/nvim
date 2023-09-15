@@ -408,8 +408,15 @@ require('lazy').setup({
   -- funny
   {
     'BYT0723/typist.nvim',
+    enabled = false,
     opts = {},
     dev = true,
+  },
+  {
+    'eandrju/cellular-automaton.nvim',
+    enabled = false,
+    cmd = 'CellularAutomaton',
+    opts = {},
   },
 }, {
   ui = {
