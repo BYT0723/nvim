@@ -13,11 +13,10 @@ set.wrap = false
 -- 高亮行
 set.cursorline = true
 
-set.tabstop = 4
-set.softtabstop = 4
-
-set.expandtab = true
 set.shiftwidth = 4
+set.tabstop = 4
+set.softtabstop = -1
+set.expandtab = true
 
 -- 相对行号
 set.number = true
