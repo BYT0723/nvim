@@ -23,7 +23,7 @@ vim.api.nvim_create_autocmd('FileType', {
     'dart',
     'markdown',
   },
-  command = 'set tabstop=2 softtabstop=2 shiftwidth=2',
+  command = 'setlocal tabstop=2 softtabstop=2 shiftwidth=2',
 })
 
 -- The style of code diagnosis, the style setting has nothing to do with LSP or Linter
