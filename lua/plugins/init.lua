@@ -290,7 +290,7 @@ require('lazy').setup({
   {
     -- This plugin requires nvim-nightly
     'lvimuser/lsp-inlayhints.nvim',
-    enabled = false,
+    enabled = true,
     event = 'LspAttach',
     branch = 'anticonceal',
     keys = keymaps.LspInlayHints,
@@ -378,7 +378,7 @@ require('lazy').setup({
 
   {
     'nvim-orgmode/orgmode',
-    enabled = false,
+    enabled = true,
     dependencies = {
       'nvim-treesitter/nvim-treesitter',
     },
@@ -414,9 +414,9 @@ require('lazy').setup({
   },
   {
     'eandrju/cellular-automaton.nvim',
-    enabled = false,
-    cmd = 'CellularAutomaton',
+    enabled = true,
     opts = {},
+    cmd = 'CellularAutomaton',
   },
 }, {
   ui = {
