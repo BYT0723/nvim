@@ -290,7 +290,7 @@ require('lazy').setup({
   {
     -- This plugin requires nvim-nightly
     'lvimuser/lsp-inlayhints.nvim',
-    enabled = true,
+    enabled = false,
     event = 'LspAttach',
     branch = 'anticonceal',
     keys = keymaps.LspInlayHints,
