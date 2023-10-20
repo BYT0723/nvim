@@ -31,7 +31,7 @@ local options = {
       ['cmp.entry.get_documentation'] = false,
     },
     hover = {
-      enabled = false,
+      enabled = true,
       view = nil, -- when nil, use defaults from documentation
     },
     signature = {
@@ -61,7 +61,7 @@ local options = {
         format = { '{message}' },
         win_options = { concealcursor = 'n', conceallevel = 3 },
         position = { row = 2, col = 0 },
-        border = { style = 'double', padding = { 0, 1 } },
+        border = 'rounded',
       },
     },
   },

@@ -55,6 +55,4 @@ vim.g.go_term_width = 20
 vim.g.do_filetype_lua = true
 vim.g.did_load_filetypes = false
 
-vim.opt.list = true
--- vim.opt.listchars:append('space:⋅')
--- vim.opt.listchars:append("eol:")
+vim.opt.list = false
