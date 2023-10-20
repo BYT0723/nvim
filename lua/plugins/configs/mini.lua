@@ -66,21 +66,21 @@ return {
     opts = {},
   },
   -- indentblack
-  {
-    'echasnovski/mini.indentscope',
-    version = false,
-    init = function()
-      vim.opt.list = false
-    end,
-    opts = {
-      mappings = {
-        object_scope = 'ii',
-        object_scope_with_border = 'ai',
-        goto_top = '[i',
-        goto_bottom = ']i',
-      },
-    },
-  },
+  -- {
+  --   'echasnovski/mini.indentscope',
+  --   version = false,
+  --   init = function()
+  --     vim.opt.list = false
+  --   end,
+  --   opts = {
+  --     mappings = {
+  --       object_scope = 'ii',
+  --       object_scope_with_border = 'ai',
+  --       goto_top = '[i',
+  --       goto_bottom = ']i',
+  --     },
+  --   },
+  -- },
   -- hex colors display
   {
     'echasnovski/mini.hipatterns',

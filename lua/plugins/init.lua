@@ -24,6 +24,27 @@ require('lazy').setup({
   -- A series of mini.nvim plugins
   require('plugins.configs.mini'),
 
+  {
+    'lukas-reineke/indent-blankline.nvim',
+    main = 'ibl',
+    opts = {
+      whitespace = {
+        remove_blankline_trail = true,
+      },
+      indent = {
+        char = '┋',
+      },
+      exclude = {
+        filetypes = { 'lspinfo', 'mason', 'lazy', 'checkhealth', 'help', 'man', '' },
+      },
+      scope = {
+        show_start = false,
+        show_end = false,
+        highlight = { 'Function', 'Label' },
+      },
+    },
+  },
+
   -- background transparent
   {
     'xiyaowong/transparent.nvim',
