@@ -311,14 +311,13 @@ require('lazy').setup({
   {
     -- This plugin requires nvim-nightly
     'lvimuser/lsp-inlayhints.nvim',
-    enabled = false,
-    event = 'LspAttach',
     branch = 'anticonceal',
+    ft = { 'rust' },
     keys = keymaps.LspInlayHints,
+    opts = {
+      inlay_hints = { highlight = 'Comment' },
+    },
     init = function()
-      require('lsp-inlayhints').setup({
-        inlay_hints = { highlight = 'Comment' },
-      })
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('LspAttach_inlayhints', {}),
         callback = function(args)
