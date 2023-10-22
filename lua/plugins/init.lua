@@ -25,6 +25,19 @@ require('lazy').setup({
   require('plugins.configs.mini'),
 
   {
+    'nvim-tree/nvim-tree.lua',
+    keys = keymaps.NvimTree,
+    init = function()
+      vim.g.loaded_netrw = 1
+      vim.g.loaded_netrwPlugin = 1
+      vim.opt.termguicolors = true
+    end,
+    opts = function()
+      return require('plugins.configs.nvim-tree')
+    end,
+  },
+
+  {
     'lukas-reineke/indent-blankline.nvim',
     main = 'ibl',
     opts = {
@@ -311,13 +324,11 @@ require('lazy').setup({
   {
     -- This plugin requires nvim-nightly
     'lvimuser/lsp-inlayhints.nvim',
+    enabled = false,
     branch = 'anticonceal',
     ft = { 'rust' },
     keys = keymaps.LspInlayHints,
-    opts = {
-      inlay_hints = { highlight = 'Comment' },
-    },
-    init = function()
+    config = function()
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('LspAttach_inlayhints', {}),
         callback = function(args)
@@ -325,8 +336,11 @@ require('lazy').setup({
             return
           end
           local client = vim.lsp.get_client_by_id(args.data.client_id)
-          require('lsp-inlayhints').on_attach(client, args.buf)
+          require('lsp-inlayhints').on_attach(client, args.buf, false)
         end,
+      })
+      require('lsp-inlayhints').setup({
+        inlay_hints = { highlight = 'Comment' },
       })
     end,
   },

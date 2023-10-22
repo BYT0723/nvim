@@ -7,7 +7,6 @@ return {
     -- TODO: 下面两个会引发encodingoffset警告
     --
     -- nls.builtins.diagnostics.cpplint,
-    nls.builtins.diagnostics.codespell,
     nls.builtins.diagnostics.golangci_lint,
     nls.builtins.diagnostics.proselint,
     nls.builtins.diagnostics.flake8,

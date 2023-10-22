@@ -13,7 +13,12 @@ M.Noice = {
 
 -- stylua: ignore
 M.MiniFiles = {
-  {'<leader>e' , function() require('mini.files').open() end     , desc = 'Files Explorer'},
+  {'<leader>E' , function() require('mini.files').open() end     , desc = 'Mini Files Explorer'},
+}
+
+-- stylua: ignore
+M.NvimTree = {
+  {'<leader>e', "<cmd>NvimTreeToggle<CR>", desc = 'Files Explorer',},
 }
 
 -- stylua: ignore
