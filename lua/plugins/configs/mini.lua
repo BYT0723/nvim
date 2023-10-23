@@ -13,13 +13,13 @@ local header = '\
 
 return {
   -- colorscheme
-  {
-    'echasnovski/mini.hues',
-    version = false,
-    init = function()
-      vim.cmd([[colorscheme randomhue]])
-    end,
-  },
+  -- {
+  --   'echasnovski/mini.hues',
+  --   version = false,
+  --   init = function()
+  --     vim.cmd([[colorscheme randomhue]])
+  --   end,
+  -- },
   -- starter UI
   {
     'echasnovski/mini.starter',

@@ -23,6 +23,15 @@ require('lazy').setup({
 
   -- A series of mini.nvim plugins
   require('plugins.configs.mini'),
+  {
+    'folke/tokyonight.nvim',
+    lazy = false,
+    priority = 1000,
+    init = function()
+      vim.cmd([[colorscheme tokyonight]])
+    end,
+    opts = {},
+  },
 
   {
     'nvim-tree/nvim-tree.lua',
