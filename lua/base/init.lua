@@ -47,7 +47,7 @@ vim.diagnostic.config({
   underline = true,
   severity_sort = true,
   float = {
-    border = 'double',
+    border = 'rounded',
     header = '',
     prefix = '',
     title = '  Diagnostic ',
