@@ -23,6 +23,7 @@ require('lazy').setup({
 
   -- A series of mini.nvim plugins
   require('plugins.configs.mini'),
+
   {
     'folke/tokyonight.nvim',
     lazy = false,
@@ -32,7 +33,17 @@ require('lazy').setup({
     end,
     opts = {},
   },
-
+  -- keyword highlight
+  {
+    'RRethy/vim-illuminate',
+    event = { 'BufReadPost', 'BufNewFile' },
+    opts = {
+      filetypes_denylist = { 'NvimTree', 'Trouble', 'Dashboard', 'toggleterm' },
+    },
+    config = function(_, opts)
+      require('illuminate').configure(opts)
+    end,
+  },
   {
     'nvim-tree/nvim-tree.lua',
     keys = keymaps.NvimTree,
