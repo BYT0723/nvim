@@ -65,7 +65,7 @@ require('lazy').setup({
         remove_blankline_trail = true,
       },
       indent = {
-        char = '┋',
+        char = '┊',
       },
       exclude = {
         filetypes = { 'lspinfo', 'mason', 'lazy', 'checkhealth', 'help', 'man', '' },

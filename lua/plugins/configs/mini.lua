@@ -168,7 +168,7 @@ return {
         func = nil,
       },
       exchange = {
-        prefix = 'gx',
+        prefix = 'gX',
         reindent_linewise = true,
       },
       multiply = {
