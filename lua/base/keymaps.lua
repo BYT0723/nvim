@@ -21,11 +21,6 @@ local baseKeymaps = {
   { 'bk', '<cmd>bp<CR>',       desc = 'previous buffer' },
   { 'bj', '<cmd>bn<CR>',       desc = 'next buffer' },
   { 'bq', '<cmd>bdelete!<CR>', desc = 'delete buffer' },
-  -- quickfix
-  { 'ck',         '<cmd>cp<CR>',                                         desc = 'previous item in quickfix' },
-  { 'cj',         '<cmd>cn<CR>',                                         desc = 'next item in quickfix' },
-  { 'cc',         '<cmd>cc<CR>',                                         desc = 'current item in quickfix' },
-  { '<leader>cc', "<cmd>lua require('base.util').toggle_quickfix()<CR>", desc = 'Quickfix' },
   -- launcher - terminal
   { '<leader>rf', function() require('base.launcher').runFile() end,             desc = 'Run File' },
   { '<leader>lr', function() require('base.launcher').toolToggle('ranger') end, mode = { 'n', 't' }, desc = 'Ranger' },

@@ -63,7 +63,7 @@ M.Trouble = {
 -- stylua: ignore
 M.TodoComments = {
   { '<leader>xt', '<cmd>TroubleToggle todo<CR>', desc = 'Todo-Comments' },
-  { '<leader>xT', '<cmd>TroubleToggle todo keywords=TODO,FIX disable_not_found_warnings=true<CR>', desc = 'Todo-Comments [TODO|FIX]' },
+  { '<leader>xT', '<cmd>TroubleToggle todo keywords=TODO,FIX,FIXME,PERF<CR>', desc = 'Todo-Comments [TODO|FIX|PERF]' },
 }
 
 M.Diffview = {
@@ -108,11 +108,6 @@ M.TreesitterContext = {
   { '[c', function() require('treesitter-context').go_to_context() end, desc = 'previous context item', },
 }
 
--- stylua: ignore
-M.Refactor = {
-  {'<leader>rs', function() require('refactoring').select_refactor({}) end, desc = 'list of refactoring suggestions',},
-}
-
 -- lsp keybind
 M.maplsp = function(bufnr)
   -- stylua: ignore
@@ -120,34 +115,20 @@ M.maplsp = function(bufnr)
     -- diagnostic
     -- { '<leader>f', function() vim.diagnostic.open_float() end, desc = 'Hover Diagnostic', },
     -- { '<leader>l', function() vim.diagnostic.setloclist() end, desc = 'Loclist Diagnostic', },
-    { 'dk', function() vim.diagnostic.goto_prev() end, desc = 'Prev Diagnostic', },
-    { 'dj', function() vim.diagnostic.goto_next() end, desc = 'Next Diagnostic', },
-    { 'dK', function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, desc = 'Prev Diagnostic [ERROR]', },
-    { 'dJ', function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, desc = 'Next Diagnostic [ERROR]', },
-    -- rename and code_action
-    { '<leader>rn', function() vim.lsp.buf.rename() end,      desc = 'Global Rename', },
-    { '<leader>a',  function() vim.lsp.buf.code_action() end, desc = 'Code Actions',  },
-    { '<leader>a',  function() vim.lsp.buf.code_action() end, desc = 'Code Actions of Range', mode = 'v', },
-    -- goto xx
-    { 'gD',  function() vim.lsp.buf.declaration() end,     desc = 'Jump to Declaration' },
-    { 'gd',  function() vim.lsp.buf.definition() end,      desc = 'Jump to Definition' },
-    { 'gtd', function() vim.lsp.buf.type_definition() end, desc = 'Jump to Type Definition' },
-    { 'gi',  function() vim.lsp.buf.implementation() end,  desc = 'List Implementation' },
-    { 'gr',  function() vim.lsp.buf.references() end,      desc = 'LSP Finder' },
-    { 'K',   function() vim.lsp.buf.hover() end,           desc = 'Hover Document' },
-
-    -- { 'dk', '<cmd>Lspsaga diagnostic_jump_prev<CR>', desc = 'Prev Diagnostic', },
-    -- { 'dj', '<cmd>Lspsaga diagnostic_jump_next<CR>', desc = 'Next Diagnostic', },
-    -- { 'dK', function() require('lspsaga.diagnostic'):goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, desc = 'Prev Diagnostic [ERROR]', },
-    -- { 'dJ', function() require('lspsaga.diagnostic'):goto_next({ severity = vim.diagnostic.severity.ERROR }) end, desc = 'Next Diagnostic [ERROR]', },
-    -- { '<leader>rn', '<cmd>Lspsaga rename<CR>', desc = 'Global Rename', },
-    -- { '<leader>a', '<cmd>Lspsaga code_action<CR>', desc = 'Code Actions', },
-    -- { 'gD', function() vim.lsp.buf.declaration() end, desc = 'Jump to Declaration', },
-    -- { 'gd', function() vim.lsp.buf.definition() end, desc = 'Jump to Definition', },
-    -- { 'gtd', function() vim.lsp.buf.type_definition() end, desc = 'Jump to Type Definition', },
-    -- { 'gi', function() vim.lsp.buf.implementation() end, desc = 'List Implementation', },
-    -- { 'gr', function() vim.lsp.buf.references() end, desc = 'LSP Finder', },
-    -- { 'K', '<cmd>Lspsaga hover_doc<CR>', desc = 'Hover Document', },
+    -- { '<leader>l', function() vim.diagnostic.setqflist() end, desc = 'QuickFix Diagnostic', },
+    { 'dk',         function() vim.diagnostic.goto_prev() end,                                             desc = 'Prev Diagnostic',         },
+    { 'dj',         function() vim.diagnostic.goto_next() end,                                             desc = 'Next Diagnostic',         },
+    { 'dK',         function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, desc = 'Prev Diagnostic [ERROR]', },
+    { 'dJ',         function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, desc = 'Next Diagnostic [ERROR]', },
+    { '<leader>rn', function() vim.lsp.buf.rename() end,                                                   desc = 'Global Rename',           },
+    { '<leader>a',  function() vim.lsp.buf.code_action() end,                                              desc = 'Code Actions',            },
+    { '<leader>a',  function() vim.lsp.buf.code_action() end,                                              desc = 'Code Actions of Range',   mode = 'v', },
+    { 'gD',         function() vim.lsp.buf.declaration() end,                                              desc = 'Jump to Declaration',     },
+    { 'gd',         function() vim.lsp.buf.definition() end,                                               desc = 'Jump to Definition',      },
+    { 'gtd',        function() vim.lsp.buf.type_definition() end,                                          desc = 'Jump to Type Definition', },
+    { 'gi',         '<cmd>Trouble lsp_implementations<CR>',                                                    desc = 'List Implementation',     },
+    { 'gr',         '<cmd>Trouble lsp_references<CR>',                                                         desc = 'LSP Finder',              },
+    { 'K',          function() vim.lsp.buf.hover() end,                                                    desc = 'Hover Document',          },
     { '<leader>=', function() vim.lsp.buf.formatting() end, desc = 'LSP Format', },
     { '<leader>=', function() vim.lsp.buf.range_formatting() end, mode = 'v', desc = 'Format of Range', },
   }
