@@ -14,21 +14,18 @@ local baseKeymaps = {
   { '<C-h>', '<cmd>vertical resize -5<CR>', desc = 'Reduce form height' },
   { '<C-l>', '<cmd>vertical resize +5<CR>', desc = 'Increase window height' },
   -- tab
-  { 'tk', '<cmd>tabp<CR>',     desc = 'previous tab' },
-  { 'tj', '<cmd>tabn<CR>',     desc = 'next tab' },
-  { 'tq', '<cmd>tabclose<CR>', desc = 'close tab' },
+  { '<C-t>k', '<cmd>tabp<CR>',     desc = 'previous tab' },
+  { '<C-t>j', '<cmd>tabn<CR>',     desc = 'next tab' },
+  { '<C-t>q', '<cmd>tabclose<CR>', desc = 'close tab' },
   -- buffer
-  { 'bk', '<cmd>bp<CR>',       desc = 'previous buffer' },
-  { 'bj', '<cmd>bn<CR>',       desc = 'next buffer' },
-  { 'bq', '<cmd>bdelete!<CR>', desc = 'delete buffer' },
+  { '<C-b>k', '<cmd>bp<CR>',       desc = 'previous buffer' },
+  { '<C-b>j', '<cmd>bn<CR>',       desc = 'next buffer' },
+  { '<C-b>q', '<cmd>bdelete!<CR>', desc = 'delete buffer' },
   -- launcher - terminal
   { '<leader>rf', function() require('base.launcher').runFile() end,             desc = 'Run File' },
   { '<leader>lr', function() require('base.launcher').toolToggle('ranger') end, mode = { 'n', 't' }, desc = 'Ranger' },
   { '<leader>ld', function() require('base.launcher').toolToggle('docker') end, mode = { 'n', 't' }, desc = 'LazyDocker' },
   { '<leader>lg', function() require('base.launcher').toolToggle('git') end,    mode = { 'n', 't' }, desc = 'LazyGit' },
-  { '<C-b>n',     function() require('base.launcher').term_new() end,           mode = { 'n', 't' }, desc = 'New Terminal' },
-  { '<C-b>k',     function() require('base.launcher').term_prev() end,          mode = { 'n', 't' }, desc = 'Previous Terminal' },
-  { '<C-b>j',     function() require('base.launcher').term_next() end,          mode = { 'n', 't' }, desc = 'Next Terminal' },
   -- terminal
   { '<C-q>',  '<C-\\><C-n>',       desc = 'Exit terminal mode', mode = "t" },
   { '<C-w>j', '<cmd>wincmd j<CR>', desc = 'Move to window below', mode = "t" },
