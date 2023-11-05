@@ -161,3 +161,16 @@ lspconfig.asm_lsp.setup({
   capabilities = capabilities,
   settings = settings,
 })
+
+lspconfig.clangd.setup({
+  on_attach = on_attach,
+  capabilities = {
+    textDocument = {
+      completion = {
+        editsNearCursor = true,
+      },
+    },
+    offsetEncoding = 'utf-16',
+  },
+  init_options = settings,
+})
