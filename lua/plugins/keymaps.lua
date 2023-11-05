@@ -45,10 +45,6 @@ M.PanTran = {
   { '<leader>ti', '<cmd>Pantran mode=interactive<CR>',       mode = 'n', desc = 'Translate Interactive UI' },
 }
 
-M.Lspsaga = {
-  { '<leader>v', '<cmd>Lspsaga outline<CR>', desc = 'Syntax Tree' },
-}
-
 -- stylua: ignore
 M.Trouble = {
   { '<leader>xx', '<cmd>TroubleToggle<CR>', desc = 'Trouble' },

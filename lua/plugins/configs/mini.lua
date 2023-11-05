@@ -184,12 +184,7 @@ return {
       },
     },
   },
-  -- code view
-  {
-    'echasnovski/mini.map',
-    keys = keymaps.MiniMap,
-    opts = {},
-  },
+  -- show line tail space
   {
     'echasnovski/mini.trailspace',
     opts = {},
@@ -211,6 +206,7 @@ return {
   {
     'echasnovski/mini.sessions',
     version = false,
+    enabled = false,
     keys = keymaps.MiniSession,
     opts = {},
   },
