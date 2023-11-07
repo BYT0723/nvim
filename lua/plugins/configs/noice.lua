@@ -55,7 +55,7 @@ local options = {
       view = 'hover',
       ---@type NoiceViewOptions
       opts = {
-        lang = 'markdown',
+        lang = 'text',
         replace = true,
         render = 'plain',
         format = { '{message}' },

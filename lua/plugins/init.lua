@@ -31,7 +31,15 @@ require('lazy').setup({
     init = function()
       vim.cmd([[colorscheme tokyonight]])
     end,
-    opts = {},
+    opts = {
+      transparent = true,
+      styles = {
+        comments = { italic = true },
+        keywords = { italic = true },
+        functions = {},
+        variable = {},
+      },
+    },
   },
   -- keyword highlight
   {

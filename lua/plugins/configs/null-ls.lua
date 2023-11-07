@@ -30,7 +30,8 @@ return {
     nls.builtins.code_actions.gitsigns.with({
       config = {
         filter_actions = function(title)
-          return title:lower():match('blame') == nil -- filter out blame actions
+          -- return title:lower():match('blame') == nil -- filter out blame actions
+          return false
         end,
       },
     }),
