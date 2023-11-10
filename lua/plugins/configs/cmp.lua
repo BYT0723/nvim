@@ -22,6 +22,7 @@ local options = {
   -- 来源
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
+    { name = 'cmp_tabnine' },
     { name = 'vsnip' },
     { name = 'buffer' },
     { name = 'path' },
@@ -54,11 +55,15 @@ local options = {
   formatting = {
     fields = { 'kind', 'abbr', 'menu' },
     format = function(entry, vim_item)
+      if vim_item.kind:gsub('%s+', '') == 'TabNine' then
+        vim_item.menu = vim_item.kind .. '[' .. vim_item.menu .. ']'
+        vim_item.kind = '󱙺 '
+        return vim_item
+      end
       local kind = lspkind.cmp_format({ mode = 'symbol_text', maxwidth = 50 })(entry, vim_item)
       local strings = vim.split(kind.kind, '%s', { trimempty = true })
       kind.kind = strings[1]
       kind.menu = strings[2]
-
       return kind
     end,
   },
