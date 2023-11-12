@@ -24,28 +24,7 @@ require('lazy').setup({
   -- A series of mini.nvim plugins
   require('plugins.configs.mini'),
 
-  {
-    'codota/tabnine-nvim',
-    build = './dl_binaries.sh',
-    config = function()
-      require('tabnine').setup({
-        disable_auto_comment = true,
-        accept_keymap = '<C-l>',
-        dismiss_keymap = '<C-h>',
-        debounce_ms = 800,
-        suggestion_color = { gui = '#808080', cterm = 244 },
-        exclude_filetypes = { 'TelescopePrompt', 'NvimTree' },
-        log_file_path = nil, -- absolute path to Tabnine log file
-      })
-    end,
-  },
-  {
-    'tzachar/cmp-tabnine',
-    build = './install.sh',
-    dependencies = 'hrsh7th/nvim-cmp',
-    opts = {},
-  },
-
+  -- colorscheme
   {
     'folke/tokyonight.nvim',
     lazy = false,
@@ -63,6 +42,35 @@ require('lazy').setup({
       },
     },
   },
+  -- Wrap the input and select of vim.ui
+  { 'stevearc/dressing.nvim', event = 'VeryLazy', opts = {} },
+  -- UI美化
+  {
+    'folke/noice.nvim',
+    event = 'VeryLazy',
+    keys = keymaps.Noice,
+    opts = function()
+      return require('plugins.configs.noice')
+    end,
+  },
+  -- background transparent
+  {
+    'xiyaowong/transparent.nvim',
+    enabled = false,
+    cmd = { 'TransparentToggle', 'TransparentEnable' },
+    opts = {},
+  },
+  -- notify
+  {
+    'rcarriga/nvim-notify',
+    keys = keymaps.Notify,
+    opts = function()
+      return require('plugins.configs.notify')
+    end,
+    init = function()
+      vim.notify = require('notify')
+    end,
+  },
   -- keyword highlight
   {
     'RRethy/vim-illuminate',
@@ -74,6 +82,7 @@ require('lazy').setup({
       require('illuminate').configure(opts)
     end,
   },
+  -- tree file manager
   {
     'nvim-tree/nvim-tree.lua',
     keys = keymaps.NvimTree,
@@ -87,6 +96,7 @@ require('lazy').setup({
     end,
   },
 
+  -- indent blank line
   {
     'lukas-reineke/indent-blankline.nvim',
     main = 'ibl',
@@ -107,35 +117,6 @@ require('lazy').setup({
       },
     },
   },
-
-  -- background transparent
-  {
-    'xiyaowong/transparent.nvim',
-    cmd = { 'TransparentToggle', 'TransparentEnable' },
-    opts = {},
-  },
-  -- multi cursor
-  {
-    'mg979/vim-visual-multi',
-    keys = { '<C-n>', '<C-Up>', '<C-Down>' },
-  },
-  -- notify
-  {
-    'rcarriga/nvim-notify',
-    keys = keymaps.Notify,
-    opts = function()
-      return require('plugins.configs.notify')
-    end,
-    init = function()
-      vim.notify = require('notify')
-    end,
-  },
-  -- Wrap the input and select of vim.ui
-  {
-    'stevearc/dressing.nvim',
-    event = 'VeryLazy',
-    opts = {},
-  },
   -- terminal
   {
     'akinsho/toggleterm.nvim',
@@ -146,7 +127,6 @@ require('lazy').setup({
   -- git style, including blame, modify tags
   {
     'lewis6991/gitsigns.nvim',
-    -- keymap in options
     opts = function()
       return require('plugins.configs.gitsigns')
     end,
@@ -240,15 +220,7 @@ require('lazy').setup({
     'nvim-telescope/telescope.nvim',
     cmd = 'Telescope',
     keys = keymaps.Telescope,
-    dependencies = {
-      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-      {
-        'ahmedkhalf/project.nvim',
-        init = function()
-          require('project_nvim').setup()
-        end,
-      },
-    },
+    dependencies = { { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' } },
     opts = function()
       return require('plugins.configs.telescope')
     end,
@@ -281,23 +253,38 @@ require('lazy').setup({
     end,
   },
 
+  {
+    'codota/tabnine-nvim',
+    build = './dl_binaries.sh',
+    config = function()
+      require('tabnine').setup({
+        disable_auto_comment = true,
+        accept_keymap = '<C-l>',
+        dismiss_keymap = '<C-h>',
+        debounce_ms = 800,
+        suggestion_color = { gui = '#808080', cterm = 244 },
+        exclude_filetypes = { 'TelescopePrompt', 'NvimTree' },
+        log_file_path = nil, -- absolute path to Tabnine log file
+      })
+    end,
+  },
+  {
+    'tzachar/cmp-tabnine',
+    build = './install.sh',
+    dependencies = 'hrsh7th/nvim-cmp',
+    opts = {},
+  },
+
   -- lsp
   {
     'neovim/nvim-lspconfig',
     dependencies = {
-      { 'folke/neodev.nvim', opts = {} },
       'williamboman/mason.nvim',
+      -- lua vim developer
+      { 'folke/neodev.nvim', opts = {} },
     },
     init = function()
       require('plugins.configs.lspconfig')
-    end,
-  },
-  {
-    'folke/noice.nvim',
-    event = 'VeryLazy',
-    keys = keymaps.Noice,
-    opts = function()
-      return require('plugins.configs.noice')
     end,
   },
   -- lsp 管理
@@ -323,17 +310,6 @@ require('lazy').setup({
       require('plugins.configs.formatter').setup()
     end,
   },
-  -- lsp wrapper
-  {
-    'glepnir/lspsaga.nvim',
-    enabled = false,
-    cmd = 'Lspsaga',
-    keys = keymaps.Lspsaga,
-    opts = function()
-      return require('plugins.configs.lspsaga')
-    end,
-  },
-
   {
     'simrat39/symbols-outline.nvim',
     cmd = 'SymbolsOutline',
@@ -370,29 +346,6 @@ require('lazy').setup({
         Fragment = { icon = '', hl = '@constant' },
       },
     },
-  },
-  {
-    -- This plugin requires nvim-nightly
-    'lvimuser/lsp-inlayhints.nvim',
-    enabled = false,
-    branch = 'anticonceal',
-    ft = { 'rust' },
-    keys = keymaps.LspInlayHints,
-    config = function()
-      vim.api.nvim_create_autocmd('LspAttach', {
-        group = vim.api.nvim_create_augroup('LspAttach_inlayhints', {}),
-        callback = function(args)
-          if not (args.data and args.data.client_id) then
-            return
-          end
-          local client = vim.lsp.get_client_by_id(args.data.client_id)
-          require('lsp-inlayhints').on_attach(client, args.buf, false)
-        end,
-      })
-      require('lsp-inlayhints').setup({
-        inlay_hints = { highlight = 'Comment' },
-      })
-    end,
   },
   -- debug配置
   {
@@ -437,17 +390,16 @@ require('lazy').setup({
     opts = {},
   },
 
+  -- 该插件有待考量，寻找平提产品
   {
     'nvim-orgmode/orgmode',
-    enabled = true,
+    enabled = false,
     dependencies = {
       'nvim-treesitter/nvim-treesitter',
     },
     opts = {
       org_agenda_files = { '~/Documents/org/*' },
       org_default_notes_file = '~/Documents/org/refile.org',
-      -- win_split_mode = { 'float', 0.6 },
-      -- win_border = { '╔', '═', '╗', '║', '╝', '═', '╚', '║' },
     },
     init = function()
       require('orgmode').setup_ts_grammar()
@@ -472,12 +424,6 @@ require('lazy').setup({
     enabled = false,
     opts = {},
     dev = true,
-  },
-  {
-    'eandrju/cellular-automaton.nvim',
-    enabled = true,
-    opts = {},
-    cmd = 'CellularAutomaton',
   },
 }, {
   ui = {

@@ -4,7 +4,7 @@ local api = vim.api
 local util = require('base.util')
 
 M.exc_file = {
-  lua = { 'keybindings.lua' },
+  lua = { 'keybindings.lua', 'dwm.c', 'st.c' },
   cpp = { 'config.h' },
 }
 
@@ -31,14 +31,14 @@ M.formatCond = {
       return table.concat(api.nvim_buf_get_lines(0, 0, api.nvim_buf_line_count(0), false)) == ''
     end,
   },
-  have_error = {
-    msg = 'current buffer have errors',
-    level = vim.log.levels.ERROR,
-    func = function()
-      local diagnostic_list = vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
-      return #diagnostic_list ~= 0
-    end,
-  },
+  -- have_error = {
+  --   msg = 'current buffer have errors',
+  --   level = vim.log.levels.ERROR,
+  --   func = function()
+  --     local diagnostic_list = vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
+  --     return #diagnostic_list ~= 0
+  --   end,
+  -- },
 }
 
 function M.format()

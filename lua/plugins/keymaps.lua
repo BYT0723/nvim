@@ -84,7 +84,6 @@ M.Telescope = {
   { '<leader>fb', function() require('telescope.builtin').buffers() end,    desc = 'Find Buffers' },
   { '<leader>fr', function() require('telescope.builtin').oldfiles() end,   desc = 'Recent Files' },
   { "<leader>f'", function() require('telescope.builtin').marks() end,      desc = 'List Marks' },
-  { '<leader>fp', '<cmd>Telescope projects<CR>',                            desc = 'Recent Projects' },
 }
 
 -- stylua: ignore

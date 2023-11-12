@@ -46,13 +46,6 @@ return {
     version = false,
     opts = {},
   },
-  -- animation
-  {
-    'echasnovski/mini.animate',
-    version = false,
-    enabled = false,
-    opts = {},
-  },
   -- autopairs
   {
     'echasnovski/mini.pairs',
@@ -65,22 +58,6 @@ return {
     version = false,
     opts = {},
   },
-  -- indentblack
-  -- {
-  --   'echasnovski/mini.indentscope',
-  --   version = false,
-  --   init = function()
-  --     vim.opt.list = false
-  --   end,
-  --   opts = {
-  --     mappings = {
-  --       object_scope = 'ii',
-  --       object_scope_with_border = 'ai',
-  --       goto_top = '[i',
-  --       goto_bottom = ']i',
-  --     },
-  --   },
-  -- },
   -- hex colors display
   {
     'echasnovski/mini.hipatterns',
@@ -158,32 +135,6 @@ return {
       },
     },
   },
-  -- common operators
-  {
-    'echasnovski/mini.operators',
-    version = false,
-    opts = {
-      evaluate = {
-        prefix = 'g=',
-        func = nil,
-      },
-      exchange = {
-        prefix = 'gX',
-        reindent_linewise = true,
-      },
-      multiply = {
-        prefix = 'gm',
-      },
-      -- replace = {
-      --   prefix = 'gr',
-      --   reindent_linewise = true,
-      -- },
-      sort = {
-        prefix = 'gs',
-        func = nil,
-      },
-    },
-  },
   -- show line tail space
   {
     'echasnovski/mini.trailspace',
@@ -193,6 +144,7 @@ return {
   {
     'echasnovski/mini.files',
     version = false,
+    enabled = false,
     keys = keymaps.MiniFiles,
     opts = {
       windows = {

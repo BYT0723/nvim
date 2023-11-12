@@ -29,7 +29,7 @@ vim.api.nvim_create_autocmd('FileType', {
   command = 'setlocal tabstop=2 softtabstop=2 shiftwidth=2',
 })
 
--- The style of code diagnosis, the style setting has nothing to do with LSP or Linter
+-- The style of code diagnostic, the style setting has nothing to do with LSP or Linter
 local signs = {
   { name = 'DiagnosticSignError', text = ' ' },
   { name = 'DiagnosticSignWarn', text = ' ' },
@@ -41,7 +41,7 @@ for _, sign in ipairs(signs) do
 end
 
 vim.diagnostic.config({
-  virtual_text = true,
+  virtual_text = false,
   signs = { active = signs },
   update_in_insert = false,
   underline = true,
