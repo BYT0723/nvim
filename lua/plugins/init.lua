@@ -185,7 +185,7 @@ require('lazy').setup({
   -- golang
   { 'fatih/vim-go', ft = { 'go', 'gomod' } },
   -- go-zero
-  { 'BYT0723/goctl.nvim', ft = { 'goctl', 'proto', 'sql' }, opts = {}, dev = true },
+  { 'BYT0723/goctl.nvim', opts = {}, dev = true },
   -- godot
   { 'habamax/vim-godot', ft = { 'gdscript', 'gdresource' } },
   -- sql
