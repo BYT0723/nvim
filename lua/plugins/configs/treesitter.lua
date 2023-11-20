@@ -95,9 +95,6 @@ local options = {
     zindex = 20, -- The Z-index of the context window
     on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
   },
-  context_commentstring = {
-    enable = true,
-  },
 }
 
 return options

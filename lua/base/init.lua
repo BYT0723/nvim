@@ -58,6 +58,18 @@ vim.diagnostic.config({
 })
 
 -- vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
---   border = 'double',
+--   -- border = 'rounded',
 --   title = '  Hover ',
+-- })
+--
+-- vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+--   -- border = 'rounded',
+--   focus = false,
+-- })
+--
+-- vim.api.nvim_create_autocmd({ 'CursorMovedI', 'InsertEnter' }, {
+--   group = vim.api.nvim_create_augroup('noice_lsp_docs', { clear = true }),
+--   callback = function()
+--     vim.lsp.buf.signature_help()
+--   end,
 -- })

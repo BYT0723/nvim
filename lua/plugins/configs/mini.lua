@@ -13,13 +13,23 @@ local header = '\
 
 return {
   -- colorscheme
-  -- {
-  --   'echasnovski/mini.hues',
-  --   version = false,
-  --   init = function()
-  --     vim.cmd([[colorscheme randomhue]])
-  --   end,
-  -- },
+  {
+    'echasnovski/mini.hues',
+    enabled = false,
+    version = false,
+    init = function()
+      vim.cmd([[colorscheme randomhue]])
+    end,
+  },
+  {
+    'echasnovski/mini.cursorword',
+    -- 关闭原因：没有结合LSP分析
+    enabled = false,
+    version = false,
+    opts = {
+      delay = 500,
+    },
+  },
   -- starter UI
   {
     'echasnovski/mini.starter',
@@ -27,7 +37,7 @@ return {
     opts = {
       header = header,
       items = {
-        { name = 'Explorer', action = 'lua require("mini.files").open()', section = 'TOOLS' },
+        { name = 'Explorer', action = 'NvimTreeToggle', section = 'TOOLS' },
         { name = 'Finder', action = 'Telescope find_files', section = 'TOOLS' },
         { name = 'Plugin', action = 'Lazy', section = 'TOOLS' },
         { name = 'Configuration', action = 'Telescope find_files cwd=~/.config/nvim', section = 'SYSTEM' },
@@ -56,7 +66,13 @@ return {
   {
     'echasnovski/mini.comment',
     version = false,
-    opts = {},
+    opts = {
+      options = {
+        custom_commentstring = function()
+          return require('ts_context_commentstring').calculate_commentstring() or vim.bo.commentstring
+        end,
+      },
+    },
   },
   -- hex colors display
   {

@@ -27,6 +27,7 @@ require('lazy').setup({
   -- colorscheme
   {
     'folke/tokyonight.nvim',
+    enabled = true,
     lazy = false,
     priority = 1000,
     init = function()
@@ -39,6 +40,8 @@ require('lazy').setup({
         keywords = { italic = true },
         functions = {},
         variable = {},
+        sidebars = 'transparent', -- style for sidebars, see below
+        floats = 'transparent', -- style for floating windows
       },
     },
   },
@@ -57,8 +60,10 @@ require('lazy').setup({
   {
     'xiyaowong/transparent.nvim',
     enabled = false,
-    cmd = { 'TransparentToggle', 'TransparentEnable' },
-    opts = {},
+    opts = {
+      extra_groups = {}, -- table: additional groups that should be cleared
+      exclude_groups = {}, -- table: groups you don't want to clear
+    },
   },
   -- notify
   {
@@ -77,6 +82,7 @@ require('lazy').setup({
     event = { 'BufReadPost', 'BufNewFile' },
     opts = {
       filetypes_denylist = { 'NvimTree', 'Trouble', 'Dashboard', 'toggleterm' },
+      delay = 500,
     },
     config = function(_, opts)
       require('illuminate').configure(opts)
@@ -86,6 +92,7 @@ require('lazy').setup({
   {
     'nvim-tree/nvim-tree.lua',
     keys = keymaps.NvimTree,
+    cmd = { 'NvimTreeToggle' },
     init = function()
       vim.g.loaded_netrw = 1
       vim.g.loaded_netrwPlugin = 1
@@ -380,7 +387,7 @@ require('lazy').setup({
       'nvim-treesitter/playground',
       'p00f/nvim-ts-rainbow', -- 彩色括号
       'nvim-treesitter/nvim-treesitter-context',
-      'JoosepAlviste/nvim-ts-context-commentstring',
+      { 'JoosepAlviste/nvim-ts-context-commentstring', opts = {} },
     },
   },
   -- 代码重构
