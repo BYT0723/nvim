@@ -26,6 +26,7 @@ require('lazy').setup({
 
   -- colorscheme
   {
+    -- https://github.com/folke/tokyonight.nvim
     'folke/tokyonight.nvim',
     enabled = true,
     lazy = false,
@@ -41,8 +42,9 @@ require('lazy').setup({
         functions = {},
         variable = {},
         sidebars = 'transparent', -- style for sidebars, see below
-        floats = 'transparent', -- style for floating windows
+        floats = 'dark', -- style for floating windows
       },
+      sidebars = { 'qf', 'vista_kind', 'terminal', 'packer' },
     },
   },
   -- Wrap the input and select of vim.ui
@@ -262,6 +264,7 @@ require('lazy').setup({
 
   {
     'codota/tabnine-nvim',
+    enabled = false,
     build = './dl_binaries.sh',
     config = function()
       require('tabnine').setup({
@@ -277,6 +280,7 @@ require('lazy').setup({
   },
   {
     'tzachar/cmp-tabnine',
+    enabled = false,
     build = './install.sh',
     dependencies = 'hrsh7th/nvim-cmp',
     opts = {},
