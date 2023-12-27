@@ -35,8 +35,6 @@ local ensure_installed = {
   'cpplint',
   'eslint_d',
   'golangci-lint',
-  'proselint',
-  'vint',
   -- Formatter
   'autopep8',
   'goimports',

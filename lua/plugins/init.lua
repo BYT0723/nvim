@@ -278,13 +278,13 @@ require('lazy').setup({
       })
     end,
   },
-  {
-    'tzachar/cmp-tabnine',
-    enabled = false,
-    build = './install.sh',
-    dependencies = 'hrsh7th/nvim-cmp',
-    opts = {},
-  },
+  -- {
+  --   'tzachar/cmp-tabnine',
+  --   enabled = false,
+  --   build = './install.sh',
+  --   dependencies = 'hrsh7th/nvim-cmp',
+  --   opts = {},
+  -- },
 
   -- lsp
   {

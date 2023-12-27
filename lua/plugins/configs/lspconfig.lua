@@ -1,33 +1,22 @@
 local lspconfig = require('lspconfig')
 local install_servers = {
-  -- "angularls",
-  'asm_lsp',
   'bashls',
   'bufls',
   'clangd',
-  'cmake',
   'cssls',
   'dockerls',
   'docker_compose_language_service',
   'dotls',
   'emmet_ls',
-  'eslint',
   'gopls',
-  'html',
   'jsonls',
   'lua_ls',
   'marksman',
   'pyright',
   -- "rust_analyzer",
-  'sqlls',
-  'taplo',
   'tsserver',
-  'vimls',
-  'volar',
-  'yamlls',
   -- Other non-installation servers
   'gdscript',
-  'dartls',
 }
 
 -- Use an on_attach function to only map the following keys

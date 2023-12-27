@@ -4,30 +4,8 @@ require('base.environment')
 -- basic keymap
 require('base.keymaps')
 
--- The global indentation is 4 spaces, but some languages are more suitable for 2 spaces indentation
--- Flexible setting of 2 space indentation according to different languages
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = {
-    'html',
-    'javascript',
-    'typescript',
-    'css',
-    'less',
-    'scss',
-    'vue',
-    'json',
-    'lua',
-    'python',
-    'dart',
-    'markdown',
-    'yaml',
-    'toml',
-    'dockerfile',
-    'make',
-    'ruby',
-  },
-  command = 'setlocal tabstop=2 softtabstop=2 shiftwidth=2',
-})
+-- autocmd
+require('base.autocmd')
 
 -- The style of code diagnostic, the style setting has nothing to do with LSP or Linter
 local signs = {

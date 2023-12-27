@@ -8,7 +8,6 @@ return {
     --
     -- nls.builtins.diagnostics.cpplint,
     nls.builtins.diagnostics.golangci_lint,
-    nls.builtins.diagnostics.proselint,
     nls.builtins.diagnostics.flake8,
     nls.builtins.code_actions.eslint_d,
     -- format
@@ -36,7 +35,6 @@ return {
       },
     }),
     --- util
-    nls.builtins.code_actions.proselint,
     nls.builtins.code_actions.refactoring,
   },
 }

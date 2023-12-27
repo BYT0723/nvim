@@ -20,7 +20,7 @@
     "description": "indent"
   },
   "split-line": {
-    "prefix": "split",
+    "prefix": "more",
     "body": ["<!--more-->"],
     "description": "split line"
   },
