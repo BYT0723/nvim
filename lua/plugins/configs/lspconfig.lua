@@ -152,6 +152,8 @@ lspconfig.asm_lsp.setup({
 })
 
 lspconfig.clangd.setup({
+  filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
+  cmd = { 'clangd', '--no-proto' },
   on_attach = on_attach,
   capabilities = {
     textDocument = {

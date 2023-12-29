@@ -18,6 +18,7 @@ return {
     nls.builtins.formatting.gofumpt,
     nls.builtins.formatting.taplo,
     nls.builtins.formatting.prettierd,
+    nls.builtins.formatting.buf,
 
     -- action
     --- language
