@@ -78,10 +78,12 @@ local settings = {
     keyOrdering = false,
   },
   html = {
-    options = {
-      -- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
-      ['bem.enabled'] = true,
+    configurationSection = { 'html', 'css', 'javascript' },
+    embeddedLanguages = {
+      css = true,
+      javascript = true,
     },
+    provideFormatter = true,
   },
   typescript = {
     inlayHints = {
@@ -138,7 +140,27 @@ require('rust-tools').setup({
 lspconfig.emmet_ls.setup({
   on_attach = on_attach,
   capabilities = capabilities,
-  filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less' },
+  filetypes = {
+    'astro',
+    'css',
+    'eruby',
+    'html',
+    'htmldjango',
+    'javascriptreact',
+    'less',
+    'pug',
+    'sass',
+    'scss',
+    'svelte',
+    'typescriptreact',
+    'vue',
+    'gohtmltmpl',
+  },
+  init_options = settings,
+})
+
+lspconfig.html.setup({
+  filetypes = { 'html', 'gohtmltmpl' },
   init_options = settings,
 })
 
@@ -153,7 +175,6 @@ lspconfig.asm_lsp.setup({
 
 lspconfig.clangd.setup({
   filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
-  cmd = { 'clangd', '--no-proto' },
   on_attach = on_attach,
   capabilities = {
     textDocument = {

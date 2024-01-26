@@ -192,7 +192,7 @@ require('lazy').setup({
   { 'simrat39/rust-tools.nvim' },
   { 'saecki/crates.nvim', ft = 'toml', opts = {} },
   -- golang
-  { 'fatih/vim-go', ft = { 'go', 'gomod' } },
+  { 'fatih/vim-go', ft = { 'go', 'gomod', 'gohtmltmpl' } },
   -- go-zero
   { 'BYT0723/goctl.nvim', opts = {}, dev = true },
   -- godot
@@ -262,22 +262,22 @@ require('lazy').setup({
     end,
   },
 
-  {
-    'codota/tabnine-nvim',
-    enabled = false,
-    build = './dl_binaries.sh',
-    config = function()
-      require('tabnine').setup({
-        disable_auto_comment = true,
-        accept_keymap = '<C-l>',
-        dismiss_keymap = '<C-h>',
-        debounce_ms = 800,
-        suggestion_color = { gui = '#808080', cterm = 244 },
-        exclude_filetypes = { 'TelescopePrompt', 'NvimTree' },
-        log_file_path = nil, -- absolute path to Tabnine log file
-      })
-    end,
-  },
+  -- {
+  --   'codota/tabnine-nvim',
+  --   enabled = false,
+  --   build = './dl_binaries.sh',
+  --   config = function()
+  --     require('tabnine').setup({
+  --       disable_auto_comment = true,
+  --       accept_keymap = '<C-l>',
+  --       dismiss_keymap = '<C-h>',
+  --       debounce_ms = 800,
+  --       suggestion_color = { gui = '#808080', cterm = 244 },
+  --       exclude_filetypes = { 'TelescopePrompt', 'NvimTree' },
+  --       log_file_path = nil, -- absolute path to Tabnine log file
+  --     })
+  --   end,
+  -- },
   -- {
   --   'tzachar/cmp-tabnine',
   --   enabled = false,

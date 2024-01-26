@@ -8,6 +8,7 @@ vim.api.nvim_create_autocmd('FileType', {
     'dart',
     'dockerfile',
     'html',
+    'gohtmltmpl',
     'javascript',
     'json',
     'less',
