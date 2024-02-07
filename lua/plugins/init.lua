@@ -41,7 +41,7 @@ require('lazy').setup({
         keywords = { italic = true },
         functions = {},
         variable = {},
-        sidebars = 'transparent', -- style for sidebars, see below
+        sidebars = 'dark', -- style for sidebars, see below
         floats = 'dark', -- style for floating windows
       },
       sidebars = { 'qf', 'vista_kind', 'terminal', 'packer' },
@@ -192,7 +192,20 @@ require('lazy').setup({
   { 'simrat39/rust-tools.nvim' },
   { 'saecki/crates.nvim', ft = 'toml', opts = {} },
   -- golang
-  { 'fatih/vim-go', ft = { 'go', 'gomod', 'gohtmltmpl' } },
+  {
+    'fatih/vim-go',
+    enabled = false,
+    ft = { 'go', 'gomod', 'gohtmltmpl' },
+  },
+  {
+    'ray-x/go.nvim',
+    dependencies = { 'ray-x/guihua.lua' },
+    opts = {
+      lsp_inlay_hints = { enable = false },
+    },
+    event = { 'CmdlineEnter' },
+    build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
+  },
   -- go-zero
   { 'BYT0723/goctl.nvim', opts = {}, dev = true },
   -- godot
@@ -298,6 +311,13 @@ require('lazy').setup({
       require('plugins.configs.lspconfig')
     end,
   },
+  -- inlayhints
+  -- {
+  --   'lvimuser/lsp-inlayhints.nvim',
+  --   opts = {},
+  --   event = 'LspAttach',
+  --   branch = 'anticonceal',
+  -- },
   -- lsp 管理
   {
     'williamboman/mason.nvim',

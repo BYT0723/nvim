@@ -32,6 +32,8 @@ local on_attach = function(client, bufnr)
       { noremap = true, silent = true, desc = 'jump between header and c/cpp' }
     )
   end
+  -- NOTE: need neovim-nightly and lsp-inlayhints
+  -- require('lsp-inlayhints').on_attach(client, bufnr)
 end
 
 local settings = {
