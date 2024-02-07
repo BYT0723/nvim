@@ -107,14 +107,6 @@ M.TreesitterContext = {
 M.maplsp = function(bufnr)
   -- stylua: ignore
   local lsp_keys = {
-    -- diagnostic
-    -- { '<leader>f', function() vim.diagnostic.open_float() end, desc = 'Hover Diagnostic', },
-    -- { '<leader>l', function() vim.diagnostic.setloclist() end, desc = 'Loclist Diagnostic', },
-    -- { '<leader>l', function() vim.diagnostic.setqflist() end, desc = 'QuickFix Diagnostic', },
-    { 'dk',         function() vim.diagnostic.goto_prev() end,                                             desc = 'Prev Diagnostic',         },
-    { 'dj',         function() vim.diagnostic.goto_next() end,                                             desc = 'Next Diagnostic',         },
-    { 'dK',         function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, desc = 'Prev Diagnostic [ERROR]', },
-    { 'dJ',         function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, desc = 'Next Diagnostic [ERROR]', },
     { '<leader>rn', function() vim.lsp.buf.rename() end,                                                   desc = 'Global Rename',           },
     { '<leader>a',  function() vim.lsp.buf.code_action() end,                                              desc = 'Code Actions',            },
     { '<leader>a',  function() vim.lsp.buf.code_action() end,                                              desc = 'Code Actions of Range',   mode = 'v', },
