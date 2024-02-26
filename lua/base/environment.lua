@@ -56,3 +56,4 @@ vim.g.do_filetype_lua = true
 vim.g.did_load_filetypes = false
 
 vim.opt.list = false
+vim.opt.showmode = false

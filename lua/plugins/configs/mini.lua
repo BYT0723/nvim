@@ -16,7 +16,7 @@ return {
   {
     'echasnovski/mini.hues',
     enabled = false,
-    version = false,
+    version = '*',
     init = function()
       vim.cmd([[colorscheme randomhue]])
     end,
@@ -25,7 +25,7 @@ return {
     'echasnovski/mini.cursorword',
     -- 关闭原因：没有结合LSP分析
     enabled = false,
-    version = false,
+    version = '*',
     opts = {
       delay = 500,
     },
@@ -47,19 +47,48 @@ return {
   -- bufferline
   {
     'echasnovski/mini.tabline',
-    version = false,
+    version = '*',
     opts = {},
   },
   -- statusline
   {
     'echasnovski/mini.statusline',
-    version = false,
-    opts = {},
+    version = '*',
+    dependencies = { 'folke/noice.nvim' },
+    config = function()
+      require('mini.statusline').setup({
+        content = {
+          active = function()
+            local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
+            local git = MiniStatusline.section_git({ trunc_width = 75 })
+            local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
+            local filename = MiniStatusline.section_filename({ trunc_width = 140 })
+            local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
+            local location = MiniStatusline.section_location({ trunc_width = 75 })
+            local status_mode = require('noice').api.status.mode.get()
+
+            return MiniStatusline.combine_groups({
+              { hl = mode_hl, strings = { mode } },
+              { hl = 'MiniStatuslineDevinfo', strings = { git, diagnostics } },
+              '%<', -- Mark general truncate point
+              { hl = 'MiniStatuslineFilename', strings = { filename } },
+              '%=', -- End left alignment
+              { strings = { status_mode } },
+              { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
+              { hl = mode_hl, strings = { location } },
+            })
+          end,
+          inactive = nil,
+        },
+        use_icons = true,
+        set_vim_settings = true,
+      })
+    end,
   },
   -- autopairs
   {
     'echasnovski/mini.pairs',
-    version = false,
+    version = '*',
     opts = {},
   },
   -- comment
@@ -77,7 +106,7 @@ return {
   -- hex colors display
   {
     'echasnovski/mini.hipatterns',
-    version = false,
+    version = '*',
     config = function()
       require('mini.hipatterns').setup({
         highlighters = {
@@ -96,7 +125,7 @@ return {
   -- quick jump
   {
     'echasnovski/mini.jump',
-    version = false,
+    version = '*',
     opts = {},
   },
   -- text align
@@ -108,7 +137,7 @@ return {
   -- surround text
   {
     'echasnovski/mini.surround',
-    version = false,
+    version = '*',
     opts = {
       mappings = {
         add = 'sa', -- Add surrounding in Normal and Visual modes
@@ -127,7 +156,7 @@ return {
   -- toggle body
   {
     'echasnovski/mini.splitjoin',
-    version = false,
+    version = '*',
     opts = {
       mappings = {
         toggle = 'gS',
@@ -139,7 +168,7 @@ return {
   -- move code block
   {
     'echasnovski/mini.move',
-    versiont = false,
+    versiont = '*',
     opts = {
       -- Module mappings. Use `''` (empty string) to disable one.
       mappings = {
@@ -159,7 +188,7 @@ return {
   -- file manager
   {
     'echasnovski/mini.files',
-    version = false,
+    version = '*',
     enabled = false,
     keys = keymaps.MiniFiles,
     opts = {
@@ -173,7 +202,7 @@ return {
   -- nvim session
   {
     'echasnovski/mini.sessions',
-    version = false,
+    version = '*',
     enabled = false,
     keys = keymaps.MiniSession,
     opts = {},
