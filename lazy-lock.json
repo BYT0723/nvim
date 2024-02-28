@@ -49,6 +49,7 @@
   "pantran.nvim": { "branch": "main", "commit": "461799624948bfb66f73b20b6fffa7e4c8ca6d08" },
   "playground": { "branch": "master", "commit": "ba48c6a62a280eefb7c85725b0915e021a1a0749" },
   "plenary.nvim": { "branch": "master", "commit": "4f71c0c4a196ceb656c824a70792f3df3ce6bb6d" },
+  "project.nvim": { "branch": "main", "commit": "8c6bad7d22eef1b71144b401c9f74ed01526a4fb" },
   "rainbow-delimiters.nvim": { "branch": "master", "commit": "64b7006a36cec099da7eaeb056c4a27dd5d73342" },
   "refactoring.nvim": { "branch": "master", "commit": "94444558fc651b7e36f39d86c518e44b4de15123" },
   "rust-tools.nvim": { "branch": "master", "commit": "676187908a1ce35ffcd727c654ed68d851299d3e" },

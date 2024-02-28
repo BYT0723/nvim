@@ -64,6 +64,8 @@ end
 
 local options = {
   on_attach = on_attach,
+  sync_root_with_cwd = true,
+  respect_buf_cwd = true,
   renderer = {
     indent_markers = {
       enable = true,
@@ -71,7 +73,7 @@ local options = {
   },
   update_focused_file = {
     enable = true,
-    update_root = false,
+    update_root = true,
     ignore_list = {},
   },
   diagnostics = {

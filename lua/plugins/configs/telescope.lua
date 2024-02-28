@@ -43,7 +43,7 @@ local options = {
       -- the default case_mode is "smart_case"
     },
   },
-  extensions_list = { 'fzf', 'notify', 'noice' },
+  extensions_list = { 'fzf', 'notify', 'noice', 'projects' },
 }
 
 return options
