@@ -41,3 +41,15 @@ vim.api.nvim_create_autocmd('BufReadPre', {
 
 -- auto wrap line
 vim.api.nvim_create_autocmd('FileType', { pattern = { 'markdown' }, command = 'set wrap' })
+
+vim.api.nvim_create_autocmd('RecordingEnter', {
+  callback = function()
+    vim.notify('󰑋 ' .. vim.fn.reg_recording() .. ' RECORDING STARTED...')
+  end,
+})
+
+vim.api.nvim_create_autocmd('RecordingLeave', {
+  callback = function()
+    vim.notify('󰑋 ' .. vim.fn.reg_recording() .. ' RECORDING FINISHED...')
+  end,
+})
