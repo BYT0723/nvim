@@ -259,6 +259,7 @@ require('lazy').setup({
   -- completion
   {
     'hrsh7th/nvim-cmp',
+    enabled = true,
     event = { 'InsertEnter', 'CmdlineEnter' },
     dependencies = {
       'hrsh7th/cmp-nvim-lsp', -- { name = nvim_lsp }
@@ -409,10 +410,15 @@ require('lazy').setup({
     end,
     dependencies = {
       'nvim-treesitter/playground',
-      'p00f/nvim-ts-rainbow', -- 彩色括号
       'nvim-treesitter/nvim-treesitter-context',
       { 'JoosepAlviste/nvim-ts-context-commentstring', opts = {} },
     },
+  },
+  {
+    'HiPhish/rainbow-delimiters.nvim',
+    config = function()
+      require('rainbow-delimiters.setup').setup({})
+    end,
   },
   -- 代码重构
   {
