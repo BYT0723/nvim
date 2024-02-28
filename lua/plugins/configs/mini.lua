@@ -107,7 +107,11 @@ return {
               { hl = mode_hl, strings = { location } },
             })
           end,
-          inactive = nil,
+          inactive = function()
+            return MiniStatusline.combine_groups({
+              { strings = { vim.bo.buftype == 'terminal' and '%t' or '%f%m%r' } },
+            })
+          end,
         },
         use_icons = true,
         set_vim_settings = true,
