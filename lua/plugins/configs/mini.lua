@@ -9,9 +9,35 @@ local header = '\
                                                       \
           [ May everyone not be alone ]               '
 
--- require('mini.completion').setup()
-
 return {
+  {
+    'echasnovski/mini.completion',
+    enabled = false,
+    version = '*',
+    opts = {},
+  },
+  {
+    'echasnovski/mini.indentscope',
+    version = '*',
+    opts = {
+      mappings = {
+        object_scope = 'ii',
+        object_scope_with_border = 'ai',
+        goto_top = '[i',
+        goto_bottom = ']i',
+      },
+      symbol = '╎',
+    },
+  },
+  {
+    'echasnovski/mini.bufremove',
+    version = '*',
+    -- stylua: ignore
+    keys = {
+      { 'bq', function() require('mini.bufremove').delete(0) end, desc = 'delete buffer', mode = 'n' },
+    },
+    opts = {},
+  },
   -- colorscheme
   {
     'echasnovski/mini.hues',
