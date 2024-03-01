@@ -31,6 +31,17 @@ M.formatCond = {
       return table.concat(api.nvim_buf_get_lines(0, 0, api.nvim_buf_line_count(0), false)) == ''
     end,
   },
+  file_size = {
+    msg = 'file size too large, max_size is 10MB',
+    level = vim.log.levels.INFO,
+    func = function()
+      local max_filesize = 10 * 1024 * 1024 -- 10MB
+      local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf()))
+      if ok and stats and stats.size > max_filesize then
+        return true
+      end
+    end,
+  },
   -- have_error = {
   --   msg = 'current buffer have errors',
   --   level = vim.log.levels.ERROR,
