@@ -18,8 +18,15 @@ return {
   },
   {
     'echasnovski/mini.indentscope',
+    enabled = false,
     version = '*',
     opts = {
+      draw = {
+        delay = 500,
+        animation = function()
+          return 20
+        end,
+      },
       mappings = {
         object_scope = 'ii',
         object_scope_with_border = 'ai',
