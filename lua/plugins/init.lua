@@ -207,7 +207,7 @@ require('lazy').setup({
     build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
   },
   -- go-zero
-  { 'BYT0723/goctl.nvim', opts = {} },
+  { 'BYT0723/goctl.nvim', opts = {}, dev = true },
   -- godot
   { 'habamax/vim-godot', ft = { 'gdscript', 'gdresource' } },
   -- sql

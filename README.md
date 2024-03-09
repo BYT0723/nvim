@@ -1,18 +1,8 @@
-<!--toc:start-->
-
-- [Previews](#previews)
-- [Required](#required)
-- [Startup process of lua configuration](#startup-process-of-lua-configuration)
-- [Plugins be Loaded in `lua/plugins/init.lua` by `lazy.nvim`](#plugins-be-loaded-in-luapluginsinitlua-by-lazynvim)
-- [Plugin configuration in `lua/plugins/config/`](#plugin-configuration-in-luapluginsconfig)
-- [Custom Keymap in `lua/keybindings.lua`](#custom-keymap-in-luakeybindingslua)
-<!--toc:end-->
-
 > neovim configuration of lua only
 
 ### Previews
 
-![neovim-preview](https://i.imgur.com/2TEvcP4.png)
+![neovim-preview](https://i.imgur.com/fY6sbBh.png)
 
 ### Required
 
@@ -29,6 +19,8 @@ check your depend by `:checkhealth`
 ├── lazy-lock.json
 ├── lua
 │   ├── base
+│   │   ├── autocmd.lua
+│   │   ├── diagnostic.lua
 │   │   ├── environment.lua
 │   │   ├── init.lua
 │   │   ├── keymaps.lua
@@ -36,24 +28,19 @@ check your depend by `:checkhealth`
 │   │   └── util.lua
 │   └── plugins
 │       ├── configs
-│       │   ├── bufferline.lua
 │       │   ├── cmp.lua
 │       │   ├── dap-local.lua
-│       │   ├── dashboard.lua
 │       │   ├── diffview.lua
-│       │   ├── dressing.lua
 │       │   ├── formatter.lua
 │       │   ├── gitsigns.lua
 │       │   ├── lspconfig.lua
-│       │   ├── lspsaga.lua
-│       │   ├── lualine.lua
 │       │   ├── mason.lua
+│       │   ├── mini.lua
 │       │   ├── noice.lua
 │       │   ├── notify.lua
+│       │   ├── null-ls.lua
+│       │   ├── nvim-tree.lua
 │       │   ├── telescope.lua
-│       │   ├── toggleterm.lua
-│       │   ├── tokyonight.lua
-│       │   ├── tree.lua
 │       │   ├── treesitter.lua
 │       │   └── trouble.lua
 │       ├── init.lua
@@ -61,40 +48,44 @@ check your depend by `:checkhealth`
 ├── README.md
 ├── snippets
 │   ├── crontab.json
-│   ├── dot.json
-│   ├── goctl.json
+│   ├── ...
 │   ├── go.json
-│   ├── json.json
-│   ├── lua.json
-│   ├── markdown.json
-│   ├── proto.json
-│   ├── README.md
-│   ├── rust.json
-│   └── vim.json
 └── stylua.toml
+6 directories, 39 files
 ```
 
-1. `init.lua`
+### Startup
 
-> Require Load the configuration files of each plug-in function
+- `init.lua`
 
 ```lua
--- vim environment (some variable)
-require('environment')
+-- vim environment (base environment for non-plugins), will load base/init.lua
+require('base')
 
--- import packer-plugins
+-- import plugins, will load plugins/init.lua
 require('plugins')
-
--- keymap binding
-require('keybindings').Load_Keys('Common')
-
--- input method
-require('plugins.fcitx')
 ```
 
-### Plugins be Loaded in `lua/plugins/init.lua` by `lazy.nvim`
+- `base/init.lua`
 
 ```lua
+-- global variable
+require('base.environment')
+
+-- basic keymap
+require('base.keymaps')
+
+-- autocmd
+require('base.autocmd')
+
+-- diagnostic
+require('base.diagnostic')
+```
+
+- `plugins/init.lua`
+
+```lua
+
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -108,27 +99,63 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+local keymaps = require('plugins.keymaps')
+
 require('lazy').setup({
   -- base or lib
-  'nvim-lua/plenary.nvim',
-  { 'MunifTanjim/nui.nvim', lazy = true },
-
-  -- develop
-  'wakatime/vim-wakatime',
-
+  { 'nvim-lua/plenary.nvim', lazy = true },
   -- gui
+  { 'MunifTanjim/nui.nvim', lazy = true },
+  -- 文件图标
+  { 'nvim-tree/nvim-web-devicons', lazy = true },
+
+  -- A series of mini.nvim plugins
+  require('plugins.configs.mini'),
+
+  -- colorscheme
   {
-    'rcarriga/nvim-notify',
-    opts = function()
-      return require('plugins.configs.notify')
+    -- https://github.com/folke/tokyonight.nvim
+    'folke/tokyonight.nvim',
+    enabled = true,
+    lazy = false,
+    priority = 1000,
+    init = function()
+      vim.cmd([[colorscheme tokyonight]])
     end,
-    config = function(_, opts)
-      local notify = require('notify')
-      notify.setup(opts)
-      vim.notify = notify
+    opts = {
+      transparent = true,
+      styles = {
+        comments = { italic = true },
+        keywords = { italic = true },
+        functions = {},
+        variable = {},
+        sidebars = 'dark', -- style for sidebars, see below
+        floats = 'transparent', -- style for floating windows
+      },
+      sidebars = { 'qf', 'vista_kind', 'terminal', 'packer' },
+    },
+  },
+  -- Wrap the input and select of vim.ui
+  { 'stevearc/dressing.nvim', event = 'VeryLazy', opts = {} },
+  -- UI美化
+  {
+    'folke/noice.nvim',
+    event = 'VeryLazy',
+    keys = keymaps.Noice,
+    opts = function()
+      return require('plugins.configs.noice')
     end,
   },
-  ......
+  ....
+}, {
+  ui = {
+    border = 'shadow',
+  },
+  dev = {
+    path = '~/Workspace/Github/Neovim',
+    patterns = {},
+    fallback = false,
+  },
 })
 ```
 
@@ -136,7 +163,7 @@ require('lazy').setup({
 
 if you want to custom yourself plugin, create a lua configuration in `lua/plugins/config/` and add property `opts` and `config` for your custom plugin in `lua/plugins/init.lua`.
 
-### Custom Keymap in `lua/keybindings.lua`
+### Custom Keymap in `lua/base/keybindings.lua` and `lua/plugins/keybindings.lua`
 
 ```lua
 -- set leader key

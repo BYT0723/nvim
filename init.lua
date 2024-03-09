@@ -1,5 +1,5 @@
--- vim environment (base environment for non-plugins)
+-- vim environment (base environment for non-plugins), will load base/init.lua
 require('base')
 
--- import packer-plugins
+-- import plugins, will load plugins/init.lua
 require('plugins')
