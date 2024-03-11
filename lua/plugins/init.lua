@@ -200,6 +200,7 @@ require('lazy').setup({
   {
     'ray-x/go.nvim',
     dependencies = { 'ray-x/guihua.lua' },
+    keys = keymaps.GoNvim,
     opts = {
       lsp_inlay_hints = { enable = false },
     },
@@ -207,7 +208,7 @@ require('lazy').setup({
     build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
   },
   -- go-zero
-  { 'BYT0723/goctl.nvim', opts = {}, dev = true },
+  { 'BYT0723/goctl.nvim', opts = {}, dev = false },
   -- godot
   { 'habamax/vim-godot', ft = { 'gdscript', 'gdresource' } },
   -- sql

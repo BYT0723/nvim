@@ -63,7 +63,11 @@ M.TodoComments = {
 }
 
 M.Diffview = {
-  { '<leader>gd', '<cmd>DiffviewOpen<CR>', desc = 'Git Diffview' },
+  { '<leader>gd', '<cmd>DiffviewOpen<CR>', mode = 'n', desc = 'Git Diffview' },
+}
+
+M.GoNvim = {
+  { '<leader>al', '<cmd>GoCodeLenAct<CR>', mode = 'n', desc = 'Go Code Len' },
 }
 
 -- stylua: ignore
@@ -109,8 +113,8 @@ M.maplsp = function(bufnr)
   -- stylua: ignore
   local lsp_keys = {
     { '<leader>rn', function() vim.lsp.buf.rename() end,                                                   desc = 'Global Rename',           },
-    { '<leader>a',  function() vim.lsp.buf.code_action() end,                                              desc = 'Code Actions',            },
-    { '<leader>a',  function() vim.lsp.buf.code_action() end,                                              desc = 'Code Actions of Range',   mode = 'v', },
+    { '<leader>aa', function() vim.lsp.buf.code_action() end,                                              desc = 'Code Actions',            },
+    { '<leader>aa', function() vim.lsp.buf.code_action() end,                                              desc = 'Code Actions of Range',   mode = 'v', },
     { 'gD',         function() vim.lsp.buf.declaration() end,                                              desc = 'Jump to Declaration',     },
     { 'gd',         "<cmd>Trouble lsp_definitions<CR>",                                                    desc = 'Jump to Definition',      },
     { 'gtd',        "<cmd>Trouble lsp_type_definitions<CR>",                                               desc = 'Jump to Type Definition', },
