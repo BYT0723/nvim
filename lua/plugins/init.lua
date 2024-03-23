@@ -333,7 +333,12 @@ require('lazy').setup({
     dependencies = {
       'williamboman/mason.nvim',
       -- lua vim developer
-      { 'folke/neodev.nvim', opts = {} },
+      {
+        'folke/neodev.nvim',
+        opts = {
+          library = { plugins = { 'nvim-dap-ui' }, types = true },
+        },
+      },
     },
     init = function()
       require('plugins.configs.lspconfig')
@@ -413,6 +418,7 @@ require('lazy').setup({
     keys = keymaps.Dap,
     dependencies = {
       'rcarriga/nvim-dap-ui', -- debug UI
+      'nvim-neotest/nvim-nio',
     },
     config = function()
       require('plugins.configs.dap-local')
