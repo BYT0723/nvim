@@ -44,7 +44,7 @@ require('lazy').setup({
         sidebars = 'dark', -- style for sidebars, see below
         floats = 'transparent', -- style for floating windows
       },
-      sidebars = { 'qf', 'vista_kind', 'terminal', 'packer' },
+      sidebars = { 'qf' },
     },
   },
   -- Wrap the input and select of vim.ui
@@ -481,8 +481,13 @@ require('lazy').setup({
     enabled = true,
     opts = {
       window = {
-        border = 'double', -- none, single, double, shadow
-        position = 'bottom',
+        border = 'none', -- none, single, double, shadow
+        position = 'top', -- bottom, top
+        margin = { 0, 0, 0, 0 }, -- extra window margin [top, right, bottom, left]. When between 0 and 1, will be treated as a percentage of the screen size.
+        padding = { 1, 2, 1, 2 }, -- extra window padding [top, right, bottom, left]
+      },
+      layout = {
+        align = 'center',
       },
     },
   },
@@ -497,7 +502,8 @@ require('lazy').setup({
   },
 }, {
   ui = {
-    border = 'shadow',
+    border = 'double',
+    backdrop = 100,
   },
   dev = {
     path = '~/Workspace/Github/Neovim',
