@@ -459,22 +459,20 @@ require('lazy').setup({
     lazy = true,
     opts = {},
   },
-
-  -- 该插件有待考量，寻找平提产品
+  -- org plugin
   {
     'nvim-orgmode/orgmode',
-    enabled = false,
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter',
-    },
-    opts = {
-      org_agenda_files = { '~/Documents/org/*' },
-      org_default_notes_file = '~/Documents/org/refile.org',
-    },
-    init = function()
-      require('orgmode').setup_ts_grammar()
+    event = 'VeryLazy',
+    ft = { 'org' },
+    config = function()
+      -- Setup orgmode
+      require('orgmode').setup({
+        org_agenda_files = '~/orgfiles/**/*',
+        org_default_notes_file = '~/orgfiles/refile.org',
+      })
     end,
   },
+
   -- which key
   {
     'folke/which-key.nvim',

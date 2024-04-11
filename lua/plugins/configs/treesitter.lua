@@ -29,7 +29,7 @@ local options = {
   },
   sync_install = false,
   auto_install = true,
-  ignore_install = {},
+  ignore_install = { 'org' },
   -- 启用代码高亮功能
   highlight = {
     enable = true,
