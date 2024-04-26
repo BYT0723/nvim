@@ -104,8 +104,8 @@ M.DB = {
 }
 
 -- stylua: ignore
-M.TreesitterContext = {
-  { '[c', function() require('treesitter-context').go_to_context() end, desc = 'previous context item', },
+M.TreeSitterContext = {
+  { '[c', function() require("treesitter-context").go_to_context(vim.v.count1) end, desc = 'previous context item', },
 }
 
 -- lsp keybind

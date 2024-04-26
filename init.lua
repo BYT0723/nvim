@@ -1,3 +1,6 @@
+-- lua module logder
+vim.loader.enable()
+
 -- vim environment (base environment for non-plugins), will load base/init.lua
 require('base')
 

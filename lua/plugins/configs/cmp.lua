@@ -22,12 +22,9 @@ local options = {
   -- 来源
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
-    { name = 'cmp_tabnine' },
     { name = 'vsnip' },
     { name = 'buffer' },
     { name = 'path' },
-    { name = 'crates' },
-    { name = 'orgmode' },
     { name = 'vim-dadbod-completion' },
   }),
 
@@ -69,20 +66,75 @@ local options = {
   },
 }
 
-cmp.setup.cmdline({ '/', '?' }, {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = {
-    { name = 'buffer' },
+local special_cfg = {
+  cmdline = {
+    {
+      pattern = { '/', '?' },
+      config = {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = 'buffer' },
+        },
+      },
+    },
+    {
+      pattern = ':',
+      config = {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = 'path' },
+        }, {
+          { name = 'cmdline' },
+        }),
+      },
+    },
   },
-})
+  filetype = {
+    {
+      ft = 'norg',
+      config = {
+        sources = cmp.config.sources({
+          { name = 'neorg' },
+        }, {
+          { name = 'buffer' },
+          { name = 'path' },
+        }),
+      },
+    },
+    {
+      ft = 'toml',
+      config = {
+        sources = cmp.config.sources({
+          { name = 'nvim_lsp' },
+          { name = 'crates' },
+        }, {
+          { name = 'buffer' },
+          { name = 'path' },
+        }),
+      },
+    },
+    {
+      ft = { 'sql', 'mysql', 'plsql' },
+      config = {
+        sources = cmp.config.sources({
+          { name = 'nvim_lsp' },
+          { name = 'vim-dadbod-completion' },
+        }, {
+          { name = 'vsnip' },
+          { name = 'buffer' },
+          { name = 'path' },
+        }),
+      },
+    },
+  },
+}
 
-cmp.setup.cmdline(':', {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources({
-    { name = 'path' },
-  }, {
-    { name = 'cmdline' },
-  }),
-})
+for _, cfg in ipairs(special_cfg.cmdline) do
+  cmp.setup.cmdline(cfg.pattern, cfg.config)
+end
+
+for _, cfg in ipairs(special_cfg.filetype) do
+  cmp.setup.filetype(cfg.ft, cfg.config)
+end
 
 return options

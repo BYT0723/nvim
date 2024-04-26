@@ -214,19 +214,13 @@ require('lazy').setup({
   -- sql
   {
     'kristijanhusak/vim-dadbod-ui',
-    cmd = 'DBUIToggle',
-    keys = keymaps.DB,
     dependencies = {
-      'tpope/vim-dadbod',
-      'kristijanhusak/vim-dadbod-completion',
+      { 'tpope/vim-dadbod', lazy = true },
+      { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
     },
+    keys = keymaps.DB,
     init = function()
-      vim.api.nvim_create_autocmd({ 'FileType' }, {
-        pattern = { 'mysql' },
-        callback = function()
-          vim.opt.filetype = 'sql'
-        end,
-      })
+      vim.g.db_ui_use_nerd_fonts = 1
     end,
   },
   -- markdown preview
@@ -236,6 +230,50 @@ require('lazy').setup({
     build = function()
       vim.fn['mkdp#util#install']()
     end,
+  },
+  {
+    'epwalsh/obsidian.nvim',
+    version = '*', -- recommended, use latest release instead of latest commit
+    lazy = true,
+    ft = 'markdown',
+    -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
+    -- event = {
+    --   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
+    --   -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
+    --   "BufReadPre path/to/my-vault/**.md",
+    --   "BufNewFile path/to/my-vault/**.md",
+    -- },
+    opts = {
+      workspaces = {
+        { name = 'personal', path = '~/Documents/notes' },
+      },
+    },
+  },
+  -- Zen Mode like vscode
+  {
+    'folke/zen-mode.nvim',
+    opts = require('plugins.configs.zen-mode'),
+  },
+
+  {
+    'michaelb/sniprun',
+    branch = 'master',
+    build = 'sh install.sh',
+    -- do 'sh install.sh 1' if you want to force compile locally
+    -- (instead of fetching a binary from the github release). Requires Rust >= 1.65
+    opts = require('plugins.configs.sniprun'),
+  },
+
+  {
+    'vhyrro/luarocks.nvim',
+    priority = 1000, -- We'd like this plugin to load first out of the rest
+    config = true, -- This automatically runs `require("luarocks-nvim").setup()`
+  },
+  {
+    'nvim-neorg/neorg',
+    dependencies = { 'luarocks.nvim' },
+    -- put any other flags you wanted to pass to lazy here!
+    opts = require('plugins.configs.neorg'),
   },
 
   --finder
@@ -443,7 +481,7 @@ require('lazy').setup({
     end,
     dependencies = {
       'nvim-treesitter/playground',
-      'nvim-treesitter/nvim-treesitter-context',
+      { 'nvim-treesitter/nvim-treesitter-context', keys = keymaps.TreeSitterContext },
       { 'JoosepAlviste/nvim-ts-context-commentstring', opts = {} },
     },
   },
