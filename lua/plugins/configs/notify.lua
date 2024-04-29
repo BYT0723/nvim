@@ -1,4 +1,4 @@
-local options = {
+return {
   -- background_colour = "NotifyBackground",
   background_colour = '#000000',
   fps = 30,
@@ -16,5 +16,3 @@ local options = {
   timeout = 5000,
   top_down = true,
 }
-
-return options

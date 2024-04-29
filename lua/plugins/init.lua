@@ -20,6 +20,15 @@ require('lazy').setup({
   { 'MunifTanjim/nui.nvim', lazy = true },
   -- 文件图标
   { 'nvim-tree/nvim-web-devicons', lazy = true },
+  -- Wrap the input and select of vim.ui
+  { 'stevearc/dressing.nvim', event = 'VeryLazy', opts = {} },
+  -- UI美化
+  {
+    'folke/noice.nvim',
+    event = 'VeryLazy',
+    keys = keymaps.Noice,
+    opts = require('plugins.configs.noice'),
+  },
 
   -- A series of mini.nvim plugins
   require('plugins.configs.mini'),
@@ -46,17 +55,6 @@ require('lazy').setup({
       },
       sidebars = { 'qf' },
     },
-  },
-  -- Wrap the input and select of vim.ui
-  { 'stevearc/dressing.nvim', event = 'VeryLazy', opts = {} },
-  -- UI美化
-  {
-    'folke/noice.nvim',
-    event = 'VeryLazy',
-    keys = keymaps.Noice,
-    opts = function()
-      return require('plugins.configs.noice')
-    end,
   },
   -- background transparent
   {
@@ -127,27 +125,15 @@ require('lazy').setup({
     },
   },
   -- terminal
-  {
-    'akinsho/toggleterm.nvim',
-    opts = {
-      open_mapping = [[<c-\>]],
-    },
-  },
+  { 'akinsho/toggleterm.nvim', opts = { open_mapping = [[<c-\>]] } },
   -- git style, including blame, modify tags
-  {
-    'lewis6991/gitsigns.nvim',
-    opts = function()
-      return require('plugins.configs.gitsigns')
-    end,
-  },
+  { 'lewis6991/gitsigns.nvim', opts = require('plugins.configs.gitsigns') },
   -- 错误统计
   {
     'folke/trouble.nvim',
     cmd = { 'TroubleToggle', 'TodoTrouble' },
     keys = keymaps.Trouble,
-    opts = function()
-      return require('plugins.configs.trouble')
-    end,
+    opts = require('plugins.configs.trouble'),
   },
   -- todo comment
   {
@@ -167,9 +153,7 @@ require('lazy').setup({
     'sindrets/diffview.nvim',
     cmd = 'DiffviewOpen',
     keys = keymaps.Diffview,
-    opts = function()
-      require('plugins.configs.diffview')
-    end,
+    opts = {},
   },
   -- translator
   {
@@ -193,19 +177,14 @@ require('lazy').setup({
   { 'saecki/crates.nvim', ft = 'toml', opts = {} },
   -- golang
   {
-    'fatih/vim-go',
-    enabled = false,
-    ft = { 'go', 'gomod', 'gohtmltmpl' },
-  },
-  {
     'ray-x/go.nvim',
+    event = { 'CmdlineEnter' },
+    build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
     dependencies = { 'ray-x/guihua.lua' },
     keys = keymaps.GoNvim,
     opts = {
       lsp_inlay_hints = { enable = false },
     },
-    event = { 'CmdlineEnter' },
-    build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
   },
   -- go-zero
   { 'BYT0723/goctl.nvim', opts = {}, dev = false },
@@ -250,13 +229,23 @@ require('lazy').setup({
   {
     'vhyrro/luarocks.nvim',
     priority = 1000, -- We'd like this plugin to load first out of the rest
-    config = true, -- This automatically runs `require("luarocks-nvim").setup()`
+    opts = {
+      rocks = { 'magick' },
+    },
   },
   {
     'nvim-neorg/neorg',
     dependencies = { 'luarocks.nvim' },
     -- put any other flags you wanted to pass to lazy here!
     opts = require('plugins.configs.neorg'),
+  },
+  {
+    '3rd/image.nvim',
+    dependencies = { 'luarocks.nvim' },
+    opts = {
+      backend = 'ueberzug', -- ueberzug / kitty
+      tmux_show_only_in_active_window = true, -- auto show/hide images in the correct Tmux window (needs visual-activity off)
+    },
   },
 
   --finder
@@ -324,30 +313,6 @@ require('lazy').setup({
     end,
   },
 
-  -- {
-  --   'codota/tabnine-nvim',
-  --   enabled = false,
-  --   build = './dl_binaries.sh',
-  --   config = function()
-  --     require('tabnine').setup({
-  --       disable_auto_comment = true,
-  --       accept_keymap = '<C-l>',
-  --       dismiss_keymap = '<C-h>',
-  --       debounce_ms = 800,
-  --       suggestion_color = { gui = '#808080', cterm = 244 },
-  --       exclude_filetypes = { 'TelescopePrompt', 'NvimTree' },
-  --       log_file_path = nil, -- absolute path to Tabnine log file
-  --     })
-  --   end,
-  -- },
-  -- {
-  --   'tzachar/cmp-tabnine',
-  --   enabled = false,
-  --   build = './install.sh',
-  --   dependencies = 'hrsh7th/nvim-cmp',
-  --   opts = {},
-  -- },
-
   -- lsp
   {
     'neovim/nvim-lspconfig',
@@ -365,7 +330,7 @@ require('lazy').setup({
       require('plugins.configs.lspconfig')
     end,
   },
-  -- inlayhints
+  -- FIX: lsp inlayhints will be builtin in neovim version 0.10
   -- {
   --   'lvimuser/lsp-inlayhints.nvim',
   --   opts = {},
@@ -387,11 +352,14 @@ require('lazy').setup({
     end,
   },
   {
-    'jose-elias-alvarez/null-ls.nvim',
+    'nvimtools/none-ls.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
-    dependencies = { 'mason.nvim' },
+    dependencies = {
+      { 'ThePrimeagen/refactoring.nvim', lazy = true, opts = {} },
+    },
     config = function(_, _)
       require('null-ls').setup(require('plugins.configs.null-ls'))
+
       require('plugins.configs.formatter').setup()
     end,
   },
@@ -474,26 +442,6 @@ require('lazy').setup({
       require('rainbow-delimiters.setup').setup({})
     end,
   },
-  -- 代码重构
-  {
-    'ThePrimeagen/refactoring.nvim',
-    lazy = true,
-    opts = {},
-  },
-  -- org plugin
-  {
-    'nvim-orgmode/orgmode',
-    event = 'VeryLazy',
-    ft = { 'org' },
-    config = function()
-      -- Setup orgmode
-      require('orgmode').setup({
-        org_agenda_files = '~/orgfiles/**/*',
-        org_default_notes_file = '~/orgfiles/refile.org',
-      })
-    end,
-  },
-
   -- which key
   {
     'folke/which-key.nvim',
@@ -512,13 +460,6 @@ require('lazy').setup({
   },
   -- normal/insert模式切换的输入法记忆
   { 'h-hg/fcitx.nvim', event = 'VeryLazy' },
-  -- funny
-  {
-    'BYT0723/typist.nvim',
-    enabled = false,
-    opts = {},
-    dev = true,
-  },
 }, {
   ui = {
     border = 'double',

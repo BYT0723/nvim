@@ -2,7 +2,7 @@ local M = {}
 
 -- stylua: ignore
 M.Notify = {
-  { '<leader>un', function() require('notify').dismiss({}) end, desc = 'Hide all notifications'},
+  { '<leader>nc', function() require('notify').dismiss({}) end, desc = 'Hide all notifications'},
 }
 
 -- stylua: ignore
@@ -12,24 +12,26 @@ M.Noice = {
 }
 
 -- stylua: ignore
-M.MiniFiles = {
-  {'<leader>E' , function() require('mini.files').open() end     , desc = 'Mini Files Explorer'},
-}
-
--- stylua: ignore
 M.NvimTree = {
   {'<leader>e', "<cmd>NvimTreeToggle<CR>", desc = 'Files Explorer',},
 }
 
 -- stylua: ignore
 M.MiniSession = {
-  {'<leader>fs', function() require('mini.sessions').select() end, desc = 'Find Session'},
-}
-
--- stylua: ignore
-M.MiniMap = {
-  {'<leader>vm', function() require('mini.map').toggle() end, desc = 'Code Viewer'},
-  {'<leader>vi', function() require('mini.map').toggle_focus() end, desc = 'Get in Code Viewer'}
+  {'<leader>fs', function() require('mini.sessions').select() end, desc = 'Find Session',},
+  {
+    '<leader>sw',
+    function()
+      vim.ui.input({ prompt = 'Write session:' }, function(response)
+        if string.len(response) > 0 then
+          require('mini.sessions').write(response)
+        else
+          require('mini.sessions').write('autosession')
+        end
+      end)
+    end,
+    desc = 'Write Session',
+  },
 }
 
 -- stylua: ignore
@@ -93,10 +95,9 @@ M.Telescope = {
 
 -- stylua: ignore
 M.Spectre = {
-  {'<leader>S' , function() require('spectre').toggle() end                                , mode = 'n', desc = 'Toggle Spectre'        ,},
-  {'<leader>sw', function() require('spectre').open_visual({ select_word = true }) end     , mode = 'n', desc = 'Search current word'   ,},
-  {'<leader>sw', '<esc><cmd>lua require("spectre").open_visual()<CR>'                      , mode = 'v', desc = 'Search current word'   ,},
-  {'<leader>sp', function() require('spectre').open_file_search({ select_word = true }) end, mode = 'n', desc = 'Search on current file',},
+  {'<leader>Ss' , function() require('spectre').toggle() end                               , mode = 'n', desc = 'Toggle Spectre'        },
+  {'<leader>Sw', function() require('spectre').open_visual({ select_word = true }) end     , mode = 'n', desc = 'Search current word'   },
+  {'<leader>Sw', '<esc><cmd>lua require("spectre").open_visual()<CR>'                      , mode = 'v', desc = 'Search current word'   },
 }
 
 M.DB = {

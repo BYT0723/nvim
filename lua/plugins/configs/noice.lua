@@ -1,4 +1,4 @@
-local options = {
+return {
   cmdline = {
     enabled = true, -- enables the Noice cmdline UI
   },
@@ -15,9 +15,7 @@ local options = {
       enabled = true,
       -- Lsp Progress is formatted using the builtins for lsp_progress. See config.format.builtin
       -- See the section on formatting for more details on how to customize.
-      --- @type NoiceFormat|string
       format = 'lsp_progress',
-      --- @type NoiceFormat|string
       format_done = 'lsp_progress_done',
       throttle = 1000 / 30, -- frequency to update lsp progress message
       view = 'mini',
@@ -53,7 +51,6 @@ local options = {
     -- defaults for hover and signature help
     documentation = {
       view = 'hover',
-      ---@type NoiceViewOptions
       opts = {
         lang = 'text',
         replace = true,
@@ -65,7 +62,6 @@ local options = {
       },
     },
   },
-  ---@type NoicePresets
   presets = {
     -- you can enable a preset by setting it to true, or a table that will override the preset config
     -- you can also add custom presets that you can enable/disable with enabled=true
@@ -76,7 +72,6 @@ local options = {
     lsp_doc_border = false, -- add a border to hover docs and signature help
   },
   throttle = 1000 / 30, -- how frequently does Noice need to check for ui updates? This has no effect when in blocking mode.
-  ---@type NoiceConfigViews
   views = {
     cmdline_popup = {
       position = { row = '30%', col = '50%' },
@@ -87,12 +82,7 @@ local options = {
       win_options = { winblend = 0 },
     },
   }, ---@see section on views
-  ---@type NoiceRouteConfig[]
   routes = {}, --- @see section on routes
-  ---@type table<string, NoiceFilter>
   status = {}, --- @see section on statusline components
-  ---@type NoiceFormatOptions
   format = {}, --- @see section on formatting
 }
-
-return options

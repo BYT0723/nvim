@@ -8,21 +8,19 @@ return {
     --
     -- nls.builtins.diagnostics.cpplint,
     nls.builtins.diagnostics.golangci_lint,
-    nls.builtins.diagnostics.flake8,
-    nls.builtins.code_actions.eslint_d,
+    nls.builtins.diagnostics.mypy,
+    nls.builtins.code_actions.ts_node_action,
     -- format
     nls.builtins.formatting.stylua,
     nls.builtins.formatting.shfmt,
     nls.builtins.formatting.cmake_format,
     nls.builtins.formatting.goimports,
     nls.builtins.formatting.gofumpt,
-    nls.builtins.formatting.taplo,
     nls.builtins.formatting.prettierd,
     nls.builtins.formatting.buf,
 
     -- action
     --- language
-    nls.builtins.code_actions.xo,
     nls.builtins.code_actions.gomodifytags,
     nls.builtins.code_actions.impl,
     --- git

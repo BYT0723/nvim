@@ -89,7 +89,8 @@ return {
     version = '*',
     dependencies = { 'folke/noice.nvim' },
     config = function()
-      require('mini.statusline').setup({
+      local MiniStatusline = require('mini.statusline')
+      MiniStatusline.setup({
         content = {
           active = function()
             local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
@@ -225,26 +226,23 @@ return {
     'echasnovski/mini.trailspace',
     opts = {},
   },
-  -- file manager
-  {
-    'echasnovski/mini.files',
-    version = '*',
-    enabled = false,
-    keys = keymaps.MiniFiles,
-    opts = {
-      windows = {
-        max_number = math.huge,
-        preview = true,
-        width_preview = 30,
-      },
-    },
-  },
   -- nvim session
   {
     'echasnovski/mini.sessions',
     version = '*',
-    enabled = false,
+    enabled = true,
     keys = keymaps.MiniSession,
-    opts = {},
+    opts = {
+      autoread = false,
+      autowrite = true,
+      directory = vim.fn.stdpath('state') .. '/session',
+      file = 'Session.vim',
+      force = { read = false, write = true, delete = false },
+      hooks = {
+        pre = { read = nil, write = nil, delete = nil },
+        post = { read = nil, write = nil, delete = nil },
+      },
+      verbose = { read = false, write = true, delete = true },
+    },
   },
 }

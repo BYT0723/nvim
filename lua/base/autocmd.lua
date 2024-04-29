@@ -25,19 +25,19 @@ vim.api.nvim_create_autocmd('FileType', {
   command = 'setlocal tabstop=2 softtabstop=2 shiftwidth=2',
 })
 
-vim.api.nvim_create_autocmd('BufReadPre', {
-  pattern = '*',
-  callback = function()
-    local file_size = vim.fn.getfsize(vim.fn.expand('%'))
-    if file_size > 1 * 1024 * 1024 then
-      -- vim.cmd('TSBufDisable highlight')
-      vim.cmd('syntax off')
-    else
-      -- vim.cmd('TSBufEnable highlight')
-      vim.cmd('syntax on')
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd('BufReadPre', {
+--   pattern = '*',
+--   callback = function()
+--     local file_size = vim.fn.getfsize(vim.fn.expand('%'))
+--     if file_size > 1 * 1024 * 1024 then
+--       -- vim.cmd('TSBufDisable highlight')
+--       vim.cmd('syntax off')
+--     else
+--       -- vim.cmd('TSBufEnable highlight')
+--       vim.cmd('syntax on')
+--     end
+--   end,
+-- })
 
 -- auto wrap line
 vim.api.nvim_create_autocmd('FileType', { pattern = { 'markdown' }, command = 'set wrap' })

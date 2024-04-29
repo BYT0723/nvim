@@ -23,17 +23,9 @@ local install_servers = {
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
   require('plugins.keymaps').maplsp(bufnr)
-  if client.name == 'clangd' then
-    vim.api.nvim_buf_set_keymap(
-      bufnr,
-      'n',
-      'gs',
-      '<cmd>ClangdSwitchSourceHeader<CR>',
-      { noremap = true, silent = true, desc = 'jump between header and c/cpp' }
-    )
+  if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+    vim.lsp.inlay_hint.enable()
   end
-  -- NOTE: need neovim-nightly and lsp-inlayhints
-  -- require('lsp-inlayhints').on_attach(client, bufnr)
 end
 
 local settings = {
@@ -177,7 +169,16 @@ lspconfig.asm_lsp.setup({
 
 lspconfig.clangd.setup({
   filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
-  on_attach = on_attach,
+  on_attach = function(client, bufnr)
+    require('plugins.keymaps').maplsp(bufnr)
+    vim.api.nvim_buf_set_keymap(
+      bufnr,
+      'n',
+      'gs',
+      '<cmd>ClangdSwitchSourceHeader<CR>',
+      { noremap = true, silent = true, desc = 'jump between header and c/cpp' }
+    )
+  end,
   capabilities = {
     textDocument = {
       completion = {

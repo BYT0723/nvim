@@ -1,4 +1,4 @@
-local options = {
+return {
   signs = {
     add = { hl = 'GitSignsAdd', text = '▊', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
     change = { hl = 'GitSignsChange', text = '▊', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
@@ -67,5 +67,3 @@ local options = {
     map('x', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
   end,
 }
-
-return options

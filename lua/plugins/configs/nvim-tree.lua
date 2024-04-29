@@ -62,7 +62,7 @@ local function on_attach(bufnr)
   vim.keymap.set('n', '<2-RightMouse>', api.tree.change_root_to_node, opts('CD'))
 end
 
-local options = {
+return {
   on_attach = on_attach,
   sync_root_with_cwd = true,
   respect_buf_cwd = true,
@@ -104,5 +104,3 @@ local options = {
     require_confirm = true,
   },
 }
-
-return options

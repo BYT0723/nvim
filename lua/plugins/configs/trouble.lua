@@ -1,4 +1,4 @@
-local options = {
+return {
   position = 'bottom', -- position of the list can be: bottom, top, left, right
   height = 10, -- height of the trouble list when position is top or bottom
   width = 50, -- width of the list when position is left or right
@@ -35,5 +35,3 @@ local options = {
   auto_jump = { 'lsp_definitions', 'lsp_type_definitions', 'lsp_implementations', 'lsp_references' }, -- for the given modes, automatically jump if there is only a single result
   use_diagnostic_signs = true, -- enabling this will use the signs defined in your lsp client
 }
-
-return options

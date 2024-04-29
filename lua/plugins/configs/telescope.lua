@@ -1,4 +1,4 @@
-local options = {
+return {
   defaults = {
     -- Default configuration for telescope goes here:
     -- config_key = value,
@@ -45,5 +45,3 @@ local options = {
   },
   extensions_list = { 'fzf', 'notify', 'noice', 'projects' },
 }
-
-return options
