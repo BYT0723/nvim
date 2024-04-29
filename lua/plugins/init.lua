@@ -236,15 +236,28 @@ require('lazy').setup({
   {
     'nvim-neorg/neorg',
     dependencies = { 'luarocks.nvim' },
-    -- put any other flags you wanted to pass to lazy here!
     opts = require('plugins.configs.neorg'),
   },
   {
+    -- install
+    -- Arch: pacman -S imagemagick ueberzugpp
     '3rd/image.nvim',
     dependencies = { 'luarocks.nvim' },
     opts = {
       backend = 'ueberzug', -- ueberzug / kitty
+      window_overlap_clear_enabled = false, -- toggles images when windows are overlapped
+      window_overlap_clear_ft_ignore = { 'notify', 'cmp_menu', 'cmp_docs' },
+      editor_only_render_when_focused = false, -- auto show/hide images when the editor gains/looses focus
       tmux_show_only_in_active_window = true, -- auto show/hide images in the correct Tmux window (needs visual-activity off)
+      hijack_file_patterns = { '*.png', '*.jpg', '*.jpeg', '*.gif', '*.webp' }, -- render image files as images when opened
+    },
+  },
+  {
+    'HakonHarnes/img-clip.nvim',
+    event = 'VeryLazy',
+    opts = {},
+    keys = {
+      { '<leader>p', '<cmd>PasteImage<cr>', desc = 'Paste image from system clipboard' },
     },
   },
 
