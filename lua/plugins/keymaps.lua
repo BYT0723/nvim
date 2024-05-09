@@ -41,10 +41,13 @@ M.SymbolOutline = {
 
 -- stylua: ignore
 M.PanTran = {
-  { '<leader>tw', '<cmd>Pantran mode=hover target=zh<CR>',   mode = 'n', desc = 'Translate line' },
-  { '<leader>tr', '<cmd>Pantran mode=replace target=en<CR>', mode = 'n', desc = 'Translate and Replace' },
-  { '<leader>ta', '<cmd>Pantran mode=append target=en<CR>',  mode = 'n', desc = 'Translate and Append' },
-  { '<leader>ti', '<cmd>Pantran mode=interactive<CR>',       mode = 'n', desc = 'Translate Interactive UI' },
+  { '<leader>tw', 'yiw<cmd>Pantran mode=interactive target=zh<CR>p', mode = 'n', desc = 'Translate word under cursor' },
+  { '<leader>tw', 'y<cmd>Pantran mode=interactive target=zh<CR>p',   mode = 'v', desc = 'Translate text in the selected' },
+  { '<leader>tl', '^y$<cmd>Pantran mode=interactive target=zh<CR>p', mode = 'n', desc = 'Translate line' },
+  { '<leader>tr', '<cmd>Pantran mode=replace target=en<CR>',         mode = 'n', desc = 'Translate and Replace' },
+  { '<leader>ta', '<cmd>Pantran mode=append target=en<CR>',          mode = 'n', desc = 'Translate and Append' },
+  { '<leader>ti', ':Pantran mode=interactive target=zh<CR>',         mode = 'v', desc = 'Translate Interactive UI' },
+  { '<leader>ti', '<cmd>Pantran mode=interactive<CR>',               mode = 'n', desc = 'Translate Interactive UI' },
 }
 
 -- stylua: ignore
