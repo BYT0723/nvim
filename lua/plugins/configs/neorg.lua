@@ -24,5 +24,7 @@ return {
         default_workspace = 'work',
       },
     },
+    ['core.export'] = {},
+    ['core.presenter'] = { config = { zen_mode = 'zen-mode' } },
   },
 }
