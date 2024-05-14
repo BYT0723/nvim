@@ -2,10 +2,17 @@ return {
   load = {
     ['core.defaults'] = {},
     ['core.concealer'] = {},
+    ['core.tempus'] = {},
     ['core.completion'] = {
       config = {
         engine = 'nvim-cmp',
         name = '[Neorg]',
+      },
+    },
+    ['core.keybinds'] = {
+      config = {
+        default_keybinds = true,
+        neorg_leader = 'g',
       },
     },
     ['core.integrations.nvim-cmp'] = {},
