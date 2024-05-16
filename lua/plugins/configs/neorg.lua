@@ -2,7 +2,6 @@ return {
   load = {
     ['core.defaults'] = {},
     ['core.concealer'] = {},
-    ['core.tempus'] = {},
     ['core.completion'] = {
       config = {
         engine = 'nvim-cmp',
