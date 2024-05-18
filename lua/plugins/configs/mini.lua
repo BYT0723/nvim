@@ -18,7 +18,7 @@ return {
   },
   {
     'echasnovski/mini.indentscope',
-    enabled = false,
+    enabled = true,
     version = '*',
     opts = {
       draw = {
