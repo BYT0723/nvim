@@ -107,7 +107,6 @@ require('lazy').setup({
   {
     'lukas-reineke/indent-blankline.nvim',
     main = 'ibl',
-    version = '3.5.4',
     opts = {
       whitespace = {
         remove_blankline_trail = true,
