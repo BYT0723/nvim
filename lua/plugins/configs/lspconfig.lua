@@ -13,7 +13,7 @@ local install_servers = {
   'lua_ls',
   'marksman',
   'pyright',
-  -- "rust_analyzer",
+  'rust_analyzer',
   'tsserver',
   -- Other non-installation servers
   'gdscript',
@@ -123,11 +123,7 @@ require('rust-tools').setup({
     capabilities = capabilities,
     settings = settings,
   },
-  tools = {
-    inlay_hints = {
-      auto = true,
-    },
-  },
+  tools = { inlay_hints = { auto = false } },
 })
 
 -- emmet

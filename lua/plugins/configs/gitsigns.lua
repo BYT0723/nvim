@@ -40,27 +40,48 @@ return {
     enable = false,
   },
   on_attach = function(bufnr)
-    local function map(mode, lhs, rhs, opts)
-      opts = vim.tbl_extend('force', { noremap = true, silent = true }, opts or {})
-      vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
+    local gitsigns = require('gitsigns')
+    local function map(mode, l, r, opts)
+      opts = opts or {}
+      opts.buffer = bufnr
+      vim.keymap.set(mode, l, r, opts)
     end
+    -- Navigation
+    map('n', 'gj', function()
+      if vim.wo.diff then
+        vim.cmd.normal({ 'gj', bang = true })
+      else
+        gitsigns.nav_hunk('next')
+      end
+    end)
 
-    map('n', '<leader>gk', '<cmd>Gitsigns prev_hunk<CR>', { desc = 'Jump to previous hunk' })
-    map('n', '<leader>gj', '<cmd>Gitsigns next_hunk<CR>', { desc = 'Jump to next hunk' })
-    map('n', '<leader>gb', 'cmd>lua require"gitsigns".blame_line{full=true}<CR>', { desc = 'Show Blamer' })
-    map('n', '<leader>gv', '<cmd>Gitsigns preview_hunk<CR>', { desc = 'Preview hunk' })
-    map('n', '<leader>gr', '<cmd>Gitsigns reset_hunk<CR>', { desc = 'Reset hunk' })
-    map('v', '<leader>gr', '<cmd>Gitsigns reset_hunk<CR>', { desc = 'Reset hunk' })
-    map('n', '<leader>gR', '<cmd>Gitsigns reset_buffer<CR>', { desc = 'Reset all hunk' })
-    map('n', '<leader>gs', '<cmd>Gitsigns stage_hunk<CR>', { desc = 'Stage hunk' })
-    map('v', '<leader>gs', '<cmd>Gitsigns stage_hunk<CR>', { desc = 'Stage hunk' })
-    map('n', '<leader>gu', '<cmd>Gitsigns undo_stage_hunk<CR>', { desc = 'Undo last stage' })
-    map('n', '<leader>gtb', '<cmd>Gitsigns toggle_current_line_blame<CR>', { desc = 'Toggle Blamer' })
+    map('n', 'gk', function()
+      if vim.wo.diff then
+        vim.cmd.normal({ 'gk', bang = true })
+      else
+        gitsigns.nav_hunk('prev')
+      end
+    end)
+
+    -- stylua: ignore
+    map('n', '<leader>gb', function() gitsigns.blame_line{full=true} end, { desc = 'Show Blamer' })
+    map('n', '<leader>gv', gitsigns.preview_hunk, { desc = 'Preview hunk' })
+    map('n', '<leader>gr', gitsigns.reset_hunk, { desc = 'Reset hunk' })
+    map('v', '<leader>gr', function()
+      gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+    end)
+    map('n', '<leader>gR', gitsigns.reset_buffer, { desc = 'Reset all hunk' })
+    map('n', '<leader>gs', gitsigns.stage_hunk, { desc = 'Stage hunk' })
+    map('v', '<leader>gs', function()
+      gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+    end)
+    map('n', '<leader>gu', gitsigns.undo_stage_hunk, { desc = 'Undo last stage' })
+    map('n', '<leader>gtb', gitsigns.toggle_current_line_blame, { desc = 'Toggle Blamer' })
     map('n', '<leader>gts', '<cmd>Gitsigns toggle_signs<CR>', { desc = 'Toggle Sings' })
     map('n', '<leader>gtn', '<cmd>Gitsigns toggle_numhl<CR>', { desc = 'Toggle Number highlight' })
     map('n', '<leader>gtl', '<cmd>Gitsigns toggle_linehl<CR>', { desc = 'Toggle Line highlight' })
     map('n', '<leader>gtw', '<cmd>Gitsigns toggle_word_diff<CR>', { desc = 'Toggle Work_Diff' })
-    map('n', '<leader>gtd', '<cmd>Gitsigns toggle_deleted<CR>', { desc = 'Toggle Deleted Line' })
+    map('n', '<leader>gtd', gitsigns.toggle_deleted, { desc = 'Toggle Deleted Line' })
 
     -- Text object
     map('o', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
