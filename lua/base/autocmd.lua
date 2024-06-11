@@ -50,3 +50,17 @@ vim.api.nvim_create_autocmd('RecordingLeave', {
     vim.notify('󰑋 ' .. vim.fn.reg_recording() .. ' RECORDING FINISHED...')
   end,
 })
+
+--Start and stop mini.nvim plugins
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = {
+    'NvimTree',
+    'toggleterm',
+    'mason',
+    'Outline',
+    'lazy',
+  },
+  callback = function()
+    vim.b.miniindentscope_disable = true
+  end,
+})
