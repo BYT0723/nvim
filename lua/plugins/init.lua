@@ -325,7 +325,38 @@ require('lazy').setup({
       return require('plugins.configs.cmp')
     end,
   },
+  {
+    'codota/tabnine-nvim',
+    enabled = true,
+    build = './dl_binaries.sh',
+    config = function()
+      require('tabnine').setup({
+        disable_auto_comment = true,
+        accept_keymap = false,
+        dismiss_keymap = false,
+        debounce_ms = 800,
+        suggestion_color = { gui = '#808080', cterm = 255 },
+        exclude_filetypes = { 'TelescopePrompt', 'NvimTree' },
+        log_file_path = nil, -- absolute path to Tabnine log file
+      })
 
+      local tabnine = require('tabnine.keymaps')
+      vim.keymap.set('i', '<C-l>', function()
+        if tabnine.has_suggestion() then
+          return tabnine.accept_suggestion()
+        else
+          return '<C-l>'
+        end
+      end, { expr = true })
+      vim.keymap.set('i', '<C-h>', function()
+        if tabnine.has_suggestion() then
+          return tabnine.dismiss_suggestion()
+        else
+          return '<C-h>'
+        end
+      end, { expr = true })
+    end,
+  },
   -- lsp
   {
     'neovim/nvim-lspconfig',

@@ -99,13 +99,17 @@ return {
 
   -- 快捷键
   mapping = {
-    ['<Tab>'] = cmp.mapping.select_next_item(),
-    ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+    ['<Tab>'] = function(fallback)
+      return cmp.visible() and cmp.select_next_item() or fallback()
+    end,
+    ['<S-Tab>'] = function(fallback)
+      return cmp.visible() and cmp.select_prev_item() or fallback()
+    end,
     ['<C-j>'] = cmp.mapping(function()
-      feedkey('<Plug>(vsnip-jump-next)', '')
+      feedkey('<Plug>(vsnip-jump-next)', 'i')
     end, { 'i', 's' }),
     ['<C-k>'] = cmp.mapping(function()
-      feedkey('<Plug>(vsnip-jump-prev)', '')
+      feedkey('<Plug>(vsnip-jump-prev)', 'i')
     end, { 'i', 's' }),
 
     -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
