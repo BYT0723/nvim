@@ -9,7 +9,6 @@ return {
     -- nls.builtins.diagnostics.cpplint,
     nls.builtins.diagnostics.golangci_lint,
     nls.builtins.diagnostics.mypy,
-    nls.builtins.code_actions.ts_node_action,
     -- format
     nls.builtins.formatting.stylua,
     nls.builtins.formatting.shfmt,
