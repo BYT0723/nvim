@@ -64,3 +64,21 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.b.miniindentscope_disable = true
   end,
 })
+
+-- Autocommand to disable inlay hints on entering insert mode
+vim.api.nvim_create_autocmd('InsertEnter', {
+  callback = function()
+    if not vim.lsp.inlay_hint.enabled({ bufnr = 0 }) then
+      vim.lsp.inlay_hint.enable(false, { bufnr = 0 })
+    end
+  end,
+})
+
+-- Autocommand to enable inlay hints on leaving insert mode
+vim.api.nvim_create_autocmd('InsertLeave', {
+  callback = function()
+    if not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }) then
+      vim.lsp.inlay_hint.enable(true, { bufnr = 0 })
+    end
+  end,
+})
