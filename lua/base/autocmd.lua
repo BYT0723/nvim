@@ -65,20 +65,22 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
--- Autocommand to disable inlay hints on entering insert mode
-vim.api.nvim_create_autocmd('InsertEnter', {
+-- 创建自动命令来监听 ModeChanged 事件
+vim.api.nvim_create_autocmd('ModeChanged', {
   callback = function()
-    if not vim.lsp.inlay_hint.enabled({ bufnr = 0 }) then
-      vim.lsp.inlay_hint.enable(false, { bufnr = 0 })
+    if not vim.lsp.inlay_hint then
+      return
     end
-  end,
-})
-
--- Autocommand to enable inlay hints on leaving insert mode
-vim.api.nvim_create_autocmd('InsertLeave', {
-  callback = function()
-    if not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }) then
-      vim.lsp.inlay_hint.enable(true, { bufnr = 0 })
+    if vim.fn.mode() == 'n' then
+      -- 关闭 inlay hint
+      if vim.lsp.inlay_hint and not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }) then
+        vim.lsp.inlay_hint.enable(true, { bufnr = 0 })
+      end
+    else
+      -- 启用 inlay hint
+      if vim.lsp.inlay_hint and vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }) then
+        vim.lsp.inlay_hint.enable(false, { bufnr = 0 })
+      end
     end
   end,
 })
