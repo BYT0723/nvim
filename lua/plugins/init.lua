@@ -41,10 +41,10 @@ require('lazy').setup({
     lazy = false,
     priority = 1000,
     init = function()
-      vim.cmd([[colorscheme tokyonight]])
+      vim.cmd([[colorscheme tokyonight-storm]])
     end,
     opts = {
-      transparent = true,
+      transparent = not vim.g.neovide,
       styles = {
         comments = { italic = true },
         keywords = { italic = true },
@@ -243,6 +243,7 @@ require('lazy').setup({
     -- Arch: pacman -S imagemagick ueberzugpp
     '3rd/image.nvim',
     dependencies = { 'luarocks.nvim' },
+    enabled = not vim.g.neovide,
     opts = {
       backend = 'ueberzug', -- ueberzug / kitty
       window_overlap_clear_enabled = false, -- toggles images when windows are overlapped
