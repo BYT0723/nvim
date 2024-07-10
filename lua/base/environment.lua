@@ -36,14 +36,27 @@ vim.g.mkdp_auto_close = 0
 vim.g.vsnip_snippet_dir = '~/.config/nvim/snippets'
 
 -- neovide
-if vim.fn.exists('g:neovide') ~= 0 then
+if vim.g.neovide then
   vim.g.neovide_refresh_rate = 60
   vim.g.neovide_refresh_rate_idle = 20
   vim.g.neovide_transparency = 0.9
   vim.g.neovide_hide_mouse_when_typing = true
   vim.g.neovide_cursor_animation_length = 0.1
   vim.g.neovide_cursor_trail_size = 0.5
+  vim.g.neovide_cursor_antialiasing = true
   vim.g.neovide_remember_window_size = true
+  vim.g.neovide_text_gamma = 0.8
+  vim.g.neovide_text_contrast = 0.1
+  vim.g.neovide_position_animation_length = 0.15 -- s 秒
+  vim.g.neovide_scroll_animation_length = 0.3 -- s 秒
+  vim.g.neovide_scroll_animation_far_lines = 1
+  vim.g.neovide_no_idle = true
+  vim.g.neovide_confirm_quit = false
+  vim.g.neovide_fullscreen = true
+  vim.g.neovide_profiler = false -- debug information
+  vim.g.neovide_cursor_animate_in_insert_mode = true
+  vim.g.neovide_cursor_animate_command_line = true
+  vim.g.neovide_cursor_vfx_mode = 'railgun' -- 粒子效果: wireframe | ripple | railgun | torpedo | pixiedust | sonicboom
   set.guifont = 'CaskaydiaCove Nerd Font:h9.5'
   set.linespace = 2
 end

@@ -41,11 +41,13 @@ require('lazy').setup({
     lazy = false,
     priority = 1000,
     init = function()
-      vim.cmd([[colorscheme tokyonight-storm]])
+      vim.cmd([[colorscheme tokyonight]])
     end,
     opts = {
       transparent = not vim.g.neovide,
       styles = {
+        style = 'storm', -- The theme comes in three styles, `storm`, a darker variant `night` and `day`
+        light_style = 'day', -- The theme is used when the background is set to light
         comments = { italic = true },
         keywords = { italic = true },
         functions = {},
