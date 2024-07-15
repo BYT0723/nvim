@@ -11,6 +11,10 @@ local header = '\
 
 return {
   {
+    'echasnovski/mini.icons',
+    version = false,
+  },
+  {
     'echasnovski/mini.completion',
     enabled = false,
     version = '*',
