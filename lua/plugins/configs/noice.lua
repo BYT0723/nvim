@@ -52,7 +52,7 @@ return {
     documentation = {
       view = 'hover',
       opts = {
-        lang = 'text',
+        lang = 'markdown',
         replace = true,
         render = 'plain',
         format = { '{message}' },

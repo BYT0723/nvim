@@ -86,6 +86,28 @@ require('lazy').setup({
           bg = c.bg_dark,
           fg = c.bg_dark,
         }
+        hl.NoiceCmdlinePopup = {
+          bg = prompt,
+        }
+        local title = {
+          bg = prompt,
+          fg = prompt,
+          -- fg = c.hint,
+        }
+        local border = {
+          bg = prompt,
+          fg = prompt,
+        }
+        hl.NoiceCmdlinePopupTitleCmdline = title
+        hl.NoiceCmdlinePopupTitleSearch = title
+        hl.NoiceCmdlinePopupTitleLua = title
+        hl.NoiceCmdlinePopupTitleHelp = title
+        hl.NoiceCmdlinePopupTitleInput = title
+        hl.NoiceCmdlinePopupBorderCmdline = border
+        hl.NoiceCmdlinePopupBorderSearch = border
+        hl.NoiceCmdlinePopupBorderLua = border
+        hl.NoiceCmdlinePopupBorderHelp = border
+        hl.NoiceCmdlinePopupBorderInput = border
       end,
     },
   },
@@ -258,25 +280,16 @@ require('lazy').setup({
     -- (instead of fetching a binary from the github release). Requires Rust >= 1.65
     opts = require('plugins.configs.sniprun'),
   },
-
-  {
-    'vhyrro/luarocks.nvim',
-    priority = 1000, -- We'd like this plugin to load first out of the rest
-    opts = {
-      rocks = { 'magick' },
-    },
-  },
   {
     'nvim-neorg/neorg',
-    dependencies = { 'luarocks.nvim' },
     opts = require('plugins.configs.neorg'),
   },
   {
     -- install
     -- Arch: pacman -S imagemagick ueberzugpp
+    -- disable, because it be required luarocks.nvim
     '3rd/image.nvim',
-    dependencies = { 'luarocks.nvim' },
-    enabled = not vim.g.neovide,
+    enabled = false,
     opts = {
       backend = 'ueberzug', -- ueberzug / kitty
       window_overlap_clear_enabled = false, -- toggles images when windows are overlapped
