@@ -107,6 +107,14 @@ M.TreeSitterContext = {
   { '[c', function() require("treesitter-context").go_to_context(vim.v.count1) end, desc = 'previous context item', },
 }
 
+-- stylua: ignore
+M.Sniprun = {
+  { 'rl', '<cmd>SnipRun<CR>',                                   desc = 'run current line code',   mode = 'n' },
+  { 'rb', function() require 'sniprun'.run('v') end,            desc = 'run selected code block', mode = 'v' },
+  { 'rc', function() require 'sniprun.display'.close_all() end, desc = 'clean sniprun output',    mode = 'n' },
+  { 'rC', function() require 'sniprun'.reset() end,             desc = 'sniprun cancel',          mode = 'n' },
+}
+
 -- lsp keybind
 M.maplsp = function(bufnr)
   -- stylua: ignore

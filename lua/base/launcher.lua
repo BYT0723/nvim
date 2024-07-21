@@ -123,6 +123,7 @@ function M.term_prev()
   end
 
   if target_term == nil then
+    vim.notify('This is the first terminal', vim.log.levels.WARN)
     return
   end
 
@@ -143,6 +144,7 @@ function M.term_next()
   end
 
   if target_term == nil then
+    vim.notify('This is the last terminal', vim.log.levels.WARN)
     return
   end
 

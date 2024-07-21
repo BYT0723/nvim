@@ -188,7 +188,9 @@ require('lazy').setup({
     'folke/trouble.nvim',
     cmd = { 'Trouble' },
     keys = keymaps.Trouble,
-    opts = require('plugins.configs.trouble'),
+    opts = {
+      auto_jump = { 'lsp_definitions', 'lsp_type_definitions', 'lsp_implementations', 'lsp_references' }, -- for the given modes, automatically jump if there is only a single result
+    },
   },
   -- todo comment
   {
@@ -268,17 +270,18 @@ require('lazy').setup({
   -- Zen Mode like vscode
   {
     'folke/zen-mode.nvim',
-    opts = require('plugins.configs.zen-mode'),
+    opts = {},
   },
 
   -- run code in document or comment
   {
     'michaelb/sniprun',
+    keys = keymaps.Sniprun,
     branch = 'master',
     build = 'sh install.sh',
-    -- do 'sh install.sh 1' if you want to force compile locally
-    -- (instead of fetching a binary from the github release). Requires Rust >= 1.65
-    opts = require('plugins.configs.sniprun'),
+    opts = {
+      display = { 'Terminal', 'VirtualText' },
+    },
   },
   {
     'nvim-neorg/neorg',
