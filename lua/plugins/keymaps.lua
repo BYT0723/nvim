@@ -35,11 +35,6 @@ M.MiniSession = {
 }
 
 -- stylua: ignore
-M.SymbolOutline = {
-  {'<leader>vs', function() require('symbols-outline').toggle_outline() end, desc = 'Toggle SymbolOutline',},
-}
-
--- stylua: ignore
 M.PanTran = {
   { '<leader>tw', 'yiw<cmd>Pantran mode=interactive target=zh<CR>p', mode = 'n', desc = 'Translate word under cursor' },
   { '<leader>tw', 'y<cmd>Pantran mode=interactive target=zh<CR>p',   mode = 'v', desc = 'Translate text in the selected' },
@@ -52,19 +47,19 @@ M.PanTran = {
 
 -- stylua: ignore
 M.Trouble = {
-  { '<leader>xx', '<cmd>TroubleToggle<CR>', desc = 'Trouble' },
-  { '<leader>xw', '<cmd>TroubleToggle workspace_diagnostics<CR>', desc = 'Workspace Diagnostics in Trouble' },
-  { '<leader>xd', '<cmd>TroubleToggle document_diagnostics<CR>', desc = 'Document Diagnostics in Trouble' },
-  { '<leader>xq', '<cmd>TroubleToggle quickfix<CR>', desc = 'Quickfix in Trouble' },
-  { '<leader>xl', '<cmd>TroubleToggle loclist<CR>', desc = 'Loclist in Trouble' },
-  { '<leader>xk', function() require('trouble').previous({ skip_groups = true, jump = true }) end, desc = 'Previous in Trouble' },
-  { '<leader>xj', function() require('trouble').next({ skip_groups = true, jump = true }) end, desc = 'Next in Trouble' },
+  -- { '<leader>xx', '<cmd>Trouble<CR>', desc = 'Trouble' },
+  { '<leader>xw', '<cmd>Trouble diagnostics toggle<CR>',                   desc = 'Workspace Diagnostics in Trouble' },
+  { '<leader>xq', '<cmd>Trouble quickfix toggle<CR>',                      desc = 'Quickfix in Trouble' },
+  { '<leader>xl', '<cmd>Trouble loclist toggle<CR>',                       desc = 'Loclist in Trouble' },
+  { '<leader>vs', '<cmd>Trouble symbols toggle focus=false<cr>',           desc = 'Symbols (Trouble)' },
+  { '<leader>xk', function() require('trouble').prev({ skip_groups = true, jump = true }) end, desc = 'Previous in Trouble', },
+  { '<leader>xj', function() require('trouble').next({ skip_groups = true, jump = true }) end, desc = 'Next in Trouble',     },
 }
 
 -- stylua: ignore
 M.TodoComments = {
-  { '<leader>xt', '<cmd>TroubleToggle todo<CR>', desc = 'Todo-Comments' },
-  { '<leader>xT', '<cmd>TroubleToggle todo keywords=TODO,FIX,FIXME,PERF<CR>', desc = 'Todo-Comments [TODO|FIX|PERF]' },
+  { '<leader>xt', '<cmd>Trouble todo toggle<CR>',                                    desc = 'Todo-Comments' },
+  { '<leader>xT', '<cmd>Trouble todo toggle filter={tag={TODO,FIX,FIXME,PERF}}<CR>', desc = 'Todo-Comments [TODO|FIX|PERF]' },
 }
 
 M.Diffview = {
@@ -116,17 +111,17 @@ M.TreeSitterContext = {
 M.maplsp = function(bufnr)
   -- stylua: ignore
   local lsp_keys = {
-    { '<leader>rn', function() vim.lsp.buf.rename() end,                                                   desc = 'Global Rename',           },
-    { '<leader>aa', function() vim.lsp.buf.code_action() end,                                              desc = 'Code Actions',            },
-    { '<leader>aa', function() vim.lsp.buf.code_action() end,                                              desc = 'Code Actions of Range',   mode = 'v', },
-    { 'gD',         function() vim.lsp.buf.declaration() end,                                              desc = 'Jump to Declaration',     },
-    { 'gd',         "<cmd>Trouble lsp_definitions<CR>",                                                    desc = 'Jump to Definition',      },
-    { 'gtd',        "<cmd>Trouble lsp_type_definitions<CR>",                                               desc = 'Jump to Type Definition', },
-    { 'gi',         '<cmd>Trouble lsp_implementations<CR>',                                                desc = 'List Implementation',     },
-    { 'gr',         '<cmd>Trouble lsp_references<CR>',                                                     desc = 'LSP Finder',              },
-    { 'K',          function() vim.lsp.buf.hover() end,                                                    desc = 'Hover Document',          },
-    { '<leader>=', function() vim.lsp.buf.formatting() end, desc = 'LSP Format', },
-    { '<leader>=', function() vim.lsp.buf.range_formatting() end, mode = 'v', desc = 'Format of Range', },
+    { '<leader>rn', function() vim.lsp.buf.rename() end,            desc = 'Global Rename',           },
+    { '<leader>aa', function() vim.lsp.buf.code_action() end,       desc = 'Code Actions',            },
+    { '<leader>aa', function() vim.lsp.buf.code_action() end,       desc = 'Code Actions of Range',   mode = 'v', },
+    { 'gD',         function() vim.lsp.buf.declaration() end,       desc = 'Jump to Declaration',     },
+    { 'gd',         "<cmd>Trouble lsp_definitions toggle<CR>",      desc = 'Jump to Definition',      },
+    { 'gtd',        "<cmd>Trouble lsp_type_definitions toggle<CR>", desc = 'Jump to Type Definition', },
+    { 'gi',         '<cmd>Trouble lsp_implementations toggle<CR>',  desc = 'List Implementation',     },
+    { 'gr',         '<cmd>Trouble lsp_references toggle<CR>',       desc = 'LSP Finder',              },
+    { 'K',          function() vim.lsp.buf.hover() end,             desc = 'Hover Document',          },
+    { '<leader>=',  function() vim.lsp.buf.formatting() end,        desc = 'LSP Format',              },
+    { '<leader>=',  function() vim.lsp.buf.range_formatting() end,  desc = 'Format of Range',         mode = 'v', },
   }
   for _, key in pairs(lsp_keys) do
     vim.keymap.set(key.mode or 'n', key[1], key[2], { buffer = bufnr, silent = true, desc = key.desc })

@@ -186,7 +186,7 @@ require('lazy').setup({
   -- 错误统计
   {
     'folke/trouble.nvim',
-    cmd = { 'TroubleToggle', 'TodoTrouble' },
+    cmd = { 'Trouble' },
     keys = keymaps.Trouble,
     opts = require('plugins.configs.trouble'),
   },
@@ -454,43 +454,6 @@ require('lazy').setup({
       require('plugins.configs.formatter').setup()
     end,
   },
-  {
-    'simrat39/symbols-outline.nvim',
-    cmd = 'SymbolsOutline',
-    keys = keymaps.SymbolOutline,
-    opts = {
-      symbols = {
-        File = { icon = '󰈙', hl = '@text.uri' },
-        Module = { icon = '', hl = '@namespace' },
-        Namespace = { icon = '', hl = '@namespace' },
-        Package = { icon = '', hl = '@namespace' },
-        Class = { icon = '󰠱', hl = '@type' },
-        Struct = { icon = '󰙅', hl = '@type' },
-        Interface = { icon = '', hl = '@type' },
-        Method = { icon = '󰆧', hl = '@method' },
-        Property = { icon = '󰜢', hl = '@method' },
-        Field = { icon = '󰜢', hl = '@field' },
-        Constructor = { icon = '', hl = '@constructor' },
-        Enum = { icon = '', hl = '@type' },
-        Function = { icon = '󰊕', hl = '@function' },
-        Variable = { icon = '󰀫', hl = '@constant' },
-        Constant = { icon = '󰏿', hl = '@constant' },
-        String = { icon = '󰉿', hl = '@string' },
-        Number = { icon = '󰎠', hl = '@number' },
-        Boolean = { icon = '', hl = '@boolean' },
-        Array = { icon = '', hl = '@constant' },
-        Object = { icon = '⦿', hl = '@type' },
-        Key = { icon = '󰌋', hl = '@type' },
-        Null = { icon = 'NULL', hl = '@type' },
-        EnumMember = { icon = '', hl = '@field' },
-        Event = { icon = '', hl = '@type' },
-        Operator = { icon = '󰆕', hl = '@operator' },
-        TypeParameter = { icon = '𝙏', hl = '@parameter' },
-        Component = { icon = '', hl = '@function' },
-        Fragment = { icon = '', hl = '@constant' },
-      },
-    },
-  },
   -- debug配置
   {
     'mfussenegger/nvim-dap',
@@ -537,14 +500,7 @@ require('lazy').setup({
   {
     'folke/which-key.nvim',
     enabled = true,
-    opts = {
-      win = {
-        border = 'none', -- none, single, double, shadow
-      },
-      layout = {
-        align = 'center',
-      },
-    },
+    opts = { preset = 'helix' },
   },
   -- normal/insert模式切换的输入法记忆
   { 'h-hg/fcitx.nvim', event = 'VeryLazy' },
