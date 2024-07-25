@@ -108,6 +108,9 @@ require('lazy').setup({
         hl.NoiceCmdlinePopupBorderLua = border
         hl.NoiceCmdlinePopupBorderHelp = border
         hl.NoiceCmdlinePopupBorderInput = border
+        hl.LspInlayHint = {
+          fg = '#545c7e',
+        }
       end,
     },
   },
