@@ -115,6 +115,17 @@ M.Sniprun = {
   { 'rC', function() require 'sniprun'.reset() end,             desc = 'sniprun cancel',          mode = 'n' },
 }
 
+-- stylua: ignore
+M.Kulala = {
+  {"rl", function() require('kulala').run() end,              desc = "run http request under cursor",       mode = 'n', ft = "http"},
+  {"rc", function() require('kulala').close() end,             desc = "copy a http request to curl command", mode = 'n', ft = "http"},
+  {"ry", function() require('kulala').copy() end,             desc = "copy a http request to curl command", mode = 'n', ft = "http"},
+  {"rv", function() require('kulala').toggle_view() end,      desc = "toggle response body with header",    mode = 'n', ft = "http"},
+  {"rk", function() require('kulala').jump_prev() end,        desc = "jump to previous http request",       mode = 'n', ft = "http"},
+  {"rj", function() require('kulala').jump_next() end,        desc = "jump to next http request",           mode = 'n', ft = "http"},
+  {"re", function() require('kulala').set_selected_env() end, desc = "select a http environment",           mode = 'n', ft = "http"},
+}
+
 -- lsp keybind
 M.maplsp = function(bufnr)
   -- stylua: ignore
