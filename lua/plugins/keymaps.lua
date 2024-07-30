@@ -7,8 +7,8 @@ M.Notify = {
 
 -- stylua: ignore
 M.Noice = {
-  { '<c-f>', function() if not require('noice.lsp').scroll(4) then return '<c-f>' end end, mode = { 'n', 'i', 's' }, desc = 'Scroll Down', },
-  { '<c-u>', function() if not require('noice.lsp').scroll(4) then return '<c-b>' end end, mode = { 'n', 'i', 's' }, desc = 'Scroll Up', },
+  { '<c-u>', function() if not require('noice.lsp').scroll(-4) then return '<c-u>' end end, mode = { 'n', 'i', 's' }, desc = 'Scroll Down', expr = true },
+  { '<c-d>', function() if not require('noice.lsp').scroll(4) then return '<c-d>' end end,  mode = { 'n', 'i', 's' }, desc = 'Scroll Up',   expr = true },
 }
 
 -- stylua: ignore
@@ -36,66 +36,66 @@ M.MiniSession = {
 
 -- stylua: ignore
 M.PanTran = {
-  { '<leader>tw', 'yiw<cmd>Pantran mode=interactive target=zh<CR>p', mode = 'n', desc = 'Translate word under cursor' },
-  { '<leader>tw', 'y<cmd>Pantran mode=interactive target=zh<CR>p',   mode = 'v', desc = 'Translate text in the selected' },
-  { '<leader>tl', '^y$<cmd>Pantran mode=interactive target=zh<CR>p', mode = 'n', desc = 'Translate line' },
-  { '<leader>tr', '<cmd>Pantran mode=replace target=en<CR>',         mode = 'n', desc = 'Translate and Replace' },
-  { '<leader>ta', '<cmd>Pantran mode=append target=en<CR>',          mode = 'n', desc = 'Translate and Append' },
-  { '<leader>ti', ':Pantran mode=interactive target=zh<CR>',         mode = 'v', desc = 'Translate Interactive UI' },
-  { '<leader>ti', '<cmd>Pantran mode=interactive<CR>',               mode = 'n', desc = 'Translate Interactive UI' },
+  { '<leader>tw', 'yiw<cmd>Pantran mode=interactive target=zh<CR>p', desc = 'Translate word under cursor',    },
+  { '<leader>tw', 'y<cmd>Pantran mode=interactive target=zh<CR>p',   desc = 'Translate text in the selected', mode = 'v', },
+  { '<leader>tl', '^y$<cmd>Pantran mode=interactive target=zh<CR>p', desc = 'Translate line',                 },
+  { '<leader>tr', '<cmd>Pantran mode=replace target=en<CR>',         desc = 'Translate and Replace',          },
+  { '<leader>ta', '<cmd>Pantran mode=append target=en<CR>',          desc = 'Translate and Append',           },
+  { '<leader>ti', ':Pantran mode=interactive target=zh<CR>',         desc = 'Translate Interactive UI',       mode = 'v', },
+  { '<leader>ti', '<cmd>Pantran mode=interactive<CR>',               desc = 'Translate Interactive UI',       },
 }
 
 -- stylua: ignore
 M.Trouble = {
   -- { '<leader>xx', '<cmd>Trouble<CR>', desc = 'Trouble' },
-  { '<leader>xw', '<cmd>Trouble diagnostics toggle<CR>',                   desc = 'Workspace Diagnostics in Trouble' },
-  { '<leader>xq', '<cmd>Trouble quickfix toggle<CR>',                      desc = 'Quickfix in Trouble' },
-  { '<leader>xl', '<cmd>Trouble loclist toggle<CR>',                       desc = 'Loclist in Trouble' },
-  { '<leader>vs', '<cmd>Trouble symbols toggle focus=false<cr>',           desc = 'Symbols (Trouble)' },
-  { '<leader>xk', function() require('trouble').prev({ skip_groups = true, jump = true }) end, desc = 'Previous in Trouble', },
-  { '<leader>xj', function() require('trouble').next({ skip_groups = true, jump = true }) end, desc = 'Next in Trouble',     },
+  { '<leader>xw', '<cmd>Trouble diagnostics toggle<CR>',                                       desc = 'Workspace Diagnostics in Trouble', },
+  { '<leader>xq', '<cmd>Trouble quickfix toggle<CR>',                                          desc = 'Quickfix in Trouble',              },
+  { '<leader>xl', '<cmd>Trouble loclist toggle<CR>',                                           desc = 'Loclist in Trouble',               },
+  { '<leader>vs', '<cmd>Trouble symbols toggle focus=false<cr>',                               desc = 'Symbols (Trouble)',                },
+  { '<leader>xk', function() require('trouble').prev({ skip_groups = true, jump = true }) end, desc = 'Previous in Trouble',              },
+  { '<leader>xj', function() require('trouble').next({ skip_groups = true, jump = true }) end, desc = 'Next in Trouble',                  },
 }
 
 -- stylua: ignore
 M.TodoComments = {
-  { '<leader>xt', '<cmd>Trouble todo toggle<CR>',                                    desc = 'Todo-Comments' },
-  { '<leader>xT', '<cmd>Trouble todo toggle filter={tag={TODO,FIX,FIXME,PERF}}<CR>', desc = 'Todo-Comments [TODO|FIX|PERF]' },
+  { '<leader>xt', '<cmd>Trouble todo toggle<CR>',                                    desc = 'Todo-Comments',                 },
+  { '<leader>xT', '<cmd>Trouble todo toggle filter={tag={TODO,FIX,FIXME,PERF}}<CR>', desc = 'Todo-Comments [TODO|FIX|PERF]', },
 }
 
 M.Diffview = {
-  { '<leader>gd', '<cmd>DiffviewOpen<CR>', mode = 'n', desc = 'Git Diffview' },
+  { '<leader>gd', '<cmd>DiffviewOpen<CR>', desc = 'Git Diffview' },
 }
 
 M.GoNvim = {
-  { '<leader>al', '<cmd>GoCodeLenAct<CR>', mode = 'n', desc = 'Go Code Len' },
+  { '<leader>al', '<cmd>GoCodeLenAct<CR>', desc = 'Go Code Len' },
 }
 
 -- stylua: ignore
 M.Dap = {
-  { '<leader>du', function() require('plugins.configs.dap-local').DapToggle() end, mode = 'n', desc = 'Toggle Dap UI',     },
-  { '<leader>db', function() require('dap').toggle_breakpoint() end,               mode = 'n', desc = 'Toggle Breakpoint', },
-  { '<leader>dc', function() require('dap').continue() end,                        mode = 'n', desc = 'Dap Continue',      },
-  { '<leader>di', function() require('dap').step_into() end,                       mode = 'n', desc = 'Step Into',         },
-  { '<leader>do', function() require('dap').step_out() end,                        mode = 'n', desc = 'Step Out',          },
-  { '<leader>dO', function() require('dap').step_over() end,                       mode = 'n', desc = 'Step Over',         },
-  { '<leader>de', function() require('dapui').eval() end,                          mode = 'n', desc = 'Dap Eval',          },
+  { '<leader>du', function() require('plugins.configs.dap-local').DapToggle() end, desc = 'Toggle Dap UI',     },
+  { '<leader>db', function() require('dap').toggle_breakpoint() end,               desc = 'Toggle Breakpoint', },
+  { '<leader>dc', function() require('dap').continue() end,                        desc = 'Dap Continue',      },
+  { '<leader>di', function() require('dap').step_into() end,                       desc = 'Step Into',         },
+  { '<leader>do', function() require('dap').step_out() end,                        desc = 'Step Out',          },
+  { '<leader>dO', function() require('dap').step_over() end,                       desc = 'Step Over',         },
+  { '<leader>de', function() require('dapui').eval() end,                          desc = 'Dap Eval',          },
 }
 
 -- stylua: ignore
 M.Telescope = {
-  { '<leader>ff', function() require('telescope.builtin').find_files() end, desc = 'Find Files' },
-  { '<leader>fg', function() require('telescope.builtin').live_grep() end,  desc = 'Find Content' },
-  { '<leader>fb', function() require('telescope.builtin').buffers() end,    desc = 'Find Buffers' },
-  { '<leader>fr', function() require('telescope.builtin').oldfiles() end,   desc = 'Recent Files' },
-  { "<leader>f'", function() require('telescope.builtin').marks() end,      desc = 'List Marks' },
-  { '<leader>fp', '<cmd>Telescope projects theme=dropdown<CR>',             desc = 'Recent Projects' },
+  { '<leader>ff', function() require('telescope.builtin').find_files() end, desc = 'Find Files',      },
+  { '<leader>fg', function() require('telescope.builtin').live_grep() end,  desc = 'Find Content',    },
+  { '<leader>fb', function() require('telescope.builtin').buffers() end,    desc = 'Find Buffers',    },
+  { '<leader>fr', function() require('telescope.builtin').oldfiles() end,   desc = 'Recent Files',    },
+  { "<leader>f'", function() require('telescope.builtin').marks() end,      desc = 'List Marks',      },
+  { '<leader>fp', '<cmd>Telescope projects theme=dropdown<CR>',             desc = 'Recent Projects', },
 }
 
 -- stylua: ignore
 M.Spectre = {
-  {'<leader>Ss' , function() require('spectre').toggle() end                               , mode = 'n', desc = 'Toggle Spectre'        },
-  {'<leader>Sw', function() require('spectre').open_visual({ select_word = true }) end     , mode = 'n', desc = 'Search current word'   },
-  {'<leader>Sw', '<esc><cmd>lua require("spectre").open_visual()<CR>'                      , mode = 'v', desc = 'Search current word'   },
+  {'<leader>Ss', function() require('spectre').toggle() end,                            desc = 'Toggle Spectre',      },
+  {'<leader>Sw', function() require('spectre').open_visual({ select_word = true }) end, desc = 'Search current word', },
+  {'<leader>Sw', '<esc><cmd>lua require("spectre").open_visual()<CR>',                  desc = 'Search current word', mode = 'v' },
 }
 
 M.DB = {
@@ -109,21 +109,21 @@ M.TreeSitterContext = {
 
 -- stylua: ignore
 M.Sniprun = {
-  { 'rl', '<cmd>SnipRun<CR>',                                   desc = 'run current line code',   mode = 'n' },
-  { 'rb', function() require 'sniprun'.run('v') end,            desc = 'run selected code block', mode = 'v' },
-  { 'rc', function() require 'sniprun.display'.close_all() end, desc = 'clean sniprun output',    mode = 'n' },
-  { 'rC', function() require 'sniprun'.reset() end,             desc = 'sniprun cancel',          mode = 'n' },
+  { '<leader>rl', '<cmd>SnipRun<CR>',                                   desc = 'run current line code',   ft = {"markdown", "norg"} },
+  { '<leader>rb', function() require 'sniprun'.run('v') end,            desc = 'run selected code block', ft = {"markdown", "norg"}, mode = 'v', },
+  { '<leader>rc', function() require 'sniprun.display'.close_all() end, desc = 'clean sniprun output',    ft = {"markdown", "norg"} },
+  { '<leader>rC', function() require 'sniprun'.reset() end,             desc = 'sniprun cancel',          ft = {"markdown", "norg"} },
 }
 
 -- stylua: ignore
 M.Kulala = {
-  {"rl", function() require('kulala').run() end,              desc = "run http request under cursor",       mode = 'n', ft = "http"},
-  {"rc", function() require('kulala').close() end,             desc = "copy a http request to curl command", mode = 'n', ft = "http"},
-  {"ry", function() require('kulala').copy() end,             desc = "copy a http request to curl command", mode = 'n', ft = "http"},
-  {"rv", function() require('kulala').toggle_view() end,      desc = "toggle response body with header",    mode = 'n', ft = "http"},
-  {"rk", function() require('kulala').jump_prev() end,        desc = "jump to previous http request",       mode = 'n', ft = "http"},
-  {"rj", function() require('kulala').jump_next() end,        desc = "jump to next http request",           mode = 'n', ft = "http"},
-  {"re", function() require('kulala').set_selected_env() end, desc = "select a http environment",           mode = 'n', ft = "http"},
+  {"<leader>rl", function() require('kulala').run() end,              desc = "run http request under cursor",       ft = "http"},
+  {"<leader>rc", function() require('kulala').close() end,            desc = "copy a http request to curl command", ft = "http"},
+  {"<leader>ry", function() require('kulala').copy() end,             desc = "copy a http request to curl command", ft = "http"},
+  {"<leader>rv", function() require('kulala').toggle_view() end,      desc = "toggle response body with header",    ft = "http"},
+  {"<leader>rk", function() require('kulala').jump_prev() end,        desc = "jump to previous http request",       ft = "http"},
+  {"<leader>rj", function() require('kulala').jump_next() end,        desc = "jump to next http request",           ft = "http"},
+  {"<leader>re", function() require('kulala').set_selected_env() end, desc = "select a http environment",           ft = "http"},
 }
 
 -- lsp keybind

@@ -111,6 +111,14 @@ require('lazy').setup({
         hl.LspInlayHint = {
           fg = '#545c7e',
         }
+        hl.WhichKeyBorder = {
+          bg = c.bg_dark,
+          fg = c.bg_dark,
+        }
+        hl.WhichKeyTitle = {
+          bg = c.hint,
+          fg = c.bg_dark,
+        }
       end,
     },
   },
@@ -234,7 +242,7 @@ require('lazy').setup({
   -- HTTP REST-Client Interface
   {
     'mistweaverco/kulala.nvim',
-    filetypes = { 'http' },
+    -- filetypes = { 'http' },
     keys = keymaps.Kulala,
     opts = {
       additional_curl_options = { '--insecure', '-A', 'Mozilla/5.0' },
@@ -437,13 +445,6 @@ require('lazy').setup({
       require('plugins.configs.lspconfig')
     end,
   },
-  -- FIX: lsp inlayhints will be builtin in neovim version 0.10
-  -- {
-  --   'lvimuser/lsp-inlayhints.nvim',
-  --   opts = {},
-  --   event = 'LspAttach',
-  --   branch = 'anticonceal',
-  -- },
   -- lsp 管理
   {
     'williamboman/mason.nvim',
@@ -516,6 +517,7 @@ require('lazy').setup({
   {
     'folke/which-key.nvim',
     enabled = true,
+    event = 'VeryLazy',
     opts = { preset = 'helix' },
   },
   -- normal/insert模式切换的输入法记忆
