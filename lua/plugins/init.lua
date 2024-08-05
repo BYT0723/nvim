@@ -242,7 +242,7 @@ require('lazy').setup({
   -- HTTP REST-Client Interface
   {
     'mistweaverco/kulala.nvim',
-    -- filetypes = { 'http' },
+    filetypes = { 'http' },
     keys = keymaps.Kulala,
     opts = {
       additional_curl_options = { '--insecure', '-A', 'Mozilla/5.0' },
