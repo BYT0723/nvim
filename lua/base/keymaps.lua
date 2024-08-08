@@ -4,8 +4,8 @@ vim.g.maplocalleader = ' '
 
 -- stylua: ignore
 local baseKeymaps = {
-  { 'W',            '<cmd>w!<CR>',                                                                         desc = 'save file' },
-  { 'Q',            '<cmd>q!<CR>',                                                                         desc = 'exit window' },
+  { '<C-s>',        '<cmd>w!<CR>',                                                                         desc = 'save file' },
+  { '<C-q>',        '<cmd>q!<CR>',                                                                         desc = 'exit window' },
   -- layout
   { '<C-k>',        '<cmd>resize -5<CR>',                                                                  desc = 'Reduce window width',     mode = 'n' },
   { '<C-j>',        '<cmd>resize +5<CR>',                                                                  desc = 'Increase window width',   mode = 'n' },
