@@ -1,0 +1,46 @@
+{
+  "new": {
+    "prefix": "new",
+    "body": [
+      "# ${1: New Request}",
+      "${2|GET,POST,PUT,DELETE,HEAD|} ${3:URL}",
+      "${4:# Header}",
+      "",
+      "${5:# Body}",
+      "",
+      "###"
+    ],
+    "description": "new request template"
+  },
+  "header": {
+    "prefix": "header",
+    "body": ["${1|Accept,Authorization,Content-Type|}: ${2}"],
+    "description": "header"
+  },
+  "html-request": {
+    "prefix": "htmlrequest",
+    "body": [
+      "# ${1: New Request}",
+      "${2|GET,POST,PUT,DELETE,HEAD|} ${3:URL}",
+      "",
+      "###"
+    ],
+    "description": "new html request"
+  },
+  "json-request": {
+    "prefix": "jsonrequest",
+    "body": [
+      "# ${1: New Request}",
+      "${2|GET,POST,PUT,DELETE|} ${3:URL}",
+      "Accept: application/json",
+      "Content-Type: application/json",
+      "",
+      "{",
+      "\t${0}",
+      "}",
+      "",
+      "###"
+    ],
+    "description": "new json request"
+  }
+}
