@@ -53,7 +53,7 @@ require('lazy').setup({
         functions = {},
         variable = {},
         sidebars = 'dark', -- style for sidebars, see below
-        floats = 'transparent', -- style for floating windows
+        floats = not vim.g.neovide and 'transparent' or 'dark', -- style for floating windows
       },
       sidebars = { 'qf' },
       on_colors = function(colors) end,
