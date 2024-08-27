@@ -1,3 +1,11 @@
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'norg' },
+  callback = function()
+    vim.g.maplocalleader = 'g'
+    vim.keymap.set('n', '<localleader>o', '<Plug>(neorg.esupports.hop.hop-link)', { buffer = true })
+  end,
+})
+
 return {
   load = {
     ['core.defaults'] = {},
@@ -8,12 +16,7 @@ return {
         name = '[Neorg]',
       },
     },
-    ['core.keybinds'] = {
-      config = {
-        default_keybinds = true,
-        neorg_leader = 'g',
-      },
-    },
+    ['core.keybinds'] = {},
     ['core.integrations.nvim-cmp'] = {},
     ['core.dirman'] = {
       config = {
