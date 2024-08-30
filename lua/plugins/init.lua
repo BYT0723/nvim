@@ -507,8 +507,10 @@ require('lazy').setup({
       { 'JoosepAlviste/nvim-ts-context-commentstring', opts = {} },
     },
   },
+  -- rainbow delimiter
   {
     'HiPhish/rainbow-delimiters.nvim',
+    enabled = false,
     config = function()
       require('rainbow-delimiters.setup').setup({})
     end,
@@ -522,6 +524,9 @@ require('lazy').setup({
   },
   -- normal/insert模式切换的输入法记忆
   { 'h-hg/fcitx.nvim', event = 'VeryLazy' },
+
+  -- game
+  { 'ThePrimeagen/vim-be-good', event = 'VeryLazy' },
 }, {
   ui = {
     border = 'double',

@@ -15,6 +15,11 @@ return {
     version = false,
   },
   {
+    'echasnovski/mini.animate',
+    version = false,
+    opts = {},
+  },
+  {
     'echasnovski/mini.completion',
     enabled = false,
     version = '*',
@@ -170,8 +175,20 @@ return {
   -- quick jump
   {
     'echasnovski/mini.jump',
+    enabled = false,
     version = '*',
     opts = {},
+  },
+  -- use 2d replace quick jump
+  {
+    'echasnovski/mini.jump2d',
+    version = '*',
+    opts = {
+      labels = 'etovxqpdygfblzhckisuran',
+      mappings = {
+        start_jumping = 'f',
+      },
+    },
   },
   -- text align
   {
