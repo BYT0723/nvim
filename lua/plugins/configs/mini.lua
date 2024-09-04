@@ -82,10 +82,34 @@ return {
     opts = {
       header = header,
       items = {
-        { name = 'Explorer', action = 'NvimTreeToggle', section = 'TOOLS' },
-        { name = 'Finder', action = 'Telescope find_files', section = 'TOOLS' },
-        { name = 'Plugin', action = 'Lazy', section = 'TOOLS' },
-        { name = 'Configuration', action = 'Telescope find_files cwd=~/.config/nvim', section = 'SYSTEM' },
+        {
+          name = 'New File',
+          action = function()
+            vim.ui.input({ prompt = ' ' .. vim.fn.getcwd() .. '/' }, function(input)
+              if not input or input == '' then
+                vim.notify('invalid path', vim.log.levels.ERROR)
+                return
+              end
+              local full_path = vim.fn.fnamemodify(input, ':p')
+              if vim.fn.isdirectory(full_path) == 1 then
+                vim.notify('already exists directory [' .. full_path .. ']', vim.log.levels.ERROR)
+              elseif vim.fn.filereadable(full_path) == 1 then
+                vim.notify('already exists file [' .. full_path .. ']', vim.log.levels.ERROR)
+              else
+                vim.cmd('edit ' .. full_path)
+              end
+            end)
+          end,
+          section = 'Guide',
+        },
+        { name = 'Recent Files', action = 'Telescope oldfiles', section = 'Guide' },
+        { name = 'Recent Projects', action = 'Telescope projects', section = 'Guide' },
+        -- TOOLS
+        { name = 'Explorer', action = 'NvimTreeToggle', section = 'Tools' },
+        { name = 'Finder', action = 'Telescope find_files', section = 'Tools' },
+        { name = 'Plugin', action = 'Lazy', section = 'Tools' },
+        -- SYSTEM
+        { name = 'Configuration', action = 'Telescope find_files cwd=~/.config/nvim', section = 'System' },
       },
     },
   },

@@ -25,13 +25,17 @@ return {
     },
     live_grep = {
       theme = 'ivy',
-      prompt_prefix = ' ',
+      prompt_prefix = '  ',
     },
     buffers = {
       theme = 'ivy',
     },
     help_tags = {
       theme = 'ivy',
+    },
+    oldfiles = {
+      prompt_prefix = '  ',
+      theme = 'dropdown',
     },
   },
   extensions = {
