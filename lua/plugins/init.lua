@@ -135,12 +135,14 @@ require('lazy').setup({
   {
     'rcarriga/nvim-notify',
     keys = keymaps.Notify,
-    opts = function()
-      return require('plugins.configs.notify')
-    end,
     init = function()
       vim.notify = require('notify')
     end,
+    opts = {
+      render = 'wrapped-compact', -- default / minimal / simple / compact / wrapped-compact
+      stages = 'fade_in_slide_out', -- fade_in_slide_out / fade / slide / static
+      timeout = 5000,
+    },
   },
   -- keyword highlight
   {

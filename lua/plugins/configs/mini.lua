@@ -17,7 +17,10 @@ return {
   {
     'echasnovski/mini.animate',
     version = false,
-    opts = {},
+    opts = {
+      open = { enable = false },
+      close = { enable = false },
+    },
   },
   {
     'echasnovski/mini.completion',
