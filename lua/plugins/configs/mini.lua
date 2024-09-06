@@ -94,7 +94,11 @@ return {
               if vim.fn.isdirectory(full_path) == 1 then
                 vim.notify('already exists directory [' .. full_path .. ']', vim.log.levels.ERROR)
               elseif vim.fn.filereadable(full_path) == 1 then
-                vim.notify('already exists file [' .. full_path .. ']', vim.log.levels.ERROR)
+                vim.ui.input({ prompt = 'File Exists, Open(y/n)' }, function(flag)
+                  if flag == 'y' then
+                    vim.cmd('edit ' .. full_path)
+                  end
+                end)
               else
                 vim.cmd('edit ' .. full_path)
               end
