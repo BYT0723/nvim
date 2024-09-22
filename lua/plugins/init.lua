@@ -142,6 +142,7 @@ require('lazy').setup({
       render = 'wrapped-compact', -- default / minimal / simple / compact / wrapped-compact
       stages = 'fade_in_slide_out', -- fade_in_slide_out / fade / slide / static
       timeout = 5000,
+      fps = 60,
     },
   },
   -- keyword highlight
@@ -327,11 +328,10 @@ require('lazy').setup({
   },
   {
     'HakonHarnes/img-clip.nvim',
-    event = 'VeryLazy',
-    opts = {},
     keys = {
       { '<leader>p', '<cmd>PasteImage<cr>', desc = 'Paste image from system clipboard' },
     },
+    opts = {},
   },
 
   --finder
@@ -370,7 +370,7 @@ require('lazy').setup({
           'marksman',
           'pyright',
           'rust_analyzer',
-          'tsserver',
+          'ts_ls',
         },
         exclude_dirs = {},
         show_hidden = false,
@@ -504,7 +504,6 @@ require('lazy').setup({
       vim.opt.foldenable = false
     end,
     dependencies = {
-      'nvim-treesitter/playground',
       { 'nvim-treesitter/nvim-treesitter-context', keys = keymaps.TreeSitterContext },
       { 'JoosepAlviste/nvim-ts-context-commentstring', opts = {} },
     },
@@ -528,7 +527,15 @@ require('lazy').setup({
   { 'h-hg/fcitx.nvim', event = 'VeryLazy' },
 
   -- game
-  { 'ThePrimeagen/vim-be-good', event = 'VeryLazy' },
+  { 'ThePrimeagen/vim-be-good', enabled = false, event = 'VeryLazy' },
+
+  -- Correct bad habits
+  {
+    'm4xshen/hardtime.nvim',
+    opts = {
+      max_count = 10,
+    },
+  },
 }, {
   ui = {
     border = 'double',

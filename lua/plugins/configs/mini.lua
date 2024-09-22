@@ -140,8 +140,7 @@ return {
             local filename = vim.bo.buftype == 'terminal' and '%t' or '%f%m%r'
             local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
             local location = MiniStatusline.section_location({ trunc_width = 75 })
-            local status_mode = require('noice').api.status.mode.get()
-            local status_command = require('noice').api.status.command.get()
+            local noice = require('noice')
 
             return MiniStatusline.combine_groups({
               { hl = mode_hl, strings = { mode } },
@@ -149,8 +148,9 @@ return {
               '%<', -- Mark general truncate point
               { hl = 'MiniStatuslineFilename', strings = { filename } },
               '%=', -- End left alignment
-              { strings = { status_command } },
-              { hl = mode_hl, strings = { status_mode } },
+              noice ~= nil and { strings = { noice.api.status.command.get() } }, -- noice statusline command
+              vim.bo.filetype == 'http' and { hl = mode_hl, strings = { '', require('kulala').get_selected_env() } }, -- kulala environment
+              noice ~= nil and { hl = mode_hl, strings = { noice.api.status.mode.get() } }, -- noice statusline mode (eg: recording)
               { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
               { hl = mode_hl, strings = { location } },
             })

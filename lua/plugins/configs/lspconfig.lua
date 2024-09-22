@@ -14,7 +14,7 @@ local install_servers = {
   'marksman',
   'pyright',
   'rust_analyzer',
-  'tsserver',
+  'ts_ls',
   -- Other non-installation servers
   'gdscript',
 }

@@ -1,6 +1,6 @@
 {
-  "new": {
-    "prefix": "new",
+  "request": {
+    "prefix": "request",
     "body": [
       "# ${1: New Request}",
       "${2|GET,POST,PUT,DELETE,HEAD|} ${3:URL}",
