@@ -534,6 +534,7 @@ require('lazy').setup({
     'm4xshen/hardtime.nvim',
     opts = {
       max_count = 10,
+      restriction_mode = 'hint',
     },
   },
 }, {
