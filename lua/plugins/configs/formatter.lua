@@ -4,8 +4,9 @@ local api = vim.api
 local util = require('base.util')
 
 M.exc_file = {
-  lua = { 'keybindings.lua', 'dwm.c', 'st.c' },
+  lua = { 'keybindings.lua' },
   cpp = { 'config.h' },
+  c = { 'dwm.c', 'st.c' },
 }
 
 function M.is_exc_file()
