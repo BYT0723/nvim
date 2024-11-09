@@ -1,7 +1,7 @@
 local lspconfig = require('lspconfig')
 local install_servers = {
   'bashls',
-  'bufls',
+  'buf_ls',
   'clangd',
   'cssls',
   'dockerls',
