@@ -206,7 +206,7 @@ return {
   -- quick jump
   {
     'echasnovski/mini.jump',
-    enabled = false,
+    enabled = true,
     version = '*',
     opts = {},
   },
@@ -217,7 +217,7 @@ return {
     opts = {
       labels = 'etovxqpdygfblzhckisuran',
       mappings = {
-        start_jumping = 'f',
+        start_jumping = 'F',
       },
     },
   },
