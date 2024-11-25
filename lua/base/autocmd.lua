@@ -65,6 +65,13 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'mail',
+  callback = function()
+    vim.opt.showtabline = 0
+  end,
+})
+
 -- -- 创建自动命令来监听 ModeChanged 事件
 -- vim.api.nvim_create_autocmd('ModeChanged', {
 --   callback = function()

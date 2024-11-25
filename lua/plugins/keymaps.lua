@@ -109,10 +109,10 @@ M.TreeSitterContext = {
 
 -- stylua: ignore
 M.Sniprun = {
-  { '<leader>rl', '<cmd>SnipRun<CR>',                                   desc = 'run current line code',   ft = {"markdown", "norg"} },
-  { '<leader>rb', function() require 'sniprun'.run('v') end,            desc = 'run selected code block', ft = {"markdown", "norg"}, mode = 'v', },
-  { '<leader>rc', function() require 'sniprun.display'.close_all() end, desc = 'clean sniprun output',    ft = {"markdown", "norg"} },
-  { '<leader>rC', function() require 'sniprun'.reset() end,             desc = 'sniprun cancel',          ft = {"markdown", "norg"} },
+  { '<leader>rl', '<cmd>SnipRun<CR>',                                   desc = 'run current line code',   ft = {"markdown", "norg", "sh"} },
+  { '<leader>rb', function() require 'sniprun'.run('v') end,            desc = 'run selected code block', ft = {"markdown", "norg", "sh"}, mode = 'v', },
+  { '<leader>rc', function() require 'sniprun.display'.close_all() end, desc = 'clean sniprun output',    ft = {"markdown", "norg", "sh"} },
+  { '<leader>rC', function() require 'sniprun'.reset() end,             desc = 'sniprun cancel',          ft = {"markdown", "norg", "sh"} },
 }
 
 -- stylua: ignore
