@@ -28,5 +28,12 @@
     "prefix": "detail",
     "body": ["<details>", "\t<summary>$1</summary>", "\t$2", "</details>"],
     "description": "detail"
+  },
+  "note": {
+    "prefix": "note",
+    "body": [
+      "- [ ] ${1|Work,Person,Home,Code,Other|} ${2:${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}}, ${3:description}"
+    ],
+    "description": "personal note"
   }
 }
