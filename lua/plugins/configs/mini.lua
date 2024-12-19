@@ -1,4 +1,3 @@
-local keymaps = require('plugins.keymaps')
 local header = '\
 ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗\
 ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║\
@@ -264,37 +263,12 @@ return {
     versiont = '*',
     opts = {
       -- Module mappings. Use `''` (empty string) to disable one.
-      mappings = {
-        -- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
-        left = '<C-h>',
-        right = '<C-l>',
-        down = '<C-j>',
-        up = '<C-k>',
-      },
+      -- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
     },
   },
   -- show line tail space
   {
     'echasnovski/mini.trailspace',
     opts = {},
-  },
-  -- nvim session
-  {
-    'echasnovski/mini.sessions',
-    version = '*',
-    enabled = true,
-    keys = keymaps.MiniSession,
-    opts = {
-      autoread = false,
-      autowrite = true,
-      directory = vim.fn.stdpath('state') .. '/session',
-      file = 'Session.vim',
-      force = { read = false, write = true, delete = false },
-      hooks = {
-        pre = { read = nil, write = nil, delete = nil },
-        post = { read = nil, write = nil, delete = nil },
-      },
-      verbose = { read = false, write = true, delete = true },
-    },
   },
 }

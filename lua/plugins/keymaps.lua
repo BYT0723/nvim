@@ -17,24 +17,6 @@ M.NvimTree = {
 }
 
 -- stylua: ignore
-M.MiniSession = {
-  {'<leader>fs', function() require('mini.sessions').select() end, desc = 'Find Session',},
-  {
-    '<leader>sw',
-    function()
-      vim.ui.input({ prompt = 'Write session:' }, function(response)
-        if string.len(response) > 0 then
-          require('mini.sessions').write(response)
-        else
-          require('mini.sessions').write('autosession')
-        end
-      end)
-    end,
-    desc = 'Write Session',
-  },
-}
-
--- stylua: ignore
 M.PanTran = {
   { '<leader>tw', 'yiw<cmd>Pantran mode=interactive target=zh<CR>p', desc = 'Translate word under cursor',    },
   { '<leader>tw', 'y<cmd>Pantran mode=interactive target=zh<CR>p',   desc = 'Translate text in the selected', mode = 'v', },
