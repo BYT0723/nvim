@@ -98,6 +98,15 @@ M.Sniprun = {
 }
 
 -- stylua: ignore
+M.Codeium = {
+  { '<C-h>', function() return vim.fn['codeium#AcceptNextWord']() end, desc = 'Accept Next Word', mode = 'i',},
+  { '<C-l>', function() return vim.fn['codeium#AcceptNextLine']() end, desc = 'Accept Next Line', mode = 'i' },
+  { '<C-L>', function() return vim.fn['codeium#Accept']() end , desc = 'Accept suggestion', mode = 'i' },
+  { '<M-]>', function() return vim.fn['codeium#CycleCompletions'](1) end, desc = 'Next suggestion', mode = 'i' },
+  { '<M-]>', function() return vim.fn['codeium#CycleCompletions'](-1) end, desc = 'Prev suggestion', mode = 'i' },
+}
+
+-- stylua: ignore
 M.Kulala = {
   {"<leader>ke", function() require('kulala').search() end,           desc = "select a http file"},
   {"<leader>kn", function()
