@@ -61,10 +61,12 @@ end
 
 local runFileTerm = Terminal:new({ direction = 'horizontal', display_name = 'RUN FILE' })
 
+-- stylua: ignore
 local tools = {
-  git = Terminal:new({ cmd = 'lazygit', display_name = 'LazyGit', direction = 'tab' }),
-  docker = Terminal:new({ cmd = 'lazydocker', display_name = 'LazyDocker', direction = 'tab' }),
-  ranger = Terminal:new({ cmd = 'yazi', display_name = 'Yazi', direction = 'float' }),
+  git                   = Terminal:new({ cmd = 'lazygit',    display_name ='LazyGit',    direction ='tab'   }),
+  docker                = Terminal:new({ cmd = 'lazydocker', display_name ='LazyDocker', direction ='tab'   }),
+  file_explorer         = Terminal:new({ cmd = 'yazi',       display_name ='Yazi',       direction ='float' }),
+  file_explorer_on_file = Terminal:new({ cmd = 'yazi %:p',   display_name ='Yazi',       direction ='float' }),
 }
 
 function M.toolToggle(name)
