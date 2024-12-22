@@ -64,7 +64,7 @@ local runFileTerm = Terminal:new({ direction = 'horizontal', display_name = 'RUN
 local tools = {
   git = Terminal:new({ cmd = 'lazygit', display_name = 'LazyGit', direction = 'tab' }),
   docker = Terminal:new({ cmd = 'lazydocker', display_name = 'LazyDocker', direction = 'tab' }),
-  ranger = Terminal:new({ cmd = 'ranger', display_name = 'Ranger', direction = 'float' }),
+  ranger = Terminal:new({ cmd = 'yazi', display_name = 'Yazi', direction = 'float' }),
 }
 
 function M.toolToggle(name)
