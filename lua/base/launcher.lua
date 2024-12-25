@@ -63,16 +63,23 @@ local runFileTerm = Terminal:new({ direction = 'horizontal', display_name = 'RUN
 
 -- stylua: ignore
 local tools = {
-  git                   = Terminal:new({ cmd = 'lazygit',    display_name ='LazyGit',    direction ='tab'   }),
-  docker                = Terminal:new({ cmd = 'lazydocker', display_name ='LazyDocker', direction ='tab'   }),
-  file_explorer         = Terminal:new({ cmd = 'yazi',       display_name ='Yazi',       direction ='float' }),
-  file_explorer_on_file = Terminal:new({ cmd = 'yazi %:p',   display_name ='Yazi',       direction ='float' }),
+  git           = { term = Terminal:new({ cmd = 'lazygit',    display_name = 'LazyGit',    direction = 'tab'   }) },
+  docker        = { term = Terminal:new({ cmd = 'lazydocker', display_name = 'LazyDocker', direction = 'tab'   }) },
+  file_explorer = { term = Terminal:new({ cmd = 'yazi',       display_name = 'Yazi',       direction = 'float' }) },
+  file_explorer_on_file = {
+    term = Terminal:new({ display_name = 'Yazi', direction = 'float' }),
+    cmd = function() return 'yazi ' .. util.relative_path() end,
+  },
 }
 
 function M.toolToggle(name)
   local tool = tools[name]
-  tool.dir = vim.fn.getcwd()
-  tool:toggle()
+  tool.term.dir = vim.fn.getcwd()
+
+  if tool.cmd then
+    tool.term.cmd = tool.cmd()
+  end
+  tool.term:toggle()
 end
 
 -- run file
