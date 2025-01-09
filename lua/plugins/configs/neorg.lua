@@ -17,7 +17,7 @@ return {
       },
     },
     ['core.keybinds'] = {},
-    ['core.integrations.nvim-cmp'] = {},
+    -- ['core.integrations.nvim-cmp'] = {},
     ['core.dirman'] = {
       config = {
         workspaces = {

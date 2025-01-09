@@ -309,6 +309,7 @@ require('lazy').setup({
   },
   {
     'nvim-neorg/neorg',
+    enabled = false,
     opts = require('plugins.configs.neorg'),
   },
   {
@@ -382,7 +383,7 @@ require('lazy').setup({
   -- completion
   {
     'hrsh7th/nvim-cmp',
-    enabled = true,
+    enabled = false,
     event = { 'InsertEnter', 'CmdlineEnter' },
     dependencies = {
       'hrsh7th/cmp-nvim-lsp', -- { name = nvim_lsp }
@@ -397,6 +398,81 @@ require('lazy').setup({
     opts = function()
       return require('plugins.configs.cmp')
     end,
+  },
+  {
+    'saghen/blink.cmp',
+    dependencies = 'rafamadriz/friendly-snippets',
+    version = '*',
+    opts = {
+      enabled = function()
+        return not vim.tbl_contains({ 'DressingInput' }, vim.bo.filetype)
+          and vim.bo.buftype ~= 'prompt'
+          and vim.b.completion ~= false
+      end,
+      -- stylua: ignore
+      keymap = {
+        preset = 'none',
+        ['<Tab>']   = { 'select_next',               'fallback' },
+        ['<S-Tab>'] = { 'select_prev',               'fallback' },
+        ['<CR>']    = { 'accept',                    'fallback' },
+        ['<C-j>']   = { 'snippet_forward',           'fallback' },
+        ['<C-k>']   = { 'snippet_backward',          'fallback' },
+        ['<C-u>']   = { 'scroll_documentation_up',   'fallback' },
+        ['<C-d>']   = { 'scroll_documentation_down', 'fallback' },
+      },
+      completion = {
+        keyword = {
+          -- 'prefix' will fuzzy match on the text before the cursor
+          -- 'full' will fuzzy match on the text before *and* after the cursor
+          -- example: 'foo_|_bar' will match 'foo_' for 'prefix' and 'foo__bar' for 'full'
+          range = 'prefix',
+        },
+        list = {
+          max_items = 20,
+          selection = {
+            preselect = false,
+            auto_insert = false,
+          },
+        },
+        menu = {
+          draw = {
+            align_to = 'none', -- or 'none' to disable, or 'cursor' to align to the cursor
+            padding = 1,
+            gap = 5,
+            columns = { { 'kind_icon', 'label', 'label_description', gap = 1 }, { 'kind' } },
+          },
+        },
+        documentation = {
+          auto_show = true,
+          auto_show_delay_ms = 100,
+          window = {
+            border = 'rounded',
+          },
+        },
+      },
+      appearance = {
+        use_nvim_cmp_as_default = true,
+        nerd_font_variant = 'mono',
+      },
+      sources = {
+        default = { 'lsp', 'snippets', 'buffer', 'path' },
+        transform_items = function(_, items)
+          for _, item in ipairs(items) do
+            -- 将LSP提供的代码片段的优先级提高
+            if item.kind == 15 and item.source_id == 'lsp' then -- Snippets
+              item.score_offset = item.score_offset + 100
+            end
+          end
+          return items
+        end,
+      },
+      signature = {
+        enabled = true,
+        window = {
+          border = 'rounded',
+        },
+      },
+    },
   },
   {
     'codota/tabnine-nvim',

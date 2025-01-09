@@ -33,7 +33,7 @@ return {
       view = nil, -- when nil, use defaults from documentation
     },
     signature = {
-      enabled = true, -- have issue with plugin <lsp-signature>
+      enabled = false, -- have issue with plugin <lsp-signature>
       auto_open = {
         enabled = true,
         trigger = true, -- Automatically show signature help when typing a trigger character from the LSP

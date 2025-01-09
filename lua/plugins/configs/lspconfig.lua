@@ -107,7 +107,53 @@ local settings = {
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local capabilities = require('cmp_nvim_lsp').default_capabilities() --nvim-cmp
+local capabilities = {
+  textDocument = {
+    completion = {
+      dynamicRegistration = false,
+      completionItem = {
+        snippetSupport = true,
+        commitCharactersSupport = true,
+        deprecatedSupport = true,
+        preselectSupport = true,
+        tagSupport = {
+          valueSet = {
+            1, -- Deprecated
+          },
+        },
+        insertReplaceSupport = true,
+        resolveSupport = {
+          properties = {
+            'documentation',
+            'additionalTextEdits',
+            'insertTextFormat',
+            'insertTextMode',
+            'command',
+          },
+        },
+        insertTextModeSupport = {
+          valueSet = {
+            1, -- asIs
+            2, -- adjustIndentation
+          },
+        },
+        labelDetailsSupport = true,
+      },
+      contextSupport = true,
+      insertTextMode = 1,
+      completionList = {
+        itemDefaults = {
+          'commitCharacters',
+          'editRange',
+          'insertTextFormat',
+          'insertTextMode',
+          'data',
+        },
+      },
+    },
+  },
+}
+
 for _, lsp in pairs(install_servers) do
   lspconfig[lsp].setup({
     on_attach = on_attach,
