@@ -440,6 +440,7 @@ require('lazy').setup({
             padding = 1,
             gap = 5,
             columns = { { 'kind_icon', 'label', 'label_description', gap = 1 }, { 'kind' } },
+            components = { kind = { highlight = 'Comment' } },
           },
         },
         documentation = {
