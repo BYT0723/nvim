@@ -1,137 +1,71 @@
-local lspkind = require('lspkind')
-local cmp = require('cmp')
-
-vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
-
-local feedkey = function(key, mode)
-  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
-end
-
-local special_cfg = {
-  cmdline = {
-    {
-      pattern = { '/', '?' },
-      config = {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-          { name = 'buffer' },
-        },
-      },
-    },
-    {
-      pattern = ':',
-      config = {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({
-          { name = 'path' },
-        }, {
-          { name = 'cmdline' },
-        }),
-      },
-    },
-  },
-  filetype = {
-    {
-      ft = 'norg',
-      config = {
-        sources = cmp.config.sources({
-          { name = 'neorg' },
-        }, {
-          { name = 'buffer' },
-          { name = 'path' },
-        }),
-      },
-    },
-    {
-      ft = 'toml',
-      config = {
-        sources = cmp.config.sources({
-          { name = 'nvim_lsp' },
-          { name = 'crates' },
-        }, {
-          { name = 'buffer' },
-          { name = 'path' },
-        }),
-      },
-    },
-    {
-      ft = { 'sql', 'mysql', 'plsql' },
-      config = {
-        sources = cmp.config.sources({
-          { name = 'nvim_lsp' },
-          { name = 'vim-dadbod-completion' },
-        }, {
-          { name = 'vsnip' },
-          { name = 'buffer' },
-          { name = 'path' },
-        }),
-      },
-    },
-  },
-}
-
-for _, cfg in ipairs(special_cfg.cmdline) do
-  cmp.setup.cmdline(cfg.pattern, cfg.config)
-end
-
-for _, cfg in ipairs(special_cfg.filetype) do
-  cmp.setup.filetype(cfg.ft, cfg.config)
-end
-
 return {
-  -- 指定 snippet 引擎
-  snippet = {
-    expand = function(args)
-      vim.fn['vsnip#anonymous'](args.body)
+  enabled = function()
+    return not vim.tbl_contains({ 'DressingInput' }, vim.bo.filetype)
+      and vim.bo.buftype ~= 'prompt'
+      and vim.b.completion ~= false
+  end,
+      -- stylua: ignore
+      keymap = {
+        preset = 'none',
+        ['<Tab>']   = { 'select_next',               'fallback' },
+        ['<S-Tab>'] = { 'select_prev',               'fallback' },
+        ['<CR>']    = { 'accept',                    'fallback' },
+        ['<C-j>']   = { 'snippet_forward',           'fallback' },
+        ['<C-k>']   = { 'snippet_backward',          'fallback' },
+        ['<C-u>']   = { 'scroll_documentation_up',   'fallback' },
+        ['<C-d>']   = { 'scroll_documentation_down', 'fallback' },
+      },
+  completion = {
+    keyword = {
+      -- 'prefix' will fuzzy match on the text before the cursor
+      -- 'full' will fuzzy match on the text before *and* after the cursor
+      -- example: 'foo_|_bar' will match 'foo_' for 'prefix' and 'foo__bar' for 'full'
+      range = 'prefix',
+    },
+    list = {
+      max_items = 20,
+      selection = {
+        preselect = false,
+        auto_insert = true,
+      },
+    },
+    menu = {
+      draw = {
+        align_to = 'cursor', -- or 'none' to disable, or 'cursor' to align to the cursor
+        padding = 1,
+        gap = 5,
+        columns = { { 'kind_icon', 'label', 'label_description', gap = 1 }, { 'kind' } },
+        components = { kind = { highlight = 'Comment' } },
+      },
+    },
+    documentation = {
+      auto_show = true,
+      auto_show_delay_ms = 100,
+      window = {
+        border = 'rounded',
+      },
+    },
+  },
+  appearance = {
+    use_nvim_cmp_as_default = true,
+    nerd_font_variant = 'mono',
+  },
+  sources = {
+    default = { 'lsp', 'snippets', 'buffer', 'path' },
+    transform_items = function(_, items)
+      for _, item in ipairs(items) do
+        -- 将LSP提供的代码片段的优先级提高
+        if item.kind == 15 and item.source_id == 'lsp' then -- Snippets
+          item.score_offset = item.score_offset + 100
+        end
+      end
+      return items
     end,
   },
-  -- 窗体样式
-  window = {
-    -- completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
-  },
-  -- 来源
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp', max_item_count = 20 },
-    { name = 'vsnip', max_item_count = 10 },
-    { name = 'buffer', max_item_count = 10 },
-    { name = 'path', max_item_count = 10 },
-  }),
-
-  -- 快捷键
-  mapping = {
-    ['<Tab>'] = function(fallback)
-      return cmp.visible() and cmp.select_next_item() or fallback()
-    end,
-    ['<S-Tab>'] = function(fallback)
-      return cmp.visible() and cmp.select_prev_item() or fallback()
-    end,
-    ['<C-j>'] = cmp.mapping(function()
-      feedkey('<Plug>(vsnip-jump-next)', 'i')
-    end, { 'i', 's' }),
-    ['<C-k>'] = cmp.mapping(function()
-      feedkey('<Plug>(vsnip-jump-prev)', 'i')
-    end, { 'i', 's' }),
-
-    -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-    -- ['<C-y>'] = cmp.config.disable,
-    ['<C-u>'] = cmp.mapping.scroll_docs(-2),
-    ['<C-d>'] = cmp.mapping.scroll_docs(2),
-    ['<C-.>'] = cmp.mapping.complete(),
-    ['<C-,>'] = cmp.mapping.abort(),
-    ['<CR>'] = cmp.mapping.confirm({ select = false }),
-  },
-
-  -- 使用lspkind-nvim显示类型图标
-  formatting = {
-    fields = { 'kind', 'abbr', 'menu' },
-    format = lspkind.cmp_format({
-      mode = 'symbol',
-      maxwidth = 50,
-      before = function(entry, vim_item)
-        vim_item.menu = vim_item.kind
-        return vim_item
-      end,
-    }),
+  signature = {
+    enabled = true,
+    window = {
+      border = 'rounded',
+    },
   },
 }

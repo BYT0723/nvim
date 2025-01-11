@@ -37,7 +37,6 @@ require('lazy').setup({
   {
     -- https://github.com/folke/tokyonight.nvim
     'folke/tokyonight.nvim',
-    enabled = true,
     lazy = false,
     priority = 1000,
     init = function()
@@ -119,16 +118,11 @@ require('lazy').setup({
           bg = c.hint,
           fg = c.bg_dark,
         }
+        hl.BlinkCmpMenu = {
+          bg = c.bg_dark,
+          fg = c.fg_dark,
+        }
       end,
-    },
-  },
-  -- background transparent
-  {
-    'xiyaowong/transparent.nvim',
-    enabled = false,
-    opts = {
-      extra_groups = {}, -- table: additional groups that should be cleared
-      exclude_groups = {}, -- table: groups you don't want to clear
     },
   },
   -- notify
@@ -239,6 +233,11 @@ require('lazy').setup({
           default_target = 'en',
         },
       },
+      window = {
+        window_config = {
+          border = 'rounded',
+        },
+      },
     },
   },
 
@@ -308,24 +307,13 @@ require('lazy').setup({
     },
   },
   {
-    'nvim-neorg/neorg',
-    enabled = false,
-    opts = require('plugins.configs.neorg'),
-  },
-  {
-    -- install
-    -- Arch: pacman -S imagemagick ueberzugpp
-    -- disable, because it be required luarocks.nvim
-    '3rd/image.nvim',
-    enabled = false,
-    opts = {
-      backend = 'ueberzug', -- ueberzug / kitty
-      window_overlap_clear_enabled = false, -- toggles images when windows are overlapped
-      window_overlap_clear_ft_ignore = { 'notify', 'cmp_menu', 'cmp_docs' },
-      editor_only_render_when_focused = false, -- auto show/hide images when the editor gains/looses focus
-      tmux_show_only_in_active_window = true, -- auto show/hide images in the correct Tmux window (needs visual-activity off)
-      hijack_file_patterns = { '*.png', '*.jpg', '*.jpeg', '*.gif', '*.webp' }, -- render image files as images when opened
+    'MeanderingProgrammer/render-markdown.nvim',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+      'echasnovski/mini.icons',
+      'nvim-tree/nvim-web-devicons',
     },
+    opts = {},
   },
   {
     'HakonHarnes/img-clip.nvim',
@@ -382,130 +370,10 @@ require('lazy').setup({
   },
   -- completion
   {
-    'hrsh7th/nvim-cmp',
-    enabled = false,
-    event = { 'InsertEnter', 'CmdlineEnter' },
-    dependencies = {
-      'hrsh7th/cmp-nvim-lsp', -- { name = nvim_lsp }
-      'hrsh7th/cmp-buffer', -- { name = 'buffer' },
-      'hrsh7th/cmp-path', -- { name = 'path' }
-      'hrsh7th/cmp-cmdline', -- { name = 'cmdline' }
-      'hrsh7th/cmp-vsnip', -- { name = 'vsnip' }
-      'hrsh7th/vim-vsnip', -- vscode的json code snippet的支持
-      'rafamadriz/friendly-snippets', -- 各种语言常用的代码片段
-      'onsails/lspkind-nvim', -- 补全中的图标
-    },
-    opts = function()
-      return require('plugins.configs.cmp')
-    end,
-  },
-  {
     'saghen/blink.cmp',
     dependencies = 'rafamadriz/friendly-snippets',
     version = '*',
-    opts = {
-      enabled = function()
-        return not vim.tbl_contains({ 'DressingInput' }, vim.bo.filetype)
-          and vim.bo.buftype ~= 'prompt'
-          and vim.b.completion ~= false
-      end,
-      -- stylua: ignore
-      keymap = {
-        preset = 'none',
-        ['<Tab>']   = { 'select_next',               'fallback' },
-        ['<S-Tab>'] = { 'select_prev',               'fallback' },
-        ['<CR>']    = { 'accept',                    'fallback' },
-        ['<C-j>']   = { 'snippet_forward',           'fallback' },
-        ['<C-k>']   = { 'snippet_backward',          'fallback' },
-        ['<C-u>']   = { 'scroll_documentation_up',   'fallback' },
-        ['<C-d>']   = { 'scroll_documentation_down', 'fallback' },
-      },
-      completion = {
-        keyword = {
-          -- 'prefix' will fuzzy match on the text before the cursor
-          -- 'full' will fuzzy match on the text before *and* after the cursor
-          -- example: 'foo_|_bar' will match 'foo_' for 'prefix' and 'foo__bar' for 'full'
-          range = 'prefix',
-        },
-        list = {
-          max_items = 20,
-          selection = {
-            preselect = false,
-            auto_insert = false,
-          },
-        },
-        menu = {
-          draw = {
-            align_to = 'none', -- or 'none' to disable, or 'cursor' to align to the cursor
-            padding = 1,
-            gap = 5,
-            columns = { { 'kind_icon', 'label', 'label_description', gap = 1 }, { 'kind' } },
-            components = { kind = { highlight = 'Comment' } },
-          },
-        },
-        documentation = {
-          auto_show = true,
-          auto_show_delay_ms = 100,
-          window = {
-            border = 'rounded',
-          },
-        },
-      },
-      appearance = {
-        use_nvim_cmp_as_default = true,
-        nerd_font_variant = 'mono',
-      },
-      sources = {
-        default = { 'lsp', 'snippets', 'buffer', 'path' },
-        transform_items = function(_, items)
-          for _, item in ipairs(items) do
-            -- 将LSP提供的代码片段的优先级提高
-            if item.kind == 15 and item.source_id == 'lsp' then -- Snippets
-              item.score_offset = item.score_offset + 100
-            end
-          end
-          return items
-        end,
-      },
-      signature = {
-        enabled = true,
-        window = {
-          border = 'rounded',
-        },
-      },
-    },
-  },
-  {
-    'codota/tabnine-nvim',
-    enabled = false,
-    build = './dl_binaries.sh',
-    config = function()
-      require('tabnine').setup({
-        disable_auto_comment = true,
-        accept_keymap = false,
-        dismiss_keymap = false,
-        debounce_ms = 800,
-        suggestion_color = { gui = '#808080', cterm = 255 },
-        exclude_filetypes = { 'TelescopePrompt', 'NvimTree' },
-        log_file_path = nil, -- absolute path to Tabnine log file
-      })
-
-      local tabnine = require('tabnine.keymaps')
-      vim.keymap.set('i', '<C-l>', function()
-        if tabnine.has_suggestion() then
-          return tabnine.accept_suggestion()
-        else
-          return '<C-l>'
-        end
-      end, { expr = true })
-      vim.keymap.set('i', '<C-h>', function()
-        if tabnine.has_suggestion() then
-          return tabnine.dismiss_suggestion()
-        else
-          return '<C-h>'
-        end
-      end, { expr = true })
-    end,
+    opts = require('plugins.configs.cmp'),
   },
   {
     'Exafunction/codeium.vim',
@@ -599,26 +467,14 @@ require('lazy').setup({
       { 'JoosepAlviste/nvim-ts-context-commentstring', opts = {} },
     },
   },
-  -- rainbow delimiter
-  {
-    'HiPhish/rainbow-delimiters.nvim',
-    enabled = false,
-    config = function()
-      require('rainbow-delimiters.setup').setup({})
-    end,
-  },
   -- which key
   {
     'folke/which-key.nvim',
-    enabled = true,
     event = 'VeryLazy',
     opts = { preset = 'helix' },
   },
   -- normal/insert模式切换的输入法记忆
   { 'h-hg/fcitx.nvim', event = 'VeryLazy' },
-
-  -- game
-  { 'ThePrimeagen/vim-be-good', enabled = false, event = 'VeryLazy' },
 
   -- Correct bad habits
   {

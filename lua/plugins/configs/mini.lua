@@ -11,25 +11,18 @@ local header = '\
 return {
   {
     'echasnovski/mini.icons',
-    version = false,
+    version = '*',
   },
   {
     'echasnovski/mini.animate',
-    version = false,
+    version = '*',
     opts = {
       open = { enable = false },
       close = { enable = false },
     },
   },
   {
-    'echasnovski/mini.completion',
-    enabled = false,
-    version = '*',
-    opts = {},
-  },
-  {
     'echasnovski/mini.indentscope',
-    enabled = true,
     version = '*',
     opts = {
       draw = {
@@ -56,28 +49,10 @@ return {
     },
     opts = {},
   },
-  -- colorscheme
-  {
-    'echasnovski/mini.hues',
-    enabled = false,
-    version = '*',
-    init = function()
-      vim.cmd([[colorscheme randomhue]])
-    end,
-  },
-  {
-    'echasnovski/mini.cursorword',
-    -- 关闭原因：没有结合LSP分析
-    enabled = false,
-    version = '*',
-    opts = {
-      delay = 500,
-    },
-  },
   -- starter UI
   {
     'echasnovski/mini.starter',
-    version = false,
+    version = '*',
     opts = {
       header = header,
       items = {
@@ -139,7 +114,7 @@ return {
             local filename = vim.bo.buftype == 'terminal' and '%t' or '%f%m%r'
             local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
             local location = MiniStatusline.section_location({ trunc_width = 75 })
-            local noice = require('noice')
+            local has_noice, noice = pcall(require, 'noice')
 
             return MiniStatusline.combine_groups({
               { hl = mode_hl, strings = { mode } },
@@ -147,9 +122,9 @@ return {
               '%<', -- Mark general truncate point
               { hl = 'MiniStatuslineFilename', strings = { filename } },
               '%=', -- End left alignment
-              noice ~= nil and { strings = { noice.api.status.command.get() } }, -- noice statusline command
+              has_noice and { strings = { noice.api.status.command.get() } }, -- noice statusline command
               vim.bo.filetype == 'http' and { hl = mode_hl, strings = { '', require('kulala').get_selected_env() } }, -- kulala environment
-              noice ~= nil and { hl = mode_hl, strings = { noice.api.status.mode.get() } }, -- noice statusline mode (eg: recording)
+              has_noice and { hl = mode_hl, strings = { noice.api.status.mode.get() } }, -- noice statusline mode (eg: recording)
               { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
               { hl = mode_hl, strings = { location } },
             })
@@ -174,7 +149,7 @@ return {
   -- comment
   {
     'echasnovski/mini.comment',
-    version = false,
+    version = '*',
     opts = {
       options = {
         custom_commentstring = function()
@@ -205,7 +180,6 @@ return {
   -- quick jump
   {
     'echasnovski/mini.jump',
-    enabled = true,
     version = '*',
     opts = {},
   },
@@ -223,7 +197,7 @@ return {
   -- text align
   {
     'echasnovski/mini.align',
-    version = false,
+    version = '*',
     opts = {},
   },
   -- surround text
