@@ -25,6 +25,13 @@ vim.api.nvim_create_autocmd('FileType', {
   command = 'setlocal tabstop=2 softtabstop=2 shiftwidth=2',
 })
 
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = {
+    'markdown',
+  },
+  command = 'setlocal conceallevel=2',
+})
+
 vim.api.nvim_create_autocmd('BufReadPre', {
   pattern = '*',
   callback = function()

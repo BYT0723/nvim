@@ -32,9 +32,6 @@ vim.g.mkdp_browser = 'surf'
 vim.g.mkdp_refresh_slow = 0
 vim.g.mkdp_auto_close = 0
 
--- obsidian preview
-vim.opt.conceallevel = 2
-
 -- neovide
 if vim.g.neovide then
   vim.g.neovide_refresh_rate = 60
