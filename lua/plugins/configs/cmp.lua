@@ -52,6 +52,9 @@ return {
   },
   sources = {
     default = { 'lsp', 'snippets', 'buffer', 'path' },
+    per_filetype = {
+      markdown = { 'obsidian', 'obsidian_new', 'obsidian_tags', 'lsp', 'snippets', 'buffer', 'path' },
+    },
     transform_items = function(_, items)
       for _, item in ipairs(items) do
         -- 将LSP提供的代码片段的优先级提高
@@ -61,6 +64,20 @@ return {
       end
       return items
     end,
+    providers = {
+      obsidian = {
+        name = 'obsidian',
+        module = 'blink.compat.source',
+      },
+      obsidian_new = {
+        name = 'obsidian_new',
+        module = 'blink.compat.source',
+      },
+      obsidian_tags = {
+        name = 'obsidian_tags',
+        module = 'blink.compat.source',
+      },
+    },
   },
   signature = {
     enabled = true,

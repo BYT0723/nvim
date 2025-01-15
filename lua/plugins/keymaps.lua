@@ -107,6 +107,14 @@ M.Codeium = {
 }
 
 -- stylua: ignore
+M.Obsidian = {
+  { '<leader>ow', '<cmd>ObsidianDailies -3 3<CR>',   desc = "obsidian daliy note" },
+  { '<leader>od', '<cmd>ObsidianDailies -3 3<CR>',   desc = "obsidian daliy note" },
+  { '<leader>ol', '<cmd>ObsidianFollowLink<CR>',     desc = "obsidian follow link",     ft = "markdown"},
+  { '<leader>ot', '<cmd>ObsidianToggleCheckbox<CR>', desc = "obsidian toggle checkbox", ft = "markdown"},
+}
+
+-- stylua: ignore
 M.Kulala = {
   {"<leader>ke", function() require('kulala').search() end,           desc = "select a http file"},
   {"<leader>kn", function()

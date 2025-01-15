@@ -290,6 +290,42 @@ require('lazy').setup({
       vim.fn['mkdp#util#install']()
     end,
   },
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    enabled = false,
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+      'echasnovski/mini.icons',
+      'nvim-tree/nvim-web-devicons',
+    },
+    opts = {},
+  },
+  {
+    'epwalsh/obsidian.nvim',
+    version = '*', -- recommended, use latest release instead of latest commit
+    keys = keymaps.Obsidian,
+    opts = {
+      workspaces = {
+        {
+          name = 'personal',
+          path = '~/Vaults/Personal',
+        },
+        {
+          name = 'work',
+          path = '~/Vaults/Work',
+        },
+      },
+      daily_notes = {
+        folder = 'dailies',
+        date_format = '%Y-%m-%d',
+        alias_format = '%b %-d, %Y (%a)',
+        default_tags = { 'daily-notes' },
+        -- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
+        template = nil,
+      },
+      mappings = {},
+    },
+  },
   -- Zen Mode like vscode
   {
     'folke/zen-mode.nvim',
@@ -305,15 +341,6 @@ require('lazy').setup({
     opts = {
       display = { 'Terminal', 'VirtualText' },
     },
-  },
-  {
-    'MeanderingProgrammer/render-markdown.nvim',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter',
-      'echasnovski/mini.icons',
-      'nvim-tree/nvim-web-devicons',
-    },
-    opts = {},
   },
   {
     'HakonHarnes/img-clip.nvim',
@@ -371,7 +398,10 @@ require('lazy').setup({
   -- completion
   {
     'saghen/blink.cmp',
-    dependencies = 'rafamadriz/friendly-snippets',
+    dependencies = {
+      { 'saghen/blink.compat', lazy = true, version = false },
+      'rafamadriz/friendly-snippets',
+    },
     version = '*',
     opts = require('plugins.configs.cmp'),
   },
