@@ -108,10 +108,10 @@ M.Codeium = {
 
 -- stylua: ignore
 M.Obsidian = {
-  { '<leader>ow', '<cmd>ObsidianDailies -3 3<CR>',   desc = "obsidian daliy note" },
-  { '<leader>od', '<cmd>ObsidianDailies -3 3<CR>',   desc = "obsidian daliy note" },
-  { '<leader>ol', '<cmd>ObsidianFollowLink<CR>',     desc = "obsidian follow link",     ft = "markdown"},
-  { '<leader>ot', '<cmd>ObsidianToggleCheckbox<CR>', desc = "obsidian toggle checkbox", ft = "markdown"},
+  { '<leader>ow', '<cmd>ObsidianWorkspace<CR>',    desc = "obsidian workspaces" },
+  { '<leader>ot', '<cmd>ObsidianTags<CR>',         desc = "obsidian tags" },
+  { '<leader>od', '<cmd>ObsidianDailies -3 3<CR>', desc = "obsidian daliy note" },
+  { '<leader>ol', '<cmd>ObsidianFollowLink<CR>',   desc = "obsidian follow link", ft = "markdown"},
 }
 
 -- stylua: ignore

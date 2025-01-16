@@ -292,18 +292,36 @@ require('lazy').setup({
   },
   {
     'MeanderingProgrammer/render-markdown.nvim',
-    enabled = false,
     dependencies = {
       'nvim-treesitter/nvim-treesitter',
       'echasnovski/mini.icons',
       'nvim-tree/nvim-web-devicons',
     },
-    opts = {},
+    -- stylua: ignore
+    init = function()
+      vim.api.nvim_set_hl(0, 'RenderMarkdownCheckboxCheckedText',   { link = '@markup.strikethrough' })
+      vim.api.nvim_set_hl(0, 'RenderMarkdownCheckboxProgress',      { bold = true, fg = '#00AFFF' })
+      vim.api.nvim_set_hl(0, 'RenderMarkdownCheckboxInterrupt',     { link = '@comment' })
+      vim.api.nvim_set_hl(0, 'RenderMarkdownCheckboxImportant',     { bold = true, fg = '#d73128' })
+    end,
+    opts = {
+      -- stylua: ignore
+      checkbox = {
+        unchecked = { icon = '󰄱', highlight = 'RenderMarkdownUnchecked', scope_highlight = nil },
+        checked   = { icon = '󰄵', highlight = 'RenderMarkdownChecked',   scope_highlight = 'RenderMarkdownCheckboxCheckedText',},
+        custom = {
+          progress  = { raw = '[>]', rendered = '', highlight = 'RenderMarkdownCheckboxProgress',  scope_highlight = nil },
+          interrupt = { raw = '[~]', rendered = '󰰱', highlight = 'RenderMarkdownCheckboxInterrupt', scope_highlight = nil },
+          important = { raw = '[!]', rendered = '', highlight = 'RenderMarkdownCheckboxImportant', scope_highlight = nil },
+        },
+      },
+    },
   },
   {
     'epwalsh/obsidian.nvim',
     version = '*', -- recommended, use latest release instead of latest commit
     keys = keymaps.Obsidian,
+    filetypes = { 'markdown' },
     opts = {
       workspaces = {
         {
@@ -324,6 +342,7 @@ require('lazy').setup({
         template = nil,
       },
       mappings = {},
+      ui = { enable = false },
     },
   },
   -- Zen Mode like vscode

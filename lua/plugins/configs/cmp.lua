@@ -77,6 +77,11 @@ return {
         name = 'obsidian_tags',
         module = 'blink.compat.source',
       },
+      markdown = {
+        name = 'RenderMarkdown',
+        module = 'render-markdown.integ.blink',
+        fallbacks = { 'lsp' },
+      },
     },
   },
   signature = {
