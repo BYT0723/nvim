@@ -55,16 +55,22 @@ return {
     per_filetype = {
       markdown = { 'obsidian', 'obsidian_new', 'obsidian_tags', 'lsp', 'snippets', 'buffer', 'path' },
     },
-    transform_items = function(_, items)
-      for _, item in ipairs(items) do
-        -- 将LSP提供的代码片段的优先级提高
-        if item.kind == 15 and item.source_id == 'lsp' then -- Snippets
-          item.score_offset = item.score_offset + 100
-        end
-      end
-      return items
-    end,
     providers = {
+      lsp = {
+        name = 'LSP',
+        module = 'blink.cmp.sources.lsp',
+        fallbacks = { 'buffer' },
+        -- Filter text items from the LSP provider, since we have the buffer provider for that
+        transform_items = function(_, items)
+          for _, item in ipairs(items) do
+            item.score_offset = item.score_offset + 3
+            if item.kind == require('blink.cmp.types').CompletionItemKind.Field then
+              item.score_offset = item.score_offset + 3
+            end
+          end
+          return items
+        end,
+      },
       obsidian = {
         name = 'obsidian',
         module = 'blink.compat.source',
