@@ -25,13 +25,8 @@ vim.api.nvim_create_autocmd('FileType', {
   command = 'setlocal tabstop=2 softtabstop=2 shiftwidth=2',
 })
 
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = {
-    'markdown',
-  },
-  command = 'setlocal conceallevel=2',
-})
-
+-- 当文件过大时，关闭语法高亮
+-- When the file is too large, turn off the grammar highlight
 vim.api.nvim_create_autocmd('BufReadPre', {
   pattern = '*',
   callback = function()
@@ -43,7 +38,8 @@ vim.api.nvim_create_autocmd('BufReadPre', {
   end,
 })
 
--- auto wrap line
+-- auto set markdown
+vim.api.nvim_create_autocmd('FileType', { pattern = { 'markdown' }, command = 'setlocal conceallevel=2' })
 vim.api.nvim_create_autocmd('FileType', { pattern = { 'markdown' }, command = 'set wrap' })
 
 vim.api.nvim_create_autocmd('RecordingEnter', {
@@ -58,7 +54,7 @@ vim.api.nvim_create_autocmd('RecordingLeave', {
   end,
 })
 
---Start and stop mini.nvim plugins
+--Start and stop mini-indentint plugins
 vim.api.nvim_create_autocmd('FileType', {
   pattern = {
     'NvimTree',
@@ -72,6 +68,8 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
+-- 当aerc等邮件客户端打开时,关闭状态栏
+-- When AERC and other mail clients are opened, turn off the status bar
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'mail',
   callback = function()
