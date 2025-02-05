@@ -65,12 +65,18 @@ return {
         -- Filter text items from the LSP provider, since we have the buffer provider for that
         transform_items = function(_, items)
           for _, item in ipairs(items) do
-            item.score_offset = item.score_offset + 3
-            if item.kind == require('blink.cmp.types').CompletionItemKind.Field then
+            if
+              item.kind == require('blink.cmp.types').CompletionItemKind.Snippet
+              or item.kind == require('blink.cmp.types').CompletionItemKind.Field
+              or item.kind == require('blink.cmp.types').CompletionItemKind.Variable
+            then
               item.score_offset = item.score_offset + 3
             end
           end
-          return items
+
+          return vim.tbl_filter(function(item)
+            return item.kind ~= require('blink.cmp.types').CompletionItemKind.Text
+          end, items)
         end,
       },
       obsidian = {
