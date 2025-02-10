@@ -188,9 +188,8 @@ return {
     'echasnovski/mini.jump2d',
     version = '*',
     opts = {
-      labels = 'etovxqpdygfblzhckisuran',
       mappings = {
-        start_jumping = 'F',
+        start_jumping = 'gf',
       },
     },
   },
