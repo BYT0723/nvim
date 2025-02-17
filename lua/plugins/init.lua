@@ -424,19 +424,20 @@ require('lazy').setup({
     version = '*',
     opts = require('plugins.configs.cmp'),
   },
+  -- AI
   {
-    'Exafunction/codeium.vim',
-    init = function()
-      vim.g.codeium_disable_bindings = 1
-      -- stylua: ignore
-      vim.keymap.set('i', '<C-L>', function () return vim.fn['codeium#Accept']() end,            { expr = true, silent = true })
-      -- stylua: ignore
-      vim.keymap.set('i', '<C-h>', function() return vim.fn['codeium#AcceptNextWord']() end,     { expr = true, silent = true })
-      -- stylua: ignore
-      vim.keymap.set('i', '<M-]>', function() return vim.fn['codeium#CycleCompletions'](1) end,  { expr = true, silent = true })
-      -- stylua: ignore
-      vim.keymap.set('i', '<M-[>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true, silent = true })
-    end,
+    'Exafunction/codeium.nvim',
+    opts = {
+      virtual_text = {
+        enabled = true,
+        accept_fallback = '<C-L>',
+        key_bindings = {
+          accept = '<C-L>',
+          next = '<M-]>',
+          prev = '<M-[>',
+        },
+      },
+    },
   },
   -- lsp
   {
