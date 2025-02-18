@@ -297,6 +297,7 @@ require('lazy').setup({
       'echasnovski/mini.icons',
       'nvim-tree/nvim-web-devicons',
     },
+    ft = { 'markdown', 'Avante' },
     -- stylua: ignore
     init = function()
       vim.api.nvim_set_hl(0, 'RenderMarkdownCheckboxCheckedText',   { link = '@markup.strikethrough' })
@@ -315,6 +316,7 @@ require('lazy').setup({
           important = { raw = '[!]', rendered = '', highlight = 'RenderMarkdownCheckboxImportant', scope_highlight = nil },
         },
       },
+      file_types = { 'markdown', 'Avante' },
     },
   },
   {
@@ -366,7 +368,18 @@ require('lazy').setup({
     keys = {
       { '<leader>p', '<cmd>PasteImage<cr>', desc = 'Paste image from system clipboard' },
     },
-    opts = {},
+    opts = {
+      -- recommended settings
+      default = {
+        embed_image_as_base64 = false,
+        prompt_for_file_name = false,
+        drag_and_drop = {
+          insert_mode = true,
+        },
+        -- required for Windows users
+        use_absolute_path = true,
+      },
+    },
   },
 
   --finder
@@ -428,8 +441,18 @@ require('lazy').setup({
   {
     'Exafunction/codeium.nvim',
     opts = {
+      enable_cmp_source = false,
       virtual_text = {
         enabled = true,
+        filetypes = {
+          NvimTree = false,
+          toggleterm = false,
+          mason = false,
+          Outline = false,
+          lazy = false,
+          markdown = false,
+        },
+        default_filetype_enabled = true,
         accept_fallback = '<C-L>',
         key_bindings = {
           accept = '<C-L>',
@@ -438,6 +461,26 @@ require('lazy').setup({
         },
       },
     },
+  },
+  {
+    'yetone/avante.nvim',
+    event = 'VeryLazy',
+    lazy = false,
+    version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
+    opts = {
+      provider = 'openai',
+      openai = {
+        endpoint = 'https://api.openai.com/v1',
+        model = 'gpt-4o', -- your desired model (or use gpt-4o, etc.)
+        timeout = 30000, -- timeout in milliseconds
+        temperature = 0, -- adjust if needed
+        max_tokens = 4096,
+        reasoning_effort = 'high', -- only supported for "o" models
+      },
+    },
+    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+    build = 'make',
+    -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
   },
   -- lsp
   {
