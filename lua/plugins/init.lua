@@ -178,7 +178,7 @@ require('lazy').setup({
         char = '╎',
       },
       exclude = {
-        filetypes = { 'lspinfo', 'mason', 'lazy', 'checkhealth', 'help', 'man', '' },
+        filetypes = { 'lspinfo', 'mason', 'lazy', 'checkhealth', 'help', 'man', 'leetcode.nvim' },
       },
       scope = {
         show_start = false,
@@ -289,6 +289,37 @@ require('lazy').setup({
     build = function()
       vim.fn['mkdp#util#install']()
     end,
+  },
+  {
+    '3rd/image.nvim',
+    opts = {
+      backend = 'ueberzug', -- kitty or ueberzug
+      processor = 'magick_rock', -- or "magick_cli"
+      integrations = {
+        markdown = {
+          enabled = true,
+          clear_in_insert_mode = false,
+          download_remote_images = true,
+          only_render_image_at_cursor = false,
+          floating_windows = false, -- if true, images will be rendered in floating markdown windows
+          filetypes = { 'markdown', 'vimwiki' }, -- markdown extensions (ie. quarto) can go here
+        },
+        neorg = {
+          enabled = true,
+          filetypes = { 'norg' },
+        },
+        typst = {
+          enabled = true,
+          filetypes = { 'typst' },
+        },
+        html = {
+          enabled = false,
+        },
+        css = {
+          enabled = false,
+        },
+      },
+    },
   },
   {
     'MeanderingProgrammer/render-markdown.nvim',
@@ -577,7 +608,41 @@ require('lazy').setup({
       restriction_mode = 'hint',
     },
   },
+  -- interview
+  {
+    'kawre/leetcode.nvim',
+    build = ':TSUpdate html', -- if you have `nvim-treesitter` installed
+    init = function()
+      local go_mod_path = vim.fn.stdpath('data') .. '/leetcode/go.mod'
+      if vim.fn.filereadable(go_mod_path) == 0 then
+        vim.fn.system('cd ' .. vim.fn.stdpath('data') .. '/leetcode && go mod init leetcode')
+        vim.notify('Initialized go.mod for leetcode project')
+      end
+    end,
+    opts = {
+      cn = { -- leetcode.cn
+        enabled = true, ---@type boolean
+        translator = true, ---@type boolean
+        translate_problems = true, ---@type boolean
+      },
+      lang = 'golang',
+      injector = {
+        ['cpp'] = {
+          before = { '#include <bits/stdc++.h>', 'using namespace std;' },
+          after = 'int main() {}',
+        },
+        ['golang'] = {
+          before = { 'package leetcode' },
+          after = {},
+        },
+      },
+      image_support = true,
+    },
+  },
 }, {
+  rocks = {
+    hererocks = true, -- recommended if you do not have global installation of Lua 5.1.
+  },
   ui = {
     border = 'double',
     backdrop = 100,

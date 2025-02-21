@@ -62,6 +62,7 @@ vim.api.nvim_create_autocmd('FileType', {
     'mason',
     'Outline',
     'lazy',
+    'leetcode.nvim',
   },
   callback = function()
     vim.b.miniindentscope_disable = true
