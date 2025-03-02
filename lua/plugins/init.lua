@@ -57,7 +57,10 @@ require('lazy').setup({
       sidebars = { 'qf' },
       on_colors = function(colors) end,
       on_highlights = function(hl, c)
-        local prompt = '#2d3149'
+        local cmdPrompt = '#2d3149'
+        if vim.opt.background:get() == 'light' then
+          cmdPrompt = '#eeeeee'
+        end
         hl.TelescopeNormal = {
           bg = c.bg_dark,
           fg = c.fg_dark,
@@ -67,14 +70,14 @@ require('lazy').setup({
           fg = c.bg_dark,
         }
         hl.TelescopePromptNormal = {
-          bg = prompt,
+          bg = cmdPrompt,
         }
         hl.TelescopePromptBorder = {
-          bg = prompt,
-          fg = prompt,
+          bg = cmdPrompt,
+          fg = cmdPrompt,
         }
         hl.TelescopePromptTitle = {
-          bg = prompt,
+          bg = cmdPrompt,
           fg = c.hint,
         }
         hl.TelescopePreviewTitle = {
@@ -86,16 +89,15 @@ require('lazy').setup({
           fg = c.bg_dark,
         }
         hl.NoiceCmdlinePopup = {
-          bg = prompt,
+          bg = cmdPrompt,
         }
         local title = {
-          bg = prompt,
-          fg = prompt,
-          -- fg = c.hint,
+          bg = cmdPrompt,
+          fg = cmdPrompt,
         }
         local border = {
-          bg = prompt,
-          fg = prompt,
+          bg = cmdPrompt,
+          fg = cmdPrompt,
         }
         hl.NoiceCmdlinePopupTitleCmdline = title
         hl.NoiceCmdlinePopupTitleSearch = title
@@ -108,7 +110,7 @@ require('lazy').setup({
         hl.NoiceCmdlinePopupBorderHelp = border
         hl.NoiceCmdlinePopupBorderInput = border
         hl.LspInlayHint = {
-          fg = '#545c7e',
+          fg = c.hint,
         }
         hl.WhichKeyBorder = {
           bg = c.bg_dark,
@@ -267,7 +269,7 @@ require('lazy').setup({
     },
   },
   -- go-zero
-  { 'BYT0723/goctl.nvim', opts = {}, dev = false },
+  { 'BYT0723/goctl.nvim', opts = {}, dev = true },
   -- godot
   { 'habamax/vim-godot', ft = { 'gdscript', 'gdresource' } },
   -- sql
@@ -603,6 +605,7 @@ require('lazy').setup({
   -- Correct bad habits
   {
     'm4xshen/hardtime.nvim',
+    enabled = false,
     opts = {
       max_count = 10,
       restriction_mode = 'hint',
