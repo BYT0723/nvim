@@ -269,7 +269,7 @@ require('lazy').setup({
     },
   },
   -- go-zero
-  { 'BYT0723/goctl.nvim', opts = {}, dev = true },
+  { 'BYT0723/goctl.nvim', opts = {} },
   -- godot
   { 'habamax/vim-godot', ft = { 'gdscript', 'gdresource' } },
   -- sql
