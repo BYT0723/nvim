@@ -60,6 +60,10 @@ require('lazy').setup({
         local cmdPrompt = '#2d3149'
         if vim.opt.background:get() == 'light' then
           cmdPrompt = '#eeeeee'
+        else
+          hl.LspInlayHint = {
+            fg = '#545c7e',
+          }
         end
         hl.TelescopeNormal = {
           bg = c.bg_dark,
@@ -109,9 +113,6 @@ require('lazy').setup({
         hl.NoiceCmdlinePopupBorderLua = border
         hl.NoiceCmdlinePopupBorderHelp = border
         hl.NoiceCmdlinePopupBorderInput = border
-        hl.LspInlayHint = {
-          fg = c.hint,
-        }
         hl.WhichKeyBorder = {
           bg = c.bg_dark,
           fg = c.bg_dark,

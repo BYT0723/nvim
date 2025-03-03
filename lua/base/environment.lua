@@ -77,22 +77,3 @@ vim.filetype.add({
     ['http'] = 'http',
   },
 })
-
--- 根据当前gtk主题设置背景
-local function current_theme()
-  local file = io.open(os.getenv('HOME') .. '/.config/gtk-3.0/settings.ini', 'r')
-  if not file then
-    return 'dark'
-  end
-
-  for line in file:lines() do
-    if line:match('gtk%-theme%-name') and line:lower():match('dark') then
-      file:close()
-      return 'dark'
-    end
-  end
-
-  file:close()
-  return 'light'
-end
-vim.o.background = current_theme()
