@@ -171,8 +171,6 @@ require('lazy').setup({
       lsp_inlay_hints = { enable = false },
     },
   },
-  -- go-zero
-  { 'BYT0723/goctl.nvim', opts = {} },
   -- godot
   { 'habamax/vim-godot', ft = { 'gdscript', 'gdresource' } },
   -- sql
@@ -499,6 +497,8 @@ require('lazy').setup({
       image_support = true,
     },
   },
+  { 'BYT0723/typist.nvim', opts = {} },
+  { 'BYT0723/goctl.nvim', opts = {} },
 }, {
   rocks = {
     hererocks = true, -- recommended if you do not have global installation of Lua 5.1.
