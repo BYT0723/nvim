@@ -51,7 +51,7 @@ M.Spectre = {
 
 -- stylua: ignore
 M.DB = {
-  { '<leader>ld', '<cmd>DBUIToggle<CR>', desc = 'Database Manager' },
+  { '<leader>ld', function() require("dbee").toggle() end, desc = 'Database Manager' },
 }
 
 -- stylua: ignore
