@@ -1,19 +1,9 @@
 local M = {}
 
 -- stylua: ignore
-M.Notify = {
-  { '<leader>nc', function() require('notify').dismiss({}) end, desc = 'Hide all notifications'},
-}
-
--- stylua: ignore
 M.Noice = {
   { '<c-u>', function() if not require('noice.lsp').scroll(-4) then return '<c-u>' end end, mode = { 'n', 'i', 's' }, desc = 'Scroll Down', expr = true },
   { '<c-d>', function() if not require('noice.lsp').scroll(4) then return '<c-d>' end end,  mode = { 'n', 'i', 's' }, desc = 'Scroll Up',   expr = true },
-}
-
--- stylua: ignore
-M.NvimTree = {
-  {'<leader>e', "<cmd>NvimTreeToggle<CR>", desc = 'Files Explorer',},
 }
 
 -- stylua: ignore
@@ -25,17 +15,6 @@ M.PanTran = {
   { '<leader>ta', '<cmd>Pantran mode=append target=en<CR>',          desc = 'Translate and Append',           },
   { '<leader>ti', ':Pantran mode=interactive target=zh<CR>',         desc = 'Translate Interactive UI',       mode = 'v', },
   { '<leader>ti', '<cmd>Pantran mode=interactive<CR>',               desc = 'Translate Interactive UI',       },
-}
-
--- stylua: ignore
-M.Trouble = {
-  -- { '<leader>xx', '<cmd>Trouble<CR>', desc = 'Trouble' },
-  { '<leader>xw', '<cmd>Trouble diagnostics toggle<CR>',                                       desc = 'Workspace Diagnostics in Trouble', },
-  { '<leader>xq', '<cmd>Trouble quickfix toggle<CR>',                                          desc = 'Quickfix in Trouble',              },
-  { '<leader>xl', '<cmd>Trouble loclist toggle<CR>',                                           desc = 'Loclist in Trouble',               },
-  { '<leader>vs', '<cmd>Trouble symbols toggle focus=false<cr>',                               desc = 'Symbols (Trouble)',                },
-  { '<leader>xk', function() require('trouble').prev({ skip_groups = true, jump = true }) end, desc = 'Previous in Trouble',              },
-  { '<leader>xj', function() require('trouble').next({ skip_groups = true, jump = true }) end, desc = 'Next in Trouble',                  },
 }
 
 -- stylua: ignore
@@ -64,24 +43,15 @@ M.Dap = {
 }
 
 -- stylua: ignore
-M.Telescope = {
-  { '<leader>ff', function() require('telescope.builtin').find_files() end, desc = 'Find Files',      },
-  { '<leader>fg', function() require('telescope.builtin').live_grep() end,  desc = 'Find Content',    },
-  { '<leader>fb', function() require('telescope.builtin').buffers() end,    desc = 'Find Buffers',    },
-  { '<leader>fh', function() require('telescope.builtin').oldfiles() end,   desc = 'Recent Files',    },
-  { "<leader>f'", function() require('telescope.builtin').marks() end,      desc = 'List Marks',      },
-  { '<leader>fp', '<cmd>Telescope projects theme=dropdown<CR>',             desc = 'Recent Projects', },
-}
-
--- stylua: ignore
 M.Spectre = {
   {'<leader>Ss', function() require('spectre').toggle() end,                            desc = 'Toggle Spectre',      },
   {'<leader>Sw', function() require('spectre').open_visual({ select_word = true }) end, desc = 'Search current word', },
   {'<leader>Sw', '<esc><cmd>lua require("spectre").open_visual()<CR>',                  desc = 'Search current word', mode = 'v' },
 }
 
+-- stylua: ignore
 M.DB = {
-  { '<leader>zz', '<cmd>DBUIToggle<CR>', desc = 'Database Manager' },
+  { '<leader>ld', '<cmd>DBUIToggle<CR>', desc = 'Database Manager' },
 }
 
 -- stylua: ignore
@@ -171,6 +141,53 @@ M.Kulala = {
 	},
 }
 
+-- stylua: ignore
+M.Snacks = {
+  { '<leader>e',  function() Snacks.explorer() end,                     desc = 'File Explorer',  },
+  { "<leader>ff", function() Snacks.picker.files() end,                 desc = "Find Files" },
+  { "<leader>f/", function() Snacks.picker.grep() end,                  desc = 'Grep',           },
+  { "<leader>f,", function() Snacks.picker.buffers() end,               desc = "Buffers" },
+  { "<leader>:",  function() Snacks.picker.command_history() end,       desc = "Command History" },
+  { "<leader>fp", function() Snacks.picker.projects() end,              desc = "Projects" },
+  { "<leader>fr", function() Snacks.picker.recent() end,                desc = "Recent" },
+  { "<leader>fn", function() Snacks.picker.notifications() end,         desc = "Notification History" },
+  { '<leader>s"', function() Snacks.picker.registers() end,             desc = "Registers" },
+  { '<leader>s/', function() Snacks.picker.search_history() end,        desc = "Search History" },
+  { "<leader>sa", function() Snacks.picker.autocmds() end,              desc = "Autocmds" },
+  { "<leader>sb", function() Snacks.picker.lines() end,                 desc = "Buffer Lines" },
+  { "<leader>sc", function() Snacks.picker.command_history() end,       desc = "Command History" },
+  { "<leader>sC", function() Snacks.picker.commands() end,              desc = "Commands" },
+  { "<leader>sd", function() Snacks.picker.diagnostics() end,           desc = "Diagnostics" },
+  { "<leader>sD", function() Snacks.picker.diagnostics_buffer() end,    desc = "Buffer Diagnostics" },
+  { "<leader>sh", function() Snacks.picker.help() end,                  desc = "Help Pages" },
+  { "<leader>sH", function() Snacks.picker.highlights() end,            desc = "Highlights" },
+  { "<leader>si", function() Snacks.picker.icons() end,                 desc = "Icons" },
+  { "<leader>sj", function() Snacks.picker.jumps() end,                 desc = "Jumps" },
+  { "<leader>sk", function() Snacks.picker.keymaps() end,               desc = "Keymaps" },
+  { "<leader>sl", function() Snacks.picker.loclist() end,               desc = "Location List" },
+  { "<leader>sm", function() Snacks.picker.marks() end,                 desc = "Marks" },
+  { "<leader>sM", function() Snacks.picker.man() end,                   desc = "Man Pages" },
+  { "<leader>sp", function() Snacks.picker.lazy() end,                  desc = "Search for Plugin Spec" },
+  { "<leader>sq", function() Snacks.picker.qflist() end,                desc = "Quickfix List" },
+  { "<leader>sR", function() Snacks.picker.resume() end,                desc = "Resume" },
+  { "<leader>su", function() Snacks.picker.undo() end,                  desc = "Undo History" },
+  { "<leader>uC", function() Snacks.picker.colorschemes() end,          desc = "Colorschemes" },
+  { "<leader>bq", function() Snacks.bufdelete() end,                    desc = "Delete Buffer" },
+  { "<leader>z",  function() Snacks.zen() end,                          desc = "Toggle Zen Mode" },
+  { "<leader>Z",  function() Snacks.zen.zoom() end,                     desc = "Toggle Zoom" },
+  { "<leader>nc", function() Snacks.notifier.hide() end,                desc = "Dismiss All Notifications" },
+  { "gd",         function() Snacks.picker.lsp_definitions() end,       desc = "Goto Definition" },
+  { "gD",         function() Snacks.picker.lsp_declarations() end,      desc = "Goto Declaration" },
+  { "gr",         function() Snacks.picker.lsp_references() end,        nowait = true,           desc = "References" },
+  { "gi",         function() Snacks.picker.lsp_implementations() end,   desc = "Goto Implementation" },
+  { "gtd",        function() Snacks.picker.lsp_type_definitions() end,  desc = "Goto T[y]pe Definition" },
+  { "<leader>vs", function() Snacks.picker.lsp_symbols() end,           desc = "LSP Symbols" },
+  { "<leader>vS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
+  { "]]",         function() Snacks.words.jump(vim.v.count1) end,       desc = "Next Reference", mode = { "n", "t" } },
+  { "[[",         function() Snacks.words.jump(-vim.v.count1) end,      desc = "Prev Reference", mode = { "n", "t" } },
+  -- { "<leader>lg", function() Snacks.lazygit() end, desc = "Lazygit" }
+}
+
 -- lsp keybind
 M.maplsp = function(bufnr)
   -- stylua: ignore
@@ -178,11 +195,6 @@ M.maplsp = function(bufnr)
     { '<leader>rn', function() vim.lsp.buf.rename() end,            desc = 'Global Rename',           },
     { '<leader>aa', function() vim.lsp.buf.code_action() end,       desc = 'Code Actions',            },
     { '<leader>aa', function() vim.lsp.buf.code_action() end,       desc = 'Code Actions of Range',   mode = 'v', },
-    { 'gD',         function() vim.lsp.buf.declaration() end,       desc = 'Jump to Declaration',     },
-    { 'gd',         "<cmd>Trouble lsp_definitions toggle<CR>",      desc = 'Jump to Definition',      },
-    { 'gtd',        "<cmd>Trouble lsp_type_definitions toggle<CR>", desc = 'Jump to Type Definition', },
-    { 'gi',         '<cmd>Trouble lsp_implementations toggle<CR>',  desc = 'List Implementation',     },
-    { 'gr',         '<cmd>Trouble lsp_references toggle<CR>',       desc = 'LSP Finder',              },
     { 'K',          function() vim.lsp.buf.hover() end,             desc = 'Hover Document',          },
     { '<leader>=',  function() vim.lsp.buf.formatting() end,        desc = 'LSP Format',              },
     { '<leader>=',  function() vim.lsp.buf.range_formatting() end,  desc = 'Format of Range',         mode = 'v', },

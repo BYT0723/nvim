@@ -64,8 +64,7 @@ local runFileTerm = Terminal:new({ direction = 'horizontal', display_name = 'RUN
 -- stylua: ignore
 local tools = {
   git           = { term = Terminal:new({ cmd = 'lazygit',    display_name = 'LazyGit',    direction = 'tab'   }) },
-  docker        = { term = Terminal:new({ cmd = 'lazydocker', display_name = 'LazyDocker', direction = 'tab'   }) },
-  file_explorer = { term = Terminal:new({ cmd = 'yazi',       display_name = 'Yazi',       direction = 'float' }) },
+  file_explorer = { term = Terminal:new({ cmd = 'yazi',       display_name = 'Yazi',       direction = 'tab'   }) },
   file_explorer_on_file = {
     term = Terminal:new({ display_name = 'Yazi', direction = 'float' }),
     cmd = function() return 'yazi ' .. util.relative_path() end,

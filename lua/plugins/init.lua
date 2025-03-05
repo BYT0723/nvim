@@ -20,14 +20,38 @@ require('lazy').setup({
   { 'MunifTanjim/nui.nvim', lazy = true },
   -- 文件图标
   { 'nvim-tree/nvim-web-devicons', lazy = true },
-  -- Wrap the input and select of vim.ui
-  { 'stevearc/dressing.nvim', event = 'VeryLazy', opts = {} },
+  -- notify
+  { 'rcarriga/nvim-notify', opts = {} },
   -- UI美化
   {
     'folke/noice.nvim',
     event = 'VeryLazy',
     keys = keymaps.Noice,
     opts = require('plugins.configs.noice'),
+  },
+  {
+    'folke/snacks.nvim',
+    priority = 1000,
+    lazy = false,
+    ---@type snacks.Config
+    opts = {
+      bigfile = { enabled = true },
+      dashboard = { enabled = false },
+      explorer = { enabled = true },
+      indent = {
+        indent = { char = '╎' },
+        scope = { char = '╎' },
+      },
+      input = { enabled = true },
+      picker = { enabled = true },
+      notifier = { enabled = true },
+      quickfile = { enabled = true },
+      scope = { enabled = true },
+      scroll = { enabled = true },
+      statuscolumn = { enabled = true },
+      words = { enabled = true },
+    },
+    keys = keymaps.Snacks,
   },
 
   -- A series of mini.nvim plugins
@@ -57,62 +81,6 @@ require('lazy').setup({
       sidebars = { 'qf' },
       on_colors = function(colors) end,
       on_highlights = function(hl, c)
-        local cmdPrompt = '#2d3149'
-        if vim.opt.background:get() == 'light' then
-          cmdPrompt = '#eeeeee'
-        else
-          hl.LspInlayHint = {
-            fg = '#545c7e',
-          }
-        end
-        hl.TelescopeNormal = {
-          bg = c.bg_dark,
-          fg = c.fg_dark,
-        }
-        hl.TelescopeBorder = {
-          bg = c.bg_dark,
-          fg = c.bg_dark,
-        }
-        hl.TelescopePromptNormal = {
-          bg = cmdPrompt,
-        }
-        hl.TelescopePromptBorder = {
-          bg = cmdPrompt,
-          fg = cmdPrompt,
-        }
-        hl.TelescopePromptTitle = {
-          bg = cmdPrompt,
-          fg = c.hint,
-        }
-        hl.TelescopePreviewTitle = {
-          bg = c.bg_dark,
-          fg = c.bg_dark,
-        }
-        hl.TelescopeResultsTitle = {
-          bg = c.bg_dark,
-          fg = c.bg_dark,
-        }
-        hl.NoiceCmdlinePopup = {
-          bg = cmdPrompt,
-        }
-        local title = {
-          bg = cmdPrompt,
-          fg = cmdPrompt,
-        }
-        local border = {
-          bg = cmdPrompt,
-          fg = cmdPrompt,
-        }
-        hl.NoiceCmdlinePopupTitleCmdline = title
-        hl.NoiceCmdlinePopupTitleSearch = title
-        hl.NoiceCmdlinePopupTitleLua = title
-        hl.NoiceCmdlinePopupTitleHelp = title
-        hl.NoiceCmdlinePopupTitleInput = title
-        hl.NoiceCmdlinePopupBorderCmdline = border
-        hl.NoiceCmdlinePopupBorderSearch = border
-        hl.NoiceCmdlinePopupBorderLua = border
-        hl.NoiceCmdlinePopupBorderHelp = border
-        hl.NoiceCmdlinePopupBorderInput = border
         hl.WhichKeyBorder = {
           bg = c.bg_dark,
           fg = c.bg_dark,
@@ -125,84 +93,18 @@ require('lazy').setup({
           bg = c.bg_dark,
           fg = c.fg_dark,
         }
+        if vim.opt.background:get() == 'dark' then
+          hl.LspInlayHint = {
+            fg = '#545c7e',
+          }
+        end
       end,
-    },
-  },
-  -- notify
-  {
-    'rcarriga/nvim-notify',
-    keys = keymaps.Notify,
-    init = function()
-      vim.notify = require('notify')
-    end,
-    opts = {
-      render = 'wrapped-compact', -- default / minimal / simple / compact / wrapped-compact
-      stages = 'fade_in_slide_out', -- fade_in_slide_out / fade / slide / static
-      timeout = 5000,
-      fps = 60,
-    },
-  },
-  -- keyword highlight
-  {
-    'RRethy/vim-illuminate',
-    event = { 'BufReadPost', 'BufNewFile' },
-    opts = {
-      filetypes_denylist = { 'NvimTree', 'Trouble', 'Dashboard', 'toggleterm' },
-      delay = 500,
-    },
-    config = function(_, opts)
-      require('illuminate').configure(opts)
-    end,
-  },
-  -- tree file manager
-  {
-    'nvim-tree/nvim-tree.lua',
-    keys = keymaps.NvimTree,
-    cmd = { 'NvimTreeToggle' },
-    init = function()
-      vim.g.loaded_netrw = 1
-      vim.g.loaded_netrwPlugin = 1
-      vim.opt.termguicolors = true
-    end,
-    opts = function()
-      return require('plugins.configs.nvim-tree')
-    end,
-  },
-
-  -- indent blank line
-  {
-    'lukas-reineke/indent-blankline.nvim',
-    main = 'ibl',
-    opts = {
-      whitespace = {
-        remove_blankline_trail = true,
-      },
-      indent = {
-        char = '╎',
-      },
-      exclude = {
-        filetypes = { 'lspinfo', 'mason', 'lazy', 'checkhealth', 'help', 'man', 'leetcode.nvim' },
-      },
-      scope = {
-        show_start = false,
-        show_end = false,
-        highlight = { 'Function', 'Label' },
-      },
     },
   },
   -- terminal
   { 'akinsho/toggleterm.nvim', opts = { open_mapping = [[<c-\>]] } },
   -- git style, including blame, modify tags
   { 'lewis6991/gitsigns.nvim', opts = require('plugins.configs.gitsigns') },
-  -- 错误统计
-  {
-    'folke/trouble.nvim',
-    cmd = { 'Trouble' },
-    keys = keymaps.Trouble,
-    opts = {
-      auto_jump = { 'lsp_definitions', 'lsp_type_definitions', 'lsp_implementations', 'lsp_references' }, -- for the given modes, automatically jump if there is only a single result
-    },
-  },
   -- todo comment
   {
     'folke/todo-comments.nvim',
@@ -414,52 +316,6 @@ require('lazy').setup({
         use_absolute_path = true,
       },
     },
-  },
-
-  --finder
-  {
-    'nvim-telescope/telescope.nvim',
-    cmd = 'Telescope',
-    keys = keymaps.Telescope,
-    dependencies = { { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' } },
-    opts = function()
-      return require('plugins.configs.telescope')
-    end,
-    config = function(_, opts)
-      local telescope = require('telescope')
-      telescope.setup(opts)
-      -- load extensions
-      for _, ext in ipairs(opts.extensions_list) do
-        telescope.load_extension(ext)
-      end
-    end,
-  },
-  {
-    'ahmedkhalf/project.nvim',
-    config = function()
-      require('project_nvim').setup({
-        manual_mode = false,
-        detection_methods = { 'lsp', 'pattern' },
-        patterns = { '.git', 'Makefile', 'package.json', 'go.mod' },
-        ignore_lsp = {
-          'bashls',
-          'cssls',
-          'dockerls',
-          'docker_compose_language_service',
-          'dotls',
-          'emmet_ls',
-          'jsonls',
-          'marksman',
-          'pyright',
-          'rust_analyzer',
-          'ts_ls',
-        },
-        exclude_dirs = {},
-        show_hidden = false,
-        silent_chdir = true,
-        scope_chdir = 'global',
-      })
-    end,
   },
   -- completion
   {

@@ -13,42 +13,6 @@ return {
     'echasnovski/mini.icons',
     version = '*',
   },
-  {
-    'echasnovski/mini.animate',
-    version = '*',
-    opts = {
-      open = { enable = false },
-      close = { enable = false },
-    },
-  },
-  {
-    'echasnovski/mini.indentscope',
-    version = '*',
-    opts = {
-      draw = {
-        delay = 500,
-        animation = function()
-          return 20
-        end,
-      },
-      mappings = {
-        object_scope = 'ii',
-        object_scope_with_border = 'ai',
-        goto_top = '[i',
-        goto_bottom = ']i',
-      },
-      symbol = '╎',
-    },
-  },
-  {
-    'echasnovski/mini.bufremove',
-    version = '*',
-    -- stylua: ignore
-    keys = {
-      { 'bq', function() require('mini.bufremove').delete(0) end, desc = 'delete buffer', mode = 'n' },
-    },
-    opts = {},
-  },
   -- starter UI
   {
     'echasnovski/mini.starter',
