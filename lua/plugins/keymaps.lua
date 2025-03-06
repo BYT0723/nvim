@@ -183,8 +183,8 @@ M.Snacks = {
   { "gtd",        function() Snacks.picker.lsp_type_definitions() end,  desc = "Goto T[y]pe Definition" },
   { "<leader>vs", function() Snacks.picker.lsp_symbols() end,           desc = "LSP Symbols" },
   { "<leader>vS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
-  { "]]",         function() Snacks.words.jump(vim.v.count1) end,       desc = "Next Reference", mode = { "n", "t" } },
-  { "[[",         function() Snacks.words.jump(-vim.v.count1) end,      desc = "Prev Reference", mode = { "n", "t" } },
+  -- { "]]",         function() Snacks.words.jump(vim.v.count1) end,       desc = "Next Reference", mode = { "n", "t" } },
+  -- { "[[",         function() Snacks.words.jump(-vim.v.count1) end,      desc = "Prev Reference", mode = { "n", "t" } },
   -- { "<leader>lg", function() Snacks.lazygit() end, desc = "Lazygit" }
 }
 
