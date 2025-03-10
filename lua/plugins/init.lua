@@ -101,8 +101,6 @@ require('lazy').setup({
       end,
     },
   },
-  -- terminal
-  { 'akinsho/toggleterm.nvim', opts = { open_mapping = [[<c-\>]] } },
   -- git style, including blame, modify tags
   { 'lewis6991/gitsigns.nvim', opts = require('plugins.configs.gitsigns') },
   -- todo comment

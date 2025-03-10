@@ -21,10 +21,6 @@ local baseKeymaps = {
   { 'bq',           '<cmd>bdelete!<CR>',                                                                   desc = 'delete buffer',           mode = 'n' },
   -- launcher - terminal
   { '<leader>rf', function() require('base.launcher').runFile() end,                           desc = 'Run File',                           mode = 'n', },
-  { '<leader>le', function() require('base.launcher').toolToggle('file_explorer') end,         desc = 'File Explorer at current workspace', mode = 'n', },
-  { '<leader>lE', function() require('base.launcher').toolToggle('file_explorer_on_file') end, desc = 'File Explorer at current file',      mode = 'n', },
-  { '<leader>ld', function() require('base.launcher').toolToggle('docker') end,                desc = 'LazyDocker',                         mode = 'n', },
-  { '<leader>lg', function() require('base.launcher').toolToggle('git') end,                   desc = 'LazyGit',                            mode = 'n', },
   -- terminal
   { '<C-q>q',       '<C-\\><C-n>',                                                                         desc = 'Exit terminal mode',      mode = "t" },
   { '<C-q>p',       function() require('base.launcher').term_prev()    end,                                desc = 'Prev Term',               mode = 't', },

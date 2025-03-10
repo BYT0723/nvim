@@ -1,4 +1,5 @@
 local M = {}
+local util = require('base.util')
 
 -- stylua: ignore
 M.Noice = {
@@ -185,7 +186,10 @@ M.Snacks = {
   { "<leader>vS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
   -- { "]]",         function() Snacks.words.jump(vim.v.count1) end,       desc = "Next Reference", mode = { "n", "t" } },
   -- { "[[",         function() Snacks.words.jump(-vim.v.count1) end,      desc = "Prev Reference", mode = { "n", "t" } },
-  -- { "<leader>lg", function() Snacks.lazygit() end, desc = "Lazygit" }
+  { "<leader>lg", function() Snacks.lazygit() end,                                   desc = "Lazygit" },
+  { "<leader>le", function() Snacks.terminal.get('yazi') end,                        desc = "Yazi" },
+  { "<leader>lE", function() Snacks.terminal.get('yazi '..util.relative_path()) end, desc = "Yazi at current file" },
+  { "<c-\\>",     function() Snacks.terminal.toggle() end,                           desc = "Toggle Terminal", mode = {'n', 't'} },
 }
 
 -- lsp keybind

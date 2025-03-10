@@ -1,7 +1,5 @@
 local M = {}
 
-local term_api = require('toggleterm.terminal')
-local Terminal = require('toggleterm.terminal').Terminal
 local util = require('base.util')
 
 local VimCommands = {
@@ -59,112 +57,18 @@ local function runFileCmd(type)
   return cmd
 end
 
-local runFileTerm = Terminal:new({ direction = 'horizontal', display_name = 'RUN FILE' })
-
--- stylua: ignore
-local tools = {
-  git           = { term = Terminal:new({ cmd = 'lazygit',    display_name = 'LazyGit',    direction = 'tab'   }) },
-  file_explorer = { term = Terminal:new({ cmd = 'yazi',       display_name = 'Yazi',       direction = 'tab'   }) },
-  file_explorer_on_file = {
-    term = Terminal:new({ display_name = 'Yazi', direction = 'float' }),
-    cmd = function() return 'yazi ' .. util.relative_path() end,
-  },
-}
-
-function M.toolToggle(name)
-  local tool = tools[name]
-  tool.term.dir = vim.fn.getcwd()
-
-  if tool.cmd then
-    tool.term.cmd = tool.cmd()
-  end
-  tool.term:toggle()
-end
-
 -- run file
 function M.runFile()
   local cmd = VimCommands[vim.bo.filetype]
   if cmd ~= nil and cmd ~= '' then
-    print(cmd)
     vim.cmd(cmd)
     return
   end
 
   cmd = runFileCmd(vim.bo.filetype)
-
-  runFileTerm.dir = vim.fn.getcwd()
-
-  if not runFileTerm:is_open() then
-    runFileTerm:open()
-  end
-  runFileTerm:send(cmd, true)
-end
-
--- get current buffer terminal id
-local current_term_id = function()
-  local buf_name = vim.fn.bufname()
-  local start, _ = string.find(buf_name, '#%d')
-  return tonumber(string.sub(buf_name, start + 1))
-end
-
--- exchange term
-local exchange_term = function(target, current)
-  current:close()
-  if not target:is_open() then
-    target:open()
-  end
-  target:focus()
-  vim.cmd('startinsert')
-end
-
--- toggleterm : move to previous term in list which order by term_id
-function M.term_prev()
-  local id = current_term_id()
-  local current_term = term_api.get(id)
-  local target_term = nil
-
-  for _, term in pairs(term_api.get_all(true)) do
-    if term.id == id then
-      break
-    end
-    target_term = term
-  end
-
-  if target_term == nil then
-    vim.notify('This is the first terminal', vim.log.levels.WARN)
-    return
-  end
-
-  exchange_term(target_term, current_term)
-end
-
--- toggleterm : move to next term in list which order by term_id
-function M.term_next()
-  local id = current_term_id()
-  local current_term = term_api.get(id)
-  local target_term = nil
-
-  for _, term in pairs(term_api.get_all(true)) do
-    if term.id > id then
-      target_term = term
-      break
-    end
-  end
-
-  if target_term == nil then
-    vim.notify('This is the last terminal', vim.log.levels.WARN)
-    return
-  end
-
-  exchange_term(target_term, current_term)
-end
-
--- toggleterm : create a new terminal
-function M.term_new()
-  local current_term = term_api.get(current_term_id())
-  local id = term_api.get_all(true)[#term_api.get_all(true)].id + 1
-  local target_term = Terminal:new({ id = id })
-  exchange_term(target_term, current_term)
+  local win, _ = Snacks.terminal.get(nil, { start_insert = false })
+  win:show()
+  vim.fn.chansend(vim.api.nvim_buf_get_var(win.buf, 'terminal_job_id'), cmd .. '\n')
 end
 
 return M
