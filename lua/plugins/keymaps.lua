@@ -19,8 +19,8 @@ M.PanTran = {
 
 -- stylua: ignore
 M.TodoComments = {
-  { '<leader>xt', '<cmd>Trouble todo toggle<CR>',                                    desc = 'Todo-Comments',                 },
-  { '<leader>xT', '<cmd>Trouble todo toggle filter={tag={TODO,FIX,FIXME,PERF}}<CR>', desc = 'Todo-Comments [TODO|FIX|PERF]', },
+  { "<leader>st", function() Snacks.picker.todo_comments() end, desc = "Todo" },
+  { "<leader>sT", function () Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME", "PERF" } }) end, desc = "Todo/Fix/Fixme/Perf" },
 }
 
 M.Diffview = {
@@ -143,8 +143,8 @@ M.Kulala = {
 
 -- stylua: ignore
 M.Snacks = {
-  { '<leader>e',  function() Snacks.explorer() end,                     desc = 'File Explorer',  },
-  { "<leader>ff", function() Snacks.picker.files() end,                 desc = "Find Files" },
+  { '<leader>e',  function() Snacks.explorer({hidden=true,ignored=true}) end,                     desc = 'File Explorer',  },
+  { "<leader>ff", function() Snacks.picker.files({hidden=true,ignored=true}) end,                 desc = "Find Files" },
   { "<leader>f/", function() Snacks.picker.grep() end,                  desc = 'Grep',           },
   { "<leader>f,", function() Snacks.picker.buffers() end,               desc = "Buffers" },
   { "<leader>:",  function() Snacks.picker.command_history() end,       desc = "Command History" },
