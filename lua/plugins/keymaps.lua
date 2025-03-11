@@ -145,7 +145,7 @@ M.Kulala = {
 -- stylua: ignore
 M.Snacks = {
   { '<leader>e',  function() Snacks.explorer({hidden=true,ignored=true}) end,                     desc = 'File Explorer',  },
-  { "<leader>ff", function() Snacks.picker.files({hidden=true,ignored=true}) end,                 desc = "Find Files" },
+  { "<leader>ff", function() Snacks.picker.files() end,                 desc = "Find Files" },
   { "<leader>f/", function() Snacks.picker.grep() end,                  desc = 'Grep',           },
   { "<leader>f,", function() Snacks.picker.buffers() end,               desc = "Buffers" },
   { "<leader>:",  function() Snacks.picker.command_history() end,       desc = "Command History" },
@@ -184,8 +184,8 @@ M.Snacks = {
   { "gtd",        function() Snacks.picker.lsp_type_definitions() end,  desc = "Goto T[y]pe Definition" },
   { "<leader>vs", function() Snacks.picker.lsp_symbols() end,           desc = "LSP Symbols" },
   { "<leader>vS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
-  -- { "]]",         function() Snacks.words.jump(vim.v.count1) end,       desc = "Next Reference", mode = { "n", "t" } },
-  -- { "[[",         function() Snacks.words.jump(-vim.v.count1) end,      desc = "Prev Reference", mode = { "n", "t" } },
+  { "]]",         function() Snacks.words.jump(vim.v.count1) end,       desc = "Next Reference" },
+  { "[[",         function() Snacks.words.jump(-vim.v.count1) end,      desc = "Prev Reference" },
   { "<leader>lg", function() Snacks.lazygit() end,                                   desc = "Lazygit" },
   { "<leader>le", function() Snacks.terminal.get('yazi') end,                        desc = "Yazi" },
   { "<leader>lE", function() Snacks.terminal.get('yazi '..util.relative_path()) end, desc = "Yazi at current file" },
