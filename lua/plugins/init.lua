@@ -492,6 +492,9 @@ require('lazy').setup({
       image_support = true,
     },
   },
+  -- Statistics
+  { 'wakatime/vim-wakatime', lazy = false },
+  -- Personal plugin development
   { 'BYT0723/typist.nvim', opts = {} },
   { 'BYT0723/goctl.nvim', opts = {} },
 }, {
