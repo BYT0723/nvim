@@ -42,7 +42,16 @@ require('lazy').setup({
         indent = { char = '╎' },
         scope = { char = '╎' },
       },
-      input = { enabled = true },
+      input = {
+        enabled = true,
+        icon_pos = 'title',
+        win = {
+          width = 40,
+          relative = 'cursor',
+          row = -3,
+          col = 0,
+        },
+      },
       picker = { enabled = true },
       notifier = { enabled = true },
       quickfile = { enabled = true },
