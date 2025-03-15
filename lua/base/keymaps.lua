@@ -23,8 +23,6 @@ local baseKeymaps = {
   { '<leader>rf', function() require('base.launcher').runFile() end,                           desc = 'Run File',                           mode = 'n', },
   -- terminal
   { '<C-q>q',       '<C-\\><C-n>',                                                                         desc = 'Exit terminal mode',      mode = "t" },
-  { '<C-q>p',       function() require('base.launcher').term_prev()    end,                                desc = 'Prev Term',               mode = 't', },
-  { '<C-q>n',       function() require('base.launcher').term_next()    end,                                desc = 'Next Term',               mode = 't', },
   { '<C-w>j',       '<cmd>wincmd j<CR>',                                                                   desc = 'Move to window below',    mode = "t" },
   { '<C-w>k',       '<cmd>wincmd k<CR>',                                                                   desc = 'Move to upper window',    mode = "t" },
   { '<C-w>h',       '<cmd>wincmd h<CR>',                                                                   desc = 'Move to left window',     mode = "t" },
