@@ -474,6 +474,9 @@ require('lazy').setup({
   {
     'kawre/leetcode.nvim',
     build = ':TSUpdate html', -- if you have `nvim-treesitter` installed
+    dependencies = {
+      'nvim-telescope/telescope.nvim',
+    },
     init = function()
       local go_mod_path = vim.fn.stdpath('data') .. '/leetcode/go.mod'
       if vim.fn.filereadable(go_mod_path) == 0 then
@@ -498,7 +501,7 @@ require('lazy').setup({
           after = {},
         },
       },
-      image_support = true,
+      image_support = false,
     },
   },
   -- Statistics
