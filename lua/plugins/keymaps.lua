@@ -87,7 +87,7 @@ M.Obsidian = {
 
 -- stylua: ignore
 M.Kulala = {
-  {"<leader>ke", function() require('kulala').search() end,           desc = "select a http file"},
+  {"<leader>ks", function() require('kulala').search() end,           desc = "select a http file"},
   {"<leader>kn", function()
     if vim.fn.isdirectory('.http') == 0 then
       vim.fn.mkdir('.http','p','0o755')
@@ -109,15 +109,8 @@ M.Kulala = {
       end
     end)
   end, desc = "new a http file"},
-  {"<leader>rl", function() require('kulala').run() end,              desc = "run http request under cursor",       ft = "http"},
-  {"<leader>rc", function() require('kulala').close() end,            desc = "close current http or rest window",   ft = "http"},
-  {"<leader>ry", function() require('kulala').copy() end,             desc = "copy a http request to curl command", ft = "http"},
-  {"<leader>rp", function() require('kulala').from_curl() end,        desc = "parse a curl command from clipboard", ft = "http"},
-  {"<leader>rv", function() require('kulala').toggle_view() end,      desc = "toggle response body with header",    ft = "http"},
-  {"<leader>rk", function() require('kulala').jump_prev() end,        desc = "jump to previous http request",       ft = "http"},
-  {"<leader>rj", function() require('kulala').jump_next() end,        desc = "jump to next http request",           ft = "http"},
 	{
-		"<leader>res",
+		"<leader>kes",
 		function()
 			if vim.fn.filereadable("http-client.env.json") ~= 1 then
 				vim.cmd("edit http-client.env.json")
@@ -130,7 +123,7 @@ M.Kulala = {
 		ft = "http",
 	},
 	{
-		"<leader>ree",
+		"<leader>kee",
 		function()
 			vim.cmd("edit http-client.env.json")
 			if vim.fn.filereadable("http-client.env.json") ~= 1 then
@@ -140,6 +133,9 @@ M.Kulala = {
 		desc = "edit http environment",
 		ft = "http",
 	},
+  {"<leader>rl", function() require('kulala').run() end,              desc = "run http request under cursor",       ft = "http"},
+  {"<leader>ry", function() require('kulala').copy() end,             desc = "copy a http request to curl command", ft = "http"},
+  {"<leader>rp", function() require('kulala').from_curl() end,        desc = "parse a curl command from clipboard", ft = "http"},
 }
 
 -- stylua: ignore

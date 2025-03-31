@@ -74,12 +74,10 @@ return {
             local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
             local git = MiniStatusline.section_git({ trunc_width = 75 })
             local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
-            -- local filename = MiniStatusline.section_filename({ trunc_width = 140 })
-            local filename = vim.bo.buftype == 'terminal' and '%t' or '%f%m%r'
+            local filename = MiniStatusline.section_filename({ trunc_width = 140 })
             local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
             local location = MiniStatusline.section_location({ trunc_width = 75 })
             local has_noice, noice = pcall(require, 'noice')
-
             return MiniStatusline.combine_groups({
               { hl = mode_hl, strings = { mode } },
               { hl = 'MiniStatuslineDevinfo', strings = { git, diagnostics } },
@@ -87,8 +85,8 @@ return {
               { hl = 'MiniStatuslineFilename', strings = { filename } },
               '%=', -- End left alignment
               has_noice and { strings = { noice.api.status.command.get() } }, -- noice statusline command
-              vim.bo.filetype == 'http' and { hl = mode_hl, strings = { '', require('kulala').get_selected_env() } }, -- kulala environment
               has_noice and { hl = mode_hl, strings = { noice.api.status.mode.get() } }, -- noice statusline mode (eg: recording)
+              vim.bo.filetype == 'http' and { hl = mode_hl, strings = { '', require('kulala').get_selected_env() } }, -- kulala environment
               { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
               { hl = mode_hl, strings = { location } },
             })
