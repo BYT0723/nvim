@@ -25,10 +25,10 @@ return {
     list = {
       max_items = 20,
       selection = {
-        preselect = false,
-        auto_insert = function(ctx)
+        preselect = function(ctx)
           return ctx.mode == 'cmdline'
         end,
+        auto_insert = false,
       },
     },
     menu = {
