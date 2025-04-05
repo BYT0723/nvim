@@ -132,9 +132,9 @@ require('lazy').setup({
     keys = keymaps.Diffview,
     opts = {},
   },
-  -- translator
+  -- translator 'potamides/pantran.nvim' fork
   {
-    'potamides/pantran.nvim',
+    'BYT0723/pantran.nvim',
     cmd = 'Pantran',
     keys = keymaps.PanTran,
     opts = {
@@ -470,7 +470,7 @@ require('lazy').setup({
       restriction_mode = 'hint',
     },
   },
-  -- interview
+  -- interview 'kawre/leetcode.nvim' fork
   {
     'BYT0723/leetcode.nvim',
     build = ':TSUpdate html', -- if you have `nvim-treesitter` installed
