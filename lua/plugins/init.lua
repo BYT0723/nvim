@@ -176,6 +176,7 @@ require('lazy').setup({
     keys = keymaps.GoNvim,
     opts = {
       lsp_inlay_hints = { enable = false },
+      diagnostic = true,
     },
   },
   -- godot
