@@ -13,7 +13,7 @@ local install_servers = {
   'lua_ls',
   'marksman',
   'pyright',
-  'rust_analyzer',
+  -- 'rust_analyzer', -- rust_analyzer is started by rustaceanvim
   'ts_ls',
   -- Other non-installation servers
   'gdscript',
@@ -161,16 +161,6 @@ for _, lsp in pairs(install_servers) do
     settings = settings,
   })
 end
-
--- rust-tools.nvim
-require('rust-tools').setup({
-  server = {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    settings = settings,
-  },
-  tools = { inlay_hints = { auto = false } },
-})
 
 -- emmet
 lspconfig.emmet_ls.setup({

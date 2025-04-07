@@ -165,7 +165,7 @@ require('lazy').setup({
 
   -- language
   -- rust
-  { 'simrat39/rust-tools.nvim' },
+  { 'mrcjkb/rustaceanvim', version = '^6', lazy = false },
   { 'saecki/crates.nvim', ft = 'toml', opts = {} },
   -- golang
   {
