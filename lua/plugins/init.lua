@@ -134,7 +134,7 @@ require('lazy').setup({
   },
   -- translator 'potamides/pantran.nvim' fork
   {
-    'BYT0723/pantran.nvim',
+    'potamides/pantran.nvim',
     cmd = 'Pantran',
     keys = keymaps.PanTran,
     opts = {
