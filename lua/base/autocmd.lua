@@ -22,7 +22,7 @@ vim.api.nvim_create_autocmd('FileType', {
     'vue',
     'yaml',
   },
-  command = 'setlocal tabstop=2 softtabstop=2 shiftwidth=2',
+  command = 'setlocal shiftwidth=2 tabstop=2',
 })
 
 -- 当文件过大时，关闭语法高亮

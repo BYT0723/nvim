@@ -16,10 +16,10 @@ set.wrap = false
 -- 高亮行
 set.cursorline = true
 
-set.shiftwidth = 4
-set.tabstop = 4
-set.softtabstop = -1
-set.expandtab = true
+set.shiftwidth = 2
+set.tabstop = 2
+set.softtabstop = 0
+set.expandtab = false
 
 -- 相对行号
 set.number = true
