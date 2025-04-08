@@ -25,9 +25,7 @@ return {
     list = {
       max_items = 20,
       selection = {
-        preselect = function(ctx)
-          return ctx.mode == 'cmdline'
-        end,
+        preselect = false,
         auto_insert = false,
       },
     },
