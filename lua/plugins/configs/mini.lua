@@ -8,10 +8,20 @@ local header = '\
                                                       \
           [ May everyone not be alone ]               '
 
+local keymaps = require('plugins.keymaps')
+
 return {
   {
     'echasnovski/mini.icons',
     version = '*',
+  },
+  {
+    'echasnovski/mini.files',
+    version = '*',
+    keys = keymaps.MiniFiles,
+    opts = {
+      windows = { preview = true },
+    },
   },
   -- starter UI
   {
@@ -19,6 +29,7 @@ return {
     version = '*',
     opts = {
       header = header,
+			-- stylua: ignore
       items = {
         {
           name = 'New File',
@@ -44,14 +55,14 @@ return {
           end,
           section = 'Guide',
         },
-        { name = 'Recent Files', action = 'Telescope oldfiles', section = 'Guide' },
-        { name = 'Recent Projects', action = 'Telescope projects', section = 'Guide' },
+        { name = 'Recent Files', action = function() Snacks.picker.recent() end, section = 'Guide' },
+        { name = 'Recent Projects', action = function() Snacks.picker.projects() end, section = 'Guide' },
         -- TOOLS
-        { name = 'Explorer', action = 'NvimTreeToggle', section = 'Tools' },
-        { name = 'Finder', action = 'Telescope find_files', section = 'Tools' },
+        { name = 'Explorer', action = function() Snacks.explorer({hidden=true,ignored=true}) end, section = 'Tools' },
+        { name = 'Finder', action = function() Snacks.picker.files() end, section = 'Tools' },
         { name = 'Plugin', action = 'Lazy', section = 'Tools' },
         -- SYSTEM
-        { name = 'Configuration', action = 'Telescope find_files cwd=~/.config/nvim', section = 'System' },
+        { name = 'Configuration', action = function() Snacks.picker.files({ cwd = vim.fn.stdpath('config') }) end, section = 'System' },
       },
     },
   },
@@ -65,7 +76,6 @@ return {
   {
     'echasnovski/mini.statusline',
     version = '*',
-    dependencies = { 'folke/noice.nvim' },
     config = function()
       local MiniStatusline = require('mini.statusline')
       MiniStatusline.setup({

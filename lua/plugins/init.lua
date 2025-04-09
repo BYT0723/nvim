@@ -22,6 +22,10 @@ require('lazy').setup({
   { 'nvim-tree/nvim-web-devicons', lazy = true },
   -- notify
   { 'rcarriga/nvim-notify', opts = {} },
+
+  -- A series of mini.nvim plugins
+  require('plugins.configs.mini'),
+
   -- UI美化
   {
     'folke/noice.nvim',
@@ -29,6 +33,7 @@ require('lazy').setup({
     keys = keymaps.Noice,
     opts = require('plugins.configs.noice'),
   },
+
   {
     'folke/snacks.nvim',
     priority = 1000,
@@ -37,21 +42,9 @@ require('lazy').setup({
     opts = {
       bigfile = { enabled = true },
       dashboard = { enabled = false },
-      explorer = { enabled = true },
-      indent = {
-        indent = { char = '╎' },
-        scope = { char = '╎' },
-      },
-      input = {
-        enabled = true,
-        icon_pos = 'title',
-        win = {
-          width = 40,
-          relative = 'cursor',
-          row = -3,
-          col = 0,
-        },
-      },
+      explorer = { enabled = false },
+      indent = { indent = { char = '╎' }, scope = { char = '╎' } },
+      input = { enabled = true, icon_pos = 'title', win = { width = 40, relative = 'cursor', row = -3, col = 0 } },
       picker = { enabled = true },
       notifier = { enabled = true },
       quickfile = { enabled = true },
@@ -62,9 +55,6 @@ require('lazy').setup({
     },
     keys = keymaps.Snacks,
   },
-
-  -- A series of mini.nvim plugins
-  require('plugins.configs.mini'),
 
   -- colorscheme
   {
@@ -109,6 +99,15 @@ require('lazy').setup({
         end
       end,
     },
+  },
+  {
+    'Bekaboo/dropbar.nvim',
+    config = function()
+      local dropbar_api = require('dropbar.api')
+      vim.keymap.set('n', '<Leader>;', dropbar_api.pick, { desc = 'Pick symbols in winbar' })
+      vim.keymap.set('n', '[;', dropbar_api.goto_context_start, { desc = 'Go to start of current context' })
+      vim.keymap.set('n', '];', dropbar_api.select_next_context, { desc = 'Select next context' })
+    end,
   },
   -- git style, including blame, modify tags
   { 'lewis6991/gitsigns.nvim', opts = require('plugins.configs.gitsigns') },
