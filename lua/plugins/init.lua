@@ -535,8 +535,8 @@ require('lazy').setup({
   -- Statistics
   { 'wakatime/vim-wakatime', lazy = false },
   -- Personal plugin development
-  { 'BYT0723/typist.nvim', opts = {}, dev = true },
-  { 'BYT0723/goctl.nvim', opts = {}, dev = true },
+  { 'BYT0723/typist.nvim', opts = {} },
+  { 'BYT0723/goctl.nvim', opts = {} },
 }, {
   rocks = {
     hererocks = true, -- recommended if you do not have global installation of Lua 5.1.
