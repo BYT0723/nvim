@@ -8,7 +8,7 @@ local fmt = require('luasnip.extras.fmt').fmt
 return {
   s(
     {
-      trig = 'fn([%w_]+)',
+      trig = 'fun ([%w_]+)',
       regTrig = true,
       hidden = false,
     },

@@ -8,7 +8,7 @@
     "description": "timed task"
   },
   "NewClock": {
-    "prefix": "notify",
+    "prefix": "clock",
     "body": [
       "${1:minute} ${2:hour} */1 * ${3:week} bash /home/walter/.dwm/clock.sh ${4|WORK,HOME,STUDY,DIET|} ${5:message}"
     ],
