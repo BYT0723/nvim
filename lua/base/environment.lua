@@ -16,6 +16,8 @@ set.wrap = false
 -- 高亮行
 set.cursorline = true
 
+set.complete = {}
+
 set.shiftwidth = 2
 set.tabstop = 2
 set.softtabstop = 0

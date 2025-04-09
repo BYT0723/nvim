@@ -176,7 +176,7 @@ require('lazy').setup({
     keys = keymaps.GoNvim,
     opts = {
       lsp_inlay_hints = { enable = false },
-      diagnostic = true,
+      diagnostic = false,
     },
   },
   -- godot
@@ -329,6 +329,25 @@ require('lazy').setup({
     },
     version = '*',
     opts = require('plugins.configs.cmp'),
+  },
+  {
+    'L3MON4D3/LuaSnip',
+    version = 'v2.*', -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+    build = 'make install_jsregexp',
+    init = function()
+      local ls = require('luasnip')
+      require('luasnip.loaders.from_lua').load({ paths = vim.fn.stdpath('config') .. '/luaSnippets' })
+      -- stylua: ignore
+		  vim.keymap.set({ 'i', 's' }, '<C-j>', function() return ls.jumpable(1) and '<Plug>luasnip-jump-next' end,              	{ expr = true })
+      -- stylua: ignore
+		 	vim.keymap.set({ 'i', 's' }, '<C-k>', function() return ls.jumpable(-1) and '<Plug>luasnip-jump-prev' end,              { expr = true })
+      -- stylua: ignore
+		  vim.keymap.set({ 'i', 's' }, '<C-n>', function() return ls.expand_or_jumpable() and '<Plug>luasnip-expand-or-jump' end, { expr = true })
+    end,
+    opts = {
+      history = true,
+      delete_check_events = 'TextChanged',
+    },
   },
   -- AI
   {
@@ -506,8 +525,8 @@ require('lazy').setup({
   -- Statistics
   { 'wakatime/vim-wakatime', lazy = false },
   -- Personal plugin development
-  { 'BYT0723/typist.nvim', opts = {} },
-  { 'BYT0723/goctl.nvim', opts = {} },
+  { 'BYT0723/typist.nvim', opts = {}, dev = true },
+  { 'BYT0723/goctl.nvim', opts = {}, dev = true },
 }, {
   rocks = {
     hererocks = true, -- recommended if you do not have global installation of Lua 5.1.

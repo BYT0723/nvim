@@ -1,15 +1,4 @@
 {
-  "function_comment": {
-    "prefix": "cmt",
-    "body": [
-      "---",
-      "---${1: function comment}",
-      "---",
-      "---@param $2 $3",
-      "---@return $4 $5"
-    ],
-    "description": "function comment"
-  },
   "stylua_format_ignore": {
     "prefix": "fi",
     "body": ["-- stylua: ignore"],

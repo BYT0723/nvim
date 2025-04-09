@@ -4,17 +4,17 @@ return {
       and vim.bo.buftype ~= 'prompt'
       and vim.b.completion ~= false
   end,
-      -- stylua: ignore
-      keymap = {
-        preset = 'none',
-        ['<Tab>']   = { 'select_next',               'fallback' },
-        ['<S-Tab>'] = { 'select_prev',               'fallback' },
-        ['<CR>']    = { 'accept',                    'fallback' },
-        ['<C-j>']   = { 'snippet_forward',           'fallback' },
-        ['<C-k>']   = { 'snippet_backward',          'fallback' },
-        ['<C-u>']   = { 'scroll_documentation_up',   'fallback' },
-        ['<C-d>']   = { 'scroll_documentation_down', 'fallback' },
-      },
+	-- stylua: ignore
+	keymap = {
+		preset = 'none',
+		['<Tab>']   = { 'select_next',               'fallback' },
+		['<S-Tab>'] = { 'select_prev',               'fallback' },
+		['<CR>']    = { 'accept',                    'fallback' },
+		['<C-j>']   = { 'snippet_forward',           'fallback' },
+		['<C-k>']   = { 'snippet_backward',          'fallback' },
+		['<C-u>']   = { 'scroll_documentation_up',   'fallback' },
+		['<C-d>']   = { 'scroll_documentation_down', 'fallback' },
+	},
   completion = {
     keyword = {
       -- 'prefix' will fuzzy match on the text before the cursor
@@ -26,7 +26,9 @@ return {
       max_items = 20,
       selection = {
         preselect = false,
-        auto_insert = false,
+        auto_insert = function(ctx)
+          return ctx.mode == 'cmdline'
+        end,
       },
     },
     menu = {
