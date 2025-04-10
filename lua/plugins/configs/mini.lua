@@ -19,9 +19,7 @@ return {
     'echasnovski/mini.files',
     version = '*',
     keys = keymaps.MiniFiles,
-    opts = {
-      windows = { preview = true },
-    },
+    opts = {},
   },
   -- starter UI
   {
