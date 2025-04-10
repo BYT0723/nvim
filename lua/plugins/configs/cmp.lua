@@ -1,4 +1,15 @@
 return {
+  cmdline = {
+    completion = {
+      menu = { auto_show = true },
+      list = {
+        selection = {
+          preselect = false,
+          auto_insert = true,
+        },
+      },
+    },
+  },
   enabled = function()
     return not vim.tbl_contains({ 'DressingInput' }, vim.bo.filetype)
       and vim.bo.buftype ~= 'prompt'
@@ -26,9 +37,7 @@ return {
       max_items = 20,
       selection = {
         preselect = false,
-        auto_insert = function(ctx)
-          return ctx.mode == 'cmdline'
-        end,
+        auto_insert = false,
       },
     },
     menu = {
