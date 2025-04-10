@@ -367,12 +367,13 @@ require('lazy').setup({
       virtual_text = {
         enabled = true,
         filetypes = {
-          NvimTree = false,
-          toggleterm = false,
           mason = false,
-          Outline = false,
           lazy = false,
           markdown = false,
+          minifiles = false,
+          snacks_terminal = false,
+          snacks_picker_input = false,
+          snacks_input = false,
         },
         default_filetype_enabled = true,
         accept_fallback = '<C-L>',
