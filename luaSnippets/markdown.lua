@@ -6,7 +6,11 @@ local t = ls.text_node
 local i = ls.insert_node
 
 return {
-  s({ trig = 'table(%d+)x(%d+)', regTrig = true }, {
+  s({
+    trig = 'table(%d+)x(%d+)',
+    regTrig = true,
+    name = 'table',
+  }, {
     d(1, function(args, snip)
       local nodes = {}
       local i_counter = 0

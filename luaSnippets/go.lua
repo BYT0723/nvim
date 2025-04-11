@@ -11,6 +11,7 @@ return {
       trig = 'func ([%w_]+)',
       regTrig = true,
       hidden = false,
+      name = 'func',
     },
     fmt(
       [[
@@ -33,6 +34,7 @@ func {name}({params}) {ret} {{
       trig = 'meth ([%w_*]+) ([%w_]+)',
       regTrig = true,
       hidden = false,
+      name = 'meth',
     },
     fmt(
       [[

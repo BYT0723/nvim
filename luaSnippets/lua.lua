@@ -11,6 +11,7 @@ return {
       trig = 'fun ([%w_]+)',
       regTrig = true,
       hidden = false,
+      name = 'fun',
     },
     fmt(
       [[
