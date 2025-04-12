@@ -199,6 +199,7 @@ require('lazy').setup({
   },
   {
     '3rd/image.nvim',
+    ft = { 'markdown', 'norg' },
     opts = {
       backend = 'ueberzug', -- kitty or ueberzug
       processor = 'magick_rock', -- or "magick_cli"
@@ -323,6 +324,7 @@ require('lazy').setup({
   {
     'saghen/blink.cmp',
     dependencies = {
+      'rafamadriz/friendly-snippets',
       { 'saghen/blink.compat', lazy = true, version = false },
     },
     version = '*',
@@ -332,14 +334,6 @@ require('lazy').setup({
     'L3MON4D3/LuaSnip',
     version = 'v2.*', -- Replace <CurrentMajor> by the latest released major (first number of latest release)
     build = 'make install_jsregexp',
-    dependencies = {
-      {
-        'rafamadriz/friendly-snippets',
-        config = function()
-          require('luasnip.loaders.from_vscode').lazy_load()
-        end,
-      },
-    },
 		-- stylua: ignore
     init = function()
       local ls = require('luasnip')
@@ -348,7 +342,6 @@ require('lazy').setup({
         vim.o.undolevels = vim.o.undolevels
         auto_expand(...)
       end
-      require('luasnip.loaders.from_vscode').load({ lazy_paths = { vim.fn.stdpath('config') .. '/snippets' } })
       require('luasnip.loaders.from_lua').load({ paths = vim.fn.stdpath('config') .. '/luaSnippets' })
       vim.keymap.set({ 'i', 's' }, '<C-j>', function() return ls.jumpable(1)          and '<Plug>luasnip-jump-next' end,      { expr = true })
       vim.keymap.set({ 'i', 's' }, '<C-k>', function() return ls.jumpable(-1)         and '<Plug>luasnip-jump-prev' end,      { expr = true })
