@@ -6,21 +6,31 @@ local signs = {
     [vim.diagnostic.severity.INFO] = ' ',
     [vim.diagnostic.severity.HINT] = ' ',
   },
+  hl = {
+    [vim.diagnostic.severity.ERROR] = 'DiagnosticError',
+    [vim.diagnostic.severity.WARN] = 'DiagnosticWarn',
+    [vim.diagnostic.severity.INFO] = 'DiagnosticInfo',
+    [vim.diagnostic.severity.HINT] = 'DiagnosticHint',
+  },
 }
 
 vim.diagnostic.config({
   virtual_text = true,
-  signs = signs,
+  signs = {
+    text = signs.text,
+  },
   update_in_insert = false,
   underline = true,
   severity_sort = true,
   float = {
     border = 'rounded',
-    header = '',
-    prefix = '',
     title = '  Diagnostic ',
-    format = function(diagnostic)
-      return string.format('%s %s [%s]', signs.text[diagnostic.severity], diagnostic.message, diagnostic.source)
+    header = {},
+    prefix = function(diagnostic, i, total)
+      return string.format(' %s ', signs.text[diagnostic.severity]), signs.hl[diagnostic.severity]
+    end,
+    suffix = function(diagnostic, i, total)
+      return string.format(' [%d/%d] - %s ', i, total, diagnostic.source), 'DiagnosticUnnecessary'
     end,
   },
 })

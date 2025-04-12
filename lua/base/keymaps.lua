@@ -20,7 +20,7 @@ local baseKeymaps = {
   { 'bj',           '<cmd>bn<CR>',                                                                         desc = 'next buffer',             mode = 'n' },
   { 'bq',           '<cmd>bdelete!<CR>',                                                                   desc = 'delete buffer',           mode = 'n' },
   -- launcher - terminal
-  { '<leader>rf', function() require('base.launcher').runFile() end,                           desc = 'Run File',                           mode = 'n', },
+  { '<leader>rf', function() require('base.launcher').runFile() end,                           						 desc = 'Run File',                mode = 'n' },
   -- terminal
   { '<C-q>q',       '<C-\\><C-n>',                                                                         desc = 'Exit terminal mode',      mode = "t" },
   { '<C-w>j',       '<cmd>wincmd j<CR>',                                                                   desc = 'Move to window below',    mode = "t" },
@@ -28,13 +28,10 @@ local baseKeymaps = {
   { '<C-w>h',       '<cmd>wincmd h<CR>',                                                                   desc = 'Move to left window',     mode = "t" },
   { '<C-w>l',       '<cmd>wincmd l<CR>',                                                                   desc = 'Move to right window',    mode = "t" },
   -- diagnostic
-  -- { '<leader>f', function() vim.diagnostic.open_float() end,                                            desc = 'Hover Diagnostic',        },
-  -- { '<leader>l', function() vim.diagnostic.setloclist() end,                                            desc = 'Loclist Diagnostic',      },
-  -- { '<leader>l', function() vim.diagnostic.setqflist() end,                                             desc = 'QuickFix Diagnostic',     },
-  { 'dk',           function() vim.diagnostic.goto_prev() end,                                             desc = 'Prev Diagnostic',         },
-  { 'dj',           function() vim.diagnostic.goto_next() end,                                             desc = 'Next Diagnostic',         },
-  { 'dK',           function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, desc = 'Prev Diagnostic [ERROR]', },
-  { 'dJ',           function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, desc = 'Next Diagnostic [ERROR]', },
+  {'dk', function() vim.diagnostic.jump({ count = -1, float = true }) end, 																					 desc = 'Prev Diagnostic',},
+  {'dj', function() vim.diagnostic.jump({ count = 1, float = true }) end, 																					 desc = 'Next Diagnostic',},
+  {'dK', function() vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.ERROR }) end, desc = 'Prev Diagnostic [ERROR]',},
+  {'dJ', function() vim.diagnostic.jump({ count = 1, float = true, severity = vim.diagnostic.severity.ERROR }) end,  desc = 'Next Diagnostic [ERROR]',},
 	-- utils
 	{ '<leader>cpr', function() vim.fn.setreg("+", vim.fn.expand("%:.")) vim.notify("Copied Relative Path") end, desc = "Copy Path (relative) to clipboard" },
 	{ '<leader>cpa', function() vim.fn.setreg("+", vim.fn.expand("%")) vim.notify("Copied Absolute Path") end, desc = "Copy Path(absolute) to clipboard" },
