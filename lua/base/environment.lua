@@ -20,7 +20,6 @@ set.complete = {}
 
 set.shiftwidth = 4
 set.tabstop = 4
-set.softtabstop = 0
 set.expandtab = false
 
 -- 相对行号
