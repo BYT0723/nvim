@@ -34,7 +34,7 @@ local baseKeymaps = {
   {'dJ', function() vim.diagnostic.jump({ count = 1, float = true, severity = vim.diagnostic.severity.ERROR }) end,  desc = 'Next Diagnostic [ERROR]',},
 	-- utils
 	{ '<leader>cpr', function() vim.fn.setreg("+", vim.fn.expand("%:.")) vim.notify("Copied Relative Path") end, desc = "Copy Path (relative) to clipboard" },
-	{ '<leader>cpa', function() vim.fn.setreg("+", vim.fn.expand("%")) vim.notify("Copied Absolute Path") end, desc = "Copy Path(absolute) to clipboard" },
+	{ '<leader>cpa', function() vim.fn.setreg("+", vim.api.nvim_buf_get_name(0)) vim.notify("Copied Absolute Path") end, desc = "Copy Path(absolute) to clipboard" },
 	{ '<leader>cpl', function() vim.fn.setreg("+", string.format("%s:%d",vim.fn.expand("%:."), vim.fn.line("."))) vim.notify("Copied current line position") end, desc = "Copy rp:lnum to clipboard" },
 }
 
