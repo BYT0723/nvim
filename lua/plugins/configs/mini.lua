@@ -1,13 +1,3 @@
-local header = '\
-███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗\
-████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║\
-██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║\
-██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║\
-██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║\
-╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝\
-                                                      \
-          [ May everyone not be alone ]               '
-
 local keymaps = require('plugins.keymaps')
 
 return {
@@ -19,49 +9,8 @@ return {
     'echasnovski/mini.files',
     version = '*',
     keys = keymaps.MiniFiles,
-    opts = {},
-  },
-  -- starter UI
-  {
-    'echasnovski/mini.starter',
-    version = '*',
     opts = {
-      header = header,
-			-- stylua: ignore
-      items = {
-        {
-          name = 'New File',
-          action = function()
-            vim.ui.input({ prompt = ' ' .. vim.fn.getcwd() .. '/' }, function(input)
-              if not input or input == '' then
-                vim.notify('invalid path', vim.log.levels.ERROR)
-                return
-              end
-              local full_path = vim.fn.fnamemodify(input, ':p')
-              if vim.fn.isdirectory(full_path) == 1 then
-                vim.notify('already exists directory [' .. full_path .. ']', vim.log.levels.ERROR)
-              elseif vim.fn.filereadable(full_path) == 1 then
-                vim.ui.input({ prompt = 'File Exists, Open(y/n)' }, function(flag)
-                  if flag == 'y' then
-                    vim.cmd('edit ' .. full_path)
-                  end
-                end)
-              else
-                vim.cmd('edit ' .. full_path)
-              end
-            end)
-          end,
-          section = 'Guide',
-        },
-        { name = 'Recent Files', action = function() Snacks.picker.recent() end, section = 'Guide' },
-        { name = 'Recent Projects', action = function() Snacks.picker.projects() end, section = 'Guide' },
-        -- TOOLS
-        { name = 'Explorer', action = function() Snacks.explorer({hidden=true,ignored=true}) end, section = 'Tools' },
-        { name = 'Finder', action = function() Snacks.picker.files() end, section = 'Tools' },
-        { name = 'Plugin', action = 'Lazy', section = 'Tools' },
-        -- SYSTEM
-        { name = 'Configuration', action = function() Snacks.picker.files({ cwd = vim.fn.stdpath('config') }) end, section = 'System' },
-      },
+      options = { permanent_delete = false },
     },
   },
   -- bufferline
@@ -212,6 +161,8 @@ return {
   -- show line tail space
   {
     'echasnovski/mini.trailspace',
+    version = '*',
+    event = 'BufReadPost',
     opts = {},
   },
 }

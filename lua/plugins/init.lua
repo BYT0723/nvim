@@ -41,7 +41,7 @@ require('lazy').setup({
     ---@type snacks.Config
     opts = {
       bigfile = { enabled = true },
-      dashboard = { enabled = false },
+      dashboard = { enabled = true },
       explorer = { enabled = false },
       indent = { indent = { char = '╎' }, scope = { char = '╎' } },
       input = { enabled = true, icon_pos = 'title', win = { width = 40, relative = 'cursor', row = -3, col = 0 } },
@@ -334,8 +334,12 @@ require('lazy').setup({
     'L3MON4D3/LuaSnip',
     version = 'v2.*', -- Replace <CurrentMajor> by the latest released major (first number of latest release)
     build = 'make install_jsregexp',
+    opts = {
+      history = true,
+      delete_check_events = 'TextChanged',
+    },
 		-- stylua: ignore
-    init = function()
+    config = function(_, opts)
       local ls = require('luasnip')
       local auto_expand = ls.expand_auto
       ls.expand_auto = function(...)
@@ -346,11 +350,8 @@ require('lazy').setup({
       vim.keymap.set({ 'i', 's' }, '<C-j>', function() return ls.jumpable(1)          and '<Plug>luasnip-jump-next' end,      { expr = true })
       vim.keymap.set({ 'i', 's' }, '<C-k>', function() return ls.jumpable(-1)         and '<Plug>luasnip-jump-prev' end,      { expr = true })
       vim.keymap.set({ 'i', 's' }, '<C-n>', function() return ls.expand_or_jumpable() and '<Plug>luasnip-expand-or-jump' end, { expr = true })
-    end,
-    opts = {
-      history = true,
-      delete_check_events = 'TextChanged',
-    },
+			ls.setup(opts)
+		end,
   },
   -- AI
   {
@@ -380,9 +381,8 @@ require('lazy').setup({
   },
   {
     'yetone/avante.nvim',
-    event = 'VeryLazy',
-    lazy = false,
     version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
+    cmd = 'AvanteChat',
     opts = {
       provider = 'deepseek',
       vendors = {
@@ -411,7 +411,7 @@ require('lazy').setup({
         },
       },
     },
-    init = function()
+    config = function()
       require('plugins.configs.lspconfig')
     end,
   },
