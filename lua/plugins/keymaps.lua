@@ -28,10 +28,6 @@ M.Diffview = {
   { '<leader>gd', '<cmd>DiffviewOpen<CR>', desc = 'Git Diffview' },
 }
 
-M.GoNvim = {
-  { '<leader>al', '<cmd>GoCodeLenAct<CR>', desc = 'Go Code Len' },
-}
-
 -- stylua: ignore
 M.Dap = {
   { '<leader>du', function() require('plugins.configs.dap-local').DapToggle() end, desc = 'Toggle Dap UI',     },
@@ -200,6 +196,7 @@ M.maplsp = function(bufnr)
     { '<leader>rn', function() vim.lsp.buf.rename() end,            desc = 'Global Rename',           },
     { '<leader>aa', function() vim.lsp.buf.code_action() end,       desc = 'Code Actions',            },
     { '<leader>aa', function() vim.lsp.buf.code_action() end,       desc = 'Code Actions of Range',   mode = 'v', },
+    { '<leader>al', function() vim.lsp.codelens.run() end,					desc = 'Code Lens',            		},
     { 'K',          function() vim.lsp.buf.hover() end,             desc = 'Hover Document',          },
     { '<leader>=',  function() vim.lsp.buf.formatting() end,        desc = 'LSP Format',              },
     { '<leader>=',  function() vim.lsp.buf.range_formatting() end,  desc = 'Format of Range',         mode = 'v', },
