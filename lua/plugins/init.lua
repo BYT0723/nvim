@@ -29,7 +29,7 @@ require('lazy').setup({
   -- UI美化
   {
     'folke/noice.nvim',
-    event = 'VeryLazy',
+    lazy = false,
     keys = keymaps.Noice,
     opts = require('plugins.configs.noice'),
   },
