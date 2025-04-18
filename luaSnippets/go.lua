@@ -8,6 +8,72 @@ local fmt = require('luasnip.extras.fmt').fmt
 return {
   s(
     {
+      trig = '(%S+%b())%.([%w_]+)',
+      regTrig = true,
+      hidden = false,
+    },
+    fmt('{cond}{var}, {ok} := {expression}{cond2}', {
+      cond = f(function(_, snip)
+        local pfx = snip.captures[2]:sub(1, 2)
+        if pfx == 'if' then
+          return pfx .. ' '
+        end
+      end),
+      var = i(1, 'v'),
+      ok = f(function(_, snip)
+        local pfx = snip.captures[2]:sub(1, 2)
+        if pfx == 'if' then
+          return snip.captures[2]:sub(3, -1)
+        else
+          return snip.captures[2]
+        end
+      end),
+      expression = f(function(_, snip)
+        return snip.captures[1]
+      end),
+      cond2 = d(2, function(_, snip)
+        local pfx = snip.captures[2]:sub(1, 2)
+        if pfx == 'if' then
+          return sn(nil, { t('; ' .. snip.captures[2]:sub(3, -1) .. '{'), i(1), t('}') })
+        end
+      end),
+    })
+  ),
+  s(
+    {
+      trig = '([%w_]+%[.+%])%.([%w_]+)',
+      regTrig = true,
+      hidden = false,
+    },
+    fmt('{cond}{var}, {ok} := {expression}{cond2}', {
+      cond = f(function(_, snip)
+        local pfx = snip.captures[2]:sub(1, 2)
+        if pfx == 'if' then
+          return pfx .. ' '
+        end
+      end),
+      var = i(1, 'v'),
+      ok = f(function(_, snip)
+        local pfx = snip.captures[2]:sub(1, 2)
+        if pfx == 'if' then
+          return snip.captures[2]:sub(3, -1)
+        else
+          return snip.captures[2]
+        end
+      end),
+      expression = f(function(_, snip)
+        return snip.captures[1]
+      end),
+      cond2 = d(2, function(_, snip)
+        local pfx = snip.captures[2]:sub(1, 2)
+        if pfx == 'if' then
+          return sn(nil, { t('; ' .. snip.captures[2]:sub(3, -1) .. '{'), i(1), t('}') })
+        end
+      end),
+    })
+  ),
+  s(
+    {
       trig = 'func ([%w_]+)',
       regTrig = true,
       hidden = false,
