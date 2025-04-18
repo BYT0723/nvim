@@ -108,6 +108,7 @@ require('lazy').setup({
       end,
     },
   },
+  -- Breadcrumbs
   {
     'Bekaboo/dropbar.nvim',
     config = function()
@@ -265,6 +266,19 @@ require('lazy').setup({
       file_types = { 'markdown', 'Avante' },
     },
   },
+  -- fold
+  {
+    'kevinhwang91/nvim-ufo',
+    dependencies = { 'kevinhwang91/promise-async' },
+    init = function()
+      vim.o.foldcolumn = '1' -- '0' is not bad
+      vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+      vim.o.foldlevelstart = 99
+      vim.o.foldenable = true
+    end,
+    opts = {},
+  },
+  -- obsidian
   {
     'epwalsh/obsidian.nvim',
     version = '*', -- recommended, use latest release instead of latest commit
@@ -473,10 +487,6 @@ require('lazy').setup({
     config = function(_, opts)
       require('nvim-treesitter.configs').setup(opts)
       require('treesitter-context').setup(opts.context)
-      -- 开启 Folding
-      vim.opt.foldmethod = 'expr'
-      vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
-      vim.opt.foldenable = false
     end,
     dependencies = {
       { 'nvim-treesitter/nvim-treesitter-context', keys = keymaps.TreeSitterContext },
@@ -514,9 +524,9 @@ require('lazy').setup({
     end,
     opts = {
       cn = { -- leetcode.cn
-        enabled = true, ---@type boolean
-        translator = true, ---@type boolean
-        translate_problems = true, ---@type boolean
+        enabled = true,
+        translator = true,
+        translate_problems = true,
       },
       lang = 'golang',
       injector = {

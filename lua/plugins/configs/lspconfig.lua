@@ -151,6 +151,10 @@ local capabilities = {
         },
       },
     },
+    foldingRange = {
+      dynamicRegistration = false,
+      lineFoldingOnly = true,
+    },
   },
 }
 
