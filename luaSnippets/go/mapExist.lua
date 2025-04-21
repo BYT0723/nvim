@@ -9,7 +9,7 @@ local fmt = require('luasnip.extras.fmt').fmt
 return {
   s(
     {
-      trig = '([%w_]+%[.+%])%.([%w_]+)',
+      trig = '(%S+%[.+%])%.([%w_]+)',
       regTrig = true,
       hidden = false,
     },
