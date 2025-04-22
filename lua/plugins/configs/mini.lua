@@ -23,41 +23,39 @@ return {
   {
     'echasnovski/mini.statusline',
     version = '*',
-    config = function()
-      local MiniStatusline = require('mini.statusline')
-      MiniStatusline.setup({
-        content = {
-          active = function()
-            local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
-            local git = MiniStatusline.section_git({ trunc_width = 75 })
-            local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
-            local filename = MiniStatusline.section_filename({ trunc_width = 140 })
-            local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
-            local location = MiniStatusline.section_location({ trunc_width = 75 })
-            local has_noice, noice = pcall(require, 'noice')
-            return MiniStatusline.combine_groups({
-              { hl = mode_hl, strings = { mode } },
-              { hl = 'MiniStatuslineDevinfo', strings = { git, diagnostics } },
-              '%<', -- Mark general truncate point
-              { hl = 'MiniStatuslineFilename', strings = { filename } },
-              '%=', -- End left alignment
-              has_noice and { strings = { noice.api.status.command.get() } }, -- noice statusline command
-              has_noice and { hl = mode_hl, strings = { noice.api.status.mode.get() } }, -- noice statusline mode (eg: recording)
-              vim.bo.filetype == 'http' and { hl = mode_hl, strings = { '', require('kulala').get_selected_env() } }, -- kulala environment
-              { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
-              { hl = mode_hl, strings = { location } },
-            })
-          end,
-          inactive = function()
-            return MiniStatusline.combine_groups({
-              { strings = { vim.bo.buftype == 'terminal' and '%t' or '%f%m%r' } },
-            })
-          end,
-        },
-        use_icons = true,
-        set_vim_settings = true,
-      })
-    end,
+    opts = {
+      content = {
+        active = function()
+          local MiniStatusline = require('mini.statusline')
+          local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
+          local git = MiniStatusline.section_git({ trunc_width = 40 })
+          local diff = MiniStatusline.section_diff({ trunc_width = 75 })
+          local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
+          local lsp = MiniStatusline.section_lsp({ trunc_width = 75 })
+          -- local filename = MiniStatusline.section_filename({ trunc_width = 140 })
+          local filename = vim.bo.filetype == 'terminal' and '%t' or require('base.util').relative_path() .. '%m%r'
+          local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
+          local location = MiniStatusline.section_location({ trunc_width = 75 })
+          local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
+          local has_noice, noice = pcall(require, 'noice')
+          local has_kulala, kulala = pcall(require, 'kulala')
+          return MiniStatusline.combine_groups({
+            { hl = mode_hl, strings = { mode } },
+            { hl = 'MiniStatuslineDevinfo', strings = { git, diff, diagnostics, lsp } },
+            '%<', -- Mark general truncate point
+            { hl = 'MiniStatuslineFilename', strings = { filename } },
+            '%=', -- End left alignment
+            has_noice and { strings = { noice.api.status.command.get() } }, -- noice statusline command
+            has_noice and { hl = mode_hl, strings = { noice.api.status.mode.get() } }, -- noice statusline mode (eg: recording)
+            (vim.bo.filetype == 'http' and has_kulala)
+              and { hl = 'MiniStatuslineModeOther', strings = { '🐼', kulala.get_selected_env() } }, -- kulala environment
+            { hl = 'CurSearch', strings = { search } },
+            { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
+            { hl = mode_hl, strings = { location } },
+          })
+        end,
+      },
+    },
   },
   -- autopairs
   {
