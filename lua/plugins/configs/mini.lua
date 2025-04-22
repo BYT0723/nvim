@@ -3,11 +3,11 @@ local keymaps = require('plugins.keymaps')
 return {
   {
     'echasnovski/mini.icons',
-    version = '*',
+    version = false,
   },
   {
     'echasnovski/mini.files',
-    version = '*',
+    version = false,
     keys = keymaps.MiniFiles,
     opts = {
       options = { permanent_delete = false },
@@ -16,13 +16,13 @@ return {
   -- bufferline
   {
     'echasnovski/mini.tabline',
-    version = '*',
+    version = false,
     opts = {},
   },
   -- statusline
   {
     'echasnovski/mini.statusline',
-    version = '*',
+    version = false,
     opts = {
       content = {
         active = function()
@@ -33,7 +33,8 @@ return {
           local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
           local lsp = MiniStatusline.section_lsp({ trunc_width = 75 })
           -- local filename = MiniStatusline.section_filename({ trunc_width = 140 })
-          local filename = vim.bo.filetype == 'terminal' and '%t' or require('base.util').relative_path() .. '%m%r'
+          local filename = vim.bo.filetype == 'snacks_terminal' and '%t'
+            or require('base.util').relative_path() .. '%m%r'
           local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
           local location = MiniStatusline.section_location({ trunc_width = 75 })
           local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
@@ -60,13 +61,13 @@ return {
   -- autopairs
   {
     'echasnovski/mini.pairs',
-    version = '*',
+    version = false,
     opts = {},
   },
   -- comment
   {
     'echasnovski/mini.comment',
-    version = '*',
+    version = false,
     opts = {
       options = {
         custom_commentstring = function()
@@ -78,7 +79,7 @@ return {
   -- hex colors display
   {
     'echasnovski/mini.hipatterns',
-    version = '*',
+    version = false,
     config = function()
       require('mini.hipatterns').setup({
         highlighters = {
@@ -97,13 +98,13 @@ return {
   -- quick jump
   {
     'echasnovski/mini.jump',
-    version = '*',
+    version = false,
     opts = {},
   },
   -- use 2d replace quick jump
   {
     'echasnovski/mini.jump2d',
-    version = '*',
+    version = false,
     opts = {
       mappings = {
         start_jumping = 'gf',
@@ -113,13 +114,13 @@ return {
   -- text align
   {
     'echasnovski/mini.align',
-    version = '*',
+    version = false,
     opts = {},
   },
   -- surround text
   {
     'echasnovski/mini.surround',
-    version = '*',
+    version = false,
     opts = {
       mappings = {
         add = 'sa', -- Add surrounding in Normal and Visual modes
@@ -138,7 +139,7 @@ return {
   -- toggle body
   {
     'echasnovski/mini.splitjoin',
-    version = '*',
+    version = false,
     opts = {
       mappings = {
         toggle = 'gS',
@@ -150,7 +151,7 @@ return {
   -- move code block
   {
     'echasnovski/mini.move',
-    versiont = '*',
+    versiont = false,
     opts = {
       -- Module mappings. Use `''` (empty string) to disable one.
       -- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
@@ -159,7 +160,7 @@ return {
   -- show line tail space
   {
     'echasnovski/mini.trailspace',
-    version = '*',
+    version = false,
     event = 'BufReadPost',
     opts = {},
   },
