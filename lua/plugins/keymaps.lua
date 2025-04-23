@@ -156,7 +156,7 @@ M.Snacks = {
   { "<leader>sc", function() Snacks.picker.command_history() end,       desc = "Command History" },
   { "<leader>sC", function() Snacks.picker.commands() end,              desc = "Commands" },
   { "<leader>sd", function() Snacks.picker.diagnostics() end,           desc = "Diagnostics" },
-  { "<leader>sd", function() Snacks.picker.diagnostics({severity={min=vim.diagnostic.severity.ERROR}}) end,           desc = "Diagnostics (ERROR)" },
+  { "<leader>sD", function() Snacks.picker.diagnostics({severity={min=vim.diagnostic.severity.ERROR}}) end,           desc = "Diagnostics (ERROR)" },
   { "<leader>sh", function() Snacks.picker.help() end,                  desc = "Help Pages" },
   { "<leader>sH", function() Snacks.picker.highlights() end,            desc = "Highlights" },
   { "<leader>si", function() Snacks.picker.icons() end,                 desc = "Icons" },
