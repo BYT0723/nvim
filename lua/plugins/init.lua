@@ -515,6 +515,7 @@ require('lazy').setup({
   -- interview 'kawre/leetcode.nvim' fork
   {
     'BYT0723/leetcode.nvim',
+    cmd = 'Leet',
     build = ':TSUpdate html', -- if you have `nvim-treesitter` installed
     init = function()
       local go_mod_path = vim.fn.stdpath('data') .. '/leetcode/go.mod'
