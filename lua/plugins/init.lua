@@ -377,6 +377,7 @@ require('lazy').setup({
   -- AI
   {
     'Exafunction/codeium.nvim',
+    lazy = true,
     opts = {
       enable_cmp_source = false,
       virtual_text = {
