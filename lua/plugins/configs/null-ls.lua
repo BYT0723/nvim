@@ -25,7 +25,7 @@ return {
     null_ls.builtins.formatting.shfmt,
     null_ls.builtins.formatting.cmake_format,
     null_ls.builtins.formatting.goimports,
-    null_ls.builtins.formatting.golines,
+    -- null_ls.builtins.formatting.golines,
     null_ls.builtins.formatting.gofumpt,
     null_ls.builtins.formatting.prettierd,
     null_ls.builtins.formatting.buf,
