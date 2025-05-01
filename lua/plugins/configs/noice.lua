@@ -13,11 +13,11 @@ return {
   views = {
     cmdline_popup = {
       position = { row = '30%', col = '50%' },
-      size = { width = '50%' },
+      -- size = { width = '50%' },
     },
     mini = {
       position = { row = -1, col = '100%' },
-      win_options = { winblend = 0 },
+      -- win_options = { winblend = 0 },
     },
   },
 }
