@@ -247,24 +247,38 @@ require('lazy').setup({
     ft = { 'markdown', 'Avante' },
     -- stylua: ignore
     init = function()
-      vim.api.nvim_set_hl(0, 'RenderMarkdownCheckboxCheckedText',   { link = '@markup.strikethrough' })
       vim.api.nvim_set_hl(0, 'RenderMarkdownCheckboxProgress',      { bold = true, fg = '#00AFFF' })
-      vim.api.nvim_set_hl(0, 'RenderMarkdownCheckboxInterrupt',     { link = '@comment' })
+      vim.api.nvim_set_hl(0, 'RenderMarkdownCheckboxInterrupt',     { bold = true, fg = '#888888' })
       vim.api.nvim_set_hl(0, 'RenderMarkdownCheckboxImportant',     { bold = true, fg = '#d73128' })
+      vim.api.nvim_set_hl(0, 'RenderMarkdownCheckboxCancelled',     { link = '@comment' })
+      vim.api.nvim_set_hl(0, 'RenderMarkdownCheckboxCancelledText',	{ link = '@markup.strikethrough' })
     end,
     opts = {
       -- stylua: ignore
       checkbox = {
         unchecked = { icon = '󰄱', highlight = 'RenderMarkdownUnchecked', scope_highlight = nil },
-        checked   = { icon = '󰄵', highlight = 'RenderMarkdownChecked',   scope_highlight = 'RenderMarkdownCheckboxCheckedText',},
+        checked   = { icon = '󰄵', highlight = 'RenderMarkdownChecked',   scope_highlight = 'RenderMarkdownCheckboxDoneText',},
         custom = {
-          progress  = { raw = '[>]', rendered = '', highlight = 'RenderMarkdownCheckboxProgress',  scope_highlight = nil },
-          interrupt = { raw = '[~]', rendered = '󰰱', highlight = 'RenderMarkdownCheckboxInterrupt', scope_highlight = nil },
+          progress  = { raw = '[>]', rendered = '', highlight = 'RenderMarkdownCheckboxProgress',  scope_highlight = nil },
+          interrupt = { raw = '[~]', rendered = '', highlight = 'RenderMarkdownCheckboxInterrupt', scope_highlight = nil },
           important = { raw = '[!]', rendered = '', highlight = 'RenderMarkdownCheckboxImportant', scope_highlight = nil },
+					cancelled  = { raw = '[-]', rendered = '', highlight = 'RenderMarkdownCheckboxCancelled', scope_highlight = 'RenderMarkdownCheckboxCancelledText' },
         },
       },
       file_types = { 'markdown', 'Avante' },
     },
+  },
+  {
+    'nvim-orgmode/orgmode',
+    event = 'VeryLazy',
+    ft = { 'org' },
+    config = function()
+      -- Setup orgmode
+      require('orgmode').setup({
+        org_agenda_files = '~/orgfiles/**/*',
+        org_default_notes_file = '~/orgfiles/refile.org',
+      })
+    end,
   },
   -- fold
   {
@@ -274,7 +288,7 @@ require('lazy').setup({
       vim.o.foldcolumn = '1' -- '0' is not bad
       vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
       vim.o.foldlevelstart = 99
-      vim.o.foldenable = true
+      vim.o.foldenable = false
     end,
     opts = {},
   },
@@ -286,25 +300,43 @@ require('lazy').setup({
     filetypes = { 'markdown' },
     opts = {
       workspaces = {
-        {
-          name = 'personal',
-          path = '~/Vaults/Personal',
-        },
-        {
-          name = 'work',
-          path = '~/Vaults/Work',
-        },
+        { name = 'personal', path = '~/Vaults/Personal' },
+        { name = 'work', path = '~/Vaults/Work' },
       },
       daily_notes = {
         folder = 'dailies',
-        date_format = '%Y-%m-%d',
+        date_format = '%Y-%m-%d (%a)',
         alias_format = '%b %-d, %Y (%a)',
-        default_tags = { 'daily-notes' },
+        default_tags = { 'daily_notes' },
         -- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
         template = nil,
       },
-      mappings = {},
+      templates = {
+        folder = '~/Vaults/templates',
+        date_format = '%Y-%m-%d (%a)',
+        time_format = '%H:%M',
+        substitutions = {},
+      },
+      completion = {
+        -- Enables completion using nvim_cmp
+        nvim_cmp = false,
+        -- Enables completion using blink.cmp
+        blink = true,
+      },
+      mappings = {
+        -- Smart action depending on context: follow link, show notes with tag, or toggle checkbox.
+        ['<cr>'] = {
+          action = function()
+            return require('obsidian').util.smart_action()
+          end,
+          opts = { buffer = true, expr = true },
+        },
+      },
+      follow_url_func = function(url)
+        vim.fn.jobstart({ 'xdg-open', url }) -- linux
+      end,
       ui = { enable = false },
+      picker = { name = 'snacks.pick' },
     },
   },
   -- Zen Mode like vscode

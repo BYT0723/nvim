@@ -18,6 +18,8 @@ return {
     'markdown',
     'markdown_inline',
     'org',
+    'norg',
+    'norg_meta',
     'proto',
     'python',
     'query',
@@ -46,7 +48,7 @@ return {
   incremental_selection = {
     enable = true,
     keymaps = {
-      init_selection = '<CR>',
+      init_selection = '<C-CR>',
       node_incremental = '<CR>',
       node_decremental = '<BS>',
       scope_incremental = '<TAB>',
