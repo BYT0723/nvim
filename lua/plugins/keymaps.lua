@@ -75,9 +75,10 @@ M.Codeium = {
 
 -- stylua: ignore
 M.Obsidian = {
-  { '<leader>mt', '<cmd>Obsidian tags<CR>',         desc = "obsidian tags" },
-  { '<leader>md', '<cmd>Obsidian dailies -3 0<CR>', desc = "obsidian daliy note" },
-  { '<leader>mw', '<cmd>Obsidian workspace<CR>',    desc = "obsidian workspaces",  ft = "markdown" },
+  { '<leader>mt', '<cmd>Obsidian tags<CR>',                                       desc = "obsidian tags" },
+  { '<leader>md', '<cmd>Obsidian dailies -3 0<CR>',                               desc = "obsidian daliy note" },
+  { '<leader>mw', '<cmd>Obsidian workspace<CR>',                                  desc = "obsidian workspaces",   ft = "markdown" },
+  { '<CR>',       function () return require('obsidian').util.smart_action() end, desc = "obsidian smart_action", ft = "markdown", expr = true },
 }
 
 -- stylua: ignore

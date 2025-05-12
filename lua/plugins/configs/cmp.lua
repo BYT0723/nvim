@@ -64,9 +64,6 @@ return {
   -- snippets = { preset = 'luasnip' },
   sources = {
     default = { 'lsp', 'snippets', 'buffer', 'path' },
-    per_filetype = {
-      markdown = { 'obsidian', 'obsidian_new', 'obsidian_tags', 'lsp', 'snippets', 'buffer', 'path' },
-    },
     providers = {
       lsp = {
         name = 'LSP',

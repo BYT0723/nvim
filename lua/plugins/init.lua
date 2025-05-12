@@ -308,8 +308,7 @@ require('lazy').setup({
         date_format = '%Y-%m-%d (%a)',
         alias_format = '%b %-d, %Y (%a)',
         default_tags = { 'daily_notes' },
-        -- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
-        template = nil,
+        template = 'daily.md',
       },
       templates = {
         folder = '~/Vaults/templates',
@@ -318,19 +317,8 @@ require('lazy').setup({
         substitutions = {},
       },
       completion = {
-        -- Enables completion using nvim_cmp
         nvim_cmp = false,
-        -- Enables completion using blink.cmp
         blink = true,
-      },
-      mappings = {
-        -- Smart action depending on context: follow link, show notes with tag, or toggle checkbox.
-        ['<cr>'] = {
-          action = function()
-            return require('obsidian').util.smart_action()
-          end,
-          opts = { buffer = true, expr = true },
-        },
       },
       follow_url_func = function(url)
         vim.fn.jobstart({ 'xdg-open', url }) -- linux
