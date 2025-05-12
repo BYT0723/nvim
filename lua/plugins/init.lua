@@ -312,10 +312,24 @@ require('lazy').setup({
         template = 'daily.md',
       },
       templates = {
-        folder = '~/Documents/Vaults/templates',
+        folder = vim.fn.stdpath('config') .. '/data/obsidian_templates',
         date_format = '%Y-%m-%d (%a)',
         time_format = '%H:%M',
-        substitutions = {},
+        substitutions = {
+          week_dates = function()
+            local out = {}
+            local now = os.time()
+            local dow = tonumber(os.date('%w', now)) -- 0 = Sunday
+            local monday = now - ((dow == 0 and 6 or dow - 1) * 86400)
+
+            for i = 0, 6 do
+              local t = monday + i * 86400
+              table.insert(out, os.date('%A: [[%Y-%m-%d (%a)]]', t))
+            end
+
+            return table.concat(out, '\n')
+          end,
+        },
       },
       completion = {
         nvim_cmp = false,
@@ -330,28 +344,6 @@ require('lazy').setup({
     config = function(_, opts)
       for _, ws in ipairs(opts.workspaces or {}) do
         util.mkdir(ws.path)
-      end
-      if opts.templates and opts.templates.folder then
-        util.mkdir(opts.templates.folder)
-        if opts.daily_notes and opts.daily_notes.template then
-          local template_path = vim.fn.expand(opts.templates.folder .. '/' .. opts.daily_notes.template)
-          if vim.fn.filereadable(template_path) == 0 then
-            local f = io.open(template_path, 'w')
-            if f then
-              f:write([[
-# Tasks
-
-- [ ] Task 1
-- [ ] Task 2
-
-# Note
-
-# Other
-]])
-              f:close()
-            end
-          end
-        end
       end
       require('obsidian').setup(opts)
     end,
@@ -416,7 +408,7 @@ require('lazy').setup({
         vim.o.undolevels = vim.o.undolevels
         auto_expand(...)
       end
-      require('luasnip.loaders.from_lua').load({ paths = vim.fn.stdpath('config') .. '/luaSnippets' })
+      require('luasnip.loaders.from_lua').load({ paths = vim.fn.stdpath('config') .. '/data/lua_snippets' })
       vim.keymap.set({ 'i', 's' }, '<C-j>', function() return ls.jumpable(1)          and '<Plug>luasnip-jump-next' end,      { expr = true })
       vim.keymap.set({ 'i', 's' }, '<C-k>', function() return ls.jumpable(-1)         and '<Plug>luasnip-jump-prev' end,      { expr = true })
       vim.keymap.set({ 'i', 's' }, '<C-n>', function() return ls.expand_or_jumpable() and '<Plug>luasnip-expand-or-jump' end, { expr = true })
