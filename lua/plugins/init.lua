@@ -291,7 +291,11 @@ require('lazy').setup({
       vim.o.foldlevelstart = 99
       vim.o.foldenable = false
     end,
-    opts = {},
+    opts = {
+      provider_selector = function(bufnr, filetype, buftype)
+        return { 'treesitter', 'indent' }
+      end,
+    },
   },
   -- obsidian
   {
@@ -527,6 +531,8 @@ require('lazy').setup({
       return require('plugins.configs.treesitter')
     end,
     config = function(_, opts)
+      vim.wo.foldmethod = 'expr'
+      vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
       require('nvim-treesitter.configs').setup(opts)
       require('treesitter-context').setup(opts.context)
     end,
