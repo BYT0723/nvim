@@ -82,4 +82,11 @@ function M.source_luafile()
   end
 end
 
+function M.mkdir(path)
+  local full = vim.fn.expand(path)
+  if vim.fn.isdirectory(full) == 0 then
+    vim.fn.mkdir(full, 'p')
+  end
+end
+
 return M

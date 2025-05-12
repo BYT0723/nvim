@@ -12,6 +12,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local keymaps = require('plugins.keymaps')
+local util = require('base.util')
 
 require('lazy').setup({
   -- base or lib
@@ -214,7 +215,7 @@ require('lazy').setup({
       integrations = {
         markdown = {
           enabled = true,
-          clear_in_insert_mode = false,
+          clear_in_insert_mode = true,
           download_remote_images = true,
           only_render_image_at_cursor = false,
           floating_windows = false, -- if true, images will be rendered in floating markdown windows
@@ -275,8 +276,8 @@ require('lazy').setup({
     config = function()
       -- Setup orgmode
       require('orgmode').setup({
-        org_agenda_files = '~/orgfiles/**/*',
-        org_default_notes_file = '~/orgfiles/refile.org',
+        org_agenda_files = '~/Documents/Orgfiles/**/*',
+        org_default_notes_file = '~/Documents/Orgfiles/refile.org',
       })
     end,
   },
@@ -300,8 +301,8 @@ require('lazy').setup({
     filetypes = { 'markdown' },
     opts = {
       workspaces = {
-        { name = 'personal', path = '~/Vaults/Personal' },
-        { name = 'work', path = '~/Vaults/Work' },
+        { name = 'personal', path = '~/Documents/Vaults/Personal' },
+        { name = 'work', path = '~/Documents/Vaults/Work' },
       },
       daily_notes = {
         folder = 'dailies',
@@ -311,7 +312,7 @@ require('lazy').setup({
         template = 'daily.md',
       },
       templates = {
-        folder = '~/Vaults/templates',
+        folder = '~/Documents/Vaults/templates',
         date_format = '%Y-%m-%d (%a)',
         time_format = '%H:%M',
         substitutions = {},
@@ -326,6 +327,34 @@ require('lazy').setup({
       ui = { enable = false },
       picker = { name = 'snacks.pick' },
     },
+    config = function(_, opts)
+      for _, ws in ipairs(opts.workspaces or {}) do
+        util.mkdir(ws.path)
+      end
+      if opts.templates and opts.templates.folder then
+        util.mkdir(opts.templates.folder)
+        if opts.daily_notes and opts.daily_notes.template then
+          local template_path = vim.fn.expand(opts.templates.folder .. '/' .. opts.daily_notes.template)
+          if vim.fn.filereadable(template_path) == 0 then
+            local f = io.open(template_path, 'w')
+            if f then
+              f:write([[
+# Tasks
+
+- [ ] Task 1
+- [ ] Task 2
+
+# Note
+
+# Other
+]])
+              f:close()
+            end
+          end
+        end
+      end
+      require('obsidian').setup(opts)
+    end,
   },
   -- Zen Mode like vscode
   {
