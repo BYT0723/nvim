@@ -564,13 +564,6 @@ require('lazy').setup({
     'BYT0723/leetcode.nvim',
     cmd = 'Leet',
     build = ':TSUpdate html', -- if you have `nvim-treesitter` installed
-    init = function()
-      local go_mod_path = vim.fn.stdpath('data') .. '/leetcode/go.mod'
-      if vim.fn.filereadable(go_mod_path) == 0 then
-        vim.fn.system('cd ' .. vim.fn.stdpath('data') .. '/leetcode && go mod init leetcode')
-        vim.notify('Initialized go.mod for leetcode project')
-      end
-    end,
     opts = {
       cn = { -- leetcode.cn
         enabled = true,
@@ -591,6 +584,14 @@ require('lazy').setup({
       image_support = false,
       picker = { provider = 'snacks' },
     },
+    config = function(_, opts)
+      local dir = vim.fn.stdpath('data') .. '/leetcode'
+      util.mkdir(dir)
+      if vim.fn.filereadable(dir .. '/go.mod') == 0 then
+        vim.fn.system('cd ' .. dir .. ' && go mod init leetcode')
+      end
+      require('leetcode').setup(opts)
+    end,
   },
   -- Statistics
   { 'wakatime/vim-wakatime', lazy = false },
