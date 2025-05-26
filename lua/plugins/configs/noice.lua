@@ -1,6 +1,6 @@
 return {
   lsp = {
-    signature = { enabled = true },
+    signature = { enabled = false },
     documentation = {
       view = 'hover',
       opts = {

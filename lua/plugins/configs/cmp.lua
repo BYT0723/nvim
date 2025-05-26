@@ -62,34 +62,9 @@ return {
     nerd_font_variant = 'mono',
   },
   -- snippets = { preset = 'luasnip' },
-  sources = {
-    default = { 'lsp', 'snippets', 'buffer', 'path' },
-    providers = {
-      lsp = {
-        name = 'LSP',
-        module = 'blink.cmp.sources.lsp',
-        fallbacks = { 'buffer' },
-        -- Filter text items from the LSP provider, since we have the buffer provider for that
-        transform_items = function(_, items)
-          for _, item in ipairs(items) do
-            if
-              item.kind == require('blink.cmp.types').CompletionItemKind.Snippet
-              or item.kind == require('blink.cmp.types').CompletionItemKind.Field
-              or item.kind == require('blink.cmp.types').CompletionItemKind.Variable
-            then
-              item.score_offset = item.score_offset + 3
-            end
-          end
-
-          return vim.tbl_filter(function(item)
-            return item.kind ~= require('blink.cmp.types').CompletionItemKind.Text
-          end, items)
-        end,
-      },
-    },
-  },
+  sources = { default = { 'lsp', 'snippets', 'buffer', 'path' } },
   signature = {
-    enabled = false,
+    enabled = true,
     window = {
       border = 'rounded',
     },
