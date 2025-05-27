@@ -27,14 +27,7 @@ return {
 		['<C-d>']   = { 'scroll_documentation_down', 'fallback' },
 	},
   completion = {
-    keyword = {
-      -- 'prefix' will fuzzy match on the text before the cursor
-      -- 'full' will fuzzy match on the text before *and* after the cursor
-      -- example: 'foo_|_bar' will match 'foo_' for 'prefix' and 'foo__bar' for 'full'
-      range = 'prefix',
-    },
     list = {
-      max_items = 20,
       selection = {
         preselect = false,
         auto_insert = false,
@@ -43,10 +36,8 @@ return {
     menu = {
       draw = {
         align_to = 'cursor', -- or 'none' to disable, or 'cursor' to align to the cursor
-        padding = 1,
-        gap = 5,
-        columns = { { 'kind_icon', 'label', 'label_description', gap = 1 }, { 'kind' } },
-        components = { kind = { highlight = 'Comment' } },
+        -- columns = { { 'kind_icon', 'label', 'label_description', gap = 1 }, { 'kind' } },
+        -- components = { kind = { highlight = 'Comment' } },
       },
     },
     documentation = {
@@ -57,12 +48,9 @@ return {
       },
     },
   },
-  appearance = {
-    use_nvim_cmp_as_default = true,
-    nerd_font_variant = 'mono',
+  sources = {
+    default = { 'lsp', 'snippets', 'buffer', 'path' },
   },
-  -- snippets = { preset = 'luasnip' },
-  sources = { default = { 'lsp', 'snippets', 'buffer', 'path' } },
   signature = {
     enabled = true,
     window = {
