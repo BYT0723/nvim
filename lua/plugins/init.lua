@@ -101,6 +101,14 @@ require('lazy').setup({
           bg = c.bg_dark,
           fg = c.fg_dark,
         }
+        hl.BlinkCmpDoc = {
+          bg = c.bg_dark,
+          fg = c.fg_dark,
+        }
+        hl.BlinkCmpSignatureHelp = {
+          bg = c.bg_dark,
+          fg = c.fg_dark,
+        }
         if vim.opt.background:get() == 'dark' then
           hl.LspInlayHint = {
             fg = '#545c7e',
@@ -314,6 +322,14 @@ require('lazy').setup({
         alias_format = '%b %-d, %Y (%a)',
         default_tags = { 'daily_notes' },
         template = 'daily.md',
+      },
+      mappings = {
+        ['<cr>'] = {
+          action = function()
+            return require('obsidian').util.smart_action()
+          end,
+          opts = { buffer = true, expr = true },
+        },
       },
       templates = {
         folder = vim.fn.stdpath('config') .. '/data/obsidian_templates',

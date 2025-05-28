@@ -73,14 +73,12 @@ M.Codeium = {
   { '<M-]>', function() return vim.fn['codeium#CycleCompletions'](-1) end, desc = 'Prev suggestion', mode = 'i' },
 }
 
--- stylua: ignore
 M.Obsidian = {
-  { '<leader>mt', '<cmd>Obsidian tags<CR>',                                       desc = "obsidian tags" },
-  { '<leader>md', '<cmd>Obsidian dailies -3 0<CR>',                               desc = "obsidian daliy (last 3 day)" },
-  { '<leader>mw', '<cmd>Obsidian workspace<CR>',                                  desc = "obsidian workspaces",    ft = "markdown" },
-  { '<leader>mt', '<cmd>Obsidian template<CR>',                                   desc = "obsidian template list", ft = "markdown" },
-  { '<leader>mp', '<cmd>Obsidian paste_img<CR>',                                  desc = "obsidian paste image",   ft = "markdown" },
-  { '<CR>',       function () return require('obsidian').util.smart_action() end, desc = "obsidian smart_action",  ft = "markdown", expr = true },
+  { '<leader>mt', '<cmd>Obsidian tags<CR>', desc = 'obsidian tags' },
+  { '<leader>md', '<cmd>Obsidian dailies -3 0<CR>', desc = 'obsidian daliy (last 3 day)' },
+  { '<leader>mw', '<cmd>Obsidian workspace<CR>', desc = 'obsidian workspaces', ft = 'markdown' },
+  { '<leader>mt', '<cmd>Obsidian template<CR>', desc = 'obsidian template list', ft = 'markdown' },
+  { '<leader>mp', '<cmd>Obsidian paste_img<CR>', desc = 'obsidian paste image', ft = 'markdown' },
 }
 
 -- stylua: ignore

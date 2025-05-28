@@ -55,13 +55,12 @@ local settings = {
   },
   gopls = {
     usePlaceholders = true,
-    codelenses = {
-      generate = true,
-      test = true,
-    },
+    codelenses = { test = true },
+    staticcheck = true,
     hints = {
       assignVariableTypes = true,
-      compositeLiteralFields = true,
+      compositeLiteralFields = false,
+      compositeLiteralTypes = false,
       constantValues = true,
       functionTypeParameters = true,
       parameterNames = true,
