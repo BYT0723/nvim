@@ -36,8 +36,8 @@ return {
     menu = {
       draw = {
         align_to = 'cursor', -- or 'none' to disable, or 'cursor' to align to the cursor
-        -- columns = { { 'kind_icon', 'label', 'label_description', gap = 1 }, { 'kind' } },
-        -- components = { kind = { highlight = 'Comment' } },
+        columns = { { 'kind_icon', 'label', 'label_description', gap = 1 }, { 'source_name' } },
+        components = { source_name = { highlight = 'Comment' } },
       },
     },
     documentation = {
@@ -46,7 +46,14 @@ return {
     },
   },
   sources = {
-    default = { 'lsp', 'snippets', 'buffer', 'path' },
+    default = { 'avante', 'lsp', 'snippets', 'buffer', 'path' },
+    providers = {
+      avante = {
+        module = 'blink-cmp-avante',
+        name = 'Avante',
+        opts = {},
+      },
+    },
   },
   signature = {
     enabled = true,

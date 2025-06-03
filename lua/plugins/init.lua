@@ -408,6 +408,7 @@ require('lazy').setup({
     dependencies = {
       'rafamadriz/friendly-snippets',
       { 'saghen/blink.compat', lazy = true, version = false },
+      'Kaiser-Yang/blink-cmp-avante',
     },
     version = '*',
     opts = require('plugins.configs.cmp'),
@@ -437,38 +438,38 @@ require('lazy').setup({
   },
   -- AI
   {
-    'Exafunction/codeium.nvim',
-    lazy = true,
+    'supermaven-inc/supermaven-nvim',
     opts = {
-      enable_cmp_source = false,
-      virtual_text = {
-        enabled = true,
-        filetypes = {
-          mason = false,
-          lazy = false,
-          markdown = false,
-          minifiles = false,
-          snacks_terminal = false,
-          snacks_picker_input = false,
-          snacks_input = false,
-        },
-        default_filetype_enabled = true,
-        accept_fallback = '<C-L>',
-        key_bindings = {
-          accept = '<C-L>',
-          next = '<M-]>',
-          prev = '<M-[>',
-        },
+      keymaps = {
+        accept_suggestion = '<A-l>',
+        clear_suggestion = '<A-h>',
+        accept_word = '<A-w>',
       },
+      ignore_filetypes = { 'minifiles', 'snacks_picker_input' },
+    },
+  },
+  {
+    'monkoose/neocodeium',
+    enabled = false,
+    event = 'VeryLazy',
+    keys = keymaps.NeoCodeium,
+    opts = {
+      show_label = false,
+      filter = function(bufnr)
+        return vim.tbl_contains(
+          { 'lua', 'go', 'python', 'rust' },
+          vim.api.nvim_get_option_value('filetype', { buf = bufnr })
+        )
+      end,
     },
   },
   {
     'yetone/avante.nvim',
     version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
-    cmd = 'AvanteChat',
+    event = 'VeryLazy',
     opts = {
       provider = 'deepseek',
-      vendors = {
+      providers = {
         deepseek = {
           __inherited_from = 'openai',
           api_key_name = 'DEEPSEEK_API_KEY',

@@ -65,12 +65,12 @@ M.Sniprun = {
 }
 
 -- stylua: ignore
-M.Codeium = {
-  { '<C-h>', function() return vim.fn['codeium#AcceptNextWord']() end, desc = 'Accept Next Word', mode = 'i',},
-  { '<C-l>', function() return vim.fn['codeium#AcceptNextLine']() end, desc = 'Accept Next Line', mode = 'i' },
-  { '<C-L>', function() return vim.fn['codeium#Accept']() end , desc = 'Accept suggestion', mode = 'i' },
-  { '<M-]>', function() return vim.fn['codeium#CycleCompletions'](1) end, desc = 'Next suggestion', mode = 'i' },
-  { '<M-]>', function() return vim.fn['codeium#CycleCompletions'](-1) end, desc = 'Prev suggestion', mode = 'i' },
+M.NeoCodeium = {
+  { '<A-f>', function() require('neocodeium').accept() end,              desc = 'Accept Next Line',  mode = 'i' },
+  { '<A-w>', function() require('neocodeium').accept_word() end,         desc = 'Accept Next Word',  mode = 'i', },
+  { '<A-l>', function() require('neocodeium').accept_line() end,         desc = 'Accept suggestion', mode = 'i' },
+  { '<A-j>', function() require('neocodeium').cycle_or_complete() end,   desc = 'Next suggestion',   mode = 'i' },
+  { '<A-k>', function() require('neocodeium').cycle_or_complete(-1) end, desc = 'Prev suggestion',   mode = 'i' },
 }
 
 M.Obsidian = {
