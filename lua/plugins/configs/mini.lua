@@ -40,6 +40,24 @@ return {
           local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
           local has_noice, noice = pcall(require, 'noice')
           local has_kulala, kulala = pcall(require, 'kulala')
+          local has_neocodeium, neocodeium = pcall(require, 'neocodeium')
+          local codeium_status = '' -- 默认未知状态
+          if has_neocodeium then
+            local status, server_status = neocodeium.get_status()
+            local status_icons = {
+              [0] = '', -- 启用
+              [5] = '', -- 编码不支持
+              [6] = '󰆓', -- 特殊 buffer
+              default = '󰂭', -- 其他禁用状态
+            }
+            local server_icons = {
+              [0] = nil, -- 运行中 → 不覆盖插件状态图标
+              [1] = '󱘖 ...', -- 连接中
+              [2] = '󰅖', -- 已停止
+            }
+            codeium_status = server_icons[server_status] or status_icons[status] or status_icons.default
+          end
+
           return MiniStatusline.combine_groups({
             { hl = mode_hl, strings = { mode } },
             { hl = 'MiniStatuslineDevinfo', strings = { git, diff, diagnostics, lsp } },
@@ -50,6 +68,7 @@ return {
             has_noice and { hl = mode_hl, strings = { noice.api.status.mode.get() } }, -- noice statusline mode (eg: recording)
             (vim.bo.filetype == 'http' and has_kulala)
               and { hl = 'MiniStatuslineModeOther', strings = { '🐼', kulala.get_selected_env() } }, -- kulala environment
+            has_neocodeium and { hl = 'MiniStatuslineInactive', strings = { '󱚡 ', codeium_status } }, -- neocodeium environment
             { hl = 'CurSearch', strings = { search } },
             { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
             { hl = mode_hl, strings = { location } },

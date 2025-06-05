@@ -318,6 +318,7 @@ require('lazy').setup({
     keys = keymaps.NeoCodeium,
     opts = {
       show_label = false,
+      silent = true,
       filter = function(bufnr)
         return vim.tbl_contains(
           { 'lua', 'go', 'python', 'rust' },
