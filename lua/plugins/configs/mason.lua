@@ -51,6 +51,10 @@ local ensure_installed = {
   'stylua',
 }
 
+vim.api.nvim_create_user_command('MasonInstallAll', function()
+  vim.cmd('MasonInstall ' .. table.concat(ensure_installed, ' '))
+end, {})
+
 return {
   -- Where Mason should put its bin location in your PATH. Can be one of:
   -- - "prepend" (default, Mason's bin location is put first in PATH)
@@ -101,5 +105,4 @@ return {
       apply_language_filter = '<C-f>',
     },
   },
-  ensure_installed = ensure_installed,
 }

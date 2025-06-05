@@ -53,12 +53,35 @@ return {
     },
   },
   sources = {
-    default = { 'avante', 'lsp', 'snippets', 'buffer', 'path' },
+    default = { 'lazydev', 'avante', 'emoji', 'lsp', 'snippets', 'buffer', 'path' },
     providers = {
+      lazydev = {
+        name = 'LazyDev',
+        module = 'lazydev.integrations.blink',
+        score_offset = 100,
+      },
       avante = {
         module = 'blink-cmp-avante',
         name = 'Avante',
         opts = {},
+      },
+      emoji = {
+        module = 'blink-emoji',
+        name = 'Emoji',
+        score_offset = 15, -- Tune by preference
+        opts = {
+          insert = true, -- Insert emoji (default) or complete its name
+          ---@type string|table|fun():table
+          trigger = function()
+            return { ':' }
+          end,
+        },
+        should_show_items = function()
+          return vim.tbl_contains({
+            'gitcommit',
+            'markdown',
+          }, vim.o.filetype)
+        end,
       },
     },
   },

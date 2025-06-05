@@ -16,14 +16,13 @@ local util = require('base.util')
 
 require('lazy').setup({
   -- base or lib
-  { 'nvim-lua/plenary.nvim', lazy = true },
+  { 'nvim-lua/plenary.nvim' },
   -- gui
-  { 'MunifTanjim/nui.nvim', lazy = true },
+  { 'MunifTanjim/nui.nvim' },
   -- 文件图标
-  { 'nvim-tree/nvim-web-devicons', lazy = true },
+  { 'nvim-tree/nvim-web-devicons' },
   -- notify
   { 'rcarriga/nvim-notify', opts = {} },
-
   -- A series of mini.nvim plugins
   require('plugins.configs.mini'),
 
@@ -37,31 +36,8 @@ require('lazy').setup({
 
   {
     'folke/snacks.nvim',
-    priority = 1000,
     lazy = false,
-    ---@type snacks.Config
-    opts = {
-      bigfile = { enabled = true },
-      dashboard = {
-        sections = {
-          { section = 'header' },
-          { icon = ' ', title = 'Keymaps', section = 'keys', indent = 2, padding = 1 },
-          { icon = ' ', title = 'Recent Files', section = 'recent_files', indent = 2, padding = 1 },
-          { icon = ' ', title = 'Projects', section = 'projects', indent = 2, padding = 1 },
-          { section = 'startup' },
-        },
-      },
-      explorer = { enabled = false },
-      indent = { indent = { char = '╎' }, scope = { char = '╎' } },
-      input = { enabled = true, icon_pos = 'title', win = { width = 40, relative = 'cursor', row = -3, col = 0 } },
-      picker = { enabled = true },
-      notifier = { style = 'compact' },
-      quickfile = { enabled = true },
-      scope = { enabled = true },
-      scroll = { enabled = true },
-      statuscolumn = { enabled = true },
-      words = { enabled = true },
-    },
+    opts = require('plugins.configs.snacks'),
     keys = keymaps.Snacks,
   },
 
@@ -70,52 +46,10 @@ require('lazy').setup({
     -- https://github.com/folke/tokyonight.nvim
     'folke/tokyonight.nvim',
     lazy = false,
-    priority = 1000,
     init = function()
       vim.cmd([[colorscheme tokyonight]])
     end,
-    opts = {
-      transparent = not vim.g.neovide,
-      styles = {
-        style = 'storm', -- The theme comes in three styles, `storm`, a darker variant `night` and `day`
-        light_style = 'day', -- The theme is used when the background is set to light
-        comments = { italic = true },
-        keywords = { italic = true },
-        functions = {},
-        variable = {},
-        sidebars = 'dark', -- style for sidebars, see below
-        floats = not vim.g.neovide and 'transparent' or 'dark', -- style for floating windows
-      },
-      sidebars = { 'qf' },
-      on_colors = function(colors) end,
-      on_highlights = function(hl, c)
-        hl.WhichKeyBorder = {
-          bg = c.bg_dark,
-          fg = c.bg_dark,
-        }
-        hl.WhichKeyTitle = {
-          bg = c.hint,
-          fg = c.bg_dark,
-        }
-        hl.BlinkCmpMenu = {
-          bg = c.bg_dark,
-          fg = c.fg_dark,
-        }
-        hl.BlinkCmpDoc = {
-          bg = c.bg_dark,
-          fg = c.fg_dark,
-        }
-        hl.BlinkCmpSignatureHelp = {
-          bg = c.bg_dark,
-          fg = c.fg_dark,
-        }
-        if vim.opt.background:get() == 'dark' then
-          hl.LspInlayHint = {
-            fg = '#545c7e',
-          }
-        end
-      end,
-    },
+    opts = require('plugins.configs.tokyonight'),
   },
   -- Breadcrumbs
   {
@@ -128,7 +62,10 @@ require('lazy').setup({
     end,
   },
   -- git style, including blame, modify tags
-  { 'lewis6991/gitsigns.nvim', opts = require('plugins.configs.gitsigns') },
+  {
+    'lewis6991/gitsigns.nvim',
+    opts = require('plugins.configs.gitsigns'),
+  },
   -- todo comment
   {
     'folke/todo-comments.nvim',
@@ -145,14 +82,12 @@ require('lazy').setup({
   -- diffview
   {
     'sindrets/diffview.nvim',
-    cmd = 'DiffviewOpen',
     keys = keymaps.Diffview,
     opts = {},
   },
   -- translator 'potamides/pantran.nvim' fork
   {
     'potamides/pantran.nvim',
-    cmd = 'Pantran',
     keys = keymaps.PanTran,
     opts = {
       default_engine = 'google',
@@ -173,16 +108,14 @@ require('lazy').setup({
   -- HTTP REST-Client Interface
   {
     'mistweaverco/kulala.nvim',
-    filetypes = { 'http' },
+    filetypes = 'http',
     keys = keymaps.Kulala,
-    opts = {
-      additional_curl_options = { '--insecure', '-A', 'Mozilla/5.0' },
-    },
+    opts = {},
   },
 
   -- language
   -- rust
-  { 'mrcjkb/rustaceanvim', version = '^6', lazy = false },
+  { 'mrcjkb/rustaceanvim', ft = 'rust', version = '^6' },
   { 'saecki/crates.nvim', ft = 'toml', opts = {} },
   -- golang
   {
@@ -191,8 +124,8 @@ require('lazy').setup({
     dependencies = { 'ray-x/guihua.lua' },
     filetypes = { 'go', 'gomod', 'gosum', 'gotmpl' },
     opts = {
-      lsp_inlay_hints = { enable = false },
-      diagnostic = false,
+      lsp_inlay_hints = { enable = false }, -- disable inlay hints, because it will conflict with Neovim's built-in inlay hints
+      diagnostic = false, -- disable diagnostic because it will overwrite custom diagnostic configuration
     },
   },
   -- godot
@@ -214,6 +147,7 @@ require('lazy').setup({
       vim.fn['mkdp#util#install']()
     end,
   },
+  -- image preview
   {
     '3rd/image.nvim',
     ft = { 'markdown', 'norg' },
@@ -229,30 +163,12 @@ require('lazy').setup({
           floating_windows = false, -- if true, images will be rendered in floating markdown windows
           filetypes = { 'markdown', 'vimwiki' }, -- markdown extensions (ie. quarto) can go here
         },
-        neorg = {
-          enabled = true,
-          filetypes = { 'norg' },
-        },
-        typst = {
-          enabled = true,
-          filetypes = { 'typst' },
-        },
-        html = {
-          enabled = false,
-        },
-        css = {
-          enabled = false,
-        },
       },
     },
   },
+  -- markdown render in editor
   {
     'MeanderingProgrammer/render-markdown.nvim',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter',
-      'echasnovski/mini.icons',
-      'nvim-tree/nvim-web-devicons',
-    },
     ft = { 'markdown', 'Avante' },
     -- stylua: ignore
     init = function()
@@ -277,6 +193,7 @@ require('lazy').setup({
       file_types = { 'markdown', 'Avante' },
     },
   },
+  -- orgmode
   {
     'nvim-orgmode/orgmode',
     event = 'VeryLazy',
@@ -311,56 +228,7 @@ require('lazy').setup({
     version = '*', -- recommended, use latest release instead of latest commit
     keys = keymaps.Obsidian,
     filetypes = { 'markdown' },
-    opts = {
-      workspaces = {
-        { name = 'personal', path = '~/Documents/Vaults/Personal' },
-        { name = 'work', path = '~/Documents/Vaults/Work' },
-      },
-      daily_notes = {
-        folder = 'dailies',
-        date_format = '%Y-%m-%d (%a)',
-        alias_format = '%b %-d, %Y (%a)',
-        default_tags = { 'daily_notes' },
-        template = 'daily.md',
-      },
-      mappings = {
-        ['<cr>'] = {
-          action = function()
-            return require('obsidian').util.smart_action()
-          end,
-          opts = { buffer = true, expr = true },
-        },
-      },
-      templates = {
-        folder = vim.fn.stdpath('config') .. '/data/obsidian_templates',
-        date_format = '%Y-%m-%d (%a)',
-        time_format = '%H:%M',
-        substitutions = {
-          week_dates = function()
-            local out = {}
-            local now = os.time()
-            local dow = tonumber(os.date('%w', now)) -- 0 = Sunday
-            local monday = now - ((dow == 0 and 6 or dow - 1) * 86400)
-
-            for i = 0, 6 do
-              local t = monday + i * 86400
-              table.insert(out, os.date('%A: [[%Y-%m-%d (%a)]]', t))
-            end
-
-            return table.concat(out, '\n')
-          end,
-        },
-      },
-      completion = {
-        nvim_cmp = false,
-        blink = true,
-      },
-      follow_url_func = function(url)
-        vim.fn.jobstart({ 'xdg-open', url }) -- linux
-      end,
-      ui = { enable = false },
-      picker = { name = 'snacks.pick' },
-    },
+    opts = require('plugins.configs.obsidian'),
     config = function(_, opts)
       for _, ws in ipairs(opts.workspaces or {}) do
         util.mkdir(ws.path)
@@ -369,10 +237,7 @@ require('lazy').setup({
     end,
   },
   -- Zen Mode like vscode
-  {
-    'folke/zen-mode.nvim',
-    opts = {},
-  },
+  { 'folke/zen-mode.nvim', opts = {} },
 
   -- run code in document or comment
   {
@@ -384,6 +249,7 @@ require('lazy').setup({
       display = { 'Terminal', 'VirtualText' },
     },
   },
+  -- paste image
   {
     'HakonHarnes/img-clip.nvim',
     keys = {
@@ -399,10 +265,12 @@ require('lazy').setup({
   -- completion
   {
     'saghen/blink.cmp',
+    event = 'VeryLazy',
     dependencies = {
       'rafamadriz/friendly-snippets',
-      { 'saghen/blink.compat', lazy = true, version = false },
-      'Kaiser-Yang/blink-cmp-avante',
+      { 'saghen/blink.compat', version = false },
+      { 'Kaiser-Yang/blink-cmp-avante' },
+      { 'moyiz/blink-emoji.nvim' },
     },
     version = '*',
     opts = require('plugins.configs.cmp'),
@@ -411,6 +279,7 @@ require('lazy').setup({
     'L3MON4D3/LuaSnip',
     version = 'v2.*', -- Replace <CurrentMajor> by the latest released major (first number of latest release)
     build = 'make install_jsregexp',
+    event = 'VeryLazy',
     opts = {
       history = true,
       delete_check_events = 'TextChanged',
@@ -479,65 +348,46 @@ require('lazy').setup({
   -- lsp
   {
     'neovim/nvim-lspconfig',
-    dependencies = {
-      'williamboman/mason.nvim',
-      -- lua vim developer
-      {
-        'folke/neodev.nvim',
-        opts = {
-          library = { plugins = { 'nvim-dap-ui' }, types = true },
-        },
-      },
-    },
     config = function()
       require('plugins.configs.lspconfig')
     end,
   },
-  -- lsp 管理
+  -- lsp manager
   {
     'williamboman/mason.nvim',
-    opts = function()
-      return require('plugins.configs.mason')
-    end,
-    config = function(_, opts)
-      require('mason').setup(opts)
-      -- custom nvchad cmd to install all mason binaries listed
-      vim.api.nvim_create_user_command('MasonInstallAll', function()
-        vim.cmd('MasonInstall ' .. table.concat(opts.ensure_installed, ' '))
-      end, {})
-    end,
+    event = 'VeryLazy',
+    opts = require('plugins.configs.mason'),
   },
+  -- lint / formatter / actioner manager
   {
     'nvimtools/none-ls.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
-    dependencies = {
-      { 'ThePrimeagen/refactoring.nvim', lazy = true, opts = {} },
-    },
+    event = 'VeryLazy',
+    dependencies = { { 'ThePrimeagen/refactoring.nvim', opts = {} } },
     config = function(_, _)
       require('null-ls').setup(require('plugins.configs.null-ls'))
-
       require('plugins.configs.formatter').setup()
     end,
   },
   -- debug配置
   {
-    'mfussenegger/nvim-dap',
-    cmd = 'DapToggle',
-    keys = keymaps.Dap,
+    'rcarriga/nvim-dap-ui',
     dependencies = {
-      'rcarriga/nvim-dap-ui', -- debug UI
+      'mfussenegger/nvim-dap',
       'nvim-neotest/nvim-nio',
     },
+    keys = keymaps.Dap,
     config = function()
       require('plugins.configs.dap-local')
     end,
   },
-
   -- treesitter
   {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    event = { 'BufReadPost', 'BufNewFile' },
+    dependencies = {
+      { 'nvim-treesitter/nvim-treesitter-context', keys = keymaps.TreeSitterContext },
+      { 'JoosepAlviste/nvim-ts-context-commentstring', opts = {} },
+    },
     opts = function()
       return require('plugins.configs.treesitter')
     end,
@@ -547,10 +397,6 @@ require('lazy').setup({
       require('nvim-treesitter.configs').setup(opts)
       require('treesitter-context').setup(opts.context)
     end,
-    dependencies = {
-      { 'nvim-treesitter/nvim-treesitter-context', keys = keymaps.TreeSitterContext },
-      { 'JoosepAlviste/nvim-ts-context-commentstring', opts = {} },
-    },
   },
   -- which key
   {
@@ -565,10 +411,8 @@ require('lazy').setup({
   {
     'm4xshen/hardtime.nvim',
     enabled = false,
-    opts = {
-      max_count = 10,
-      restriction_mode = 'hint',
-    },
+    event = 'VeryLazy',
+    opts = { max_count = 10, restriction_mode = 'hint' },
   },
   -- interview 'kawre/leetcode.nvim' fork
   {
@@ -583,10 +427,6 @@ require('lazy').setup({
       },
       lang = 'golang',
       injector = {
-        ['cpp'] = {
-          before = { '#include <bits/stdc++.h>', 'using namespace std;' },
-          after = 'int main() {}',
-        },
         ['golang'] = {
           before = { 'package leetcode' },
           after = {},
@@ -605,10 +445,20 @@ require('lazy').setup({
     end,
   },
   -- Statistics
-  { 'wakatime/vim-wakatime', lazy = false },
+  { 'wakatime/vim-wakatime', event = 'VeryLazy' },
   -- Personal plugin development
-  { 'BYT0723/typist.nvim', opts = {} },
-  { 'BYT0723/goctl.nvim', opts = {} },
+  { 'BYT0723/typist.nvim', opts = {}, event = 'VeryLazy' },
+  { 'BYT0723/goctl.nvim', enabled = false, opts = {} },
+  -- plugin dev
+  {
+    'folke/lazydev.nvim',
+    ft = 'lua',
+    opts = {
+      library = {
+        { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+      },
+    },
+  },
 }, {
   rocks = {
     hererocks = true, -- recommended if you do not have global installation of Lua 5.1.
