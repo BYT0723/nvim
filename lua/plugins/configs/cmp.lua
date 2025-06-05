@@ -1,3 +1,14 @@
+-- stylua: ignore
+local source_alias = {
+  LSP      = 'LSP',
+  Buffer   = 'BUF',
+  Cmdline  = 'CMD',
+  Emoji    = 'EMJ',
+  PATH     = 'PATH',
+  Snippets = 'SNIP',
+  LuaSnip  = 'SNIP',
+}
+
 return {
   cmdline = {
     completion = {
@@ -39,9 +50,9 @@ return {
         columns = { { 'kind_icon', 'label', 'label_description', gap = 1 }, { 'source_name' } },
         components = {
           source_name = {
-            highlight = 'Comment',
             text = function(entry)
-              return '[' .. entry.source_name .. ']'
+              local short = source_alias[entry.source_name] or entry.source_name
+              return string.format('%-6s', '[' .. short .. ']')
             end,
           },
         },

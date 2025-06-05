@@ -292,7 +292,7 @@ require('lazy').setup({
         vim.o.undolevels = vim.o.undolevels
         auto_expand(...)
       end
-      require('luasnip.loaders.from_lua').load({ paths = vim.fn.stdpath('config') .. '/data/lua_snippets' })
+      require('luasnip.loaders.from_lua').load({ paths = {vim.fn.stdpath('config') .. '/data/lua_snippets'} })
       vim.keymap.set({ 'i', 's' }, '<C-j>', function() return ls.jumpable(1)          and '<Plug>luasnip-jump-next' end,      { expr = true })
       vim.keymap.set({ 'i', 's' }, '<C-k>', function() return ls.jumpable(-1)         and '<Plug>luasnip-jump-prev' end,      { expr = true })
       vim.keymap.set({ 'i', 's' }, '<C-n>', function() return ls.expand_or_jumpable() and '<Plug>luasnip-expand-or-jump' end, { expr = true })
@@ -341,6 +341,7 @@ require('lazy').setup({
           model = 'deepseek-coder',
         },
       },
+      hints = { enabled = false },
     },
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
     build = 'make',

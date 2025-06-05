@@ -25,6 +25,10 @@ return {
       bg = c.bg_dark,
       fg = c.fg_dark,
     }
+    hl.BlinkCmpSource = {
+      fg = hl.Comment.fg,
+      bg = hl.Comment.bg,
+    }
     hl.BlinkCmpDoc = {
       bg = c.bg_dark,
       fg = c.fg_dark,
