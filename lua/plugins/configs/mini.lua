@@ -68,9 +68,9 @@ return {
             has_noice and { hl = mode_hl, strings = { noice.api.status.mode.get() } }, -- noice statusline mode (eg: recording)
             (vim.bo.filetype == 'http' and has_kulala)
               and { hl = 'MiniStatuslineModeOther', strings = { '🐼', kulala.get_selected_env() } }, -- kulala environment
-            has_neocodeium and { hl = 'MiniStatuslineInactive', strings = { '󱚡 ', codeium_status } }, -- neocodeium environment
-            { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
+            has_neocodeium and { hl = 'MiniStatuslineInactive', strings = { '󱚡 ', codeium_status } }, -- neocodeium status
             { hl = 'CurSearch', strings = { search } },
+            { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
             { hl = mode_hl, strings = { location } },
           })
         end,
