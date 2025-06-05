@@ -52,7 +52,7 @@ return {
           source_name = {
             text = function(entry)
               local short = source_alias[entry.source_name] or entry.source_name
-              return string.format('%-6s', '[' .. short .. ']')
+              return '[' .. short .. ']'
             end,
           },
         },
