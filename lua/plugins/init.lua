@@ -390,15 +390,9 @@ require('lazy').setup({
       { '<leader>p', '<cmd>PasteImage<cr>', desc = 'Paste image from system clipboard' },
     },
     opts = {
-      -- recommended settings
       default = {
         embed_image_as_base64 = false,
         prompt_for_file_name = false,
-        drag_and_drop = {
-          insert_mode = true,
-        },
-        -- required for Windows users
-        use_absolute_path = true,
       },
     },
   },
@@ -439,6 +433,7 @@ require('lazy').setup({
   -- AI
   {
     'supermaven-inc/supermaven-nvim',
+    enabled = false,
     opts = {
       keymaps = {
         accept_suggestion = '<A-l>',
@@ -450,7 +445,6 @@ require('lazy').setup({
   },
   {
     'monkoose/neocodeium',
-    enabled = false,
     event = 'VeryLazy',
     keys = keymaps.NeoCodeium,
     opts = {

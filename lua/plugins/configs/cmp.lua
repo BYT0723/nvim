@@ -37,7 +37,14 @@ return {
       draw = {
         align_to = 'cursor', -- or 'none' to disable, or 'cursor' to align to the cursor
         columns = { { 'kind_icon', 'label', 'label_description', gap = 1 }, { 'source_name' } },
-        components = { source_name = { highlight = 'Comment' } },
+        components = {
+          source_name = {
+            highlight = 'Comment',
+            text = function(entry)
+              return '[' .. entry.source_name .. ']'
+            end,
+          },
+        },
       },
     },
     documentation = {

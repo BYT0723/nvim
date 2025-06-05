@@ -66,11 +66,12 @@ M.Sniprun = {
 
 -- stylua: ignore
 M.NeoCodeium = {
-  { '<A-f>', function() require('neocodeium').accept() end,              desc = 'Accept Next Line',  mode = 'i' },
-  { '<A-w>', function() require('neocodeium').accept_word() end,         desc = 'Accept Next Word',  mode = 'i', },
-  { '<A-l>', function() require('neocodeium').accept_line() end,         desc = 'Accept suggestion', mode = 'i' },
-  { '<A-j>', function() require('neocodeium').cycle_or_complete() end,   desc = 'Next suggestion',   mode = 'i' },
-  { '<A-k>', function() require('neocodeium').cycle_or_complete(-1) end, desc = 'Prev suggestion',   mode = 'i' },
+  { '<A-f>', function() require('neocodeium').accept() end,              desc = 'Accept Next Line',    mode = 'i' },
+  { '<A-w>', function() require('neocodeium').accept_word() end,         desc = 'Accept Next Word',    mode = 'i', },
+  { '<A-l>', function() require('neocodeium').accept_line() end,         desc = 'Accept suggestion',   mode = 'i' },
+  { '<A-j>', function() require('neocodeium').cycle_or_complete() end,   desc = 'Next suggestion',     mode = 'i' },
+  { '<A-k>', function() require('neocodeium').cycle_or_complete(-1) end, desc = 'Prev suggestion',     mode = 'i' },
+  { '<A-c>', function() require('neocodeium').clear() end,               desc = 'clear ai suggestion', mode = 'i' },
 }
 
 M.Obsidian = {
