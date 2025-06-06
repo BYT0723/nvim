@@ -52,7 +52,7 @@ return {
             }
             local server_icons = {
               [0] = nil, -- 运行中 → 不覆盖插件状态图标
-              [1] = '󱘖 ...', -- 连接中
+              [1] = '󱘖', -- 连接中
               [2] = '󰅖', -- 已停止
             }
             codeium_status = server_icons[server_status] or status_icons[status] or status_icons.default
@@ -68,7 +68,7 @@ return {
             has_noice and { hl = mode_hl, strings = { noice.api.status.mode.get() } }, -- noice statusline mode (eg: recording)
             (vim.bo.filetype == 'http' and has_kulala)
               and { hl = 'MiniStatuslineModeOther', strings = { '🐼', kulala.get_selected_env() } }, -- kulala environment
-            has_neocodeium and { hl = 'MiniStatuslineInactive', strings = { '󱚡 ', codeium_status } }, -- neocodeium status
+            has_neocodeium and { hl = 'MiniStatuslineInactive', strings = { '󰚩 ', codeium_status } }, -- neocodeium status
             { hl = 'CurSearch', strings = { search } },
             { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
             { hl = mode_hl, strings = { location } },
