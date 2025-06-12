@@ -184,4 +184,9 @@ return {
     event = 'BufReadPost',
     opts = {},
   },
+  {
+    'echasnovski/mini.ai',
+    version = false,
+    opts = {},
+  },
 }
