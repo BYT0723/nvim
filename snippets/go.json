@@ -1,27 +1,8 @@
 {
-  "func_test": {
-    "prefix": "ftest",
-    "body": ["func Test${1:Name}(t *testing.T) {", "\t${2}", "}${0}"],
-    "description": "test function for golang"
-  },
-  "func_benchmark": {
-    "prefix": "fbenchmark",
-    "body": ["func Benchmark${1:Name}(b *testing.B) {", "\t${2}", "}${0}"],
-    "description": "benchmark test function for golang"
-  },
-  "for ranger": {
-    "prefix": "fori",
-    "body": [
-      "for ${1:i} := ${2:0}; ${1:i} < ${3:count}; ${1:i}${4:++} {",
-      "   ${5}",
-      "}${0}"
-    ],
-    "description": "for range in i"
-  },
   "ErrCheck": {
     "prefix": "iferr",
     "body": ["if err != nil {", "\t${3}", "}${0}"],
-    "description": "check express ok"
+    "description": "check err"
   },
   "OKCheck": {
     "prefix": "ifok",
@@ -69,5 +50,62 @@
       "}$0"
     ],
     "description": "function of middleware"
+  },
+  "test_function": {
+    "prefix": "tfunc",
+    "body": [
+      "type args struct {",
+      "\t$1",
+      "}",
+      "type wants struct {",
+      "\t$2",
+      "}",
+      "tests := []struct {",
+      "\tname string",
+      "\targs args",
+      "\twant wants",
+      "}{",
+      "\t$3",
+      "}",
+      "",
+      "for _, tt := range tests {",
+      "\tt.Run(tt.name, func(t *testing.T) {",
+      "\t\t// Use tt.args to call the objective function to get the result and compare it with tt.wants",
+      "\t\t// assert https://github.com/stretchr/testify/assert",
+      "\t\t// require https://github.com/stretchr/testify/require",
+      "\t\t$4",
+      "\t})",
+      "}$0"
+    ],
+    "description": "test function"
+  },
+  "test_struct_method": {
+    "prefix": "tmeth",
+    "body": [
+      "type args struct {",
+      "\t$1",
+      "}",
+      "type wants struct {",
+      "\t$2",
+      "}",
+      "tests := []struct {",
+      "\tname string",
+      "\tinit func() ${3:Struct}",
+      "\targs args",
+      "\twant wants",
+      "}{",
+      "\t$4",
+      "}",
+      "",
+      "for _, tt := range tests {",
+      "\tt.Run(tt.name, func(t *testing.T) {",
+      "\t\t// Use tt.args to call the objective function to get the result and compare it with tt.wants",
+      "\t\t// assert https://github.com/stretchr/testify/assert",
+      "\t\t// require https://github.com/stretchr/testify/require",
+      "\t\t$5",
+      "\t})",
+      "}"
+    ],
+    "description": "test struct method"
   }
 }
