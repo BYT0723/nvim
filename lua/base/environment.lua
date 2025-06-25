@@ -11,6 +11,8 @@ set.swapfile = false
 -- 忽略大小写
 set.ignorecase = true
 set.showmatch = true
+-- 隐藏底部模式显示， like "-- INSERT --"
+set.showmode = false
 -- 折叠
 set.wrap = false
 -- 高亮行
@@ -70,5 +72,13 @@ vim.g.go_term_width = 20
 vim.g.do_filetype_lua = true
 vim.g.did_load_filetypes = false
 
-vim.opt.list = false
-vim.opt.showmode = false
+-- 显示不可见字符
+set.list = true
+set.listchars = {
+  tab = '»·',
+  trail = '·',
+  extends = '>',
+  precedes = '<',
+  nbsp = '+',
+  eol = '↴',
+}
