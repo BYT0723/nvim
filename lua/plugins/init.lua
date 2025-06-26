@@ -149,8 +149,10 @@ require('lazy').setup({
     end,
   },
   -- image preview
+  -- 关闭此插件，会覆盖tui,导致遮盖内容
   {
     '3rd/image.nvim',
+    enabled = false,
     ft = { 'markdown', 'norg' },
     opts = {
       backend = 'ueberzug', -- kitty or ueberzug
