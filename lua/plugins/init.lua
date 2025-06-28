@@ -421,7 +421,7 @@ require('lazy').setup({
   },
   -- interview 'kawre/leetcode.nvim' fork
   {
-    'BYT0723/leetcode.nvim',
+    'kawre/leetcode.nvim',
     cmd = 'Leet',
     build = ':TSUpdate html', -- if you have `nvim-treesitter` installed
     opts = {
@@ -438,7 +438,7 @@ require('lazy').setup({
         },
       },
       image_support = false,
-      picker = { provider = 'snacks' },
+      picker = { provider = 'snacks-picker' },
     },
     config = function(_, opts)
       local dir = vim.fn.stdpath('data') .. '/leetcode'
