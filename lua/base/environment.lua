@@ -82,3 +82,5 @@ set.listchars = {
   nbsp = '+',
   eol = '↴',
 }
+
+set.guicursor = 'n-v:block,c-i-ci-ve:ver25,r-cr:hor20,o:hor50'
