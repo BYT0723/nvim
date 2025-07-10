@@ -121,6 +121,7 @@ require('lazy').setup({
   -- golang
   {
     'ray-x/go.nvim',
+    enabled = false,
     build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
     dependencies = { 'ray-x/guihua.lua' },
     filetypes = { 'go', 'gomod', 'gosum', 'gotmpl' },
