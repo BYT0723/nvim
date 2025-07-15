@@ -1,4 +1,3 @@
-local lspconfig = require('lspconfig')
 local install_servers = {
   'bashls',
   'buf_ls',
@@ -133,70 +132,71 @@ local capabilities = {
   },
 }
 
-for _, lsp in pairs(install_servers) do
-  lspconfig[lsp].setup({
+local special_servers = {
+  emmet_ls = {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    filetypes = {
+      'astro',
+      'css',
+      'eruby',
+      'html',
+      'htmldjango',
+      'javascriptreact',
+      'less',
+      'pug',
+      'sass',
+      'scss',
+      'svelte',
+      'typescriptreact',
+      'vue',
+      'gohtmltmpl',
+    },
+    init_options = settings,
+  },
+  html = {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    filetypes = { 'html', 'gohtmltmpl' },
+    init_options = settings,
+  },
+  asm_lsp = {
+    root_dir = function()
+      return vim.fn.getcwd()
+    end,
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = settings,
+  },
+  clangd = {
+    filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
+    on_attach = function(client, bufnr)
+      require('plugins.keymaps').maplsp(bufnr)
+			-- stylua: ignore
+      vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gs', '<cmd>ClangdSwitchSourceHeader<CR>', { noremap = true, silent = true, desc = 'jump between header and c/cpp' })
+    end,
+    capabilities = {
+      textDocument = {
+        completion = {
+          editsNearCursor = true,
+        },
+      },
+      offsetEncoding = 'utf-16',
+    },
+    init_options = settings,
+  },
+}
+
+for _, server in pairs(install_servers) do
+  vim.lsp.enable(server)
+  vim.lsp.config(server, {
     on_attach = on_attach,
     capabilities = capabilities,
     settings = settings,
   })
 end
 
--- emmet
-lspconfig.emmet_ls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-  filetypes = {
-    'astro',
-    'css',
-    'eruby',
-    'html',
-    'htmldjango',
-    'javascriptreact',
-    'less',
-    'pug',
-    'sass',
-    'scss',
-    'svelte',
-    'typescriptreact',
-    'vue',
-    'gohtmltmpl',
-  },
-  init_options = settings,
-})
-
-lspconfig.html.setup({
-  filetypes = { 'html', 'gohtmltmpl' },
-  init_options = settings,
-})
-
-lspconfig.asm_lsp.setup({
-  root_dir = function()
-    return vim.fn.getcwd()
-  end,
-  on_attach = on_attach,
-  capabilities = capabilities,
-  settings = settings,
-})
-
-lspconfig.clangd.setup({
-  filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
-  on_attach = function(client, bufnr)
-    require('plugins.keymaps').maplsp(bufnr)
-    vim.api.nvim_buf_set_keymap(
-      bufnr,
-      'n',
-      'gs',
-      '<cmd>ClangdSwitchSourceHeader<CR>',
-      { noremap = true, silent = true, desc = 'jump between header and c/cpp' }
-    )
-  end,
-  capabilities = {
-    textDocument = {
-      completion = {
-        editsNearCursor = true,
-      },
-    },
-    offsetEncoding = 'utf-16',
-  },
-  init_options = settings,
-})
+for server, config in pairs(special_servers) do
+  vim.lsp.enable(server)
+  vim.lsp.config(server, config)
+end
