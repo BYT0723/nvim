@@ -13,10 +13,10 @@
     "prefix": "todo",
     "body": [
       "/*",
-      "   Author  : BYT0723",
+      "   Author  : Tyler Wayne",
       "   Date    : $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE",
-      "   Email   : ${1:email}",
-      "*/$0"
+      "   Email   : twang9739@gmail.com",
+      "*/"
     ],
     "description": "Author"
   },
