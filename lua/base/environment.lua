@@ -35,6 +35,9 @@ vim.g.mkdp_browser = 'surf'
 vim.g.mkdp_refresh_slow = 0
 vim.g.mkdp_auto_close = 0
 
+-- vim-go
+vim.g.go_fmt_autosave = 0
+
 -- neovide
 if vim.g.neovide then
   vim.g.neovide_refresh_rate = 60
