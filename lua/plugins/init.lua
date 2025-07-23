@@ -419,7 +419,7 @@ require('lazy').setup({
     event = 'VeryLazy',
     opts = { max_count = 10, restriction_mode = 'hint' },
   },
-  -- interview 'kawre/leetcode.nvim' fork
+  -- interview
   {
     'kawre/leetcode.nvim',
     cmd = 'Leet',
