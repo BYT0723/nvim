@@ -119,7 +119,16 @@ require('lazy').setup({
   { 'mrcjkb/rustaceanvim', ft = 'rust', version = '^6' },
   { 'saecki/crates.nvim', ft = 'toml', opts = {} },
   -- golang
-  { 'fatih/vim-go', build = ':GoInstallBinaries', ft = 'go' },
+  {
+    'ray-x/go.nvim',
+    build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
+    dependencies = { 'ray-x/guihua.lua' },
+    filetypes = { 'go', 'gomod', 'gosum', 'gotmpl' },
+    opts = {
+      lsp_inlay_hints = { enable = false }, -- disable inlay hints, because it will conflict with Neovim's built-in inlay hints
+      diagnostic = false, -- disable diagnostic because it will overwrite custom diagnostic configuration
+    },
+  },
   -- godot
   { 'habamax/vim-godot', ft = { 'gdscript', 'gdresource' } },
   -- sql
