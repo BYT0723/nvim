@@ -1,6 +1,6 @@
 local M = {}
 
--- help filename-modifiers
+local uv = vim.loop
 
 function M.cwd()
   return vim.fn.getcwd()
@@ -82,11 +82,61 @@ function M.source_luafile()
   end
 end
 
+--- 创建目录
+--- @param path string 目录
+--- @return integer
 function M.mkdir(path)
   local full = vim.fn.expand(path)
   if vim.fn.isdirectory(full) == 0 then
-    vim.fn.mkdir(full, 'p')
+    return vim.fn.mkdir(full, 'p')
   end
+  return 0
+end
+
+---递归收集符合 project marker 的子目录
+---@param roots string[] 起始目录
+---@param patterns string[] 项目标志
+---@param max_depth integer 最大递归深度
+---@return string[] 匹配到的目录路径
+function M.find_project_dirs(roots, patterns, max_depth)
+  local results = {}
+
+  local function scan(dir, depth)
+    if depth < 0 then
+      return
+    end
+
+    -- 符合project patterns, 不进行遍历
+    for _, pat in ipairs(patterns) do
+      local path = dir .. '/' .. pat
+      local stat = uv.fs_stat(path)
+      if stat then
+        table.insert(results, dir)
+        return
+      end
+    end
+
+    local handle = uv.fs_scandir(dir)
+    if not handle then
+      return
+    end
+
+    while true do
+      local name, type = uv.fs_scandir_next(handle)
+      if not name then
+        break
+      end
+      if type == 'directory' then
+        scan(dir .. '/' .. name, depth - 1)
+      end
+    end
+  end
+
+  for _, root in ipairs(roots) do
+    scan(vim.fn.expand(root), max_depth or 2)
+  end
+
+  return results
 end
 
 return M

@@ -86,7 +86,7 @@ require('lazy').setup({
     keys = keymaps.Diffview,
     opts = {},
   },
-  -- translator 'potamides/pantran.nvim' fork
+  -- translator
   {
     'potamides/pantran.nvim',
     keys = keymaps.PanTran,

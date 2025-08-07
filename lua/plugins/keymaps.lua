@@ -147,7 +147,40 @@ M.Snacks = {
   { "<leader>f/", function() Snacks.picker.grep() end,                  desc = 'Grep',           },
   { "<leader>f,", function() Snacks.picker.buffers() end,               desc = "Buffers" },
   { "<leader>:",  function() Snacks.picker.command_history() end,       desc = "Command History" },
-  { "<leader>fp", function() Snacks.picker.projects() end,              desc = "Projects" },
+  {
+		"<leader>fp",
+		function()
+			local projectOpt = {
+				dev = {'~/Workspace/'},
+				patterns = {
+					'.git',
+					'.svn',
+					'.hg', -- VCS
+					'Makefile',
+					'CMakeLists.txt', -- 通用构建
+					'package.json',
+					'tsconfig.json', -- JS/TS
+					'yarn.lock',
+					'pnpm-lock.yaml',
+					'pyproject.toml',
+					'setup.py', -- Python
+					'go.mod',
+					'go.work', -- Go
+					'Cargo.toml', -- Rust
+					'Pipfile',
+					'requirements.txt',
+					'build.gradle',
+					'pom.xml', -- Java/Kotlin
+					'stylua.toml',
+					'.luarc.json',
+					'init.lua', -- Lua / Neovim
+				},
+			}
+			projectOpt.projects = util.find_project_dirs(projectOpt.dev, projectOpt.patterns, 5)
+			Snacks.picker.projects(projectOpt)
+		end,
+		desc = "Projects"
+	},
   { "<leader>fr", function() Snacks.picker.recent() end,                desc = "Recent" },
   { "<leader>fn", function() Snacks.picker.notifications() end,         desc = "Notification History" },
   { '<leader>s"', function() Snacks.picker.registers() end,             desc = "Registers" },
@@ -171,7 +204,7 @@ M.Snacks = {
   { "<leader>sR", function() Snacks.picker.resume() end,                desc = "Resume" },
   { "<leader>su", function() Snacks.picker.undo() end,                  desc = "Undo History" },
   { "<leader>uC", function() Snacks.picker.colorschemes() end,          desc = "Colorschemes" },
-  { "<leader>bq", function() Snacks.bufdelete.delete() end,             desc = "Delete Buffer" },
+  { "bq", 				function() Snacks.bufdelete.delete() end,             desc = "Delete Buffer" },
   { "<leader>z",  function() Snacks.zen.zoom() end,                     desc = "Toggle Zoom" },
   { "<leader>Z",  function() Snacks.zen() end,                          desc = "Toggle Zen Mode" },
   { "<leader>nc", function() Snacks.notifier.hide() end,                desc = "Dismiss All Notifications" },
