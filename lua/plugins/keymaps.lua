@@ -151,7 +151,7 @@ M.Snacks = {
 		"<leader>fp",
 		function()
 			local projectOpt = {
-				dev = {'~/Workspace/'},
+				dev = {'~/Workspace'},
 				patterns = {
 					'.git',
 					'.svn',
