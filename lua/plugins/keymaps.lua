@@ -142,11 +142,11 @@ M.MiniFiles = {
 
 -- stylua: ignore
 M.Snacks = {
-  --{ '<leader>e',  function() Snacks.explorer({hidden=true,ignored=true}) end,                     desc = 'File Explorer',  },
-  { "<leader>ff", function() Snacks.picker.files({hidden=true,ignored=true}) end,                 desc = "Find Files" },
-  { "<leader>f/", function() Snacks.picker.grep() end,                  desc = 'Grep',           },
-  { "<leader>f,", function() Snacks.picker.buffers() end,               desc = "Buffers" },
-  { "<leader>:",  function() Snacks.picker.command_history() end,       desc = "Command History" },
+  { '<leader>E',  function() Snacks.explorer({hidden=true,ignored=true}) end,     desc = 'File Explorer',  },
+  { "<leader>ff", function() Snacks.picker.files({hidden=true,ignored=true}) end, desc = "Find Files" },
+  { "<leader>f/", function() Snacks.picker.grep() end,                  					desc = 'Grep',           },
+  { "<leader>f,", function() Snacks.picker.buffers() end,               					desc = "Buffers" },
+  { "<leader>:",  function() Snacks.picker.command_history() end,       					desc = "Command History" },
   {
 		"<leader>fp",
 		function()
