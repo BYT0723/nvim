@@ -8,6 +8,9 @@ return {
     --
     -- nls.builtins.diagnostics.cpplint,
     null_ls.builtins.diagnostics.golangci_lint,
+    -- 如下两个linter强制性较高，比较严格，不建议接手旧项目使用，或者新项目一开始就使用该linter
+    -- null_ls.builtins.diagnostics.revive,
+    -- null_ls.builtins.diagnostics.staticcheck,
     null_ls.builtins.diagnostics.pylint,
     null_ls.builtins.diagnostics.codespell,
     null_ls.builtins.diagnostics.actionlint,

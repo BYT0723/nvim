@@ -35,6 +35,8 @@ local ensure_installed = {
   'cpplint',
   'eslint_d',
   'golangci-lint',
+  'revive',
+  'staticcheck',
   'hadolint',
   'proselint',
   'pylint',
