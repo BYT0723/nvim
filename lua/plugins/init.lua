@@ -304,18 +304,6 @@ require('lazy').setup({
   },
   -- AI
   {
-    'supermaven-inc/supermaven-nvim',
-    enabled = false,
-    opts = {
-      keymaps = {
-        accept_suggestion = '<A-l>',
-        clear_suggestion = '<A-h>',
-        accept_word = '<A-w>',
-      },
-      ignore_filetypes = { 'minifiles', 'snacks_picker_input' },
-    },
-  },
-  {
     'monkoose/neocodeium',
     event = 'VeryLazy',
     keys = keymaps.NeoCodeium,
