@@ -227,7 +227,7 @@ require('lazy').setup({
   },
   -- obsidian
   {
-    'obsidian-nvim/obsidian.nvim',
+    'epwalsh/obsidian.nvim',
     version = '*', -- recommended, use latest release instead of latest commit
     keys = keymaps.Obsidian,
     filetypes = { 'markdown' },

@@ -46,5 +46,5 @@ return {
     vim.fn.jobstart({ 'xdg-open', url }) -- linux
   end,
   ui = { enable = false },
-  picker = { name = 'snacks.pick' },
+  picker = { name = 'mini.pick' },
 }

@@ -6,6 +6,17 @@ return {
     version = false,
   },
   {
+    'echasnovski/mini.pick',
+    version = false,
+    opts = {
+      mappings = {
+        move_down = '<C-j>',
+        move_start = '<C-g>',
+        move_up = '<C-k>',
+      },
+    },
+  },
+  {
     'echasnovski/mini.files',
     version = false,
     keys = keymaps.MiniFiles,
