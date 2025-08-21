@@ -403,7 +403,6 @@ require('lazy').setup({
   -- Correct bad habits
   {
     'm4xshen/hardtime.nvim',
-    enabled = false,
     event = 'VeryLazy',
     opts = { max_count = 10, restriction_mode = 'hint' },
   },
