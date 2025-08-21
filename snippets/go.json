@@ -72,7 +72,7 @@
       "\tt.Run(tt.name, func(t *testing.T) {",
       "\t\t// Use tt.args to call the objective function to get the result and compare it with tt.wants",
       "\t\t// assert https://github.com/stretchr/testify/assert",
-      "\t\t// require https://github.com/stretchr/testify/require",
+      "\t\t// require https://github.com/stretchr/testify/require (will interrupt this test)",
       "\t\t$4",
       "\t})",
       "}$0"
