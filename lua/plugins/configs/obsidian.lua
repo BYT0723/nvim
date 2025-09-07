@@ -10,16 +10,8 @@ return {
     default_tags = { 'daily_notes' },
     template = 'daily.md',
   },
-  mappings = {
-    ['<cr>'] = {
-      action = function()
-        return require('obsidian').util.smart_action()
-      end,
-      opts = { buffer = true, expr = true },
-    },
-  },
   templates = {
-    folder = vim.fn.stdpath('config') .. '/data/obsidian_templates',
+    folder = 'templates',
     date_format = '%Y-%m-%d (%a)',
     time_format = '%H:%M',
     substitutions = {
@@ -45,6 +37,6 @@ return {
   follow_url_func = function(url)
     vim.fn.jobstart({ 'xdg-open', url }) -- linux
   end,
-  ui = { enable = false },
+  legacy_commands = false,
   picker = { name = 'mini.pick' },
 }

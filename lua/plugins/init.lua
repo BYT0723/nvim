@@ -227,14 +227,17 @@ require('lazy').setup({
   },
   -- obsidian
   {
-    'epwalsh/obsidian.nvim',
+    'obsidian-nvim/obsidian.nvim',
     version = '*', -- recommended, use latest release instead of latest commit
     keys = keymaps.Obsidian,
     filetypes = { 'markdown' },
     opts = require('plugins.configs.obsidian'),
     config = function(_, opts)
+      local src_dir = vim.fn.stdpath('config') .. '/data/obsidian_templates'
       for _, ws in ipairs(opts.workspaces or {}) do
-        util.mkdir(ws.path)
+        local target_dir = ws.path .. '/' .. opts.templates.folder
+        util.mkdir(target_dir)
+        vim.fn.system({ 'cp', '-rn', src_dir .. '/*', target_dir })
       end
       require('obsidian').setup(opts)
     end,
