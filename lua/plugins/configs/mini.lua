@@ -6,6 +6,11 @@ return {
     version = false,
   },
   {
+    'echasnovski/mini.extra',
+    version = false,
+    opts = {},
+  },
+  {
     'echasnovski/mini.pick',
     version = false,
     opts = {
