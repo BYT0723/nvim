@@ -2,16 +2,16 @@ local keymaps = require('plugins.keymaps')
 
 return {
   {
-    'echasnovski/mini.icons',
+    'nvim-mini/mini.icons',
     version = false,
   },
   {
-    'echasnovski/mini.extra',
+    'nvim-mini/mini.extra',
     version = false,
     opts = {},
   },
   {
-    'echasnovski/mini.pick',
+    'nvim-mini/mini.pick',
     version = false,
     opts = {
       mappings = {
@@ -22,7 +22,7 @@ return {
     },
   },
   {
-    'echasnovski/mini.files',
+    'nvim-mini/mini.files',
     version = false,
     keys = keymaps.MiniFiles,
     opts = {
@@ -31,13 +31,13 @@ return {
   },
   -- bufferline
   {
-    'echasnovski/mini.tabline',
+    'nvim-mini/mini.tabline',
     version = false,
     opts = {},
   },
   -- statusline
   {
-    'echasnovski/mini.statusline',
+    'nvim-mini/mini.statusline',
     version = false,
     opts = {
       content = {
@@ -95,13 +95,13 @@ return {
   },
   -- autopairs
   {
-    'echasnovski/mini.pairs',
+    'nvim-mini/mini.pairs',
     version = false,
     opts = {},
   },
   -- comment
   {
-    'echasnovski/mini.comment',
+    'nvim-mini/mini.comment',
     version = false,
     opts = {
       options = {
@@ -113,7 +113,7 @@ return {
   },
   -- hex colors display
   {
-    'echasnovski/mini.hipatterns',
+    'nvim-mini/mini.hipatterns',
     version = false,
     config = function()
       require('mini.hipatterns').setup({
@@ -132,13 +132,13 @@ return {
   },
   -- quick jump
   {
-    'echasnovski/mini.jump',
+    'nvim-mini/mini.jump',
     version = false,
     opts = {},
   },
   -- use 2d replace quick jump
   {
-    'echasnovski/mini.jump2d',
+    'nvim-mini/mini.jump2d',
     version = false,
     opts = {
       labels = 'asdfghjklqwertyuiopzxcvbnm',
@@ -149,13 +149,13 @@ return {
   },
   -- text align
   {
-    'echasnovski/mini.align',
+    'nvim-mini/mini.align',
     version = false,
     opts = {},
   },
   -- surround text
   {
-    'echasnovski/mini.surround',
+    'nvim-mini/mini.surround',
     version = false,
     opts = {
       mappings = {
@@ -174,7 +174,7 @@ return {
   },
   -- toggle body
   {
-    'echasnovski/mini.splitjoin',
+    'nvim-mini/mini.splitjoin',
     version = false,
     opts = {
       mappings = {
@@ -186,7 +186,7 @@ return {
   },
   -- move code block
   {
-    'echasnovski/mini.move',
+    'nvim-mini/mini.move',
     versiont = false,
     opts = {
       -- Module mappings. Use `''` (empty string) to disable one.
@@ -195,13 +195,13 @@ return {
   },
   -- show line tail space
   {
-    'echasnovski/mini.trailspace',
+    'nvim-mini/mini.trailspace',
     version = false,
     event = 'BufReadPost',
     opts = {},
   },
   {
-    'echasnovski/mini.ai',
+    'nvim-mini/mini.ai',
     version = false,
     opts = {},
   },
