@@ -9,6 +9,8 @@ M.exc_file = {
   c = { 'dwm.c', 'st.c' },
 }
 
+M.exc_ft = {}
+
 function M.is_exc_file()
   if M.exc_file[vim.bo.filetype] == nil then
     return false
@@ -21,6 +23,10 @@ function M.is_exc_file()
   end
 
   return false
+end
+
+function M.is_exc_ft()
+  return M.exc_ft[vim.bo.filetype] ~= nil
 end
 
 -- formatting condition
@@ -126,7 +132,10 @@ function M.setup()
   vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
     callback = function()
       -- stylua: ignore
-      -- 如果是排除文件则不进行格式化
+      -- 如果是排除文件类型则不进行格式化
+			if M.is_exc_ft() then return end
+      -- stylua: ignore
+      -- 如果是排除文件名称则不进行格式化
       if M.is_exc_file() then return end
       -- stylua: ignore
       for _, v in pairs(M.formatCond) do
