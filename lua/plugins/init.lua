@@ -111,7 +111,20 @@ require('lazy').setup({
     'mistweaverco/kulala.nvim',
     filetypes = 'http',
     keys = keymaps.Kulala,
-    opts = {},
+    opts = {
+      lsp = {
+        formatter = {
+          sort = {
+            metadata = true,
+            variables = false,
+            commands = false,
+            json = false,
+          },
+          quote_json_variables = false,
+        },
+      },
+      debug = 0,
+    },
   },
 
   -- language
