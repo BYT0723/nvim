@@ -40,6 +40,11 @@ require('lazy').setup({
     opts = require('plugins.configs.snacks'),
     keys = keymaps.Snacks,
   },
+  -- quickfix
+  {
+    'kevinhwang91/nvim-bqf',
+    ft = 'qf',
+  },
 
   -- colorscheme
   {

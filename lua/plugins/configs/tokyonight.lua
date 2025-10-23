@@ -13,6 +13,14 @@ return {
   sidebars = { 'qf' },
   on_colors = function(colors) end,
   on_highlights = function(hl, c)
+    hl.BqfPreviewFloat = {
+      bg = c.bg_dark,
+      fg = c.bg_dark,
+    }
+    hl.BqfPreviewBorder = {
+      bg = c.bg_dark,
+      fg = c.bg_dark,
+    }
     hl.WhichKeyBorder = {
       bg = c.bg_dark,
       fg = c.bg_dark,

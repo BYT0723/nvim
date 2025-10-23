@@ -2,6 +2,8 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+local util = require('base.util')
+
 -- stylua: ignore
 local baseKeymaps = {
   { '<C-s>',        '<cmd>w!<CR>',                                                                         desc = 'save file' },
@@ -33,9 +35,10 @@ local baseKeymaps = {
   {'dK', function() vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.ERROR }) end, desc = 'Prev Diagnostic [ERROR]',},
   {'dJ', function() vim.diagnostic.jump({ count = 1, float = true, severity = vim.diagnostic.severity.ERROR }) end,  desc = 'Next Diagnostic [ERROR]',},
 	-- utils
-	{ '<leader>cpr', function() vim.fn.setreg("+", vim.fn.expand("%:.")) vim.notify("Copied Relative Path") end, desc = "Copy Path (relative) to clipboard" },
-	{ '<leader>cpa', function() vim.fn.setreg("+", vim.api.nvim_buf_get_name(0)) vim.notify("Copied Absolute Path") end, desc = "Copy Path(absolute) to clipboard" },
-	{ '<leader>cpl', function() vim.fn.setreg("+", string.format("%s:%d",vim.fn.expand("%:."), vim.fn.line("."))) vim.notify("Copied current line position") end, desc = "Copy rp:lnum to clipboard" },
+	{ '<leader>ypr', function() vim.fn.setreg("+", vim.fn.expand("%:.")) vim.notify("Copied Relative Path") end, desc = "Copy Path (relative) to clipboard" },
+	{ '<leader>ypa', function() vim.fn.setreg("+", vim.api.nvim_buf_get_name(0)) vim.notify("Copied Absolute Path") end, desc = "Copy Path(absolute) to clipboard" },
+	{ '<leader>ypl', function() vim.fn.setreg("+", string.format("%s:%d",vim.fn.expand("%:."), vim.fn.line("."))) vim.notify("Copied current line position") end, desc = "Copy rp:lnum to clipboard" },
+	{ '<leader>c', 	 function() util.toggle_quickfix() end, desc = 'Toggle Quickfix'},
 }
 
 for _, key in pairs(baseKeymaps) do
