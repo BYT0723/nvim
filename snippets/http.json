@@ -2,44 +2,28 @@
   "request": {
     "prefix": "request",
     "body": [
-      "# ${1: New Request}",
-      "${2|GET,POST,PUT,DELETE,HEAD|} ${3:URL}",
-      "${4:# Header}",
+      "### ${1:Name}",
       "",
-      "${5:# Body}",
+      "# ${2: Comment}",
       "",
-      "###"
+      "${3:METHOD} ${4:URL}"
     ],
     "description": "new request template"
-  },
-  "header": {
-    "prefix": "header",
-    "body": ["${1|Accept,Authorization,Content-Type|}: ${2}"],
-    "description": "header"
-  },
-  "html-request": {
-    "prefix": "htmlrequest",
-    "body": [
-      "# ${1: New Request}",
-      "${2|GET,POST,PUT,DELETE,HEAD|} ${3:URL}",
-      "",
-      "###"
-    ],
-    "description": "new html request"
   },
   "json-request": {
     "prefix": "jsonrequest",
     "body": [
-      "# ${1: New Request}",
-      "${2|GET,POST,PUT,DELETE|} ${3:URL}",
+      "### ${1:Name}",
+      "",
+      "# ${2: Comment}",
+      "",
+      "${3:METHOD} ${4:URL}",
       "Accept: application/json",
       "Content-Type: application/json",
       "",
       "{",
       "\t${0}",
-      "}",
-      "",
-      "###"
+      "}"
     ],
     "description": "new json request"
   }

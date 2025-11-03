@@ -125,10 +125,10 @@ require('lazy').setup({
             commands = false,
             json = false,
           },
-          quote_json_variables = false,
+          -- quote_json_variables = false,
         },
       },
-      debug = 0,
+      -- debug = 0,
     },
   },
 

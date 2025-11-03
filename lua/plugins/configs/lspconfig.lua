@@ -31,7 +31,6 @@ local settings = {
   gopls = {
     usePlaceholders = true,
     codelenses = { test = true },
-    staticcheck = true,
     hints = {
       assignVariableTypes = true,
       compositeLiteralFields = false,
