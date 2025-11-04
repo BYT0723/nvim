@@ -170,22 +170,15 @@ require('lazy').setup({
   -- 关闭此插件，会覆盖tui,导致遮盖内容
   {
     '3rd/image.nvim',
-    enabled = false,
     ft = { 'markdown', 'norg' },
-    opts = {
-      backend = 'ueberzug', -- kitty or ueberzug
-      processor = 'magick_rock', -- or "magick_cli"
-      integrations = {
-        markdown = {
-          enabled = true,
-          clear_in_insert_mode = true,
-          download_remote_images = true,
-          only_render_image_at_cursor = false,
-          floating_windows = false, -- if true, images will be rendered in floating markdown windows
-          filetypes = { 'markdown', 'vimwiki' }, -- markdown extensions (ie. quarto) can go here
-        },
-      },
-    },
+    opts = {},
+  },
+  -- neorg
+  {
+    'nvim-neorg/neorg',
+    lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+    version = '*', -- Pin Neorg to the latest stable release
+    opts = require('plugins.configs.neorg'),
   },
   -- markdown render in editor
   {
@@ -217,6 +210,7 @@ require('lazy').setup({
   -- orgmode
   {
     'nvim-orgmode/orgmode',
+    enabled = false,
     event = 'VeryLazy',
     ft = { 'org' },
     config = function()
@@ -292,7 +286,7 @@ require('lazy').setup({
     event = 'VeryLazy',
     dependencies = {
       'rafamadriz/friendly-snippets',
-      { 'saghen/blink.compat', version = false },
+      { 'saghen/blink.compat', version = '2.*', lazy = true, opts = {} },
       { 'Kaiser-Yang/blink-cmp-avante' },
       { 'moyiz/blink-emoji.nvim' },
     },

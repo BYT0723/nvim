@@ -17,7 +17,6 @@ return {
     'lua',
     'markdown',
     'markdown_inline',
-    'org',
     'norg',
     'norg_meta',
     'proto',

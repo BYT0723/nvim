@@ -64,8 +64,12 @@ return {
     },
   },
   sources = {
-    default = { 'lazydev', 'avante', 'emoji', 'lsp', 'snippets', 'buffer', 'path' },
+    default = { 'neorg', 'lazydev', 'avante', 'emoji', 'lsp', 'snippets', 'buffer', 'path' },
     providers = {
+      neorg = {
+        name = 'neorg',
+        module = 'blink.compat.source',
+      },
       lazydev = {
         name = 'LazyDev',
         module = 'lazydev.integrations.blink',
