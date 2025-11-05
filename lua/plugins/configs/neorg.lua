@@ -1,3 +1,16 @@
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'norg',
+	-- stylua: ignore
+  callback = function()
+    vim.g.maplocalleader = 'g'
+    vim.keymap.set('n', 'gd',    '<Plug>(neorg.esupports.hop.hop-link)', { buffer = true })
+    vim.keymap.set('n', '<M-h>', '<Plug>(neorg.promo.demote.nested)',    { buffer = true })
+    vim.keymap.set('n', '<M-H>', '<Plug>(neorg.promo.demote)',           { buffer = true })
+    vim.keymap.set('n', '<M-l>', '<Plug>(neorg.promo.promote.nested)',   { buffer = true })
+    vim.keymap.set('n', '<M-L>', '<Plug>(neorg.promo.promote)',          { buffer = true })
+  end,
+})
+
 return {
   load = {
     ['core.defaults'] = {},

@@ -209,13 +209,6 @@ M.Snacks = {
   { "<leader>z",  function() Snacks.zen.zoom() end,                     desc = "Toggle Zoom" },
   { "<leader>Z",  function() Snacks.zen() end,                          desc = "Toggle Zen Mode" },
   { "<leader>nc", function() Snacks.notifier.hide() end,                desc = "Dismiss All Notifications" },
-  { "gd",         function() Snacks.picker.lsp_definitions() end,       desc = "Goto Definition" },
-  { "gD",         function() Snacks.picker.lsp_declarations() end,      desc = "Goto Declaration" },
-  { "gr",         function() Snacks.picker.lsp_references() end,        nowait = true,           desc = "References" },
-  { "gi",         function() Snacks.picker.lsp_implementations() end,   desc = "Goto Implementation" },
-  { "gtd",        function() Snacks.picker.lsp_type_definitions() end,  desc = "Goto T[y]pe Definition" },
-  { "<leader>vs", function() Snacks.picker.lsp_symbols() end,           desc = "LSP Symbols" },
-  { "<leader>vS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
   { "]]",         function() Snacks.words.jump(vim.v.count1) end,       desc = "Next Reference" },
   { "[[",         function() Snacks.words.jump(-vim.v.count1) end,      desc = "Prev Reference" },
   { "<leader>lg", function() Snacks.lazygit() end,                                   desc = "Lazygit" },
@@ -228,13 +221,20 @@ M.Snacks = {
 M.maplsp = function(bufnr)
   -- stylua: ignore
   local lsp_keys = {
-    { '<leader>rn', function() vim.lsp.buf.rename() end,            desc = 'Global Rename',           },
-    { '<leader>aa', function() vim.lsp.buf.code_action() end,       desc = 'Code Actions',            },
-    { '<leader>aa', function() vim.lsp.buf.code_action() end,       desc = 'Code Actions of Range',   mode = 'v', },
-    { '<leader>al', function() vim.lsp.codelens.run() end,					desc = 'Code Lens',            		},
-    { 'K',          function() vim.lsp.buf.hover() end,             desc = 'Hover Document',          },
-    { '<leader>=',  function() vim.lsp.buf.formatting() end,        desc = 'LSP Format',              },
-    { '<leader>=',  function() vim.lsp.buf.range_formatting() end,  desc = 'Format of Range',         mode = 'v', },
+    { '<leader>rn', function() vim.lsp.buf.rename() end,                  desc = 'Global Rename',         },
+    { '<leader>aa', function() vim.lsp.buf.code_action() end,             desc = 'Code Actions',          },
+    { '<leader>aa', function() vim.lsp.buf.code_action() end,             desc = 'Code Actions of Range', mode = 'v',    },
+    { '<leader>al', function() vim.lsp.codelens.run() end,                desc = 'Code Lens',             },
+    { 'K',          function() vim.lsp.buf.hover() end,                   desc = 'Hover Document',        },
+    { '<leader>=',  function() vim.lsp.buf.formatting() end,              desc = 'LSP Format',            },
+    { '<leader>=',  function() vim.lsp.buf.range_formatting() end,        desc = 'Format of Range',       mode = 'v',    },
+		{ "gd",         function() Snacks.picker.lsp_definitions() end,       desc = "Goto Definition" },
+		{ "gD",         function() Snacks.picker.lsp_declarations() end,      desc = "Goto Declaration" },
+		{ "gr",         function() Snacks.picker.lsp_references() end,        desc = "References",            nowait = true, },
+		{ "gi",         function() Snacks.picker.lsp_implementations() end,   desc = "Goto Implementation" },
+		{ "gtd",        function() Snacks.picker.lsp_type_definitions() end,  desc = "Goto T[y]pe Definition" },
+		{ "<leader>vs", function() Snacks.picker.lsp_symbols() end,           desc = "LSP Symbols" },
+		{ "<leader>vS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
   }
   for _, key in pairs(lsp_keys) do
     vim.keymap.set(key.mode or 'n', key[1], key[2], { buffer = bufnr, silent = true, desc = key.desc })
