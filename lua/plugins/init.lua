@@ -456,6 +456,12 @@ require('lazy').setup({
   -- Personal plugin development
   { 'BYT0723/typist.nvim', opts = {}, event = 'VeryLazy' },
   { 'BYT0723/goctl.nvim', enabled = false, opts = {} },
+  -- Game
+  {
+    'jim-fx/sudoku.nvim',
+    cmd = 'Sudoku',
+    opts = {},
+  },
   -- plugin dev
   {
     'folke/lazydev.nvim',
