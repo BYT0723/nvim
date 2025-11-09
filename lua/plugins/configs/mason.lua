@@ -1,14 +1,12 @@
 local ensure_installed = {
   -- LSP
   -- 'angular-language-server',
-  'asm-lsp',
   'bash-language-server',
   'buf',
-  'buf-language-server',
   'clangd',
   'css-lsp',
-  'dockerfile-language-server',
   'docker-compose-language-service',
+  'dockerfile-language-server',
   'dot-language-server',
   'emmet-ls',
   'eslint-lsp',

@@ -159,14 +159,6 @@ local special_servers = {
     filetypes = { 'html', 'gohtmltmpl' },
     init_options = settings,
   },
-  asm_lsp = {
-    root_dir = function()
-      return vim.fn.getcwd()
-    end,
-    on_attach = on_attach,
-    capabilities = capabilities,
-    settings = settings,
-  },
   clangd = {
     filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
     on_attach = function(client, bufnr)
