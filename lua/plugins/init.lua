@@ -382,6 +382,7 @@ require('lazy').setup({
     dependencies = {
       'mfussenegger/nvim-dap',
       'nvim-neotest/nvim-nio',
+      { 'leoluz/nvim-dap-go', opts = {} },
     },
     keys = keymaps.Dap,
     config = function()

@@ -35,8 +35,8 @@ M.Dap = {
   { '<leader>dc', function() require('dap').continue() end,                        desc = 'Dap Continue',      },
   { '<leader>di', function() require('dap').step_into() end,                       desc = 'Step Into',         },
   { '<leader>do', function() require('dap').step_out() end,                        desc = 'Step Out',          },
-  { '<leader>dO', function() require('dap').step_over() end,                       desc = 'Step Over',         },
-  { '<leader>de', function() require('dapui').eval() end,                          desc = 'Dap Eval',          },
+  { '<leader>dn', function() require('dap').step_over() end,                       desc = 'Step Over',         },
+  { '<leader>dk', function() require('dapui').eval() end,                          desc = 'Dap Eval',          },
 }
 
 -- stylua: ignore
