@@ -249,7 +249,10 @@ require('lazy').setup({
       for _, ws in ipairs(opts.workspaces or {}) do
         local target_dir = ws.path .. '/' .. opts.templates.folder
         util.mkdir(target_dir)
-        vim.fn.system({ 'cp', '-rn', src_dir .. '/*', target_dir })
+        local ok, _, code = os.execute('cp -rn ' .. src_dir .. '/* ' .. target_dir)
+        if not ok then
+          vim.notify('obsidian copy default templates error: ' .. code)
+        end
       end
       require('obsidian').setup(opts)
     end,
