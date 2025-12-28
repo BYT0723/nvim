@@ -114,7 +114,7 @@ require('lazy').setup({
   -- HTTP REST-Client Interface
   {
     'mistweaverco/kulala.nvim',
-    filetypes = 'http',
+    ft = 'http',
     keys = keymaps.Kulala,
     opts = {
       lsp = {
@@ -134,18 +134,24 @@ require('lazy').setup({
 
   -- language
   -- rust
-  { 'mrcjkb/rustaceanvim', ft = 'rust', version = '^6' },
+  { 'mrcjkb/rustaceanvim', version = '^6', lazy = false },
   { 'saecki/crates.nvim', ft = 'toml', opts = {} },
   -- golang
   {
     'ray-x/go.nvim',
     build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
     dependencies = { 'ray-x/guihua.lua' },
-    filetypes = { 'go', 'gomod', 'gosum', 'gotmpl' },
+    ft = { 'go', 'gomod', 'gosum', 'gotmpl' },
     opts = {
       lsp_inlay_hints = { enable = false }, -- disable inlay hints, because it will conflict with Neovim's built-in inlay hints
       diagnostic = false, -- disable diagnostic because it will overwrite custom diagnostic configuration
     },
+		-- stylua: ignore
+    config = function(_, opts)
+      require('go').setup(opts)
+      vim.keymap.set('n', '<leader>rc',  '<cmd>GoCoverage -p<CR>',                { buffer = true, desc = 'Go coverage package of the current buffer'  })
+      vim.keymap.set('n', '<leader>rC',  '<cmd>GoTool cover -html=cover.cov<CR>', { buffer = true, desc = 'Show go coverage by browser'  })
+    end,
   },
   -- godot
   { 'habamax/vim-godot', ft = { 'gdscript', 'gdresource' } },
@@ -242,7 +248,7 @@ require('lazy').setup({
     'obsidian-nvim/obsidian.nvim',
     version = '*', -- recommended, use latest release instead of latest commit
     keys = keymaps.Obsidian,
-    filetypes = { 'markdown' },
+    ft = { 'markdown' },
     opts = require('plugins.configs.obsidian'),
     config = function(_, opts)
       local src_dir = vim.fn.stdpath('config') .. '/data/obsidian_templates'
