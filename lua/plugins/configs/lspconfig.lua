@@ -12,6 +12,7 @@ local install_servers = {
   'lua_ls',
   'marksman',
   'pyright',
+  'systemd_lsp', -- use `cargo` install, not 'mason-installer', installed in the user directory, may fail when editing non-user services
   -- 'rust_analyzer', -- rust_analyzer is started by rustaceanvim
   'ts_ls',
   -- Other non-installation servers
