@@ -102,5 +102,13 @@ return {
   },
   signature = {
     enabled = true,
+    trigger = {
+      enabled = true,
+      -- default: show_on_insert_on_trigger_character = true
+      show_on_insert = true,
+    },
+    window = {
+      show_documentation = false,
+    },
   },
 }

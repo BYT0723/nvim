@@ -30,7 +30,7 @@ vim.diagnostic.config({
       return string.format(' %s ', signs.text[diagnostic.severity]), signs.hl[diagnostic.severity]
     end,
     suffix = function(diagnostic, i, total)
-      return string.format(' [%d/%d] - %s ', i, total, diagnostic.source), 'DiagnosticUnnecessary'
+      return string.format(' [%d/%d] - %s ', i, total, diagnostic.source), 'DiagnosticHint'
     end,
   },
 })
