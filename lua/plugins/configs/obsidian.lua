@@ -34,9 +34,8 @@ return {
     nvim_cmp = false,
     blink = true,
   },
-  follow_url_func = function(url)
-    vim.fn.jobstart({ 'xdg-open', url }) -- linux
-  end,
+  picker = {
+    name = 'snacks.picker',
+  },
   legacy_commands = false,
-  picker = { name = 'mini.pick' },
 }
