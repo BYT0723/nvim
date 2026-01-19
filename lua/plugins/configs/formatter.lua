@@ -6,7 +6,7 @@ local util = require('base.util')
 M.exc_file = {
   lua = { 'keybindings.lua' },
   cpp = { 'config.h' },
-  c = { 'dwm.c', 'st.c' },
+  c = { 'dwm.c', 'st.c', 'i3lock.c', 'unlock_indicator.c' },
 }
 
 M.exc_ft = {}

@@ -398,23 +398,23 @@ require('lazy').setup({
       require('plugins.configs.dap-local')
     end,
   },
-  -- treesitter
   {
     'nvim-treesitter/nvim-treesitter',
+    lazy = false,
     build = ':TSUpdate',
     dependencies = {
-      { 'nvim-treesitter/nvim-treesitter-context', keys = keymaps.TreeSitterContext },
+      {
+        'nvim-treesitter/nvim-treesitter-context',
+        keys = keymaps.TreeSitterContext,
+        opts = require('plugins.configs.treesitter').context,
+      },
       { 'JoosepAlviste/nvim-ts-context-commentstring', opts = {} },
     },
-    opts = function()
-      return require('plugins.configs.treesitter')
-    end,
-    config = function(_, opts)
+    init = function()
       vim.wo.foldmethod = 'expr'
       vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-      require('nvim-treesitter.configs').setup(opts)
-      require('treesitter-context').setup(opts.context)
     end,
+    opts = require('plugins.configs.treesitter'),
   },
   -- which key
   {
