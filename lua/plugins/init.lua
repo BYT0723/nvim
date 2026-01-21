@@ -398,24 +398,60 @@ require('lazy').setup({
       require('plugins.configs.dap-local')
     end,
   },
+  -- treesitter
   {
     'nvim-treesitter/nvim-treesitter',
     lazy = false,
     build = ':TSUpdate',
-    dependencies = {
-      {
-        'nvim-treesitter/nvim-treesitter-context',
-        keys = keymaps.TreeSitterContext,
-        opts = require('plugins.configs.treesitter').context,
-      },
-      { 'JoosepAlviste/nvim-ts-context-commentstring', opts = {} },
-    },
-    init = function()
-      vim.wo.foldmethod = 'expr'
-      vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+    config = function()
+      local ts = require('nvim-treesitter')
+      local ts_cfg = require('plugins.configs.treesitter')
+
+      -- install treesitter
+      pcall(ts.install, ts_cfg.ensure_installed)
+
+      -- load select keys
+      local select = require('nvim-treesitter-textobjects.select')
+      for _, value in ipairs(ts_cfg.select_keys) do
+        vim.keymap.set(value[1], value[2], function()
+          select.select_textobject(value[3], 'textobjects')
+        end, value[4])
+      end
+
+      -- set autocommand
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = '*',
+        callback = function()
+          if pcall(vim.treesitter.start) then
+            vim.wo.foldmethod = 'expr'
+            vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+            vim.wo.foldlevel = 99
+
+            vim.bo.indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
+          end
+        end,
+      })
     end,
-    opts = require('plugins.configs.treesitter'),
   },
+  -- treesitter textobjects
+  {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    branch = 'main',
+    opts = {
+      select = { lookahead = true },
+      move = { set_jumps = true },
+    },
+  },
+  {
+    'nvim-treesitter/nvim-treesitter-context',
+    config = function()
+      require('treesitter-context').setup({ enable = true })
+      vim.keymap.set('n', '[c', function()
+        require('treesitter-context').go_to_context(vim.v.count1)
+      end, { desc = 'previous context item' })
+    end,
+  },
+  { 'JoosepAlviste/nvim-ts-context-commentstring', opts = {} },
   -- which key
   {
     'folke/which-key.nvim',

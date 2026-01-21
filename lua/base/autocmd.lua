@@ -32,8 +32,7 @@ vim.api.nvim_create_autocmd('BufReadPre', {
   callback = function()
     local file_size = vim.fn.getfsize(vim.fn.expand('%'))
     if file_size > 1 * 1024 * 1024 then
-      -- vim.cmd('TSBufDisable highlight')
-      vim.cmd('syntax off')
+      vim.treesitter.stop()
     end
   end,
 })
@@ -42,17 +41,17 @@ vim.api.nvim_create_autocmd('BufReadPre', {
 vim.api.nvim_create_autocmd('FileType', { pattern = { 'markdown' }, command = 'setlocal conceallevel=2' })
 vim.api.nvim_create_autocmd('FileType', { pattern = { 'markdown' }, command = 'set wrap' })
 
--- vim.api.nvim_create_autocmd('RecordingEnter', {
---   callback = function()
---     vim.notify('󰑋 ' .. vim.fn.reg_recording() .. ' RECORDING STARTED...')
---   end,
--- })
---
--- vim.api.nvim_create_autocmd('RecordingLeave', {
---   callback = function()
---     vim.notify('󰑋 ' .. vim.fn.reg_recording() .. ' RECORDING FINISHED...')
---   end,
--- })
+vim.api.nvim_create_autocmd('RecordingEnter', {
+  callback = function()
+    vim.notify('󰑋 ' .. vim.fn.reg_recording() .. ' recording...')
+  end,
+})
+
+vim.api.nvim_create_autocmd('RecordingLeave', {
+  callback = function()
+    vim.notify('󰑋 ' .. vim.fn.reg_recording() .. ' done.')
+  end,
+})
 
 --Start and stop mini-indentint plugins
 vim.api.nvim_create_autocmd('FileType', {

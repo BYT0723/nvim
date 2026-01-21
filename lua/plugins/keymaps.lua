@@ -52,11 +52,6 @@ M.DB = {
 }
 
 -- stylua: ignore
-M.TreeSitterContext = {
-  { '[c', function() require("treesitter-context").go_to_context(vim.v.count1) end, desc = 'previous context item', },
-}
-
--- stylua: ignore
 M.Sniprun = {
   { '<leader>rl', '<cmd>SnipRun<CR>',                                   desc = 'run current line code',   ft = {"markdown", "norg", "sh"} },
   { '<leader>rb', function() require 'sniprun'.run('v') end,            desc = 'run selected code block', ft = {"markdown", "norg", "sh"}, mode = 'v', },
