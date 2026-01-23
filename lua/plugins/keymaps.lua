@@ -217,9 +217,9 @@ M.maplsp = function(bufnr)
   -- stylua: ignore
   local lsp_keys = {
     { '<leader>rn', function() vim.lsp.buf.rename() end,                  desc = 'Global Rename',         },
-    { '<leader>aa', function() vim.lsp.buf.code_action() end,             desc = 'Code Actions',          },
-    { '<leader>aa', function() vim.lsp.buf.code_action() end,             desc = 'Code Actions of Range', mode = 'v',    },
-    { '<leader>al', function() vim.lsp.codelens.run() end,                desc = 'Code Lens',             },
+    { '<leader>ca', function() vim.lsp.buf.code_action() end,             desc = 'Code Actions',          },
+    { '<leader>ca', function() vim.lsp.buf.code_action() end,             desc = 'Code Actions of Range', mode = 'v',    },
+    { '<leader>cl', function() vim.lsp.codelens.run() end,                desc = 'Code Lens',             },
     { 'K',          function() vim.lsp.buf.hover() end,                   desc = 'Hover Document',        },
     { '<leader>=',  function() vim.lsp.buf.formatting() end,              desc = 'LSP Format',            },
     { '<leader>=',  function() vim.lsp.buf.range_formatting() end,        desc = 'Format of Range',       mode = 'v',    },
