@@ -329,6 +329,7 @@ require('lazy').setup({
   -- AI
   {
     'monkoose/neocodeium',
+    enabled = false,
     event = 'VeryLazy',
     keys = keymaps.NeoCodeium,
     opts = {
@@ -342,10 +343,12 @@ require('lazy').setup({
       end,
     },
   },
+  -- AI Chat
   {
     'yetone/avante.nvim',
     version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
     event = 'VeryLazy',
+    dependencies = { 'zbirenbaum/copilot.lua' },
     opts = {
       provider = 'deepseek',
       providers = {
@@ -356,11 +359,24 @@ require('lazy').setup({
           model = 'deepseek-coder',
         },
       },
-      hints = { enabled = false },
+      -- hints = { enabled = false },
     },
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
     build = 'make',
     -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+  },
+  -- Github Copilot
+  {
+    'zbirenbaum/copilot.lua',
+    opts = {
+      filetypes = {
+        lua = true,
+        go = true,
+        python = true,
+        rust = true,
+        ['*'] = false,
+      },
+    },
   },
   -- lsp
   {
