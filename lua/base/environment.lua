@@ -1,5 +1,5 @@
 -- 设置英文环境
-vim.cmd([[language en_US.UTF-8]])
+-- vim.cmd([[language en_US.UTF-8]])
 
 local set = vim.opt
 

@@ -31,4 +31,5 @@ Never Alone, Never Apart.]],
   scroll = { enabled = true },
   statuscolumn = { enabled = true },
   words = { enabled = true },
+  image = { enabled = true },
 }

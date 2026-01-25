@@ -34,7 +34,6 @@ return {
     null_ls.builtins.formatting.buf,
     -- null_ls.builtins.formatting.codespell,
     -- null_ls.builtins.formatting.shellharden,
-    null_ls.builtins.formatting.shfmt,
     null_ls.builtins.formatting.sqlfluff.with({
       extra_args = { '--dialect', 'postgres' }, -- change to your dialect
     }),
