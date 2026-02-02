@@ -402,13 +402,19 @@ require('lazy').setup({
       { 'zbirenbaum/copilot.lua', opts = {} },
     },
     opts = {
-      provider = 'deepseek',
+      provider = 'copilot',
       providers = {
         deepseek = {
           __inherited_from = 'openai',
           api_key_name = 'DEEPSEEK_API_KEY',
           endpoint = 'https://api.deepseek.com',
           model = 'deepseek-coder',
+        },
+        copilot = {
+          model = 'gpt-5.2-codex',
+          endpoint = 'https://api.githubcopilot.com',
+          allow_insecure = false,
+          timeout = 10 * 60 * 1000,
         },
       },
     },
