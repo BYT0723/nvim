@@ -37,5 +37,9 @@ return {
   picker = {
     name = 'snacks.picker',
   },
+  footer = {
+    format = '  {{backlinks}} |  {{properties}} |   {{words}} |  {{chars}} ',
+    enabled = true,
+  },
   legacy_commands = false,
 }
