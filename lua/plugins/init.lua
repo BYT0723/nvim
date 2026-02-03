@@ -402,6 +402,7 @@ require('lazy').setup({
       { 'zbirenbaum/copilot.lua', opts = {} },
     },
     opts = {
+      instructions_file = 'AGENTS.md',
       provider = 'copilot',
       providers = {
         deepseek = {
