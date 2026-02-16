@@ -23,7 +23,7 @@ local install_servers = {
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
   require('plugins.keymaps').maplsp(bufnr)
-  if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+  if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint and vim.g.lsp_inlay_hint_enabled then
     vim.lsp.inlay_hint.enable()
   end
 end

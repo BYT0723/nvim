@@ -62,6 +62,8 @@ if vim.g.neovide then
   set.linespace = 1
 end
 
+vim.g.lsp_inlay_hint_enabled = true
+
 -- vim-go configuration
 vim.g.go_term_enabled = true
 vim.g.go_term_mode = 'split'
