@@ -397,25 +397,15 @@ require('lazy').setup({
     version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
     build = 'make',
     event = 'VeryLazy',
-    dependencies = {
-      -- Github Copilot
-      { 'zbirenbaum/copilot.lua', opts = {} },
-    },
     opts = {
       instructions_file = 'AGENTS.md',
-      provider = 'copilot',
+      provider = 'deepseek',
       providers = {
         deepseek = {
           __inherited_from = 'openai',
           api_key_name = 'DEEPSEEK_API_KEY',
           endpoint = 'https://api.deepseek.com',
           model = 'deepseek-coder',
-        },
-        copilot = {
-          model = 'gpt-5.2-codex',
-          endpoint = 'https://api.githubcopilot.com',
-          allow_insecure = false,
-          timeout = 10 * 60 * 1000,
         },
       },
     },
