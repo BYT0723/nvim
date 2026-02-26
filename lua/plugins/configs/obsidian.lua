@@ -42,4 +42,5 @@ return {
     enabled = true,
   },
   legacy_commands = false,
+  ui = { enable = false },
 }
