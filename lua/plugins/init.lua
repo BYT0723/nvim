@@ -261,12 +261,7 @@ require('lazy').setup({
       },
       file_types = { 'markdown', 'Avante' },
       sign = { enabled = false },
-      code = {
-        position = 'right',
-        width = 'block',
-        min_width = 50,
-        right_pad = 10,
-      },
+      code = { language_border = ' ', language_left = '█', language_right = '█' },
     },
   },
   -- orgmode
