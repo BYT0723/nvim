@@ -1,13 +1,16 @@
--- stylua: ignore
 local filetypes = {
-  {'.aliases', function() vim.bo.filetype = 'sh' end, { 'BufRead', 'BufNewFile' },},
+  sh = { '.aliases', '.secret' },
 }
 
-for _, item in ipairs(filetypes) do
-  vim.api.nvim_create_autocmd(item[3], {
-    pattern = item[1],
-    callback = item[2],
-  })
+for key, value in pairs(filetypes) do
+  for _, pattern in ipairs(value) do
+    vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+      pattern = pattern,
+      callback = function()
+        vim.bo.filetype = key
+      end,
+    })
+  end
 end
 
 -- The global indentation is 4 spaces, but some languages are more suitable for 2 spaces indentation
