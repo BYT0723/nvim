@@ -5,7 +5,7 @@ local util = require('base.util')
 local VimCommands = {
   ['vim'] = 'source %',
   ['lua'] = 'luafile %',
-  ['dot'] = '!vimdot %',
+  ['dot'] = '!vimdot % &',
   ['markdown'] = 'MarkdownPreviewToggle',
 }
 
