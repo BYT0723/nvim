@@ -8,4 +8,4 @@ require('base.keymaps')
 require('base.autocmd')
 
 -- diagnostic
-require('base.diagnostic')
+require('base.diagnostic').init()

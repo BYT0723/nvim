@@ -3,6 +3,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 local util = require('base.util')
+local diagnostic_jump = require('base.diagnostic').jump
 
 -- stylua: ignore
 local baseKeymaps = {
@@ -30,10 +31,10 @@ local baseKeymaps = {
   { '<C-w>h',       '<cmd>wincmd h<CR>',                                                                   desc = 'Move to left window',     mode = "t" },
   { '<C-w>l',       '<cmd>wincmd l<CR>',                                                                   desc = 'Move to right window',    mode = "t" },
   -- diagnostic
-  {'dk', function() vim.diagnostic.jump({ count = -1, float = true }) end, 																					 desc = 'Prev Diagnostic',},
-  {'dj', function() vim.diagnostic.jump({ count = 1, float = true }) end, 																					 desc = 'Next Diagnostic',},
-  {'dK', function() vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.ERROR }) end, desc = 'Prev Diagnostic [ERROR]',},
-  {'dJ', function() vim.diagnostic.jump({ count = 1, float = true, severity = vim.diagnostic.severity.ERROR }) end,  desc = 'Next Diagnostic [ERROR]',},
+  {'dk', function() diagnostic_jump(-1) end, desc = 'Prev Diagnostic',                        },
+  {'dj', function() diagnostic_jump(1) end, desc = 'Next Diagnostic',                        },
+  {'dK', function() diagnostic_jump(-1, vim.diagnostic.severity.ERROR) end, desc = 'Prev Diagnostic [ERROR]', },
+  {'dJ', function() diagnostic_jump(1,vim.diagnostic.severity.ERROR) end, desc = 'Next Diagnostic [ERROR]', },
 	-- utils
 	{ '<leader>ypr', function() vim.fn.setreg("+", vim.fn.expand("%:.")) vim.notify("Copied Relative Path") end, desc = "Copy Path (relative) to clipboard" },
 	{ '<leader>ypa', function() vim.fn.setreg("+", vim.api.nvim_buf_get_name(0)) vim.notify("Copied Absolute Path") end, desc = "Copy Path(absolute) to clipboard" },
