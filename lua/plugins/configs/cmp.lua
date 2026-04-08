@@ -47,7 +47,7 @@ return {
     menu = {
       draw = {
         -- align_to = 'cursor', -- label(default) / cursor / none
-        columns = { { 'kind_icon' }, { 'label', 'label_description', gap = 1 }, { 'source_name' } },
+        columns = { { 'kind_icon' }, { 'label' }, { 'label_description' }, { 'source_name' } },
         components = {
           source_name = {
             text = function(entry)
