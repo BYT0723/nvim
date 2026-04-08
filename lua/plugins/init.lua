@@ -19,12 +19,12 @@ require('lazy').setup({
   { 'nvim-lua/plenary.nvim' },
   -- gui
   { 'MunifTanjim/nui.nvim' },
-  -- 文件图标
-  { 'nvim-tree/nvim-web-devicons' },
-  -- notify
-  { 'rcarriga/nvim-notify', opts = {} },
+  -- LSP Menu Icons
+  { 'onsails/lspkind.nvim' },
   -- A series of mini.nvim plugins
   require('plugins.configs.mini'),
+  -- notify
+  { 'rcarriga/nvim-notify', opts = {} },
 
   -- UI美化
   {
