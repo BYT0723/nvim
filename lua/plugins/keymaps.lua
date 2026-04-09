@@ -184,7 +184,7 @@ M.Snacks = {
   { "<leader>sa", function() Snacks.picker.autocmds() end,              desc = "Autocmds" },
   { "<leader>sb", function() Snacks.picker.lines() end,                 desc = "Buffer Lines" },
   -- { "<leader>sc", function() Snacks.picker.command_history() end,       desc = "Command History" },
-  { "<leader>sC", function() Snacks.picker.commands() end,              desc = "Commands" },
+  { "<leader>sc", function() Snacks.picker.commands() end,              desc = "Commands" },
   { "<leader>sd", function() Snacks.picker.diagnostics() end,           desc = "Diagnostics" },
   { "<leader>sD", function() Snacks.picker.diagnostics({severity={min=vim.diagnostic.severity.ERROR}}) end,           desc = "Diagnostics (ERROR)" },
   { "<leader>sh", function() Snacks.picker.help() end,                  desc = "Help Pages" },

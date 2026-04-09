@@ -12,6 +12,7 @@ return {
   },
   {
     'nvim-mini/mini.pick',
+    enabled = false,
     version = false,
     opts = {
       mappings = {
