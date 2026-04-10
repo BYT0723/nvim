@@ -1,13 +1,25 @@
--- stylua: ignore
 local source_alias = {
-  LSP      = 'LSP',
-  Buffer   = 'BUF',
-  Cmdline  = 'CMD',
-  Emoji    = 'EMJ',
-  PATH     = 'PATH',
+  LSP = 'LSP',
+  Buffer = 'BUF',
+  Cmdline = 'CMD',
+  Emoji = 'EMJ',
+  PATH = 'PATH',
   Snippets = 'SNIP',
-  LuaSnip  = 'SNIP',
+  LuaSnip = 'SNIP',
 }
+
+local get_mini_icon = function(ctx)
+  local is_unknown_type = vim.tbl_contains({
+    'link',
+    'socket',
+    'fifo',
+    'char',
+    'block',
+    'unknown',
+  }, ctx.item.data.type)
+
+  return require('mini.icons').get(is_unknown_type and 'os' or ctx.item.data.type, is_unknown_type and '' or ctx.label)
+end
 
 return {
   cmdline = {
@@ -49,25 +61,18 @@ return {
         -- align_to = 'cursor', -- label(default) / cursor / none
         columns = { { 'kind_icon' }, { 'label' }, { 'label_description' }, { 'source_name' } },
         components = {
-          source_name = {
-            text = function(entry)
-              local short = source_alias[entry.source_name] or entry.source_name
-              return '[' .. short .. ']'
-            end,
-          },
+          -- source_name = {
+          --   text = function(entry)
+          --     local short = source_alias[entry.source_name] or entry.source_name
+          --     return '[' .. short .. ']'
+          --   end,
+          -- },
           kind_icon = {
             text = function(ctx)
               if ctx.source_name ~= 'Path' then
                 return (require('lspkind').symbol_map[ctx.kind] or '') .. ctx.icon_gap
               end
-
-              local is_unknown_type =
-                vim.tbl_contains({ 'link', 'socket', 'fifo', 'char', 'block', 'unknown' }, ctx.item.data.type)
-              local mini_icon, _ = require('mini.icons').get(
-                is_unknown_type and 'os' or ctx.item.data.type,
-                is_unknown_type and '' or ctx.label
-              )
-
+              local mini_icon, _ = get_mini_icon(ctx)
               return (mini_icon or ctx.kind_icon) .. ctx.icon_gap
             end,
 
@@ -75,22 +80,20 @@ return {
               if ctx.source_name ~= 'Path' then
                 return ctx.kind_hl
               end
-
-              local is_unknown_type =
-                vim.tbl_contains({ 'link', 'socket', 'fifo', 'char', 'block', 'unknown' }, ctx.item.data.type)
-              local mini_icon, mini_hl = require('mini.icons').get(
-                is_unknown_type and 'os' or ctx.item.data.type,
-                is_unknown_type and '' or ctx.label
-              )
+              local mini_icon, mini_hl = get_mini_icon(ctx)
               return mini_icon ~= nil and mini_hl or ctx.kind_hl
             end,
           },
         },
       },
+      border = 'none',
     },
     documentation = {
       auto_show = true,
       auto_show_delay_ms = 100,
+      window = {
+        border = 'none',
+      },
     },
   },
   sources = {
@@ -139,6 +142,7 @@ return {
     },
     window = {
       show_documentation = false,
+      border = 'none',
     },
   },
 }
