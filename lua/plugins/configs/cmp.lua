@@ -1,13 +1,3 @@
-local source_alias = {
-  LSP = 'LSP',
-  Buffer = 'BUF',
-  Cmdline = 'CMD',
-  Emoji = 'EMJ',
-  PATH = 'PATH',
-  Snippets = 'SNIP',
-  LuaSnip = 'SNIP',
-}
-
 local get_mini_icon = function(ctx)
   local is_unknown_type = vim.tbl_contains({
     'link',
@@ -61,12 +51,6 @@ return {
         -- align_to = 'cursor', -- label(default) / cursor / none
         columns = { { 'kind_icon' }, { 'label' }, { 'label_description' }, { 'source_name' } },
         components = {
-          -- source_name = {
-          --   text = function(entry)
-          --     local short = source_alias[entry.source_name] or entry.source_name
-          --     return '[' .. short .. ']'
-          --   end,
-          -- },
           kind_icon = {
             text = function(ctx)
               if ctx.source_name ~= 'Path' then
@@ -97,10 +81,19 @@ return {
     },
   },
   sources = {
-    default = { 'neorg', 'lazydev', 'avante', 'emoji', 'lsp', 'snippets', 'buffer', 'path' },
+    default = {
+      'neorg',
+      'lazydev',
+      'avante',
+      'nerdfont',
+      'lsp',
+      'snippets',
+      'buffer',
+      'path',
+    },
     providers = {
       neorg = {
-        name = 'neorg',
+        name = 'Norg',
         module = 'blink.compat.source',
       },
       lazydev = {
@@ -113,23 +106,14 @@ return {
         name = 'Avante',
         opts = {},
       },
-      emoji = {
-        module = 'blink-emoji',
-        name = 'Emoji',
+      nerdfont = {
+        module = 'blink-nerdfont',
+        name = 'NerdFonts',
         score_offset = 15, -- Tune by preference
         opts = {
-          insert = true, -- Insert emoji (default) or complete its name
-          ---@type string|table|fun():table
-          trigger = function()
-            return { ':' }
-          end,
+          insert = true, -- Insert nerdfont icon (default) or complete its name
+          trigger = ':-', -- Customize the trigger. Defaults to ":"
         },
-        should_show_items = function()
-          return vim.tbl_contains({
-            'gitcommit',
-            'markdown',
-          }, vim.o.filetype)
-        end,
       },
     },
   },

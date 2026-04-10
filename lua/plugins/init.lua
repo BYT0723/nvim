@@ -348,7 +348,7 @@ require('lazy').setup({
       'rafamadriz/friendly-snippets',
       { 'saghen/blink.compat', version = '2.*', lazy = true, opts = {} },
       { 'Kaiser-Yang/blink-cmp-avante' },
-      { 'moyiz/blink-emoji.nvim' },
+      { 'MahanRahmati/blink-nerdfont.nvim' },
     },
     version = '*',
     opts = require('plugins.configs.cmp'),

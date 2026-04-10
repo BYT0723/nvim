@@ -29,6 +29,11 @@ local on_attach = function(client, bufnr)
 end
 
 local settings = {
+  Lua = {
+    runtime = { version = 'LuaJIT' },
+    diagnostics = { globals = { 'vim' } },
+    workspace = { library = vim.api.nvim_get_runtime_file('', true) },
+  },
   gopls = {
     usePlaceholders = true,
     codelenses = { test = true },
