@@ -1,3 +1,16 @@
+-- stylua: ignore
+local source_alias = {
+  LSP       = 'LSP',
+  Buffer    = 'BUF',
+  Cmdline   = 'CMD',
+  PATH      = 'PATH',
+  Snippets  = 'SNIP',
+	Norg      = 'NORG',
+	LazyDev   = 'DEV',
+	NerdFonts = "FONT",
+  LuaSnip   = 'SNIP',
+}
+
 local get_mini_icon = function(ctx)
   local is_unknown_type = vim.tbl_contains({
     'link',
@@ -49,7 +62,11 @@ return {
     menu = {
       draw = {
         -- align_to = 'cursor', -- label(default) / cursor / none
-        columns = { { 'kind_icon' }, { 'label' }, { 'label_description' }, { 'source_name' } },
+        columns = {
+          { 'kind_icon' },
+          { 'label', 'label_description', gap = 1 },
+          { 'kind', 'source_name', gap = 1 },
+        },
         components = {
           kind_icon = {
             text = function(ctx)
@@ -68,8 +85,23 @@ return {
               return mini_icon ~= nil and mini_hl or ctx.kind_hl
             end,
           },
+          kind = {
+            width = { fill = true },
+            text = function(ctx)
+              return string.lower(ctx.kind or '')
+            end,
+            highlight = function(ctx)
+              return 'Comment'
+            end,
+          },
+          source_name = {
+            text = function(entry)
+              return '[' .. (source_alias[entry.source_name] or entry.source_name) .. ']'
+            end,
+          },
         },
       },
+      min_width = 30,
       border = 'none',
     },
     documentation = {
