@@ -1,14 +1,14 @@
 -- stylua: ignore
 local source_alias = {
-  LSP       = 'LSP',
-  Buffer    = 'BUF',
-  Cmdline   = 'CMD',
-  PATH      = 'PATH',
-  Snippets  = 'SNIP',
+	LSP       = 'LSP',
+	Buffer    = 'BUF',
+	Cmdline   = 'CMD',
+	PATH      = 'PATH',
+	Snippets  = 'SNIP',
 	Norg      = 'NORG',
 	LazyDev   = 'DEV',
 	NerdFonts = "FONT",
-  LuaSnip   = 'SNIP',
+	LuaSnip   = 'SNIP',
 }
 
 local get_mini_icon = function(ctx)

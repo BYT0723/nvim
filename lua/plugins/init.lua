@@ -166,6 +166,7 @@ require('lazy').setup({
     ft = 'http',
     keys = keymaps.Kulala,
     opts = {
+      additional_curl_options = { '--insecure', '-A', 'Mozilla/5.0' },
       lsp = {
         formatter = {
           sort = {
