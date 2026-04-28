@@ -74,12 +74,17 @@ function M.format()
     return
   end
 
-  vim.lsp.buf.format(vim.tbl_deep_extend('force', {
-    bufnr = buf,
-    filter = function(client)
-      return vim.tbl_contains(client_ids, client.id)
-    end,
-  }, {}))
+  pcall(
+    vim.lsp.buf.format,
+    vim.tbl_deep_extend('force', {
+      bufnr = buf,
+      async = false,
+      timeout_ms = 2000,
+      filter = function(client)
+        return vim.tbl_contains(client_ids, client.id)
+      end,
+    }, {})
+  )
 end
 
 -- Gets all lsp clients that support formatting.
