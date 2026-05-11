@@ -23,6 +23,18 @@ require('lazy').setup({
   { 'onsails/lspkind.nvim' },
   -- A series of mini.nvim plugins
   require('plugins.configs.mini'),
+  -- file manager
+  {
+    'stevearc/oil.nvim',
+    ---@module 'oil'
+    ---@type oil.SetupOpts
+    opts = {},
+    -- Optional dependencies
+    dependencies = { { 'nvim-mini/mini.icons', opts = {} } },
+    -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
+    -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
+    lazy = false,
+  },
   -- notify
   { 'rcarriga/nvim-notify', opts = {} },
 
@@ -232,6 +244,7 @@ require('lazy').setup({
   -- neorg
   {
     'nvim-neorg/neorg',
+    enabled = false,
     lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
     version = '*', -- Pin Neorg to the latest stable release
     opts = require('plugins.configs.neorg'),
