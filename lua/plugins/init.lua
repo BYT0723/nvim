@@ -471,6 +471,11 @@ require('lazy').setup({
       local ts = require('nvim-treesitter')
       local ts_cfg = require('plugins.configs.treesitter')
 
+      -- incremental selection
+      -- NOTE: visual-mode use an / in
+      -- eg: van => an => an 增量选择
+      -- mini.ai会覆盖an/in的键位绑定
+
       -- install treesitter
       pcall(ts.install, ts_cfg.ensure_installed)
 
