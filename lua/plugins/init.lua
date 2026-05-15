@@ -127,49 +127,16 @@ require('lazy').setup({
   {
     'pwntester/octo.nvim',
     cmd = 'Octo',
+    init = function()
+      vim.treesitter.language.register('markdown', 'octo')
+    end,
     opts = {
       -- or "fzf-lua" or "snacks" or "default"
-      picker = 'telescope',
+      picker = 'snacks',
       -- bare Octo command opens picker of commands
       enable_builtin = true,
-      users = 'assignable',
     },
-    keys = {
-      {
-        '<leader>oi',
-        '<CMD>Octo issue list<CR>',
-        desc = 'List GitHub Issues',
-      },
-      {
-        '<leader>op',
-        '<CMD>Octo pr list<CR>',
-        desc = 'List GitHub PullRequests',
-      },
-      {
-        '<leader>od',
-        '<CMD>Octo discussion list<CR>',
-        desc = 'List GitHub Discussions',
-      },
-      {
-        '<leader>on',
-        '<CMD>Octo notification list<CR>',
-        desc = 'List GitHub Notifications',
-      },
-      {
-        '<leader>os',
-        function()
-          require('octo.utils').create_base_search_command({ include_current_repo = true })
-        end,
-        desc = 'Search GitHub',
-      },
-    },
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope.nvim',
-      -- OR "ibhagwan/fzf-lua",
-      -- OR "folke/snacks.nvim",
-      'nvim-tree/nvim-web-devicons',
-    },
+    keys = keymaps.Octo,
   },
 
   -- HTTP REST-Client Interface
@@ -363,6 +330,7 @@ require('lazy').setup({
       { 'saghen/blink.compat', version = '2.*', lazy = true, opts = {} },
       { 'Kaiser-Yang/blink-cmp-avante' },
       { 'MahanRahmati/blink-nerdfont.nvim' },
+      { 'Kaiser-Yang/blink-cmp-git' },
     },
     version = '*',
     opts = require('plugins.configs.cmp'),

@@ -9,6 +9,7 @@ local source_alias = {
 	LazyDev   = 'DEV',
 	NerdFonts = "FONT",
 	LuaSnip   = 'SNIP',
+	Git       = 'GIT',
 }
 
 local get_mini_icon = function(ctx)
@@ -68,23 +69,6 @@ return {
           { 'kind', 'source_name', gap = 1 },
         },
         components = {
-          kind_icon = {
-            text = function(ctx)
-              if ctx.source_name ~= 'Path' then
-                return (require('lspkind').symbol_map[ctx.kind] or '') .. ctx.icon_gap
-              end
-              local mini_icon, _ = get_mini_icon(ctx)
-              return (mini_icon or ctx.kind_icon) .. ctx.icon_gap
-            end,
-
-            highlight = function(ctx)
-              if ctx.source_name ~= 'Path' then
-                return ctx.kind_hl
-              end
-              local mini_icon, mini_hl = get_mini_icon(ctx)
-              return mini_icon ~= nil and mini_hl or ctx.kind_hl
-            end,
-          },
           kind = {
             width = { fill = true },
             text = function(ctx)
@@ -114,6 +98,7 @@ return {
   },
   sources = {
     default = {
+      'git',
       'neorg',
       'lazydev',
       'avante',
@@ -146,6 +131,11 @@ return {
           insert = true, -- Insert nerdfont icon (default) or complete its name
           trigger = ':-', -- Customize the trigger. Defaults to ":"
         },
+      },
+      git = {
+        module = 'blink-cmp-git',
+        name = 'Git',
+        opts = {},
       },
     },
   },
