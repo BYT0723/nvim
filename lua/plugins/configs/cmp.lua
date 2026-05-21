@@ -135,6 +135,9 @@ return {
       git = {
         module = 'blink-cmp-git',
         name = 'Git',
+        enabled = function()
+          return vim.bo.filetype == 'gitcommit' or vim.bo.filetype == 'octo'
+        end,
         opts = {},
       },
     },
