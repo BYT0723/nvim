@@ -17,27 +17,23 @@ end
 -- Flexible setting of 2 space indentation according to different languages
 vim.api.nvim_create_autocmd('FileType', {
   pattern = {
-    'c',
-    'cpp',
     'css',
-    'dart',
-    'dockerfile',
     'html',
     'gohtmltmpl',
     'javascript',
     'json',
     'less',
     'lua',
-    'make',
-    'markdown',
-    'ruby',
     'scss',
-    'toml',
     'typescript',
     'vue',
     'yaml',
   },
-  command = 'setlocal shiftwidth=2 tabstop=2',
+  callback = function()
+    vim.bo.shiftwidth = 2
+    vim.bo.tabstop = 2
+    vim.bo.expandtab = true
+  end,
 })
 
 -- 当文件过大时，关闭语法高亮
