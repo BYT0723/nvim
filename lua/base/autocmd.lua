@@ -17,6 +17,8 @@ end
 -- Flexible setting of 2 space indentation according to different languages
 vim.api.nvim_create_autocmd('FileType', {
   pattern = {
+    'c',
+    'cpp',
     'css',
     'html',
     'gohtmltmpl',
