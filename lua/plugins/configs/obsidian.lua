@@ -30,10 +30,6 @@ return {
       end,
     },
   },
-  completion = {
-    nvim_cmp = false,
-    blink = true,
-  },
   picker = {
     name = 'snacks.picker',
   },
