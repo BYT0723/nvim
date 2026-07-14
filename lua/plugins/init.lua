@@ -43,7 +43,20 @@ require('lazy').setup({
     'folke/noice.nvim',
     lazy = false,
     keys = keymaps.Noice,
-    opts = require('plugins.configs.noice'),
+    opts = {
+      lsp = {
+        signature = { enabled = false },
+        documentation = { opts = { border = 'none' } },
+      },
+      views = {
+        cmdline_popup = {
+          position = { row = '30%', col = '50%' },
+        },
+        mini = {
+          position = { row = -1, col = '100%' },
+        },
+      },
+    },
   },
 
   {
@@ -410,7 +423,7 @@ require('lazy').setup({
   -- lint / formatter / actioner manager
   {
     'nvimtools/none-ls.nvim',
-    event = 'VeryLazy',
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { { 'ThePrimeagen/refactoring.nvim', opts = {} } },
     config = function(_, _)
       require('null-ls').setup(require('plugins.configs.null-ls'))
@@ -560,7 +573,7 @@ require('lazy').setup({
     hererocks = true, -- recommended if you do not have global installation of Lua 5.1.
   },
   ui = {
-    border = 'double',
+    border = 'none',
     backdrop = 100,
   },
   dev = {

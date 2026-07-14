@@ -150,7 +150,7 @@ return {
       show_on_insert = true,
     },
     window = {
-      show_documentation = false,
+      show_documentation = true,
       border = 'none',
     },
   },

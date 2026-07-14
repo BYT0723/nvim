@@ -10,8 +10,6 @@ return {
     sidebars = 'dark', -- style for sidebars, see below
     floats = not vim.g.neovide and 'transparent' or 'dark', -- style for floating windows
   },
-  sidebars = { 'qf' },
-  on_colors = function(colors) end,
   on_highlights = function(hl, c)
     hl.BqfPreviewFloat = {
       bg = c.bg_dark,
@@ -44,6 +42,38 @@ return {
     hl.BlinkCmpSignatureHelp = {
       bg = c.bg_dark,
       fg = c.fg_dark,
+    }
+    hl.NoicePopup = {
+      bg = c.bg_dark,
+      fg = c.fg_dark,
+    }
+    hl.LazyNormal = {
+      bg = c.bg_dark,
+      fg = c.fg_dark,
+    }
+    hl.MasonNormal = {
+      bg = c.bg_dark,
+      fg = c.fg_dark,
+    }
+    hl.SnacksPickerInput = {
+      bg = c.bg_dark,
+      fg = c.fg_dark,
+    }
+    hl.SnacksPickerList = {
+      bg = c.bg_dark,
+      fg = c.fg_dark,
+    }
+    hl.SnacksPicker = {
+      bg = c.bg_dark,
+      fg = c.fg_dark,
+    }
+    hl.SnacksPickerBorder = {
+      bg = c.bg_dark,
+      fg = c.bg_dark,
+    }
+    hl.SnacksPickerInputBorder = {
+      bg = c.bg_dark,
+      fg = c.bg_dark,
     }
     if vim.opt.background:get() == 'dark' then
       hl.LspInlayHint = {
