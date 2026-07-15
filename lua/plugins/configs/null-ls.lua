@@ -8,12 +8,12 @@ return {
     --
     null_ls.builtins.diagnostics.golangci_lint,
     -- 如下两个linter强制性较高，比较严格，不建议接手旧项目使用，或者新项目一开始就使用该linter
-    null_ls.builtins.diagnostics.pylint,
     null_ls.builtins.diagnostics.actionlint,
     null_ls.builtins.diagnostics.checkmake,
     null_ls.builtins.diagnostics.hadolint,
     null_ls.builtins.diagnostics.protolint,
     null_ls.builtins.diagnostics.sqruff,
+    require('none-ls.diagnostics.ruff'),
     -- format
     null_ls.builtins.formatting.stylua,
     null_ls.builtins.formatting.shfmt,
@@ -23,6 +23,8 @@ return {
     null_ls.builtins.formatting.prettier,
     null_ls.builtins.formatting.buf,
     null_ls.builtins.formatting.sqruff,
+    require('none-ls.formatting.ruff_format'),
+    require('none-ls.formatting.taplo'),
 
     -- action
     null_ls.builtins.code_actions.gomodifytags,

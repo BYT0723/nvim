@@ -424,7 +424,10 @@ require('lazy').setup({
   {
     'nvimtools/none-ls.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
-    dependencies = { { 'ThePrimeagen/refactoring.nvim', opts = {} } },
+    dependencies = {
+      'nvimtools/none-ls-extras.nvim',
+      { 'ThePrimeagen/refactoring.nvim', opts = {} },
+    },
     config = function(_, _)
       require('null-ls').setup(require('plugins.configs.null-ls'))
       require('plugins.configs.formatter').setup()
