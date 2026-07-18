@@ -67,11 +67,31 @@ return {
       bg = c.bg_dark,
       fg = c.fg_dark,
     }
+    hl.NoiceCmdlinePopup = {
+      bg = c.bg_dark,
+      fg = c.fg_dark,
+    }
     hl.SnacksPickerBorder = {
       bg = c.bg_dark,
       fg = c.bg_dark,
     }
     hl.SnacksPickerInputBorder = {
+      bg = c.bg_dark,
+      fg = c.bg_dark,
+    }
+    hl.NoiceCmdlinePopupBorder = {
+      bg = c.bg_dark,
+      fg = c.bg_dark,
+    }
+    hl.NoiceCmdlinePopupBorderLua = {
+      bg = c.bg_dark,
+      fg = c.bg_dark,
+    }
+    hl.NoiceCmdlinePopupBorderInput = {
+      bg = c.bg_dark,
+      fg = c.bg_dark,
+    }
+    hl.NoiceCmdlinePopupBorderSearch = {
       bg = c.bg_dark,
       fg = c.bg_dark,
     }
