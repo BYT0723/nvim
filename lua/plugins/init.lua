@@ -24,17 +24,7 @@ require('lazy').setup({
   -- A series of mini.nvim plugins
   require('plugins.configs.mini'),
   -- file manager
-  {
-    'stevearc/oil.nvim',
-    ---@module 'oil'
-    ---@type oil.SetupOpts
-    opts = {},
-    -- Optional dependencies
-    dependencies = { { 'nvim-mini/mini.icons', opts = {} } },
-    -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
-    -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
-    lazy = false,
-  },
+  { 'stevearc/oil.nvim', opts = {}, lazy = false },
   -- notify
   { 'rcarriga/nvim-notify', opts = {} },
 
@@ -386,25 +376,6 @@ require('lazy').setup({
           vim.api.nvim_get_option_value('filetype', { buf = bufnr })
         )
       end,
-    },
-  },
-  -- AI Chat
-  {
-    'yetone/avante.nvim',
-    version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
-    build = 'make',
-    event = 'VeryLazy',
-    opts = {
-      instructions_file = 'AGENTS.md',
-      provider = 'deepseek',
-      providers = {
-        deepseek = {
-          __inherited_from = 'openai',
-          api_key_name = 'DEEPSEEK_API_KEY',
-          endpoint = 'https://api.deepseek.com',
-          model = 'deepseek-coder',
-        },
-      },
     },
   },
   -- lsp
