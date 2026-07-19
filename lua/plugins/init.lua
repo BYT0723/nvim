@@ -108,7 +108,7 @@ require('lazy').setup({
   },
   -- translator
   {
-    'potamides/pantran.nvim',
+    'BYT0723/pantran.nvim',
     keys = keymaps.PanTran,
     opts = {
       default_engine = 'google',

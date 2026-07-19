@@ -54,6 +54,8 @@ return {
 
       'NoicePopup',
       'NoiceCmdlinePopup',
+
+      'PantranNormal',
     }
 
     -- 需要统一边框的
@@ -75,6 +77,8 @@ return {
       'NoiceCmdlinePopupBorderLua',
       'NoiceCmdlinePopupBorderInput',
       'NoiceCmdlinePopupBorderSearch',
+
+      'PantranBorder',
     }
 
     for _, group in ipairs(bg_groups) do
