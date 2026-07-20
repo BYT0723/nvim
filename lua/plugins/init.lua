@@ -36,7 +36,6 @@ require('lazy').setup({
     opts = {
       lsp = {
         signature = { enabled = false },
-        documentation = { opts = { border = 'none' } },
       },
       views = {
         cmdline_popup = {

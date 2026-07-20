@@ -9,19 +9,14 @@ local diagnostic_jump = require('base.diagnostic').jump
 local baseKeymaps = {
   { '<C-s>',        '<cmd>w!<CR>',                                                                         desc = 'save file' },
   { '<C-q>',        '<cmd>q!<CR>',                                                                         desc = 'exit window' },
-  -- layout
-  { '<C-k>',        '<cmd>resize -5<CR>',                                                                  desc = 'Reduce window width',     mode = 'n' },
-  { '<C-j>',        '<cmd>resize +5<CR>',                                                                  desc = 'Increase window width',   mode = 'n' },
-  { '<C-h>',        '<cmd>vertical resize -5<CR>',                                                         desc = 'Reduce form height',      mode = 'n'},
-  { '<C-l>',        '<cmd>vertical resize +5<CR>',                                                         desc = 'Increase window height',  mode = 'n' },
   -- tab
   { '<C-t>k',       '<cmd>tabp<CR>',                                                                       desc = 'previous tab' },
   { '<C-t>j',       '<cmd>tabn<CR>',                                                                       desc = 'next tab' },
   { '<C-t>q',       '<cmd>tabclose<CR>',                                                                   desc = 'close tab' },
   -- buffer
-  { 'bk',           '<cmd>bp<CR>',                                                                         desc = 'previous buffer',         mode = 'n' },
-  { 'bj',           '<cmd>bn<CR>',                                                                         desc = 'next buffer',             mode = 'n' },
-  { 'bq',           '<cmd>bdelete!<CR>',                                                                   desc = 'delete buffer',           mode = 'n' },
+  { '<leader>bk',   '<cmd>bp<CR>',                                                                         desc = 'previous buffer',         mode = 'n' },
+  { '<leader>bj',   '<cmd>bn<CR>',                                                                         desc = 'next buffer',             mode = 'n' },
+  { '<leader>bq',   '<cmd>bdelete!<CR>',                                                                   desc = 'delete buffer',           mode = 'n' },
   -- launcher - terminal
   { '<leader>rf', function() require('base.launcher').runFile() end,                           						 desc = 'Run File',                mode = 'n' },
   -- terminal

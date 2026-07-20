@@ -18,7 +18,14 @@ local M = {}
 
 function M.init()
   vim.diagnostic.config({
-    virtual_text = true,
+    virtual_text = {
+      prefix = function(diagnostic, i, total)
+        if i ~= total then
+          return ''
+        end
+        return signs.text[diagnostic.severity] .. (total > 1 and total or '')
+      end,
+    },
     signs = {
       text = signs.text,
     },
@@ -35,12 +42,6 @@ function M.jump(count, severity)
     count = count,
     severity = severity,
     on_jump = function(diagnostic, bufnr)
-      -- vim.lsp.util.open_floating_preview({ diagnostic.message }, 'plaintext', {
-      --   title = '  Diagnostic ',
-      --   relative = 'cursor',
-      --   border = 'rounded',
-      --   focus = false,
-      -- })
       vim.diagnostic.open_float({
         border = 'rounded',
         title = '  Diagnostic ',
@@ -49,7 +50,7 @@ function M.jump(count, severity)
           return string.format(' %s ', signs.text[diagnostic.severity]), signs.hl[diagnostic.severity]
         end,
         suffix = function(diagnostic, i, total)
-          return string.format(' [%d/%d] - %s ', i, total, diagnostic.source), 'DiagnosticHint'
+          return string.format(' [%s]', diagnostic.source), 'Comment'
         end,
         bufnr = bufnr,
         scope = 'cursor',
