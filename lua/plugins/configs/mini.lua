@@ -137,7 +137,7 @@ return {
     opts = {
       labels = 'asdfghjklqwertyuiopzxcvbnm',
       mappings = {
-        start_jumping = 'gj',
+        start_jumping = 'gf',
       },
     },
   },
