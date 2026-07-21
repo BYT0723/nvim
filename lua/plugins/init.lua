@@ -485,7 +485,14 @@ require('lazy').setup({
   { 'h-hg/fcitx.nvim', event = 'VeryLazy' },
 
   -- Correct bad habits
-  { 'm4xshen/hardtime.nvim', lazy = false, opts = {} },
+  {
+    'm4xshen/hardtime.nvim',
+    lazy = false,
+    opts = {
+      max_count = 10,
+      restriction_mode = 'hint',
+    },
+  },
   -- interview
   {
     'kawre/leetcode.nvim',
