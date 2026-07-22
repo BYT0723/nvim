@@ -221,7 +221,7 @@ require('lazy').setup({
   -- markdown render in editor
   {
     'MeanderingProgrammer/render-markdown.nvim',
-    ft = { 'markdown', 'Avante' },
+    ft = { 'markdown' },
     -- stylua: ignore
     init = function()
       vim.api.nvim_set_hl(0, 'RenderMarkdownCheckboxProgress',      { bold = true, fg = '#00AFFF' })
@@ -242,7 +242,7 @@ require('lazy').setup({
 					cancelled  = { raw = '[-]', rendered = '', highlight = 'RenderMarkdownCheckboxCancelled', scope_highlight = 'RenderMarkdownCheckboxCancelledText' },
         },
       },
-      file_types = { 'markdown', 'Avante' },
+      file_types = { 'markdown' },
       sign = { enabled = false },
       code = { language_border = ' ', language_left = '█', language_right = '█' },
     },
@@ -330,8 +330,6 @@ require('lazy').setup({
     dependencies = {
       'rafamadriz/friendly-snippets',
       { 'saghen/blink.compat', version = '2.*', lazy = true, opts = {} },
-      { 'Kaiser-Yang/blink-cmp-avante' },
-      { 'MahanRahmati/blink-nerdfont.nvim' },
       { 'Kaiser-Yang/blink-cmp-git' },
     },
     version = '*',

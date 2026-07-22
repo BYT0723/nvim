@@ -7,23 +7,9 @@ local source_alias = {
 	Snippets  = 'SNIP',
 	Norg      = 'NORG',
 	LazyDev   = 'DEV',
-	NerdFonts = "FONT",
 	LuaSnip   = 'SNIP',
 	Git       = 'GIT',
 }
-
-local get_mini_icon = function(ctx)
-  local is_unknown_type = vim.tbl_contains({
-    'link',
-    'socket',
-    'fifo',
-    'char',
-    'block',
-    'unknown',
-  }, ctx.item.data.type)
-
-  return require('mini.icons').get(is_unknown_type and 'os' or ctx.item.data.type, is_unknown_type and '' or ctx.label)
-end
 
 return {
   cmdline = {
@@ -101,8 +87,6 @@ return {
       'git',
       'neorg',
       'lazydev',
-      'avante',
-      'nerdfont',
       'lsp',
       'snippets',
       'buffer',
@@ -117,20 +101,6 @@ return {
         name = 'LazyDev',
         module = 'lazydev.integrations.blink',
         score_offset = 100,
-      },
-      avante = {
-        module = 'blink-cmp-avante',
-        name = 'Avante',
-        opts = {},
-      },
-      nerdfont = {
-        module = 'blink-nerdfont',
-        name = 'NerdFonts',
-        score_offset = 15, -- Tune by preference
-        opts = {
-          insert = true, -- Insert nerdfont icon (default) or complete its name
-          trigger = ':-', -- Customize the trigger. Defaults to ":"
-        },
       },
       git = {
         module = 'blink-cmp-git',

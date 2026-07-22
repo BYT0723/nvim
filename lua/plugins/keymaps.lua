@@ -149,7 +149,7 @@ M.Snacks = {
   { "<leader>ff", function() Snacks.picker.files({hidden=true,ignored=true}) end, desc = "Find Files" },
   { "<leader>f/", function() Snacks.picker.grep() end,                  					desc = 'Grep',           },
   { "<leader>f:", function() Snacks.picker.command_history() end,       					desc = "Command History" },
-  { "<leader>bb", function() Snacks.picker.buffers() end,               					desc = "Buffers" },
+  { "bs",         function() Snacks.picker.buffers() end,               					desc = "Buffers" },
   {
 		"<leader>fp",
 		function()
@@ -207,7 +207,7 @@ M.Snacks = {
   { "<leader>sR", function() Snacks.picker.resume() end,                desc = "Resume" },
   { "<leader>su", function() Snacks.picker.undo() end,                  desc = "Undo History" },
   { "<leader>sC", function() Snacks.picker.colorschemes() end,          desc = "Colorschemes" },
-  { "<leader>bq", function() Snacks.bufdelete.delete() end,             desc = "Delete Buffer" },
+  { "bq",         function() Snacks.bufdelete.delete() end,             desc = "Delete Buffer" },
   { "<leader>z",  function() Snacks.zen.zoom() end,                     desc = "Toggle Zoom" },
   { "<leader>Z",  function() Snacks.zen() end,                          desc = "Toggle Zen Mode" },
   { "<leader>nc", function() Snacks.notifier.hide() end,                desc = "Dismiss All Notifications" },

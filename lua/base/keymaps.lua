@@ -14,9 +14,9 @@ local baseKeymaps = {
   { '<C-t>j',       '<cmd>tabn<CR>',                                                                       desc = 'next tab' },
   { '<C-t>q',       '<cmd>tabclose<CR>',                                                                   desc = 'close tab' },
   -- buffer
-  { '<leader>bk',   '<cmd>bp<CR>',                                                                         desc = 'previous buffer',         mode = 'n' },
-  { '<leader>bj',   '<cmd>bn<CR>',                                                                         desc = 'next buffer',             mode = 'n' },
-  { '<leader>bq',   '<cmd>bdelete!<CR>',                                                                   desc = 'delete buffer',           mode = 'n' },
+  { 'bk',   '<cmd>bp<CR>',                                                                         desc = 'previous buffer',         mode = 'n' },
+  { 'bj',   '<cmd>bn<CR>',                                                                         desc = 'next buffer',             mode = 'n' },
+  { 'bq',   '<cmd>bdelete!<CR>',                                                                   desc = 'delete buffer',           mode = 'n' },
   -- launcher - terminal
   { '<leader>rf', function() require('base.launcher').runFile() end,                           						 desc = 'Run File',                mode = 'n' },
   -- terminal
