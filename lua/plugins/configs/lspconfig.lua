@@ -21,12 +21,23 @@ local install_servers = {
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
+local function on_attach(client, bufnr)
   require('plugins.keymaps').maplsp(bufnr)
   if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint and vim.g.lsp_inlay_hint_enabled then
     vim.lsp.inlay_hint.enable()
   end
 end
+
+local inlay_hints = {
+  includeInlayParameterNameHints = 'all',
+  includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+  includeInlayFunctionParameterTypeHints = true,
+  includeInlayVariableTypeHints = true,
+  includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+  includeInlayPropertyDeclarationTypeHints = true,
+  includeInlayFunctionLikeReturnTypeHints = true,
+  includeInlayEnumMemberValueHints = true,
+}
 
 local settings = {
   Lua = {
@@ -36,164 +47,73 @@ local settings = {
   },
   gopls = {
     usePlaceholders = true,
-    codelenses = { test = true },
+    staticcheck = true,
+    analyses = {
+      nilness = true,
+      unusedparams = true,
+      unusedwrite = true,
+      useany = true,
+      shadow = false,
+    },
     hints = {
       assignVariableTypes = true,
       compositeLiteralFields = false,
-      compositeLiteralTypes = false,
       constantValues = true,
       functionTypeParameters = true,
       parameterNames = true,
-      rangeVariableTypes = true,
+    },
+    directoryFilters = {
+      '-.git',
+      '-vendor',
+      '-**/node_modules',
     },
   },
-  yaml = {
-    keyOrdering = false,
-  },
-  html = {
-    configurationSection = { 'html', 'css', 'javascript' },
-    embeddedLanguages = {
-      css = true,
-      javascript = true,
-    },
-    provideFormatter = true,
-  },
-  typescript = {
-    inlayHints = {
-      includeInlayParameterNameHints = 'all',
-      includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-      includeInlayFunctionParameterTypeHints = true,
-      includeInlayVariableTypeHints = true,
-      includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-      includeInlayPropertyDeclarationTypeHints = true,
-      includeInlayFunctionLikeReturnTypeHints = true,
-      includeInlayEnumMemberValueHints = true,
+  yaml = { keyOrdering = false },
+  typescript = { inlayHints = inlay_hints },
+  javascript = { inlayHints = inlay_hints },
+}
+
+local capabilities = {
+  textDocument = {
+    completion = {
+      completionItem = { snippetSupport = true },
+      completionList = {
+        itemDefaults = { 'commitCharacters', 'editRange', 'insertTextFormat', 'insertTextMode', 'data' },
+      },
     },
   },
-  javascript = {
-    inlayHints = {
-      includeInlayParameterNameHints = 'all',
-      includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-      includeInlayFunctionParameterTypeHints = true,
-      includeInlayVariableTypeHints = true,
-      includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-      includeInlayPropertyDeclarationTypeHints = true,
-      includeInlayFunctionLikeReturnTypeHints = true,
-      includeInlayEnumMemberValueHints = true,
-    },
-  },
+}
+
+local emmet_filetypes = {
+  'astro',
+  'css',
+  'eruby',
+  'html',
+  'htmldjango',
+  'javascriptreact',
+  'less',
+  'pug',
+  'sass',
+  'scss',
+  'svelte',
+  'typescriptreact',
+  'vue',
+  'gohtmltmpl',
+}
+
+local server_overrides = {
+  emmet_ls = { filetypes = emmet_filetypes },
+  html = { filetypes = { 'html', 'gohtmltmpl' } },
 }
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local capabilities = {
-  textDocument = {
-    completion = {
-      dynamicRegistration = false,
-      completionItem = {
-        snippetSupport = true,
-        commitCharactersSupport = true,
-        deprecatedSupport = true,
-        preselectSupport = true,
-        tagSupport = {
-          valueSet = {
-            1, -- Deprecated
-          },
-        },
-        insertReplaceSupport = true,
-        resolveSupport = {
-          properties = {
-            'documentation',
-            'additionalTextEdits',
-            'insertTextFormat',
-            'insertTextMode',
-            'command',
-          },
-        },
-        insertTextModeSupport = {
-          valueSet = {
-            1, -- asIs
-            2, -- adjustIndentation
-          },
-        },
-        labelDetailsSupport = true,
-      },
-      contextSupport = true,
-      insertTextMode = 1,
-      completionList = {
-        itemDefaults = {
-          'commitCharacters',
-          'editRange',
-          'insertTextFormat',
-          'insertTextMode',
-          'data',
-        },
-      },
-    },
-    foldingRange = {
-      dynamicRegistration = false,
-      lineFoldingOnly = true,
-    },
-  },
-}
-
-local special_servers = {
-  emmet_ls = {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    filetypes = {
-      'astro',
-      'css',
-      'eruby',
-      'html',
-      'htmldjango',
-      'javascriptreact',
-      'less',
-      'pug',
-      'sass',
-      'scss',
-      'svelte',
-      'typescriptreact',
-      'vue',
-      'gohtmltmpl',
-    },
-    init_options = settings,
-  },
-  html = {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    filetypes = { 'html', 'gohtmltmpl' },
-    init_options = settings,
-  },
-  clangd = {
-    filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
-    on_attach = function(client, bufnr)
-      require('plugins.keymaps').maplsp(bufnr)
-			-- stylua: ignore
-      vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gs', '<cmd>ClangdSwitchSourceHeader<CR>', { noremap = true, silent = true, desc = 'jump between header and c/cpp' })
-    end,
-    capabilities = {
-      textDocument = {
-        completion = {
-          editsNearCursor = true,
-        },
-      },
-      offsetEncoding = 'utf-16',
-    },
-    init_options = settings,
-  },
-}
-
 for _, server in pairs(install_servers) do
-  vim.lsp.enable(server)
-  vim.lsp.config(server, {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    settings = settings,
-  })
-end
-
-for server, config in pairs(special_servers) do
+  local config = { on_attach = on_attach, capabilities = capabilities, settings = settings }
+  local overrides = server_overrides[server]
+  if overrides then
+    config = vim.tbl_deep_extend('force', config, overrides)
+  end
   vim.lsp.enable(server)
   vim.lsp.config(server, config)
 end
