@@ -73,17 +73,6 @@ local settings = {
   javascript = { inlayHints = inlay_hints },
 }
 
-local capabilities = {
-  textDocument = {
-    completion = {
-      completionItem = { snippetSupport = true },
-      completionList = {
-        itemDefaults = { 'commitCharacters', 'editRange', 'insertTextFormat', 'insertTextMode', 'data' },
-      },
-    },
-  },
-}
-
 local emmet_filetypes = {
   'astro',
   'css',
@@ -109,7 +98,7 @@ local server_overrides = {
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 for _, server in pairs(install_servers) do
-  local config = { on_attach = on_attach, capabilities = capabilities, settings = settings }
+  local config = { on_attach = on_attach, settings = settings }
   local overrides = server_overrides[server]
   if overrides then
     config = vim.tbl_deep_extend('force', config, overrides)
