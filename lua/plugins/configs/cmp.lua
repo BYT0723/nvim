@@ -113,7 +113,7 @@ return {
     },
   },
   signature = {
-    enabled = true,
+    enabled = false,
     trigger = {
       enabled = true,
       -- default: show_on_insert_on_trigger_character = true

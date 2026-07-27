@@ -190,7 +190,7 @@ M.Snacks = {
   { '<leader>s/', function() Snacks.picker.search_history() end,        desc = "Search History" },
   { "<leader>sa", function() Snacks.picker.autocmds() end,              desc = "Autocmds" },
   { "<leader>sb", function() Snacks.picker.lines() end,                 desc = "Buffer Lines" },
-  -- { "<leader>sc", function() Snacks.picker.command_history() end,       desc = "Command History" },
+  { "<leader><c-r>", function() Snacks.picker.command_history() end,       desc = "Command History" },
   { "<leader>sc", function() Snacks.picker.commands() end,              desc = "Commands" },
   { "<leader>sd", function() Snacks.picker.diagnostics() end,           desc = "Diagnostics" },
   { "<leader>sD", function() Snacks.picker.diagnostics({severity={min=vim.diagnostic.severity.ERROR}}) end,           desc = "Diagnostics (ERROR)" },
@@ -223,20 +223,20 @@ M.Snacks = {
 M.maplsp = function(bufnr)
   -- stylua: ignore
   local lsp_keys = {
-    { '<leader>rn', function() vim.lsp.buf.rename() end,                  desc = 'Global Rename',         },
-    { '<leader>ca', function() vim.lsp.buf.code_action() end,             desc = 'Code Actions',          },
-    { '<leader>ca', function() vim.lsp.buf.code_action() end,             desc = 'Code Actions of Range', mode = 'v',    },
-    { '<leader>cl', function() vim.lsp.codelens.run() end,                desc = 'Code Lens',             },
-    { 'K',          function() vim.lsp.buf.hover() end,                   desc = 'Hover Document',        },
-    { '<leader>=',  function() vim.lsp.buf.formatting() end,              desc = 'LSP Format',            },
-    { '<leader>=',  function() vim.lsp.buf.range_formatting() end,        desc = 'Format of Range',       mode = 'v',    },
-		{ "gd",         function() Snacks.picker.lsp_definitions() end,       desc = "Goto Definition" },
-		{ "gD",         function() Snacks.picker.lsp_declarations() end,      desc = "Goto Declaration" },
-		{ "gr",         function() Snacks.picker.lsp_references() end,        desc = "References",            nowait = true, },
-		{ "gi",         function() Snacks.picker.lsp_implementations() end,   desc = "Goto Implementation" },
-		{ "gtd",        function() Snacks.picker.lsp_type_definitions() end,  desc = "Goto T[y]pe Definition" },
-		{ "<leader>vs", function() Snacks.picker.lsp_symbols() end,           desc = "LSP Symbols" },
-		{ "<leader>vS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
+    { '<leader>rn', ":IncRename ",                                              desc = 'Global Rename' },
+    { "<leader>rs", function() require('refactoring').select_refactor() end,    desc = 'Select Refactor', mode = { 'n', 'x' }, },
+    { '<leader>ca', function() vim.lsp.buf.code_action() end,                   desc = 'Code Actions' },
+    { '<leader>cl', function() vim.lsp.codelens.run() end,                      desc = 'Code Lens' },
+    { 'K',          function() vim.lsp.buf.hover() end,                         desc = 'Hover Document' },
+    { '<leader>=',  function() require('conform').format() end,                 desc = 'Format' },
+    { '<leader>=',  function() require('conform').format({ range = true }) end, desc = 'Format Range',    mode = 'v' },
+		{ "gd",         function() Snacks.picker.lsp_definitions() end,             desc = "Goto Definition" },
+		{ "gD",         function() Snacks.picker.lsp_declarations() end,            desc = "Goto Declaration" },
+		{ "gr",         function() Snacks.picker.lsp_references() end,              desc = "References" },
+		{ "gi",         function() Snacks.picker.lsp_implementations() end,         desc = "Goto Implementation" },
+		{ "gtd",        function() Snacks.picker.lsp_type_definitions() end,        desc = "Goto T[y]pe Definition" },
+		{ "<leader>vs", function() Snacks.picker.lsp_symbols() end,                 desc = "LSP Symbols" },
+		{ "<leader>vS", function() Snacks.picker.lsp_workspace_symbols() end,       desc = "LSP Workspace Symbols" },
   }
   for _, key in pairs(lsp_keys) do
     vim.keymap.set(key.mode or 'n', key[1], key[2], { buffer = bufnr, silent = true, desc = key.desc })
