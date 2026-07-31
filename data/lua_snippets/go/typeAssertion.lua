@@ -9,11 +9,14 @@ local fmt = require('luasnip.extras.fmt').fmt
 return {
   s(
     {
-      trig = '(%S+%.%(.+%))%.([%w_]+)',
+      trig = '(.+%.%(.+%)[%S]*)%.([%w_]+)',
       regTrig = true,
       hidden = false,
     },
-    fmt('{cond}{var}, {ok} := {expression}{cond2}', {
+    fmt('{indent}{cond}{var}, {ok} := {expression}{cond2}', {
+      indent = f(function(_, snip)
+        return (snip.captures[1] or ''):match('^(%s*)')
+      end),
       cond = f(function(_, snip)
         return snip.captures[2]:sub(1, 2) == 'if' and snip.captures[2]:sub(1, 2) .. ' ' or ''
       end),
@@ -22,11 +25,21 @@ return {
         return snip.captures[2]:sub(1, 2) == 'if' and snip.captures[2]:sub(3, -1) or snip.captures[2]
       end),
       expression = f(function(_, snip)
-        return snip.captures[1]
+        return (snip.captures[1] or ''):match('^%s*(.*)')
       end),
       cond2 = d(2, function(_, snip)
+        local ind = (snip.captures[1] or ''):match('^(%s*)')
         return snip.captures[2]:sub(1, 2) == 'if'
-            and sn(nil, fmt('; {condVar} {{\n\t{todo}\n}}', { condVar = snip.captures[2]:sub(3, -1), todo = i(1) }))
+            and sn(
+              nil,
+              fmt('; {condVar} {{\n{indent}\t{todo}\n{indent}}}', {
+                condVar = snip.captures[2]:sub(3, -1),
+                indent = f(function()
+                  return ind
+                end),
+                todo = i(1),
+              })
+            )
           or sn(nil, {})
       end),
     })
