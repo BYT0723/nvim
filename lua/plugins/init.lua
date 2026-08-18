@@ -528,7 +528,7 @@ require('lazy').setup({
     end,
   },
   -- Statistics
-  { 'wakatime/vim-wakatime', enabled = false, event = 'VeryLazy' },
+  { 'wakatime/vim-wakatime', event = 'VeryLazy' },
   -- Personal plugin development
   { 'BYT0723/typist.nvim', opts = {}, event = 'VeryLazy' },
   { 'BYT0723/goctl.nvim', enabled = false, opts = {} },

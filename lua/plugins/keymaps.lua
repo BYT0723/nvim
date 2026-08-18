@@ -223,23 +223,23 @@ M.Snacks = {
 M.maplsp = function(bufnr)
   -- stylua: ignore
   local lsp_keys = {
-    { '<leader>rn', ":IncRename ",                                              desc = 'Global Rename' },
-    { "<leader>rs", function() require('refactoring').select_refactor() end,    desc = 'Select Refactor', mode = { 'n', 'x' }, },
-    { '<leader>ca', function() vim.lsp.buf.code_action() end,                   desc = 'Code Actions' },
-    { '<leader>cl', function() vim.lsp.codelens.run() end,                      desc = 'Code Lens' },
-    { 'K',          function() vim.lsp.buf.hover() end,                         desc = 'Hover Document' },
-    { '<leader>=',  function() require('conform').format() end,                 desc = 'Format' },
-    { '<leader>=',  function() require('conform').format({ range = true }) end, desc = 'Format Range',    mode = 'v' },
-		{ "gd",         function() Snacks.picker.lsp_definitions() end,             desc = "Goto Definition" },
-		{ "gD",         function() Snacks.picker.lsp_declarations() end,            desc = "Goto Declaration" },
-		{ "gr",         function() Snacks.picker.lsp_references() end,              desc = "References" },
-		{ "gi",         function() Snacks.picker.lsp_implementations() end,         desc = "Goto Implementation" },
-		{ "gtd",        function() Snacks.picker.lsp_type_definitions() end,        desc = "Goto T[y]pe Definition" },
-		{ "<leader>vs", function() Snacks.picker.lsp_symbols() end,                 desc = "LSP Symbols" },
-		{ "<leader>vS", function() Snacks.picker.lsp_workspace_symbols() end,       desc = "LSP Workspace Symbols" },
+    { '<leader>rn', function() return ":IncRename " .. vim.fn.expand("<cword>") end, desc = 'Global Rename',   mode = { 'n', 'x' }, expr = true },
+    { "<leader>rs", function() require('refactoring').select_refactor() end,         desc = 'Select Refactor', mode = { 'n', 'x' }, },
+    { '<leader>ca', function() vim.lsp.buf.code_action() end,                        desc = 'Code Actions' },
+    { '<leader>cl', function() vim.lsp.codelens.run() end,                           desc = 'Code Lens' },
+    { 'K',          function() vim.lsp.buf.hover() end,                              desc = 'Hover Document' },
+    { '<leader>=',  function() require('conform').format() end,                      desc = 'Format' },
+    { '<leader>=',  function() require('conform').format({ range = true }) end,      desc = 'Format Range',    mode = 'v' },
+		{ "gd",         function() Snacks.picker.lsp_definitions() end,                  desc = "Goto Definition" },
+		{ "gD",         function() Snacks.picker.lsp_declarations() end,                 desc = "Goto Declaration" },
+		{ "gr",         function() Snacks.picker.lsp_references() end,                   desc = "References" },
+		{ "gi",         function() Snacks.picker.lsp_implementations() end,              desc = "Goto Implementation" },
+		{ "gtd",        function() Snacks.picker.lsp_type_definitions() end,             desc = "Goto T[y]pe Definition" },
+		{ "<leader>vs", function() Snacks.picker.lsp_symbols() end,                      desc = "LSP Symbols" },
+		{ "<leader>vS", function() Snacks.picker.lsp_workspace_symbols() end,            desc = "LSP Workspace Symbols" },
   }
   for _, key in pairs(lsp_keys) do
-    vim.keymap.set(key.mode or 'n', key[1], key[2], { buffer = bufnr, silent = true, desc = key.desc })
+    vim.keymap.set(key.mode or 'n', key[1], key[2], { buffer = bufnr, silent = true, desc = key.desc, expr = key.expr })
   end
 end
 

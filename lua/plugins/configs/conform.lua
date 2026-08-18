@@ -1,7 +1,13 @@
 local exc_file = {
   lua = { 'keybindings.lua' },
   cpp = { 'config.h' },
-  c = { 'dwm.c', 'st.c', 'i3lock.c', 'xwinwrap.c' },
+  c = {
+    'dwm.c',
+    'drw.c',
+    'st.c',
+    'i3lock.c',
+    'xwinwrap.c',
+  },
 }
 
 local function is_exc_file(bufnr)
