@@ -1,7 +1,6 @@
 local keymaps = require('plugins.keymaps')
 
 return {
-  { 'nvim-mini/mini.icons', version = false, opts = {} },
   { 'nvim-mini/mini.extra', version = false },
   {
     'nvim-mini/mini.pick',

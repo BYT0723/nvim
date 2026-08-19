@@ -19,6 +19,8 @@ require('lazy').setup({
   { 'nvim-lua/plenary.nvim' },
   -- gui
   { 'MunifTanjim/nui.nvim' },
+  -- icon
+  { 'nvim-tree/nvim-web-devicons' },
   -- LSP Menu Icons
   { 'onsails/lspkind.nvim' },
   -- A series of mini.nvim plugins
@@ -47,7 +49,7 @@ require('lazy').setup({
         bottom_search = true, -- use a classic bottom cmdline for search
         command_palette = true, -- position the cmdline and popupmenu together
         long_message_to_split = true, -- long messages will be sent to a split
-        inc_rename = true, -- enables an input dialog for inc-rename.nvim
+        inc_rename = false, -- enables an input dialog for inc-rename.nvim
         lsp_doc_border = false, -- add a border to hover docs and signature help
       },
     },
@@ -405,9 +407,12 @@ require('lazy').setup({
     event = { 'BufReadPre', 'BufNewFile' },
     opts = require('plugins.configs.conform'),
   },
-  -- vim.lsp.buf.rename wrapper
-  { 'smjonas/inc-rename.nvim', opts = {} },
-  -- debug配置
+  {
+    'folke/trouble.nvim',
+    cmd = 'Trouble',
+    keys = keymaps.Trouble,
+    opts = {},
+  },
   {
     'rcarriga/nvim-dap-ui',
     dependencies = {

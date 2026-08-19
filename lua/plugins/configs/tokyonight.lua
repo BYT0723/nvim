@@ -33,6 +33,7 @@ return {
       'SnacksPicker',
       'SnacksPickerInput',
       'SnacksPickerList',
+      'SnacksInputNormal',
 
       'SnacksNotifierInfo',
       'SnacksNotifierWarn',
@@ -66,6 +67,7 @@ return {
 
       'SnacksPickerBorder',
       'SnacksPickerInputBorder',
+      'SnacksInputBorder',
 
       'SnacksNotifierBorderInfo',
       'SnacksNotifierBorderWarn',
