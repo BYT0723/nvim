@@ -22,7 +22,7 @@ set.complete = {}
 
 set.shiftwidth = 4
 set.tabstop = 4
-set.expandtab = false
+set.expandtab = true
 
 -- 相对行号
 set.number = true
@@ -77,11 +77,12 @@ vim.g.did_load_filetypes = false
 -- 显示不可见字符
 set.list = true
 set.listchars = {
-  tab = '»·',
+  tab = ' ',
+  space = '·',
   trail = '·',
   extends = '>',
   precedes = '<',
-  nbsp = '+',
+  nbsp = '·',
   eol = '↴',
 }
 
