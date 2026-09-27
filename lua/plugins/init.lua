@@ -269,21 +269,21 @@ require('lazy').setup({
     end,
   },
   -- fold (暂不启动，依赖的promise-async与refactoring的以来async.nvim冲突)
-  -- {
-  --   'kevinhwang91/nvim-ufo',
-  --   dependencies = { 'kevinhwang91/promise-async' },
-  --   init = function()
-  --     vim.o.foldcolumn = '1' -- '0' is not bad
-  --     vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
-  --     vim.o.foldlevelstart = 99
-  --     vim.o.foldenable = false
-  --   end,
-  --   opts = {
-  --     provider_selector = function(bufnr, filetype, buftype)
-  --       return { 'treesitter', 'indent' }
-  --     end,
-  --   },
-  -- },
+  {
+    'kevinhwang91/nvim-ufo',
+    dependencies = { 'kevinhwang91/promise-async' },
+    init = function()
+      vim.o.foldcolumn = '1' -- '0' is not bad
+      vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+      vim.o.foldlevelstart = 99
+      vim.o.foldenable = false
+    end,
+    opts = {
+      provider_selector = function(bufnr, filetype, buftype)
+        return { 'treesitter', 'indent' }
+      end,
+    },
+  },
   -- obsidian
   {
     'obsidian-nvim/obsidian.nvim',
@@ -395,12 +395,12 @@ require('lazy').setup({
     opts = require('plugins.configs.mason'),
   },
   -- refactor
-  {
-    'ThePrimeagen/refactoring.nvim',
-    dependencies = { 'lewis6991/async.nvim' },
-    lazy = false,
-    opts = {},
-  },
+  -- {
+  --   'ThePrimeagen/refactoring.nvim',
+  --   dependencies = { 'lewis6991/async.nvim' },
+  --   lazy = false,
+  --   opts = {},
+  -- },
   -- format manager
   {
     'stevearc/conform.nvim',

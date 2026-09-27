@@ -139,4 +139,24 @@ function M.find_project_dirs(roots, patterns, max_depth)
   return results
 end
 
+function M.copy_rpath()
+  vim.fn.setreg('+', M.relative_path())
+  vim.notify('Copied Relative Path')
+end
+
+function M.copy_apath()
+  vim.fn.setreg('+', M.absolute_path())
+  vim.notify('Copied Absolute Path')
+end
+
+function M.copy_rlnum()
+  vim.fn.setreg('+', string.format('%s:%d', M.relative_path(), vim.fn.line('.')))
+  vim.notify('Copied current line position with relative path')
+end
+
+function M.copy_alnum()
+  vim.fn.setreg('+', string.format('%s:%d', M.absolute_path(), vim.fn.line('.')))
+  vim.notify('Copied current line position with absolute path')
+end
+
 return M
