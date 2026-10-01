@@ -148,28 +148,6 @@ require('lazy').setup({
     keys = keymaps.Octo,
   },
 
-  -- HTTP REST-Client Interface
-  {
-    'mistweaverco/kulala.nvim',
-    ft = 'http',
-    keys = keymaps.Kulala,
-    opts = {
-      additional_curl_options = { '--insecure', '-A', 'Mozilla/5.0' },
-      lsp = {
-        formatter = {
-          sort = {
-            metadata = true,
-            variables = false,
-            commands = false,
-            json = false,
-          },
-          -- quote_json_variables = false,
-        },
-      },
-      -- debug = 0,
-    },
-  },
-
   -- language
   -- rust
   { 'mrcjkb/rustaceanvim', version = '^6', lazy = false },

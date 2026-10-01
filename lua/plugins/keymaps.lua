@@ -91,59 +91,6 @@ M.Trouble = {
 }
 
 -- stylua: ignore
-M.Kulala = {
-  {"<leader>ks", function() require('kulala').search() end,           desc = "select a http file"},
-  {"<leader>kn", function()
-    if vim.fn.isdirectory('.http') == 0 then
-      vim.fn.mkdir('.http','p','0o755')
-    end
-    vim.ui.input({ prompt = '  New HTTP Request File' }, function(input)
-      if not input or input == '' or vim.fn.fnamemodify(input, ':e') ~= 'http' then
-        vim.notify('invalid filename', vim.log.levels.ERROR)
-        return
-      end
-      local full_path = vim.fn.fnamemodify('.http/'..input, ':p')
-      if vim.fn.filereadable(full_path) == 1 then
-        vim.ui.input({ prompt = 'File Exists, Open(y/n)' }, function(flag)
-          if flag == 'y' then
-            vim.cmd('edit ' .. full_path)
-          end
-        end)
-      else
-        vim.cmd('edit ' .. full_path)
-      end
-    end)
-  end, desc = "new a http file"},
-	{
-		"<leader>kes",
-		function()
-			if vim.fn.filereadable("http-client.env.json") ~= 1 then
-				vim.cmd("edit http-client.env.json")
-				vim.api.nvim_buf_set_lines(0, 0, -1, false, { "{", '  "dev": {}', "}" })
-			else
-				require("kulala").set_selected_env()
-			end
-		end,
-		desc = "select a http environment",
-		ft = "http",
-	},
-	{
-		"<leader>kee",
-		function()
-			vim.cmd("edit http-client.env.json")
-			if vim.fn.filereadable("http-client.env.json") ~= 1 then
-				vim.api.nvim_buf_set_lines(0, 0, -1, false, { "{", '  "dev": {}', "}" })
-			end
-		end,
-		desc = "edit http environment",
-		ft = "http",
-	},
-  {"<leader>rl", function() require('kulala').run() end,              desc = "run http request under cursor",       ft = "http"},
-  {"<leader>ry", function() require('kulala').copy() end,             desc = "copy a http request to curl command", ft = "http"},
-  {"<leader>rp", function() require('kulala').from_curl() end,        desc = "parse a curl command from clipboard", ft = "http"},
-}
-
--- stylua: ignore
 M.MiniFiles = {
   { '<leader>e',  function() if not MiniFiles.close() then MiniFiles.open() end end, desc = 'File Explorer' },
 }

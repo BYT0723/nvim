@@ -48,7 +48,6 @@ return {
           local location = MiniStatusline.section_location({ trunc_width = 75 })
           local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
           local has_noice, noice = pcall(require, 'noice')
-          local has_kulala, kulala = pcall(require, 'kulala')
           local has_neocodeium, neocodeium = pcall(require, 'neocodeium')
           local codeium_status = '' -- 默认未知状态
           if has_neocodeium then
@@ -75,8 +74,6 @@ return {
             '%=', -- End left alignment
             has_noice and { strings = { noice.api.status.command.get() } }, -- noice statusline command
             has_noice and { hl = mode_hl, strings = { noice.api.status.mode.get() } }, -- noice statusline mode (eg: recording)
-            (vim.bo.filetype == 'http' and has_kulala)
-              and { hl = 'MiniStatuslineModeOther', strings = { '🐼', kulala.get_selected_env() } }, -- kulala environment
             has_neocodeium and { hl = 'MiniStatuslineInactive', strings = { '󰚩 ', codeium_status } }, -- neocodeium status
             { hl = 'CurSearch', strings = { search } },
             { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
