@@ -3,7 +3,6 @@ local ensure_installed = {
   -- 'angular-language-server',
   'bash-language-server',
   'buf',
-  'clangd',
   'css-lsp',
   'docker-compose-language-service',
   'dockerfile-language-server',
@@ -23,7 +22,6 @@ local ensure_installed = {
   'vue-language-server',
   'yaml-language-server',
   --- DAP
-  'cpptools',
   'delve',
   -- Linter
   'actionlint',
