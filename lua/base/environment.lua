@@ -60,11 +60,11 @@ vim.g.did_load_filetypes = false
 -- 显示不可见字符
 set.list = true
 set.listchars = {
-  tab = ' ',
+  tab = '  󰌒',
   space = '·',
-  trail = '·',
-  extends = '>',
-  precedes = '<',
+  trail = '█',
+  extends = '',
+  precedes = '',
   nbsp = '·',
   eol = '↴',
 }
