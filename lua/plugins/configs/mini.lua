@@ -186,7 +186,6 @@ return {
   -- show line tail space
   {
     'nvim-mini/mini.trailspace',
-    enabled = false,
     version = false,
     event = 'BufReadPost',
     opts = {},
